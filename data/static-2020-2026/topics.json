@@ -1,0 +1,930 @@
+[
+  {
+    "id": 0,
+    "name": "Writing and markup tools",
+    "description": "Software, formats, and workflows for authoring, editing, typesetting, and publishing text documents.",
+    "size": 14503,
+    "x": 0.3209981322288513,
+    "y": 0.2383430153131485
+  },
+  {
+    "id": 1,
+    "name": "Tech executive leadership",
+    "description": "CEOs, founders, boards, executive appointments, and leadership controversies at technology companies.",
+    "size": 9870,
+    "x": 0.8012205958366394,
+    "y": 0.6838938593864441
+  },
+  {
+    "id": 2,
+    "name": "Linux and Unix systems",
+    "description": "Linux distributions, kernels, desktops, and related Unix-like operating-system development.",
+    "size": 18569,
+    "x": 0.3701222538948059,
+    "y": 0.36944806575775146
+  },
+  {
+    "id": 3,
+    "name": "Programming language theory and design",
+    "description": "Programming-language design, semantics, type systems, generics, functional programming, compilers, DSLs, and implementation techniques.",
+    "size": 17791,
+    "x": 0.20723238587379456,
+    "y": 0.20522376894950867
+  },
+  {
+    "id": 4,
+    "name": "Video game industry",
+    "description": "Game platforms, publishers, consoles, game-development technology, and the commercial games market.",
+    "size": 8121,
+    "x": 0.0,
+    "y": 0.5005457997322083
+  },
+  {
+    "id": 5,
+    "name": "Cyberattacks and data breaches",
+    "description": "Ransomware, hacking incidents, malware, data theft, cybercrime groups, and their victims.",
+    "size": 18646,
+    "x": 0.5727296471595764,
+    "y": 0.4858493208885193
+  },
+  {
+    "id": 6,
+    "name": "Startup financing",
+    "description": "Startup fundraising rounds, valuations, IPOs, acquisitions, and venture-backed company financing.",
+    "size": 14996,
+    "x": 0.8735992312431335,
+    "y": 0.740277886390686
+  },
+  {
+    "id": 7,
+    "name": "Cloud infrastructure and Kubernetes",
+    "description": "Cloud platforms, Kubernetes deployment, infrastructure automation, DevOps, and cloud-service operations.",
+    "size": 16970,
+    "x": 0.4203684329986572,
+    "y": 0.034708987921476364
+  },
+  {
+    "id": 8,
+    "name": "Digital privacy",
+    "description": "Online privacy, surveillance, data protection, encryption, and privacy-related policy or software.",
+    "size": 11814,
+    "x": 0.7009175419807434,
+    "y": 0.4195123314857483
+  },
+  {
+    "id": 9,
+    "name": "Climate mitigation, clean energy, and storage",
+    "description": "Decarbonization, renewable power, electrification, batteries, energy storage, carbon removal, and climate-energy policy.",
+    "size": 20724,
+    "x": 0.4267880618572235,
+    "y": 0.8198767304420471
+  },
+  {
+    "id": 10,
+    "name": "Tech careers and hiring",
+    "description": "Job seeking, recruiting, compensation, career changes, relocation, and hiring conditions for technology workers.",
+    "size": 17783,
+    "x": 1.0,
+    "y": 0.5123158097267151
+  },
+  {
+    "id": 11,
+    "name": "GPU computing",
+    "description": "GPUs for scientific computing, AI, graphics, programming frameworks, cloud capacity, and accelerator hardware.",
+    "size": 9732,
+    "x": 0.2209404855966568,
+    "y": 0.43887728452682495
+  },
+  {
+    "id": 12,
+    "name": "Environmental degradation",
+    "description": "Biodiversity loss, pollution, climate impacts, ecological damage, and environmental regulation.",
+    "size": 11879,
+    "x": 0.38617944717407227,
+    "y": 0.8383257389068604
+  },
+  {
+    "id": 13,
+    "name": "Layoffs and workplace conditions",
+    "description": "Job cuts, hiring freezes, severance, labor-market conditions, and employer workplace policies.",
+    "size": 13790,
+    "x": 0.9515729546546936,
+    "y": 0.5719136595726013
+  },
+  {
+    "id": 14,
+    "name": "COVID-19 vaccines and treatments",
+    "description": "COVID-19 vaccination, therapeutics, testing, public-health restrictions, and pandemic-response evidence.",
+    "size": 17793,
+    "x": 0.5300145149230957,
+    "y": 0.8599503636360168
+  },
+  {
+    "id": 15,
+    "name": "Personal website creation",
+    "description": "Tools, techniques, templates, hosting approaches, and experiments for building simple personal websites.",
+    "size": 14041,
+    "x": 0.6767037510871887,
+    "y": 0.2170392870903015
+  },
+  {
+    "id": 16,
+    "name": "Astronomy and astrophysics",
+    "description": "Celestial objects, cosmology, planetary systems, space observations, and astrophysical discoveries.",
+    "size": 18559,
+    "x": 0.30387577414512634,
+    "y": 0.7155373096466064
+  },
+  {
+    "id": 17,
+    "name": "Mathematics",
+    "description": "Mathematical research, theory, education, formalization, proofs, and mathematical philosophy.",
+    "size": 16891,
+    "x": 0.0863751694560051,
+    "y": 0.3487434387207031
+  },
+  {
+    "id": 18,
+    "name": "Google",
+    "description": "Google products, search operations, corporate actions, legal disputes, regulation, and company history.",
+    "size": 14255,
+    "x": 0.8395296931266785,
+    "y": 0.2916906774044037
+  },
+  {
+    "id": 19,
+    "name": "Maps and geospatial visualization",
+    "description": "Cartography, GIS, map-based data visualization, geographic datasets, navigation, and spatial tools.",
+    "size": 10317,
+    "x": 0.13637135922908783,
+    "y": 0.6072806119918823
+  },
+  {
+    "id": 20,
+    "name": "Vehicles and transportation technology",
+    "description": "Electric vehicles, automotive companies, autonomous driving, vehicle hardware, and road transportation.",
+    "size": 19964,
+    "x": 0.9105890989303589,
+    "y": 0.6599366664886475
+  },
+  {
+    "id": 21,
+    "name": "Game development",
+    "description": "Creating games, game engines, physics, multiplayer systems, game assets, and game-development experimentation.",
+    "size": 10624,
+    "x": 0.04683201014995575,
+    "y": 0.46719127893447876
+  },
+  {
+    "id": 22,
+    "name": "Web search",
+    "description": "Search engines, search-result quality, search tooling, indexing, ranking, and search-oriented AI applications.",
+    "size": 9097,
+    "x": 0.8006961345672607,
+    "y": 0.25699523091316223
+  },
+  {
+    "id": 23,
+    "name": "Open source ecosystems",
+    "description": "Open-source licensing, maintenance, governance, foundations, community economics, and open-source projects.",
+    "size": 14523,
+    "x": 0.425320029258728,
+    "y": 0.30950042605400085
+  },
+  {
+    "id": 24,
+    "name": "Apple ecosystem",
+    "description": "Apple hardware, software, chips, policies, legal issues, and company announcements.",
+    "size": 19124,
+    "x": 0.7423710227012634,
+    "y": 0.5091069936752319
+  },
+  {
+    "id": 25,
+    "name": "Fitness and exercise",
+    "description": "Exercise methods, training, athletic performance, physical activity, fitness tracking, and recreational sport.",
+    "size": 7351,
+    "x": 0.39671629667282104,
+    "y": 0.9613847732543945
+  },
+  {
+    "id": 26,
+    "name": "Software engineering management",
+    "description": "Product and engineering management, team organization, productivity, metrics, prioritization, and technical leadership.",
+    "size": 17596,
+    "x": 0.4777647852897644,
+    "y": 0.21464985609054565
+  },
+  {
+    "id": 27,
+    "name": "Robotics",
+    "description": "Humanoid, legged, microscopic, remote-controlled, and AI-enabled robots and their applications.",
+    "size": 9890,
+    "x": 0.957328200340271,
+    "y": 0.0944889634847641
+  },
+  {
+    "id": 28,
+    "name": "Broadband and telecom policy",
+    "description": "Internet access, broadband infrastructure, wireless spectrum, telecommunications regulation, and network-provider practices.",
+    "size": 7735,
+    "x": 0.5463215112686157,
+    "y": 0.5758028626441956
+  },
+  {
+    "id": 29,
+    "name": "Smartphones and mobile platforms",
+    "description": "Smartphones, mobile operating systems, phone hardware, mobile-device support, and adjacent wearable devices.",
+    "size": 10433,
+    "x": 0.6894990801811218,
+    "y": 0.4995371401309967
+  },
+  {
+    "id": 30,
+    "name": "Space missions and launch systems",
+    "description": "Rockets, spacecraft, launch programs, lunar and planetary missions, satellites, and space exploration.",
+    "size": 19009,
+    "x": 0.3465295135974884,
+    "y": 0.7111064791679382
+  },
+  {
+    "id": 31,
+    "name": "Git and code repositories",
+    "description": "Git workflows, repository hosting, Git tooling, commit practices, and source-control automation.",
+    "size": 16216,
+    "x": 0.35892999172210693,
+    "y": 0.15545707941055298
+  },
+  {
+    "id": 32,
+    "name": "Language learning and linguistics",
+    "description": "Natural languages, linguistic theory, language-learning tools, speech, multilingual models, and communication research.",
+    "size": 9655,
+    "x": 0.10330859571695328,
+    "y": 0.2107624113559723
+  },
+  {
+    "id": 33,
+    "name": "LLMs in learning and knowledge work",
+    "description": "Using, evaluating, teaching with, and understanding limitations of large language models in education and professional work.",
+    "size": 13639,
+    "x": 0.7266882061958313,
+    "y": 1.0
+  },
+  {
+    "id": 34,
+    "name": "AI industry and societal impact",
+    "description": "Artificial intelligence governance, business adoption, public perception, risks, and prominent industry developments.",
+    "size": 54196,
+    "x": 0.9491897225379944,
+    "y": 0.13394445180892944
+  },
+  {
+    "id": 35,
+    "name": "On-demand transport and delivery",
+    "description": "Ride-hailing, robotaxis, app-based delivery, and the labor and business issues around these platforms.",
+    "size": 5678,
+    "x": 0.9428078532218933,
+    "y": 0.6577926874160767
+  },
+  {
+    "id": 36,
+    "name": "CSS and web styling",
+    "description": "CSS techniques, frameworks, design patterns, learning resources, and CSS-based projects.",
+    "size": 10859,
+    "x": 0.5814624428749084,
+    "y": 0.15292611718177795
+  },
+  {
+    "id": 37,
+    "name": "Amazon",
+    "description": "Amazon's corporate strategy, labor practices, retail operations, devices, logistics, and AWS-related issues.",
+    "size": 8268,
+    "x": 0.869346559047699,
+    "y": 0.5862220525741577
+  },
+  {
+    "id": 38,
+    "name": "Algorithms and computation",
+    "description": "Algorithm design, analysis, optimization, data structures, and computational techniques.",
+    "size": 9822,
+    "x": 0.12740011513233185,
+    "y": 0.319446325302124
+  },
+  {
+    "id": 39,
+    "name": "Observability and production operations",
+    "description": "Monitoring, logging, metrics, alerting, reliability engineering, and operating data systems.",
+    "size": 7591,
+    "x": 0.3663037419319153,
+    "y": 0.009973729960620403
+  },
+  {
+    "id": 40,
+    "name": "Computer processors and hardware",
+    "description": "CPUs, GPUs, chip fabrication, server hardware, processor architectures, and hardware-market developments.",
+    "size": 15059,
+    "x": 0.26198041439056396,
+    "y": 0.4399207532405853
+  },
+  {
+    "id": 41,
+    "name": "Data engineering",
+    "description": "Data architectures, data lakes, analytics systems, data products, databases, and large-scale data processing.",
+    "size": 11535,
+    "x": 0.3079974949359894,
+    "y": 0.0
+  },
+  {
+    "id": 42,
+    "name": "Cryptography and key management",
+    "description": "Encryption, passwords, passkeys, certificates, cryptographic protocols, and secret-storage practices.",
+    "size": 12591,
+    "x": 0.5763856172561646,
+    "y": 0.4103977382183075
+  },
+  {
+    "id": 43,
+    "name": "AI assistants and agents",
+    "description": "AI chatbots, voice agents, coding copilots, automation agents, and practical AI-assistant products.",
+    "size": 27854,
+    "x": 0.8908150792121887,
+    "y": 0.10129212588071823
+  },
+  {
+    "id": 44,
+    "name": "Systems performance and memory",
+    "description": "Memory management, SIMD, parallelism, cache behavior, low-level optimization, and systems performance.",
+    "size": 11145,
+    "x": 0.2108396291732788,
+    "y": 0.34748944640159607
+  },
+  {
+    "id": 45,
+    "name": "Terminal and command-line tools",
+    "description": "Shells, terminals, command-line workflows, CLI utilities, and terminal-based development tools.",
+    "size": 16200,
+    "x": 0.3144058585166931,
+    "y": 0.19485938549041748
+  },
+  {
+    "id": 46,
+    "name": "Lisp and Clojure",
+    "description": "Lisp-family languages, including Clojure, Scheme, Common Lisp, their tooling, and their ecosystems.",
+    "size": 7273,
+    "x": 0.23935379087924957,
+    "y": 0.1958782970905304
+  },
+  {
+    "id": 47,
+    "name": "Political philosophy and ideology",
+    "description": "Liberalism, rationalism, conservatism, academic freedom, moral theory, and ideological debate.",
+    "size": 17795,
+    "x": 0.6608666777610779,
+    "y": 0.9708153605461121
+  },
+  {
+    "id": 48,
+    "name": "Cognitive bias and scientific reasoning",
+    "description": "Reasoning errors, epistemology, research reliability, social-science inference, and flawed decision-making.",
+    "size": 16918,
+    "x": 0.6255802512168884,
+    "y": 0.9932969808578491
+  },
+  {
+    "id": 49,
+    "name": "Microsoft Windows ecosystem",
+    "description": "Windows, Microsoft desktop products, Windows development, platform changes, and related Microsoft announcements.",
+    "size": 10752,
+    "x": 0.4279209077358246,
+    "y": 0.3846874535083771
+  },
+  {
+    "id": 50,
+    "name": "Python programming",
+    "description": "Learning, using, optimizing, tooling, frameworks, and libraries for the Python language.",
+    "size": 15075,
+    "x": 0.23922084271907806,
+    "y": 0.12135051935911179
+  },
+  {
+    "id": 51,
+    "name": "AI image and video generation",
+    "description": "Generative AI for images and video, synthetic faces, deepfakes, visual AI tools, and related detection concerns.",
+    "size": 11824,
+    "x": 0.9054170846939087,
+    "y": 0.13487154245376587
+  },
+  {
+    "id": 52,
+    "name": "Quantum computing and quantum physics",
+    "description": "Quantum computers, qubits, quantum information, quantum matter, and enabling physics research.",
+    "size": 10206,
+    "x": 0.259483277797699,
+    "y": 0.6316302418708801
+  },
+  {
+    "id": 53,
+    "name": "Corporate litigation and regulation",
+    "description": "Lawsuits, antitrust actions, privacy enforcement, bankruptcies, contracts, and legal disputes involving companies.",
+    "size": 20862,
+    "x": 0.7956315875053406,
+    "y": 0.6059684753417969
+  },
+  {
+    "id": 54,
+    "name": "PostgreSQL",
+    "description": "PostgreSQL administration, SQL features, schema design, extensions, performance, and operational practices.",
+    "size": 14397,
+    "x": 0.2884571850299835,
+    "y": 0.029619993641972542
+  },
+  {
+    "id": 55,
+    "name": "YouTube and TikTok policy",
+    "description": "Moderation, bans, regulation, creator policies, age verification, and social effects of YouTube and TikTok.",
+    "size": 9933,
+    "x": 0.8315650224685669,
+    "y": 0.4045351445674896
+  },
+  {
+    "id": 56,
+    "name": "Hacking and exploitation",
+    "description": "Software vulnerabilities, exploits, malware, phishing, reverse engineering, and offensive-security incidents.",
+    "size": 7784,
+    "x": 0.5090166926383972,
+    "y": 0.46340346336364746
+  },
+  {
+    "id": 57,
+    "name": "Machine learning and LLM research",
+    "description": "Large language models, neural-network research, representation learning, multimodal models, and machine-learning theory.",
+    "size": 26525,
+    "x": 0.06354469805955887,
+    "y": 0.27489790320396423
+  },
+  {
+    "id": 58,
+    "name": "Elon Musk",
+    "description": "Elon Musk's businesses, compensation, public actions, legal disputes, and influence on Tesla, X, and OpenAI.",
+    "size": 10129,
+    "x": 0.8402050733566284,
+    "y": 0.6592817306518555
+  },
+  {
+    "id": 59,
+    "name": "Compression and binary formats",
+    "description": "Image codecs, quantization, binary encodings, archive formats, decoding, and data-compression techniques.",
+    "size": 5996,
+    "x": 0.17931915819644928,
+    "y": 0.37752750515937805
+  },
+  {
+    "id": 60,
+    "name": "Food and agriculture",
+    "description": "Food production, farming, nutrition, ingredients, food technology, and agricultural supply issues.",
+    "size": 11731,
+    "x": 0.41337016224861145,
+    "y": 0.8909234404563904
+  },
+  {
+    "id": 61,
+    "name": "Stock markets and investing",
+    "description": "Equities, valuations, investor behavior, market sentiment, venture finance, and personal investment decisions.",
+    "size": 12363,
+    "x": 0.8371137976646423,
+    "y": 0.7821232080459595
+  },
+  {
+    "id": 62,
+    "name": "Oceans and marine life",
+    "description": "Oceanography, marine animals, icebergs, underwater exploration, ships, fisheries, and ocean-environment phenomena.",
+    "size": 15875,
+    "x": 0.3154466450214386,
+    "y": 0.8159072995185852
+  },
+  {
+    "id": 63,
+    "name": "Authentication and identity management",
+    "description": "Login systems, OAuth, decentralized identity, access control, credentials, and identity-platform security.",
+    "size": 8133,
+    "x": 0.5861976742744446,
+    "y": 0.3792763948440552
+  },
+  {
+    "id": 64,
+    "name": "Russia's war against Ukraine",
+    "description": "The Russian invasion of Ukraine, military developments, cyberwarfare, diplomacy, aid, and war-related impacts.",
+    "size": 17099,
+    "x": 0.52702397108078,
+    "y": 0.7017255425453186
+  },
+  {
+    "id": 65,
+    "name": "Facebook and Meta governance",
+    "description": "Facebook and Meta moderation, legal disputes, platform policies, market power, and societal effects.",
+    "size": 9471,
+    "x": 0.7840713858604431,
+    "y": 0.40828102827072144
+  },
+  {
+    "id": 66,
+    "name": "Low-level systems and hardware",
+    "description": "Kernel internals, processor behavior, firmware, operating-system architecture, and related systems-level debugging and security.",
+    "size": 8270,
+    "x": 0.3009169399738312,
+    "y": 0.38530048727989197
+  },
+  {
+    "id": 67,
+    "name": "Twitter/X platform",
+    "description": "Twitter/X product features, governance, algorithms, verification, policies, and user experience.",
+    "size": 11602,
+    "x": 0.7913945913314819,
+    "y": 0.3686832785606384
+  },
+  {
+    "id": 68,
+    "name": "Retro and hobby computing",
+    "description": "Vintage computers, consoles, homebrew machines, retro hardware restoration, and programming for constrained historical systems.",
+    "size": 13964,
+    "x": 0.32413798570632935,
+    "y": 0.423347532749176
+  },
+  {
+    "id": 69,
+    "name": "Remote work and workplace life",
+    "description": "Remote and hybrid work practices, management, isolation, burnout, compensation, and workplace policy.",
+    "size": 13502,
+    "x": 0.9992552399635315,
+    "y": 0.5435116291046143
+  },
+  {
+    "id": 70,
+    "name": "Computer networking",
+    "description": "Network protocols, routing, VPNs, NAT traversal, network services, infrastructure, and network security.",
+    "size": 15118,
+    "x": 0.5056930780410767,
+    "y": 0.5440610647201538
+  },
+  {
+    "id": 71,
+    "name": "Software testing",
+    "description": "Unit, mutation, performance, specification, test-driven, and quality-assurance practices for software.",
+    "size": 9874,
+    "x": 0.43432682752609253,
+    "y": 0.1730467528104782
+  },
+  {
+    "id": 72,
+    "name": "Neuroscience and the brain",
+    "description": "Brain function, neural systems, cognition, neurotechnology, and neuroscience research.",
+    "size": 15492,
+    "x": 0.5128957033157349,
+    "y": 0.9681279063224792
+  },
+  {
+    "id": 73,
+    "name": "Digital image and generative graphics",
+    "description": "Creating, processing, generating, compositing, and programmatically rendering digital images and visual graphics.",
+    "size": 17477,
+    "x": 0.15320579707622528,
+    "y": 0.5469988584518433
+  },
+  {
+    "id": 74,
+    "name": "JavaScript development",
+    "description": "JavaScript and TypeScript languages, runtimes, tooling, frameworks, packaging, and browser-oriented development.",
+    "size": 13522,
+    "x": 0.518464982509613,
+    "y": 0.11352036893367767
+  },
+  {
+    "id": 75,
+    "name": "Computer keyboards and input customization",
+    "description": "Physical keyboards, layouts, ergonomic designs, keyboard testing, remapping, shortcuts, and related input-device customization.",
+    "size": 9071,
+    "x": 0.33454063534736633,
+    "y": 0.30380547046661377
+  },
+  {
+    "id": 76,
+    "name": "Optics and computational imaging",
+    "description": "Optical sensing, cameras, lenses, light measurement, imaging systems, and computational techniques for optical data.",
+    "size": 12540,
+    "x": 0.20927396416664124,
+    "y": 0.5648870468139648
+  },
+  {
+    "id": 77,
+    "name": "Puzzles and logic games",
+    "description": "Recreational logic, arithmetic, word, deduction, and programming puzzles, including their design and solution methods.",
+    "size": 9841,
+    "x": 0.03529055789113045,
+    "y": 0.40408042073249817
+  },
+  {
+    "id": 78,
+    "name": "COVID-19 pandemic",
+    "description": "COVID-19 transmission, public-health interventions, reporting, social effects, and pandemic-era analysis.",
+    "size": 22724,
+    "x": 0.5406991839408875,
+    "y": 0.8415337800979614
+  },
+  {
+    "id": 79,
+    "name": "US defense and national security",
+    "description": "US military, Pentagon, weapons, nuclear strategy, defense procurement, and national-security policy.",
+    "size": 11525,
+    "x": 0.4809352457523346,
+    "y": 0.6906102299690247
+  },
+  {
+    "id": 80,
+    "name": "Startup founding",
+    "description": "Launching, funding, operating, marketing, and resolving organizational challenges at startups.",
+    "size": 19722,
+    "x": 0.8249678611755371,
+    "y": 0.7281625270843506
+  },
+  {
+    "id": 81,
+    "name": "Climate change and extreme weather",
+    "description": "Climate trends, warming impacts, ocean and atmospheric conditions, adaptation, and weather extremes linked to climate.",
+    "size": 12198,
+    "x": 0.3757077753543854,
+    "y": 0.8058000206947327
+  },
+  {
+    "id": 82,
+    "name": "Digital audio and video tools",
+    "description": "Software and services for music playback, audio transformation, streaming, video handling, transcription, and media production.",
+    "size": 13577,
+    "x": 0.7552504539489746,
+    "y": 0.1847001612186432
+  },
+  {
+    "id": 83,
+    "name": "Nutrition, exercise, and metabolic health",
+    "description": "Diet, weight, physical activity, metabolism, supplements, and lifestyle research affecting health.",
+    "size": 19127,
+    "x": 0.45282840728759766,
+    "y": 0.9375470876693726
+  },
+  {
+    "id": 84,
+    "name": "Economic inequality and affordability",
+    "description": "Income and wealth distribution, debt, housing affordability, labor participation, and household economic pressures.",
+    "size": 15236,
+    "x": 0.7249814867973328,
+    "y": 0.8081114888191223
+  },
+  {
+    "id": 85,
+    "name": "Archaeology and ancient remains",
+    "description": "Archaeological discoveries, ancient DNA, prehistoric people and animals, fossils, mummies, and material evidence of the past.",
+    "size": 16526,
+    "x": 0.2829059362411499,
+    "y": 0.8298587203025818
+  },
+  {
+    "id": 86,
+    "name": "Containers and Docker",
+    "description": "Docker, Podman, container runtimes, container deployment, isolation, image building, and container-oriented development workflows.",
+    "size": 5645,
+    "x": 0.45472952723503113,
+    "y": 0.01217289362102747
+  },
+  {
+    "id": 87,
+    "name": "Apple iOS ecosystem security",
+    "description": "iOS and Apple mobile-platform updates, privacy, app-distribution rules, device security, and related mobile-app behavior.",
+    "size": 12837,
+    "x": 0.720291256904602,
+    "y": 0.4788411259651184
+  },
+  {
+    "id": 88,
+    "name": "ChatGPT and GPT applications",
+    "description": "ChatGPT, GPT-based products, prompting, model capabilities, misuse, integrations, and their practical effects.",
+    "size": 17399,
+    "x": 0.849498987197876,
+    "y": 0.07080300152301788
+  },
+  {
+    "id": 89,
+    "name": "Rust programming",
+    "description": "The Rust language, its performance, type system, libraries, tooling, and applications built with Rust.",
+    "size": 15407,
+    "x": 0.17705054581165314,
+    "y": 0.15352453291416168
+  },
+  {
+    "id": 90,
+    "name": "Macroeconomy, inflation, and monetary policy",
+    "description": "Inflation, interest rates, central banks, employment, recessions, financial markets, and economy-wide impacts.",
+    "size": 14906,
+    "x": 0.7590427994728088,
+    "y": 0.7981802225112915
+  },
+  {
+    "id": 91,
+    "name": "Video games and game history",
+    "description": "Video games, game design, gaming culture, historical titles, game-industry practices, and player experiences.",
+    "size": 12165,
+    "x": 0.012139012105762959,
+    "y": 0.4684072434902191
+  },
+  {
+    "id": 92,
+    "name": "Software developer careers and learning",
+    "description": "Becoming, interviewing, working, growing, and collaborating as a software developer.",
+    "size": 18074,
+    "x": 0.5006299614906311,
+    "y": 0.244699627161026
+  },
+  {
+    "id": 93,
+    "name": "US politics and democracy",
+    "description": "US elections, constitutional institutions, political parties, presidents, courts, and democratic governance.",
+    "size": 17270,
+    "x": 0.6628873348236084,
+    "y": 0.7848531603813171
+  },
+  {
+    "id": 94,
+    "name": "Cryptocurrency markets and regulation",
+    "description": "Bitcoin, crypto assets, stablecoins, exchanges, hacks, regulation, adoption, and crypto-market commentary.",
+    "size": 19691,
+    "x": 0.8786364793777466,
+    "y": 0.8092984557151794
+  },
+  {
+    "id": 95,
+    "name": "Software architecture and design",
+    "description": "Architectural patterns, system design, extensibility, dependencies, microservices, and design principles for software systems.",
+    "size": 12142,
+    "x": 0.43305450677871704,
+    "y": 0.22277936339378357
+  },
+  {
+    "id": 96,
+    "name": "Raspberry Pi and embedded maker projects",
+    "description": "Raspberry Pi, microcontrollers, embedded hardware, home electronics, and hands-on device-building projects.",
+    "size": 8953,
+    "x": 0.3415573239326477,
+    "y": 0.4513079822063446
+  },
+  {
+    "id": 97,
+    "name": "Streaming video and Netflix",
+    "description": "Netflix and the consumer streaming-video ecosystem, including subscriptions, advertising, content access, devices, and playback technology.",
+    "size": 7369,
+    "x": 0.8695098161697388,
+    "y": 0.427537202835083
+  },
+  {
+    "id": 98,
+    "name": "Aviation",
+    "description": "Commercial, military, and experimental aircraft operations, safety incidents, regulation, and aviation technology.",
+    "size": 14233,
+    "x": 0.4027692973613739,
+    "y": 0.7075949907302856
+  },
+  {
+    "id": 99,
+    "name": "Tech industry culture",
+    "description": "Criticism and analysis of Silicon Valley, technology companies, executives, status, ideology, and their social effects.",
+    "size": 9661,
+    "x": 0.7425501346588135,
+    "y": 0.7143311500549316
+  },
+  {
+    "id": 100,
+    "name": "Software vulnerabilities",
+    "description": "Security flaws, CVEs, exploits, patches, and the exploitation or mitigation of software and infrastructure vulnerabilities.",
+    "size": 14595,
+    "x": 0.5478029847145081,
+    "y": 0.45082420110702515
+  },
+  {
+    "id": 101,
+    "name": "Mind and perception",
+    "description": "Philosophical, psychological, and scientific questions about consciousness, imagination, perception, thought, and subjective reality.",
+    "size": 14396,
+    "x": 0.5673032999038696,
+    "y": 0.9767787456512451
+  },
+  {
+    "id": 102,
+    "name": "China tech geopolitics",
+    "description": "Technology trade, chip controls, supply chains, and corporate competition shaped by China and Western geopolitical policy.",
+    "size": 14045,
+    "x": 0.7547221183776855,
+    "y": 0.609639048576355
+  },
+  {
+    "id": 103,
+    "name": "Internet and technological society",
+    "description": "Essays and analysis about the internet, computers, digital public life, technological change, and their cultural consequences.",
+    "size": 10985,
+    "x": 0.69050532579422,
+    "y": 0.6955770254135132
+  },
+  {
+    "id": 104,
+    "name": "Urban housing and architecture",
+    "description": "Architecture, housing, urban design, renovation, climate adaptation, and the built environment in cities.",
+    "size": 11302,
+    "x": 0.35090509057044983,
+    "y": 0.8858546614646912
+  },
+  {
+    "id": 105,
+    "name": "Books and literary criticism",
+    "description": "Books, reading, authors, publishing, literary criticism, and fiction or nonfiction reviews.",
+    "size": 22223,
+    "x": 0.6460327506065369,
+    "y": 0.9398373961448669
+  },
+  {
+    "id": 106,
+    "name": "Programming language syntax",
+    "description": "Programming-language grammar, parsing, naming, text processing, language semantics, and related developer tooling.",
+    "size": 9441,
+    "x": 0.16206394135951996,
+    "y": 0.22458970546722412
+  },
+  {
+    "id": 107,
+    "name": "Web servers and frameworks",
+    "description": "Web-server architecture, HTTP infrastructure, application frameworks, serverless deployment, and web-development platforms.",
+    "size": 16046,
+    "x": 0.45466887950897217,
+    "y": 0.07474830001592636
+  },
+  {
+    "id": 108,
+    "name": "Startup marketing and growth",
+    "description": "Customer acquisition, conversion optimization, ecommerce growth, product marketing, and early-stage startup sales.",
+    "size": 15199,
+    "x": 0.7086672186851501,
+    "y": 0.25348979234695435
+  },
+  {
+    "id": 109,
+    "name": "Web browsers and extensions",
+    "description": "Chrome, Firefox, Safari, browser extensions, browser privacy and security, and browser-platform changes.",
+    "size": 14721,
+    "x": 0.658820629119873,
+    "y": 0.18352316319942474
+  },
+  {
+    "id": 110,
+    "name": "Distributed data systems",
+    "description": "Kafka, databases, storage engines, distributed filesystems, stream processing, and data-system reliability.",
+    "size": 5789,
+    "x": 0.345178484916687,
+    "y": 0.03850588575005531
+  },
+  {
+    "id": 111,
+    "name": "Hacker News community",
+    "description": "Hacker News usage, interface, culture, reader tools, related communities, and discussion of the site's content practices.",
+    "size": 13459,
+    "x": 0.7495836615562439,
+    "y": 0.30616137385368347
+  },
+  {
+    "id": 112,
+    "name": "React and JavaScript UI frameworks",
+    "description": "React, JSX, Next.js, component state, and competing JavaScript or TypeScript frontend framework tooling.",
+    "size": 11559,
+    "x": 0.5488454699516296,
+    "y": 0.10069864243268967
+  },
+  {
+    "id": 113,
+    "name": "Online payments and SaaS billing",
+    "description": "Payment platforms, transaction fees, subscriptions, pricing, invoicing, accounting, and purchasing software services.",
+    "size": 12625,
+    "x": 0.9527186155319214,
+    "y": 0.7515391707420349
+  },
+  {
+    "id": 114,
+    "name": "C and C++ development",
+    "description": "C and C++ languages, standards, compilers, libraries, optimization, systems tooling, and embedded development.",
+    "size": 10072,
+    "x": 0.21206067502498627,
+    "y": 0.25401508808135986
+  },
+  {
+    "id": 115,
+    "name": "Service outages",
+    "description": "Operational outages, downtime, network failures, disrupted online services, and their consequences for users and infrastructure.",
+    "size": 9689,
+    "x": 0.6136211156845093,
+    "y": 0.5648446083068848
+  }
+]

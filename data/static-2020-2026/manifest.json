@@ -1,0 +1,12 @@
+{
+  "mode": "static",
+  "source_db": "data/comparison-online-v2/static.db",
+  "start": 1577836800,
+  "through": 1790326180,
+  "stories": 2126688,
+  "assigned_stories": 1605645,
+  "topics": 116,
+  "model_sha256": "3af6cb174aef65f38cd91082a639b1708d621c0e8e3662891025ec6669ef11c2",
+  "fit_scope": "All distinct available inputs from January 2020 through September 25, 2026; no weekly replay",
+  "source_evaluation": "data/comparison-online-v2/static.evaluation.json"
+}

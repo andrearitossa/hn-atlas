@@ -207,10 +207,15 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 #story-results .post { padding:16px 0; }
 #more-stories { margin:16px 0; width:100%; }
 #story-status { font-size:12px; margin-top:12px; }
-.activity { margin:30px 0 40px; padding:0; border:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); border-radius:0; }
+.activity { margin:28px 0; padding:20px 22px; border:1px solid var(--line); border-radius:16px; background:color-mix(in srgb, var(--hn) 3%, var(--bg)); }
 .activity>summary { padding:18px 0; color:var(--muted); font-size:13px; cursor:pointer; }
 .activity>summary span { float:right; }
-.activity-content { padding:10px 0 20px; }
+.activity-content { padding:0; }
+.chart-grid line { stroke:var(--line); stroke-dasharray:3 5; }
+.activity .chart-bar { transition:opacity .18s; }
+.activity .chart-hit { fill:transparent; opacity:1; }
+@media(prefers-reduced-motion:reduce) { .activity .chart-bar { transition:none; } }
+@media(max-width:600px) { .activity { padding:16px 10px; } }
 .topic-footer { padding:0 0 30px; }
 .related-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:22px; }
 .related-cards a { border:1px solid var(--line); border-radius:12px; padding:20px; }
@@ -419,7 +424,7 @@ const domain = u => { const x = safeUrl(u); return x ? new URL(x).hostname.repla
 const trend = m => `<small class="${m >= 1.2 ? "up" : m <= .8 ? "down" : ""}">${m >= 1 ? "↑" : "↓"} ${m.toFixed(1)}×</small>`;
 let T, routeVersion = 0;
 const browseState = {query: "", sort: "active", page: 0};
-let homeResizeObserver;
+let homeResizeObserver, activityResizeObserver;
 // Whole words and prefixes; short terms such as AI must match exactly.
 const searchWords = value => (value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
   .replace(/artificial intelligence/g, "ai").replace(/machine learning/g, "ml")
@@ -527,6 +532,8 @@ function drawMap() {
   const svg=d3.select("#map").attr("viewBox","0 0 1000 620"), layer=svg.append("g");
   const x=d3.scaleLinear([0,1],[65,935]), y=d3.scaleLinear([0,1],[62,550]);
   const radius=d3.scaleSqrt([0,d3.max(T.topics,t=>t.size)],[3,12]);
+  // Color follows map position as a visual guide, not a separate classification.
+  const color=t=>d3.interpolateRgbBasis(["#527be0","#8c69cb","#ce719b","#db9853","#42a99c"])(Math.max(0,Math.min(1,.7*t.x+.3*t.y)));
   const byId=new Map(T.topics.map(t=>[t.id,t]));
   const edges=T.edges.filter(e=>byId.has(e.a)&&byId.has(e.b));
   const neighbors=new Map(T.topics.map(t=>[t.id,new Set([t.id])]));
@@ -539,7 +546,7 @@ function drawMap() {
     .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)+4)
     .attr("fill","none").attr("stroke","var(--hn)").attr("stroke-opacity",.7).attr("stroke-width",.8);
   const dots=layer.append("g").selectAll("circle").data(T.topics).join("circle").attr("class","topic-dot")
-    .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)).attr("fill","var(--dot)")
+    .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)).attr("fill",color)
     .attr("tabindex",0).attr("role","button").attr("aria-label",t=>`Explore ${t.name}`).attr("aria-pressed","false");
   const labels=layer.append("g").selectAll("text").data(T.topics).join("text")
     .attr("class","map-label").attr("x",t=>Math.max(100,Math.min(900,x(t.x)))).attr("y",t=>y(t.y)-radius(t.size)-9)
@@ -548,21 +555,30 @@ function drawMap() {
     const active=selected ?? hovered, connected=active==null ? null : neighbors.get(active);
     const visible=t=>connected ? connected.has(t.id) : matching.has(t.id);
     dots.attr("opacity",t=>visible(t) ? 1 : .13).attr("r",t=>radius(t.size)+(t.id===active ? 3 : 0))
-      .attr("tabindex",t=>visible(t)?0:-1).attr("aria-pressed",t=>t.id===selected).attr("fill",t=>t.id===active ? "var(--hn)" : "var(--dot)")
+      .attr("tabindex",t=>visible(t)?0:-1).attr("aria-pressed",t=>t.id===selected).attr("fill",t=>t.id===active ? "var(--hn)" : color(t))
       .attr("stroke",t=>t.id===active ? "var(--ink)" : "var(--bg)");
     rings.attr("opacity",t=>visible(t) ? 1 : .08);
-    paths.attr("stroke",e=>active!=null && (e.a===active||e.b===active) ? "var(--hn)" : "var(--dot)")
+    paths.attr("stroke",e=>active!=null && (e.a===active||e.b===active) ? "var(--hn)" : color(byId.get(e.a)))
       .attr("stroke-opacity",e=>active==null ? .3 : (e.a===active||e.b===active) ? .8 : .025)
       .attr("stroke-width",e=>active!=null && (e.a===active||e.b===active) ? 1.5 : .7);
-    const boxes=[], shown=new Set();
+    const boxes=[], positions=new Map();
     const candidates=[...T.topics].filter(visible).sort((a,b)=>(b.id===active)-(a.id===active)||b.size-a.size);
-    for(const t of candidates.slice(0,connected ? 15 : matching.size<T.topics.length ? 25 : innerWidth<600 ? 10 : 24)) {
-      const cx=Math.max(100,Math.min(900,x(t.x))),cy=y(t.y)-radius(t.size)-9,w=t.name.length*5.7;
-      const box=[cx-w/2-5,cy-13,cx+w/2+5,cy+3];
-      if(boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
-      boxes.push(box);shown.add(t.id);
+    const limit=connected ? 24 : innerWidth<600 ? 22 : 52;
+    for(const t of candidates) {
+      if(positions.size>=limit)break;
+      const node=labels.filter(label=>label.id===t.id).node();
+      const w=node.getComputedTextLength() || t.name.length*5.7;
+      const cx=Math.max(w/2+8,Math.min(992-w/2,x(t.x)));
+      // Try both sides of a node, and keep scanning when a busy area is full.
+      for(const cy of [y(t.y)-radius(t.size)-8,y(t.y)+radius(t.size)+16]) {
+        const box=[cx-w/2-4,cy-12,cx+w/2+4,cy+3];
+        if(boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
+        boxes.push(box);positions.set(t.id,{x:cx,y:cy});break;
+      }
     }
-    labels.attr("display",t=>shown.has(t.id)?null:"none").style("fill",t=>t.id===active ? "var(--ink)" : "var(--muted)");
+    labels.attr("display",t=>positions.has(t.id)?null:"none")
+      .attr("x",t=>positions.get(t.id)?.x ?? x(t.x)).attr("y",t=>positions.get(t.id)?.y ?? y(t.y))
+      .style("fill","var(--ink)");
   };
   const preview=$("#map-preview");
   const clear=()=>{selected=null;hovered=null;preview.hidden=true;refresh();};
@@ -612,6 +628,7 @@ async function topic(id, version) {
     <a href="#/" class="meta" style="align-self: start">← All topics</a>
     <div class="hero topic-hero"><div><h1>${esc(t.name)}</h1>
     <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_30d} in 30 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p>${newsletterAvailable ? '<button type="button" class="newsletter-cta" data-section="topic-newsletter">Sign up for the newsletter</button>' : ''}</div></div>
+    <section class="activity" aria-labelledby="activity-title"><div class="activity-content"><div class="chart-heading"><div><h2 id="activity-title">The pace of conversation</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Posts per month · first and latest months may be partial. Hover, tap, or focus a bar for its count.</p></div></section>
     <nav class="topic-nav" aria-label="On this topic page"><button type="button" data-section="topic-history">01 <span>Timeline</span></button><button type="button" data-section="topic-recent">02 <span>Latest</span></button><button type="button" data-section="topic-archive">03 <span>Explore</span></button></nav>
     <section id="topic-history" class="topic-history" aria-label="Topic timeline" tabindex="-1"><p role="status">Loading history…</p></section>
     <section id="topic-recent" class="recent-stories" tabindex="-1"><p class="eyebrow">02 / CATCH UP</p><h2>The conversation now</h2><p class="section-intro">Stories gathering attention in the last two weeks.</p>${t.trending.slice(0,5).map(post).join("") || '<p class="meta">No recent stories.</p>'}</section>
@@ -627,7 +644,7 @@ async function topic(id, version) {
       <div id="story-results"></div><p id="story-status" class="meta" role="status"></p>
       <button id="more-stories" type="button" hidden>Load more stories</button>
     </section>
-    <details class="activity"><summary>See this topic’s activity over time <span>↗</span></summary><div class="activity-content"><div class="chart-heading"><div><h2>Topic activity</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Monthly post counts · the latest month may be incomplete. Select a bar to see its count.</p></div></details>
+
 
     <footer class="topic-footer">${related.length ? `<div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">${related.slice(0,4).map(r=>`<a href="#/topic/${r.id}"><strong>${esc(r.name)} <span>↗</span></strong><p>${esc(r.description)}</p></a>`).join('')}</div></div>` : ''}
     ${newsletterAvailable ? `<aside class="digest" id="topic-newsletter" tabindex="-1"><strong>Keep up with ${esc(t.name)}</strong><p>${cloudSignup ? 'Interested in new stories on this topic? Join the early newsletter list.' : 'A concise digest, delivered at your pace.'}</p><form id="signup"><input name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required aria-label="Email address">${cloudSignup ? '<label class="signup-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>' : '<select name="cadence" aria-label="Frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>'}<button type="submit">Sign up for the newsletter</button></form><small>${cloudSignup ? 'By signing up, you agree to receive email updates about this topic. We store your email and topic privately in Cloudflare. Emails haven’t started yet.' : 'Unsubscribe any time.'}</small><small id="signup-status" role="status" aria-live="polite"></small></aside>` : ''}</footer>
@@ -681,31 +698,45 @@ async function topic(id, version) {
     const parse=d3.utcParse("%Y-%m"), format=d3.utcFormat("%B %Y");
     const months=new Map(t.monthly.filter(m=>m.month).map(m=>[m.month,m.posts]));
     const dates=[...months.keys()].sort();
-    const all=d3.utcMonth.range(parse(dates[0]),d3.utcMonth.offset(parse(dates.at(-1)),1))
+    const lastMonth=d3.utcMonth.floor(new Date(t.as_of*1000));
+    const all=d3.utcMonth.range(parse(dates[0]),d3.utcMonth.offset(lastMonth,1))
       .map(date=>({date,posts:months.get(d3.utcFormat("%Y-%m")(date)) || 0}));
+    let currentRange=0;
     const draw=range=>{
-      const data=range ? all.slice(-range) : all, W=Math.max(280,$("#activity-chart").clientWidth),H=210;
+      currentRange=range;
+      const data=range ? all.slice(-range) : all, W=Math.max(240,$("#activity-chart").clientWidth),H=$("#activity-chart").clientHeight;
       const chart=d3.select("#activity-chart").attr("viewBox",`0 0 ${W} ${H}`);
       chart.selectAll("*").remove();
-      const x=d3.scaleBand(data.map(m=>+m.date),[48,W-14]).padding(.22);
-      const y=d3.scaleLinear([0,d3.max(data,m=>m.posts)||1],[H-34,14]).nice();
+      const x=d3.scaleBand(data.map(m=>+m.date),[48,W-32]).padding(.22);
+      const y=d3.scaleLinear([0,d3.max(data,m=>m.posts)||1],[H-34,26]).nice();
       chart.append("g").attr("class","chart-grid").attr("transform","translate(48,0)")
-        .call(d3.axisLeft(y).ticks(4).tickSize(-(W-62)).tickFormat(d3.format("~s"))).call(g=>g.select(".domain").remove());
-      const ticks=data.filter((m,i)=>i % Math.max(1,Math.ceil(data.length/(W<500 ? 3 : 5)))===0).map(m=>+m.date);
+        .call(d3.axisLeft(y).ticks(4).tickSize(-(W-62)).tickFormat(v=>Number.isInteger(v)?d3.format(",")(v):"")).call(g=>g.select(".domain").remove());
+      const tickCount=Math.min(data.length,W<500 ? 3 : 5);
+      const ticks=Array.from({length:tickCount},(_,i)=>+data[Math.round(i*(data.length-1)/Math.max(1,tickCount-1))].date);
       chart.append("g").attr("transform",`translate(0,${H-34})`)
         .call(d3.axisBottom(x).tickValues(ticks).tickFormat(d=>d3.utcFormat("%b %Y")(new Date(d))).tickSize(0).tickPadding(12))
         .call(g=>g.select(".domain").remove());
-      const bars=chart.append("g").selectAll("rect").data(data).join("rect")
+      chart.append("text").attr("x",48).attr("y",12).text("Posts");
+      const bars=chart.append("g").selectAll("rect").data(data).join("rect").attr("class","chart-bar")
         .attr("x",m=>x(+m.date)).attr("y",m=>y(m.posts)).attr("width",x.bandwidth()).attr("height",m=>H-34-y(m.posts))
-        .attr("rx",2).attr("tabindex",0).attr("role","button")
+        .attr("rx",3);
+      const hits=chart.append("g").selectAll("rect").data(data).join("rect").attr("class","chart-hit")
+        .attr("x",m=>x(+m.date)).attr("y",24).attr("width",x.bandwidth()).attr("height",H-58)
+        .attr("tabindex",0).attr("role","button")
         .attr("aria-label",m=>`${format(m.date)}: ${m.posts.toLocaleString()} posts`);
       const select=m=>{ bars.classed("selected",d=>d===m); $("#chart-readout").textContent=`${format(m.date)} · ${m.posts.toLocaleString()} posts`; };
-      bars.on("pointerenter focus click",(_,m)=>select(m)).on("keydown",(e,m)=>{if(e.key==="Enter" || e.key===" "){e.preventDefault();select(m);}});
+      hits.on("pointerenter focus click",(_,m)=>select(m)).on("keydown",(e,m)=>{if(e.key==="Enter" || e.key===" "){e.preventDefault();select(m);}});
       select(data.at(-1));
       document.querySelectorAll("[data-range]").forEach(b=>{b.classList.toggle("on",+b.dataset.range===range); b.setAttribute("aria-pressed",+b.dataset.range===range);});
     };
     document.querySelectorAll("[data-range]").forEach(b=>b.onclick=()=>draw(+b.dataset.range));
-    $('.activity').ontoggle = () => { if ($('.activity').open) draw(12); };
+    draw(currentRange);
+    let previousWidth=$("#activity-chart").clientWidth;
+    activityResizeObserver=new ResizeObserver(()=>{
+      const width=$("#activity-chart")?.clientWidth;
+      if(version===routeVersion && width && width!==previousWidth){previousWidth=width;draw(currentRange);}
+    });
+    activityResizeObserver.observe($("#activity-chart"));
   } else {
     $(".activity").hidden=true;
     document.querySelectorAll("[data-range]").forEach(b=>b.disabled=true);
@@ -907,6 +938,7 @@ function route() {
   }
   tip.hidden=true;
   homeResizeObserver?.disconnect();
+  activityResizeObserver?.disconnect();
   document.body.classList.toggle('home-route', !m && !isConnections);
   document.body.classList.toggle('connections-route', isConnections);
   siteFooter.remove();

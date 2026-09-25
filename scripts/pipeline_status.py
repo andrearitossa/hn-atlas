@@ -11,9 +11,11 @@ def status(path):
     try:
         tables={r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         queue=dict(conn.execute('SELECT reason,count(*) FROM classification_queue GROUP BY reason')) if 'classification_queue' in tables else {}
-        candidates=[dict(id=r[0],status=r[1],support=r[2],first_seen=r[3],last_seen=r[4],topic=r[5])
-                    for r in conn.execute('SELECT id,status,support,first_seen,last_seen,topic FROM topic_candidates ORDER BY last_seen DESC')] if 'topic_candidates' in tables else []
-        return dict(queue=queue,candidates=candidates)
+        checkpoints=dict(conn.execute('SELECT key,value FROM maintenance')) if 'maintenance' in tables else {}
+        latest=conn.execute("SELECT at,details FROM topic_changes WHERE kind='review' ORDER BY at DESC LIMIT 1").fetchone() if 'topic_changes' in tables else None
+        return dict(unlisted_stories=queue,checkpoints=checkpoints,
+                    latest_map_review=dict(at=latest[0],**json.loads(latest[1])) if latest else None)
+
     finally:conn.close()
 
 

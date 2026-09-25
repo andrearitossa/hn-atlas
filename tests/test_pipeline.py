@@ -77,27 +77,7 @@ class PipelineTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     routing.semantic_decisions([{'id':0}], [{'id':1}])
 
-    def test_review_uses_semantics_and_reuses_duplicate_decision(self):
-        for i in (1,2):self.story(i,url='https://x.example/same',vector=[1,0,0])
-        routing.store(self.conn,[(1,0,.2,.001),(2,0,.2,.001)],self.now)
-        self.conn.commit()
-        with patch.dict(os.environ,{'OPENAI_API_KEY':'test'}), patch.object(routing,'ask_json',return_value={'assignments':[{'id':1,'topic':1}]}) as request:
-            self.assertEqual(routing.review_pending(self.conn,now=self.now),2)
-        self.assertEqual(request.call_count,1)
-        self.assertEqual(self.conn.execute('SELECT id,topic FROM story_topics ORDER BY id').fetchall(),[(1,1),(2,1)])
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM classification_queue').fetchone()[0],0)
-        # The reviewed topic's actual score is stored, not the rejected suggestion's.
-        self.assertEqual(self.conn.execute('SELECT sim FROM story_topics WHERE id=1').fetchone()[0],0)
 
-    def test_no_key_defers_review_and_null_is_not_a_topic(self):
-        self.story(1,vector=[1,0,0])
-        routing.store(self.conn,[(1,0,.2,.001)],self.now);self.conn.commit()
-        with patch.dict(os.environ,{'OPENAI_API_KEY':''}),patch.object(routing,'ask_json') as ask:
-            self.assertEqual(routing.review_pending(self.conn,now=self.now),0);ask.assert_not_called()
-        with patch.dict(os.environ,{'OPENAI_API_KEY':'test'}),patch.object(routing,'ask_json',return_value={'assignments':[{'id':1,'topic':None}]}):
-            self.assertEqual(routing.review_pending(self.conn,now=self.now),0)
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM story_topics').fetchone()[0],0)
-        self.assertEqual(self.conn.execute('SELECT reason,attempts FROM classification_queue').fetchone(),('unclassified',1))
 
     def test_embed_v2_reuses_normalized_input(self):
         self.story(1,title='Show HN: Rust guide (2024)',text='one')
@@ -134,29 +114,7 @@ class PipelineTests(unittest.TestCase):
         hn_sync.save_articles(self.conn,[dict(id=1,type='story',title=title,url='https://site1.example/article/1',
                                              score=score,time=self.now)])
 
-    def test_new_topics_require_independent_sustained_support(self):
-        x=np.tile([0.,0.,1.],(40,1));times=[self.now-10*86400]*20+[self.now-86400]*20
-        self.assertTrue(production.supported_candidate(x,times,['a','b','c','d']*10,list(range(40)),self.now))
-        self.assertFalse(production.supported_candidate(x,times,['a']*40,list(range(40)),self.now))
-        self.assertFalse(production.supported_candidate(x,times,['a','b']*20,[1]*40,self.now))
-        self.assertFalse(production.supported_candidate(x,[self.now]*40,['a','b','c','d']*10,list(range(40)),self.now))
 
-    def test_novel_topic_is_not_published_on_first_observation(self):
-        for i in range(40):self.story(i+10,when=self.now-(10 if i<20 else 1)*86400,vector=[0,0,1])
-        rows,x=production.recent_vectors(self.conn,self.now-28*86400)
-        _,ids,centers=production.model(self.conn)
-        with patch.object(production,'name_topic') as name:
-            self.assertEqual(production.births(self.conn,ids,centers,np.full(40,-1),rows,x,self.now),[])
-            name.assert_not_called()
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM topic_candidates').fetchone()[0],1)
-        later=self.now+7*86400
-        for i in range(20):self.story(i+100,when=later-86400,vector=[0,0,1])
-        rows,x=production.recent_vectors(self.conn,later-28*86400)
-        with patch.dict(os.environ,{'OPENAI_API_KEY':'test'}),patch.object(production,'name_topic',return_value={'name':'New subject','description':'Coherent new subject','is_subject':True}):
-            events=production.births(self.conn,ids,centers,np.full(len(rows),-1),rows,x,later)
-        self.assertEqual(events,[('birth',2)])
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM story_topics WHERE topic=2').fetchone()[0],60)
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM subscriptions').fetchone()[0],0)
 
     def test_initial_build_refuses_existing_registry_and_model(self):
         with self.assertRaises(ValueError):topics.main(f'{self.tmp.name}/test.db',self.model)

@@ -1,0 +1,36 @@
+{
+  "chosen_k": 150,
+  "trials": [
+    {
+      "k": 60,
+      "heldout_fit": 0.3793048560619354,
+      "ambiguous_fraction": 0.1994,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 90,
+      "heldout_fit": 0.39282843470573425,
+      "ambiguous_fraction": 0.2386,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 120,
+      "heldout_fit": 0.408570259809494,
+      "ambiguous_fraction": 0.221,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 150,
+      "heldout_fit": 0.41814595460891724,
+      "ambiguous_fraction": 0.2268,
+      "near_duplicate_pairs": 0
+    }
+  ],
+  "train_before": 1751979140,
+  "unique_stories": 1924776,
+  "input_version": 2,
+  "refit_stories": 1924776,
+  "initialization_sample": 20000,
+  "fit_scope": "all distinct available inputs after chronological model selection",
+  "refit_method": "one incremental pass from globally sampled initialization"
+}

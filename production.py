@@ -1,26 +1,20 @@
 """Small persistent layer for topic centers, weekly maintenance, and newsletters."""
 import math
-import json
 import os
 import secrets
 import ssl
 import smtplib
-import sqlite3
 import time
 from email.message import EmailMessage
 
 import numpy as np
-from sklearn.cluster import MiniBatchKMeans
 
-from core import SEED, unit
-from topics import MODEL_PATH, name_topic
+from core import unit
+from topics import MODEL_PATH
 import routing
 
 DAY = 86400
 WINDOW = 28 * DAY
-# Legacy model admission floor; ambiguous existing topics are not novelty.
-THRESHOLD = routing.MIN_FIT
-BIRTH_BAR = 0.45
 
 
 def week_key(now):
@@ -28,14 +22,9 @@ def week_key(now):
     return (int(now)+3*DAY)//(7*DAY)
 
 SCHEMA = """
-CREATE TABLE IF NOT EXISTS topic_candidates (
- id INTEGER PRIMARY KEY, centroid BLOB NOT NULL, first_seen INTEGER NOT NULL,
- last_seen INTEGER NOT NULL, support INTEGER NOT NULL, story_ids TEXT NOT NULL,
- status TEXT NOT NULL DEFAULT 'pending', topic INTEGER
-);
 CREATE TABLE IF NOT EXISTS topic_registry (
  id INTEGER PRIMARY KEY, centroid BLOB NOT NULL, status TEXT NOT NULL DEFAULT 'active',
- parent INTEGER, born INTEGER NOT NULL, reviewed_at INTEGER DEFAULT 0
+ parent INTEGER, born INTEGER NOT NULL, reviewed_at INTEGER DEFAULT 0, min_fit REAL NOT NULL DEFAULT 0.2862
 );
 CREATE TABLE IF NOT EXISTS maintenance (key TEXT PRIMARY KEY, value INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS subscriptions (
@@ -55,6 +44,8 @@ CREATE INDEX IF NOT EXISTS signup_attempts_actor ON signup_attempts(actor,at);
 
 def setup(conn, now=None):
     conn.executescript(SCHEMA + routing.SCHEMA)
+    if 'min_fit' not in {r[1] for r in conn.execute('PRAGMA table_info(topic_registry)')}:
+        conn.execute('ALTER TABLE topic_registry ADD COLUMN min_fit REAL NOT NULL DEFAULT 0.2862')
     if conn.execute('SELECT 1 FROM topic_registry LIMIT 1').fetchone():
         return
     model = np.load(MODEL_PATH)
@@ -89,7 +80,7 @@ def input_version():
 def recent_vectors(conn, since, until=None):
     columns = {r[1] for r in conn.execute('PRAGMA table_info(embeddings)')}
     version_filter = f' AND e.input_version={input_version()}' if 'input_version' in columns else ''
-    rows = conn.execute('''SELECT s.id, coalesce(st.topic,-1), s.title, s.score, s.time, e.vec
+    rows = conn.execute('''SELECT s.id, coalesce(st.topic,-1), s.title, s.score, s.time, e.vec, s.url, s.text
         FROM stories s JOIN embeddings e USING(id) LEFT JOIN story_topics st USING(id)
         WHERE s.time >= ? AND s.dead=0 AND s.deleted=0''' + version_filter
         + (' AND s.time<=?' if until is not None else ''),
@@ -108,138 +99,23 @@ def child_position(conn, parent):
             min(.98, max(.02, y + .035 * math.sin(angle))))
 
 
-def drift(conn, ids, centers, labels, times, x, now):
-    scores = x @ centers.T
-    top = scores.argmax(1)
-    second = np.partition(scores,-2,axis=1)[:,-2] if len(ids)>1 else np.full(len(x),-1.)
-    for j, topic in enumerate(ids):
-        own = scores[:, j]
-        mask = ((labels == topic) & (times >= now - 7 * DAY) & (top == j)
-                & (own >= THRESHOLD) & (own - second >= routing.MIN_MARGIN))
-        if mask.sum() >= 10:
-            centers[j] = unit(.95 * centers[j] + .05 * unit(x[mask].mean(0)))
-            conn.execute('UPDATE topic_registry SET centroid=? WHERE id=?',
-                         (centers[j].astype('<f4').tobytes(), int(topic)))
-
-
-def supported_candidate(vectors, times, sources, keys, now):
-    """A repeated, coherent subject across independent articles and time."""
-    if len(set(keys)) < 40 or len({s for s in sources if s}) < 3:
-        return False
-    if sum(t < now-7*DAY for t in times) < 10 or sum(t >= now-7*DAY for t in times) < 10:
-        return False
-    center = unit(vectors.mean(0))
-    return float((vectors @ center).mean()) >= BIRTH_BAR
-
-
-def births(conn, ids, centers, labels, rows, x, now):
-    """Discover from poor-fit stories; promote only after two weekly observations.
-
-    Ambiguous matches to existing topics are routed for review, not split into
-    more overlapping topics. Existing subscriptions are never copied to children.
-    """
-    events = []
-    similarity = (x @ centers.T).max(1)
-    out = np.flatnonzero(similarity < THRESHOLD)
-    if len(out) < 40:
-        return events
-    # A flood of resubmissions must not manufacture a new topic.
-    unique = {}
-    details = {}
-    for i in out:
-        row = conn.execute('SELECT title,url,text FROM stories WHERE id=?', (rows[i][0],)).fetchone()
-        key, _, source = routing.metadata(*row)
-        unique.setdefault(key, int(i)); details[int(i)] = (key, source)
-    out = np.array(list(unique.values()))
-    if len(out) < 40:
-        return events
-    km = MiniBatchKMeans(max(1, min(16, len(out)//80)), n_init=3, random_state=SEED).fit(x[out])
-    known = list(centers)
-    naming_calls = 0
-    for label in range(km.n_clusters):
-        members = out[km.labels_ == label]
-        if not supported_candidate(x[members], [rows[i][4] for i in members],
-                                   [details[i][1] for i in members], [details[i][0] for i in members], now):
-            continue
-        center = unit(x[members].mean(0))
-        if max(float(c @ center) for c in known) >= .75:
-            continue
-        candidate = None
-        for stored in conn.execute("SELECT id,centroid,first_seen,last_seen,status FROM topic_candidates WHERE status!='published'"):
-            if float(np.frombuffer(stored[1], '<f4') @ center) >= .85:
-                candidate = stored; break
-        item_ids = json.dumps([int(rows[i][0]) for i in members])
-        if candidate is None:
-            conn.execute('INSERT INTO topic_candidates(centroid,first_seen,last_seen,support,story_ids) VALUES (?,?,?,?,?)',
-                         (center.astype('<f4').tobytes(), now, now, len(members), item_ids))
-            continue
-        ident, _, first, last, status = candidate
-        if status == 'rejected' and now-last < WINDOW:
-            continue
-        if now-last > 14*DAY or status == 'rejected':
-            first = now
-        conn.execute("UPDATE topic_candidates SET centroid=?,first_seen=?,last_seen=?,support=?,story_ids=?,status='pending' WHERE id=?",
-                     (center.astype('<f4').tobytes(), first, now, len(members), item_ids, ident))
-        if now-first < 7*DAY or not os.getenv('OPENAI_API_KEY'):
-            continue
-        if naming_calls >= 3:
-            continue
-        fit = x[members] @ center
-        margins = fit - (x[members] @ np.stack(known).T).max(1)
-        members = members[(fit >= THRESHOLD) & (margins >= routing.MIN_MARGIN)]
-        if len(members) < 40:
-            continue
-        typical = sorted(members, key=lambda i: -float(x[i] @ center))[:10]
-        varied = np.random.default_rng(SEED).choice(members, min(10, len(members)), replace=False)
-        titles = [rows[i][2] for i in dict.fromkeys([*typical, *varied])]
-        naming_calls += 1
-        named = name_topic(titles, [], avoid=[f'{r[0]}: {r[1]}' for r in conn.execute(
-            "SELECT t.name,t.description FROM topics t JOIN topic_registry r ON r.id=t.id WHERE r.status='active'")])
-        if named.get('is_subject') is not True:
-            conn.execute("UPDATE topic_candidates SET status='rejected' WHERE id=?", (ident,))
-            continue
-        if not isinstance(named.get('name'), str) or not isinstance(named.get('description'), str):
-            raise ValueError('Invalid candidate topic name')
-        xy = child_position(conn, int(ids[(centers @ center).argmax()]))
-        child = conn.execute('INSERT INTO topics(name,description,size,cohesion,x,y) VALUES (?,?,?,?,?,?)',
-                             (named['name'],named['description'],len(members),float((x[members]@center).mean()),*xy)).lastrowid
-        conn.execute('INSERT INTO topic_registry(id,centroid,born) VALUES (?,?,?)',
-                     (child,center.astype('<f4').tobytes(),now))
-        for i in members:
-            fit = float(x[i] @ center)
-            margin = fit - max(float(x[i] @ c) for c in known)
-            conn.execute('INSERT OR REPLACE INTO story_topics(id,topic,sim,margin) VALUES (?,?,?,?)',
-                         (rows[i][0],child,fit,margin))
-            conn.execute('DELETE FROM classification_queue WHERE id=?', (rows[i][0],))
-        conn.execute("UPDATE topic_candidates SET status='published',topic=? WHERE id=?", (child,ident))
-        known.append(center)
-        events.append(('birth',child))
-    return events
-
-
 def weekly(conn, now=None):
     """Advance centers and registry from a bounded recent window; IDs never change."""
     now = int(time.time()) if now is None else now
     setup(conn, now=now)
-    last = conn.execute("SELECT value FROM maintenance WHERE key='weekly'").fetchone()[0]
+    checkpoint = conn.execute("SELECT value FROM maintenance WHERE key='weekly'").fetchone()
+    last = checkpoint[0] if checkpoint else 0
     if week_key(now) <= week_key(last):
         return []
     rows, x = recent_vectors(conn, now - WINDOW, until=now)
     if not rows:
         return []
-    _, ids, centers = model(conn)
-    labels = np.array([r[1] for r in rows])
-    times = np.array([r[4] for r in rows])
-    drift(conn, ids, centers, labels, times, x, now)
-    events = births(conn, ids, centers, labels, rows, x, now)
-    # Reload after births, so structural proposals see the current taxonomy.
     import structure
-    _, ids, centers = model(conn)
-    events.extend(structure.maintain(conn, ids, centers, rows, x, now))
-    conn.execute('UPDATE topics SET size=(SELECT count(*) FROM story_topics st WHERE st.topic=topics.id), '
-                 'cohesion=(SELECT coalesce(avg(sim),0) FROM story_topics st WHERE st.topic=topics.id)')
-    conn.execute("UPDATE maintenance SET value=? WHERE key='weekly'", (now,))
-    conn.commit()
+    with conn:
+        events = structure.maintain(conn, rows, x, now)
+        conn.execute('UPDATE topics SET size=(SELECT count(*) FROM story_topics st WHERE st.topic=topics.id), '
+                     'cohesion=(SELECT coalesce(avg(sim),0) FROM story_topics st WHERE st.topic=topics.id)')
+        conn.execute("INSERT OR REPLACE INTO maintenance(key,value) VALUES ('weekly',?)", (now,))
     return events
 
 

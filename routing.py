@@ -1,4 +1,4 @@
-"""Subject inputs, abstaining classification, and bounded semantic review."""
+"""Subject inputs and confident vector routing; semantic helper for offline evals."""
 import hashlib
 import html
 import json
@@ -14,6 +14,7 @@ from llm import ask_json
 
 MIN_FIT = 0.2862
 MIN_MARGIN = 0.02
+BOUNDARY_FIT = 0.40  # New, evidence-anchored subjects use a tighter admission floor.
 INPUT_VERSION = 2
 REVIEW_MODEL = 'gpt-6-luna'
 SCHEMA = '''
@@ -82,31 +83,17 @@ def store(conn, assignments, now=None):
     """Only confident assignments enter the public topic lists; the rest wait."""
     now = int(time.time()) if now is None else now
     accepted = 0
-    model_data = None
+    columns = {r[1] for r in conn.execute('PRAGMA table_info(topic_registry)')}
+    floors = dict(conn.execute('SELECT id,min_fit FROM topic_registry')) if 'min_fit' in columns else {}
     for item_id, topic, fit, margin in assignments:
         row = conn.execute('SELECT title,url,text,score,dead,deleted FROM stories WHERE id=?', (item_id,)).fetchone()
         if not row or row[4] or row[5]:
             continue
         canonical, kind, source = metadata(*row[:3])
         conn.execute('INSERT OR REPLACE INTO story_metadata VALUES (?,?,?,?)', (item_id, canonical, kind, source))
-        prior = conn.execute('SELECT topic FROM article_decisions WHERE canonical=?', (canonical,)).fetchone()
-        if prior:
-            from production import resolve_topic
-            try:
-                topic = resolve_topic(conn, prior[0])
-                if model_data is None:
-                    from production import model
-                    model_data = model(conn)
-                mean, topic_ids, centers = model_data
-                vector = conn.execute('SELECT vec FROM embeddings WHERE id=?', (item_id,)).fetchone()
-                sims = unit(np.frombuffer(vector[0], '<f4')-mean) @ centers.T
-                j = list(topic_ids).index(topic)
-                fit = float(sims[j]); sims[j] = -1
-                margin = fit-float(sims.max())
-            except ValueError:
-                prior = None
-        reason = 'low_fit' if fit < MIN_FIT else 'ambiguous' if margin < MIN_MARGIN else None
-        if reason and not prior:
+        reason = 'low_fit' if fit < floors.get(topic, MIN_FIT) else 'ambiguous' if margin < MIN_MARGIN else None
+        if reason:
+            conn.execute('DELETE FROM story_topics WHERE id=?', (item_id,))
             conn.execute('''INSERT INTO classification_queue(id,reason,suggested_topic,sim,margin,updated_at)
                 VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET
                 reason=excluded.reason,suggested_topic=excluded.suggested_topic,
@@ -144,58 +131,3 @@ def semantic_decisions(topics, stories, model=REVIEW_MODEL, reasoning_effort='lo
             raise ValueError('Review selected an inactive or unknown topic')
         seen.add(ident)
     return rows
-
-
-def review_pending(conn, limit=100, now=None):
-    """At most 100 uncertain stories in one weekly request; no key defers."""
-    if not os.getenv('OPENAI_API_KEY') or limit <= 0:
-        return 0
-    from production import model
-    now = int(time.time()) if now is None else now
-    topics = [dict(zip(('id', 'name', 'description'), row)) for row in conn.execute(
-        "SELECT t.id,t.name,t.description FROM topics t JOIN topic_registry r ON r.id=t.id WHERE r.status='active'")]
-    rows = conn.execute('''SELECT s.id,s.title,s.url,s.text,e.vec,m.canonical FROM classification_queue q
-        JOIN stories s USING(id) JOIN embeddings e USING(id) JOIN story_metadata m USING(id)
-        WHERE s.dead=0 AND s.deleted=0 AND q.attempts<3 AND q.reviewed_at<=?
-        AND s.time>=? AND s.time<=?
-        ORDER BY coalesce(s.score,0) DESC,s.id LIMIT ?''', (now-7*86400, now-28*86400, now, min(limit, 100))).fetchall()
-    mean, ids, centers = model(conn)
-    positions = {int(t):i for i,t in enumerate(ids)}
-    accepted = 0
-    for start in range(0, len(rows), 100):
-        batch = rows[start:start+100]
-        # Coalesce resubmissions inside a batch, and reuse earlier reviewed decisions.
-        representatives, grouped = {}, {}
-        for row in batch:
-            grouped.setdefault(row[5], []).append(row)
-            representatives.setdefault(row[5], row)
-        pending, cached = [], {}
-        for canonical, row in representatives.items():
-            prior = conn.execute('SELECT topic FROM article_decisions WHERE canonical=?', (canonical,)).fetchone()
-            if prior and prior[0] in positions:
-                cached[row[0]] = prior[0]
-            else:
-                pending.append({'id':row[0], 'title':row[1], 'url':row[2],
-                                'text':(row[3] or '')[:1000] if not row[2] else '',
-                                'current_topic':conn.execute('SELECT suggested_topic FROM classification_queue WHERE id=?',(row[0],)).fetchone()[0]})
-        reviewed = semantic_decisions(topics, pending) if pending else []
-        chosen = cached | {r['id']:r['topic'] for r in reviewed}
-        # Validate complete batches before opening a write transaction.
-        with conn:
-            for canonical, representative in representatives.items():
-                topic = chosen[representative[0]]
-                for row in grouped[canonical]:
-                    if topic is None:
-                        conn.execute('DELETE FROM story_topics WHERE id=?', (row[0],))
-                        conn.execute("UPDATE classification_queue SET reason='unclassified',attempts=attempts+1,reviewed_at=? WHERE id=?", (now,row[0]))
-                        continue
-                    sims = unit(np.frombuffer(row[4], '<f4')-mean) @ centers.T
-                    j = positions[topic]
-                    fit = float(sims[j]); sims[j] = -1
-                    conn.execute('INSERT OR REPLACE INTO story_topics(id,topic,sim,margin) VALUES (?,?,?,?)',
-                                 (row[0], topic, fit, fit-float(sims.max())))
-                    conn.execute('DELETE FROM classification_queue WHERE id=?', (row[0],))
-                    accepted += 1
-                if topic is not None:
-                    conn.execute('INSERT OR REPLACE INTO article_decisions VALUES (?,?,?)', (canonical,topic,now))
-    return accepted

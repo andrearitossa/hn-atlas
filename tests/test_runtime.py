@@ -88,7 +88,7 @@ class RuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             conn = sqlite3.connect(f'{directory}/hn.db')
             conn.executescript('''CREATE TABLE stories(id INTEGER PRIMARY KEY,title TEXT,score INTEGER,
-                time INTEGER,dead INTEGER,deleted INTEGER);
+                time INTEGER,dead INTEGER,deleted INTEGER,url TEXT,text TEXT);
                 CREATE TABLE embeddings(id INTEGER PRIMARY KEY,vec BLOB);
                 CREATE TABLE story_topics(id INTEGER PRIMARY KEY,topic INTEGER,sim REAL,margin REAL);
                 CREATE TABLE topics(id INTEGER PRIMARY KEY,name TEXT,description TEXT,size INTEGER,
@@ -105,7 +105,7 @@ class RuntimeTests(unittest.TestCase):
                              (topic, center.tobytes(), now - 86400))
             for item_id in range(90):
                 topic = 0 if item_id < 40 else 1
-                conn.execute('INSERT INTO stories VALUES (?,?,?,?,0,0)',
+                conn.execute("INSERT INTO stories VALUES (?,?,?,?,0,0,'','')",
                              (item_id, 'Post', 10, now - 3600))
                 conn.execute('INSERT INTO embeddings VALUES (?,?)', (item_id, raw))
                 conn.execute('INSERT INTO story_topics VALUES (?,?,.9,0)', (item_id, topic))

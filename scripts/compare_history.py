@@ -12,6 +12,7 @@ from pathlib import Path
 import sqlite3
 import sys
 import time
+import numpy as np
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import api_usage
@@ -150,12 +151,19 @@ def ingest(conn,lower,upper):
 def init_db(out,name,end):
     path=out/f'{name}.db'
     conn=connect(path)
+    # Isolated initial copies do not need a multi-gigabyte WAL followed by a
+    # second complete write at checkpoint. Rollback journaling keeps atomicity.
+    conn.execute('PRAGMA journal_mode=DELETE')
     conn.executescript(hn_sync.SCHEMA)
     conn.execute('''CREATE TABLE IF NOT EXISTS embeddings(id INTEGER PRIMARY KEY,model TEXT NOT NULL,
         vec BLOB NOT NULL,input_version INTEGER NOT NULL,input_hash TEXT)''')
-    conn.execute('CREATE INDEX IF NOT EXISTS embedding_input ON embeddings(model,input_version,input_hash)')
     conn.execute('ATTACH DATABASE ? AS archive',((out/'corpus.db').resolve().as_uri()+'?mode=ro',))
     ingest(conn,START,end)
+    # Bulk-load first, then sort/build the hash index once. Maintaining it for
+    # every copied row needlessly turns the initial copy into random disk I/O.
+    conn.execute('CREATE INDEX IF NOT EXISTS embedding_input ON embeddings(model,input_version,input_hash)')
+    conn.commit()
+    conn.execute('PRAGMA journal_mode=WAL')
     return conn
 
 
@@ -181,17 +189,39 @@ def export_topics(conn,path,since=0):
 
 
 def build(out,name,end):
+    print(f'Preparing {name} build through {datetime.fromtimestamp(end-1,timezone.utc).isoformat()}',flush=True)
     artifact=out/f'{name}.npz'
     production.MODEL_PATH=str(artifact.resolve())
     conn=init_db(out,name,end)
     conn.close()
+    print(f'{name}: isolated input database ready',flush=True)
     if not artifact.exists():
         topics.main(str(out/f'{name}.db'),str(artifact),now=end-1)
     conn=connect(out/f'{name}.db')
     production.setup(conn,now=end-1)
     if not (out/f'{name}-initial-topics.json').exists():
         export_topics(conn,out/f'{name}-initial-topics.json')
+    if not (out/'maps'/f'{name}-initial.json').exists():
+        snapshot_map(conn,out,f'{name}-initial',end-1)
     conn.close()
+
+
+def snapshot_map(conn,out,label,now):
+    """Observe taxonomy and semantic neighbors without influencing maintenance."""
+    directory=out/'maps';directory.mkdir(exist_ok=True)
+    _,ids,centers=production.model(conn)
+    similarities=centers@centers.T
+    nodes=[]
+    for i,ident in enumerate(ids):
+        row=conn.execute('''SELECT t.name,t.description,t.size,t.x,t.y,r.born,r.parent
+            FROM topics t JOIN topic_registry r ON r.id=t.id WHERE t.id=?''',(int(ident),)).fetchone()
+        neighbors=[int(j) for j in np.argsort(-similarities[i]) if j!=i][:3]
+        nodes.append(dict(id=int(ident),name=row[0],description=row[1],size=row[2],
+            x=row[3],y=row[4],born=row[5],parent=row[6],neighbors=[
+                dict(id=int(ids[j]),similarity=float(similarities[i,j])) for j in neighbors]))
+    save(directory/f'{label}.json',dict(at=now,nodes=nodes,
+        note='Top three semantic neighbors per topic; diagnostic relationships, not UI graph edges.'))
+    np.savez_compressed(directory/f'{label}.npz',ids=ids,centers=centers)
 
 
 def replay(out,end):
@@ -205,10 +235,14 @@ def replay(out,end):
             lower=state['through'];upper=min(lower+WEEK,end);now=upper-1
             t0=time.monotonic()
             ingest(conn,lower,upper)
+            ingested=time.monotonic()
             weekly.classify_pending(conn,now=now)
+            classified=time.monotonic()
             events=weekly.maintain(conn,now=now)
+            snapshot_map(conn,out,f"week-{state['weeks']+1:03d}",now)
             record=dict(through=upper,date=datetime.fromtimestamp(now,timezone.utc).isoformat(),
                 events=events,seconds=time.monotonic()-t0,
+                stage_seconds=dict(ingest=ingested-t0,classify=classified-ingested,maintain=time.monotonic()-classified),
                 topics=conn.execute("SELECT count(*) FROM topic_registry WHERE status='active'").fetchone()[0],
                 assigned=conn.execute('SELECT count(*) FROM story_topics').fetchone()[0],
                 queued=conn.execute('SELECT count(*) FROM classification_queue').fetchone()[0])

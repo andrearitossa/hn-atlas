@@ -6,6 +6,18 @@ Run ingestion and topic maintenance on your PC or cluster, then publish HTML and
 
 ## Publish a static site
 
+The September 25, 2026 publication uses the completed **static 2020–today map**:
+116 topics fitted across 2,126,688 stories, through 08:49:40 UTC that day.
+It does not use either weekly replay. The public topic catalog, model, and build
+provenance are saved in `data/static-2020-2026/`; the private matching database
+remains at `data/comparison-online-v2/static.db` and is not included in Git.
+Re-export this snapshot with:
+
+```bash
+.venv/bin/python publish.py --db data/comparison-online-v2/static.db --output dist
+.venv/bin/python scripts/prepare_pages.py
+```
+
 After installing dependencies and obtaining the database as described below:
 
 ```bash
@@ -137,13 +149,17 @@ The import retains stories, polls, and jobs, skipping comments. `embed.py` proce
 
 Initial builds run in a separate database and refuse to overwrite a populated registry or an existing model artifact. V2 embedding inputs remove Show/Ask/Tell/Launch HN prefixes and trailing format/year markers; format and source are stored separately. External-link submission commentary does not change the article's subject. Identical inputs reuse embeddings. Training deduplicates inputs, holds out the newest 20%, and compares 60/90/120/150 candidate clusters; the smallest model within 2% of the best held-out fit is preferred, with fewer near-duplicate centers taking priority. This heuristic measures geometric coverage, not semantic accuracy. Candidate subjects require at least 40 sampled supporting stories. Naming examines representative and varied stories, rejects format/noise clusters, and consolidates redundant subject definitions before publishing. `--candidates` and `--sample` allow bounded experimental builds.
 
-The backend wakes once weekly. Run `python jobs.py --publish dist`; the supplied timer runs Monday at 03:00 UTC. A worker lock prevents overlapping jobs, and a calendar-week checkpoint prevents accidental duplicate ingestion. Failed stages can retry; embeddings, reviews, and topic maintenance retain their completed work.
+The backend wakes once weekly. Run `python jobs.py --publish dist`; the supplied timer runs Monday at 03:00 UTC. A worker lock prevents overlapping jobs, and a calendar-week checkpoint prevents accidental duplicate ingestion. Failed stages can retry; ingestion and embeddings retain their completed work.
 
 1. Catch up new HN items and refresh points, comment counts, edits and deletion flags for stories from the last 14 days. Stories fetched during catch-up are not fetched again. Older counts stay at their last fetched values. Score-only changes reuse embeddings; changed subject content invalidates them.
-2. Embed new/changed inputs and classify by similarity. Confident assignments publish immediately, including popular stories. Weak fits (below 0.2862) or ambiguous margins (below 0.02) wait for one weekly semantic request using GPT-6 Luna covering up to 100 recent uncertain stories. Canonical duplicates share decisions. The worker retries only recent uncertainty, at most three semantic attempts; it does not rescan years of unresolved stories every week. Missing API credentials defer reviews. Existing registries retain their original embedding-input version; v2 needs a separate matching build.
-3. Maintain topics using the last 28 days. Centers drift only from confident agreeing stories. New subjects require 40 distinct articles, three sources, support across weeks, separation, and two weekly observations. At most three candidates receive naming/distinction checks each week, combining those checks in one request per candidate. Merges require near-duplicate centers and substantial independent article evidence. Splits require two coherent separated groups, each with sustained cross-source support. One combined semantic request validates at most three merge and three split proposals; only approved changes apply. Reviewed topics cool down for 28 days. Only affected assignments are recomputed; the entire archive is not reclustered.
+2. Embed new/changed inputs and classify by similarity. Confident assignments publish immediately. Weak fits and ambiguous margins (below 0.02) remain unlisted. Existing broad centers retain their 0.2862 fit floor; new or recentered boundaries use 0.40 to reduce loose lexical matches. There are **no per-story model reviews**. Recent abstentions are reconsidered when the map changes. Existing registries retain their matching embedding-input version.
+3. Review the map once using the last 28 days. At most 48 coarse evidence groups and a compact directory of historical/typical/varied examples go to one GPT-6 Luna request with low reasoning effort. Preserve broad subscriptions: “Databases and SQL systems” includes new database products. Automatic subtopic splits are disabled. Prefer no change, sensible renaming, and merging redundant interests; at most three changes per review. An exceptional new broad interest requires an explanation of why existing topics cannot accommodate it and supplied story anchors spanning at least 21 days. A birth-timestamp guard allows at most one addition per 90 days, including topics later merged away. This is a growth ceiling, not a quota or proof of quality. No candidate queue or per-story model calls.
 
-Old topic URLs resolve through merge aliases. Subscriptions keep their tokens and follow merged destinations; duplicate subscriptions to the same resulting subject receive one digest. On splits, the larger child keeps the existing ID and subscriptions; no subscriptions are copied. Applied merges/splits are recorded in `topic_changes`. Separate report-only quality audits and popularity-triggered reviews are no longer scheduled. In a normal week this is at most five semantic requests (one assignment review, three new-subject checks, one structural review), often fewer; retries and initial builds are additional.
+Every change is validated before publication. Invalid independent proposals are logged and skipped; an entirely malformed response remains retryable. Well-formed proposals declined by the broad-interest policy are recorded as no-ops and do not stall the week. The map update and weekly checkpoint commit together; a failed request or invalid plan remains retryable. Changed centers use supporting story IDs selected in the same review, rather than swallowing an entire mixed cluster. New subjects need evidence, format-only names are rejected, and reused IDs/groups must be valid and nonoverlapping. Concerns that cannot be repaired confidently are recorded alongside the plan in `topic_changes`.
+
+Old topic URLs resolve through merge aliases. Subscriptions keep their tokens and follow merged destinations; duplicate subscriptions to the same resulting subject receive one digest. Automatic splits are disabled; the low-level explicit split operation retains an existing ID and its subscriptions without copying subscribers to children. Changed boundaries trigger reassignment of affected history and one vector pass over recent stories. Simple renames retain the existing center. The archive is not reclustered weekly.
+
+The normal weekly budget is **one map-review request**, plus transport retries on transient failures. Initial naming uses batches of 40 candidate groups followed by a global consolidation; duplicates are merged with their evidence rather than discarded during naming. This simplifies orchestration, but semantic quality still requires evaluation: fewer calls alone do not establish production readiness.
 
 Inspect deferred work without running the pipeline:
 
@@ -151,7 +167,7 @@ Inspect deferred work without running the pipeline:
 python scripts/pipeline_status.py --db data/hackernews.db
 ```
 
-The new pipeline takes effect on subsequent worker runs. It does not retrospectively rebuild the live map. A fresh map has new IDs and must not replace a registry with subscribers without a separate migration. An API/model failure leaves committed ingestion and pending reviews available for retry.
+The new pipeline takes effect on subsequent worker runs. It does not retrospectively rebuild the live map. A fresh map has new IDs and must not replace a registry with subscribers without a separate migration. An API/model failure leaves committed ingestion available and the uncommitted map update retryable.
 
 For a read-only, reproducible clustering comparison on a bounded public-story sample:
 
@@ -173,7 +189,7 @@ set -a
 set +a
 ```
 
-Digest preview works without SMTP. To send confirmation and digest messages, set `PUBLIC_URL` to the public HTTPS origin and provide `SMTP_HOST`, `SMTP_FROM`, plus credentials if your provider requires them. Run `python jobs.py` once per day from the project directory. Keep `.env` out of Git.
+Digest preview works without SMTP. To send confirmation and digest messages, set `PUBLIC_URL` to the public HTTPS origin and provide `SMTP_HOST`, `SMTP_FROM`, plus credentials if your provider requires them. Run `python jobs.py` once per week from the project directory. Keep `.env` out of Git.
 
 ## Project layout
 
@@ -184,9 +200,7 @@ Digest preview works without SMTP. To send confirmation and digest messages, set
 - `production.py`, `quality.py`, `pages.py`, `core.py`: topic registry, digest, quality checks, and shared math.
 - `hn_import_dump.py`, `topics.py`: one-time historical import and model build.
 - `data/topic_model.npz`: small initial model; `data/hackernews.db` and `data/hn_dump/` are local data and are Git-ignored.
-- `deploy/`: example single-VM service and HTTPS setup.
-
-See [deploy/README.md](deploy/README.md) for a production deployment. The repository is MIT licensed; the upstream HN data remains governed by its own [dataset terms](https://huggingface.co/datasets/open-index/hacker-news).
+The repository is MIT licensed; the upstream HN data remains governed by its own [dataset terms](https://huggingface.co/datasets/open-index/hacker-news).
 
 ### Visitor feedback
 
