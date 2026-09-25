@@ -8,7 +8,7 @@ import requests
 import urllib3
 from bs4 import BeautifulSoup
 
-USER_AGENT = 'HN Topics/1.0 (article metadata)'
+USER_AGENT = 'HN Atlas/1.0 (article metadata)'
 BOT_WALLS = ('just a moment', 'are you a robot', 'enable js', 'checking your browser',
              'not a bot', 'abuse detection', 'welcome to reddit')
 MAX_BYTES = 1_000_000

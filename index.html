@@ -4,7 +4,7 @@
 <meta name="hn-data" content="">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HN Topics</title>
+<title>HN Atlas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ff6600'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='36' font-weight='bold' fill='white'%3EH%3C/text%3E%3C/svg%3E">
 <style>
 :root { --bg:#fbfbfa; --ink:#18181b; --muted:#71717a; --line:#e7e7e4; --hn:#f56300; --dot:#a1a1aa; --cool:#3b82f6; }
@@ -281,7 +281,7 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 </head>
 <body>
 <header>
-  <a href="#/"><b>HN <span>Topics</span></b></a>
+  <a href="#/"><b>HN <span>Atlas</span></b></a>
   <nav class="toggle"><a id="topics" href="#/">Browse topics</a><a id="connections" href="#/connections">Connections</a></nav>
 </header>
 <main id="app"></main>
@@ -459,7 +459,7 @@ async function topic(id, version) {
   T ??= await data.topics();
   const t = await topicDetails(id), me = T.topics.find(x => x.id === t.id);
   if (version !== routeVersion) return;
-  document.title = `${t.name} · HN Topics`;
+  document.title = `${t.name} · HN Atlas`;
   const related = T.edges.filter(e => e.a === t.id || e.b === t.id).map(e => T.topics.find(x => x.id === (e.a === t.id ? e.b : e.a))).filter(Boolean);
   $("#app").innerHTML = `<div class="page">
     <a href="#/" class="meta" style="align-self: start">← All topics</a>
@@ -711,7 +711,7 @@ function route() {
     return;
   }
   tip.hidden=true;
-  document.title = "HN Topics";
+  document.title = "HN Atlas";
   $("#topics").classList.toggle("on", !m && !isConnections && !isTimeline);
   $("#connections").classList.toggle("on", isConnections);
   $("#app").innerHTML = `<p class="loading" role="status">Loading ${m ? "topic" : "topics"}…</p>`;

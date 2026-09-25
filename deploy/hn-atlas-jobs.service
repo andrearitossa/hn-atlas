@@ -1,0 +1,18 @@
+[Unit]
+Description=HN Atlas weekly sync and digest delivery
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=hn-atlas
+Group=hn-atlas
+WorkingDirectory=/srv/hn-atlas/app
+EnvironmentFile=/etc/hn-atlas.env
+ExecStart=/srv/hn-atlas/app/.venv/bin/python jobs.py
+TimeoutStartSec=6h
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/srv/hn-atlas/data
+PrivateTmp=true

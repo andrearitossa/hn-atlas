@@ -1,4 +1,4 @@
-# HN Topics
+# HN Atlas
 
 Explore Hacker News through a stable map of topics, then subscribe to a weekly or monthly digest of the stories that matter to you.
 
@@ -16,7 +16,7 @@ After installing dependencies and obtaining the database as described below:
 python3 -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
-Open <http://localhost:8080>. Upload **only `dist/`** to static hosting. Relative asset URLs and hash routes also support hosting below a path such as `/hn-topics/`.
+Open <http://localhost:8080>. Upload **only `dist/`** to static hosting. Relative asset URLs and hash routes also support hosting below a path such as `/hn-atlas/`.
 
 For weekly updates on your PC/cluster, load your environment and schedule:
 
@@ -36,7 +36,7 @@ No embeddings, database files, subscriber details, confirmation tokens, or envir
 
 ```bash
 git clone <this-repository-url>
-cd technews
+cd hn-atlas
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements.txt

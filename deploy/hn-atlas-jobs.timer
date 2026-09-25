@@ -1,11 +1,11 @@
 [Unit]
-Description=Run HN Topics weekly
+Description=Run HN Atlas weekly
 
 [Timer]
 OnCalendar=Mon *-*-* 03:00:00 UTC
 Persistent=true
 RandomizedDelaySec=15m
-Unit=hn-topics-jobs.service
+Unit=hn-atlas-jobs.service
 
 [Install]
 WantedBy=timers.target

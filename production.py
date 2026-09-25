@@ -351,7 +351,7 @@ def deliver(conn, base_url):
         for extra, _ in subscriptions[1:]:
             body += f'Additional subscription: {base_url}/api/newsletter/unsubscribe/{extra}\n'
         try:
-            send(email, f'HN Topics · {name}', body, unsubscribe_url)
+            send(email, f'HN Atlas · {name}', body, unsubscribe_url)
         except (OSError, smtplib.SMTPException):
             failures += 1
             continue

@@ -29,7 +29,7 @@ async def lifespan(_app):
     yield
 
 
-app = FastAPI(title="HN Topics", docs_url=None, redoc_url=None, lifespan=lifespan)
+app = FastAPI(title="HN Atlas", docs_url=None, redoc_url=None, lifespan=lifespan)
 
 
 def db():
@@ -182,7 +182,7 @@ def subscribe(request: SubscriptionRequest, http_request: Request):
             raise HTTPException(400, str(exc)) from exc
         link = os.environ['PUBLIC_URL'].rstrip('/') + '/api/newsletter/confirm/' + token
     try:
-        production.send(str(request.email), 'Confirm your HN Topics subscription',
+        production.send(str(request.email), 'Confirm your HN Atlas subscription',
                         f'Confirm your subscription: {link}\n\nIf this was not you, ignore this email.')
     except (OSError, smtplib.SMTPException) as exc:
         raise HTTPException(503, 'Could not send confirmation. Please try again later.') from exc
@@ -198,11 +198,11 @@ def action_page(label, token, action):
     path = f'/api/newsletter/{action}/{escape(token, quote=True)}'
     return HTMLResponse(f'''<!doctype html><html lang="en"><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{label} · HN Topics</title>
+        <title>{label} · HN Atlas</title>
         <body style="font:16px system-ui;max-width:36rem;margin:15vh auto;padding:1rem">
         <h1>{label}</h1><form method="post" action="{path}">
         <button style="padding:.7rem 1rem;font:inherit;cursor:pointer">{label}</button></form>
-        <p><a href="/">Back to HN Topics</a></p></body></html>''')
+        <p><a href="/">Back to HN Atlas</a></p></body></html>''')
 
 
 @app.post('/api/newsletter/confirm/{token}')
@@ -212,7 +212,7 @@ def confirm_post(token: str):
         c.commit()
         if not cur.rowcount:
             raise HTTPException(404, 'Subscription not found')
-    return HTMLResponse('<p>Subscription confirmed. <a href="/">Back to HN Topics</a></p>')
+    return HTMLResponse('<p>Subscription confirmed. <a href="/">Back to HN Atlas</a></p>')
 
 
 @app.get('/api/newsletter/unsubscribe/{token}')
@@ -227,4 +227,4 @@ def unsubscribe_post(token: str):
         c.commit()
         if not cur.rowcount:
             raise HTTPException(404, 'Subscription not found')
-    return HTMLResponse('<p>Unsubscribed. <a href="/">Back to HN Topics</a></p>')
+    return HTMLResponse('<p>Unsubscribed. <a href="/">Back to HN Atlas</a></p>')
