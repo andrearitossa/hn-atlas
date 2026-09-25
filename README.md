@@ -16,7 +16,40 @@ After installing dependencies and obtaining the database as described below:
 python3 -m http.server 8080 --bind 127.0.0.1 --directory dist
 ```
 
-Open <http://localhost:8080>. Upload **only `dist/`** to static hosting. Relative asset URLs and hash routes also support hosting below a path such as `/hn-atlas/`.
+Open <http://localhost:8080>. For generic static hosting, upload `dist/`; for Cloudflare Pages, use the smaller bundle below. Relative asset URLs and hash routes also support hosting below a path such as `/hn-atlas/`.
+
+## Cloudflare Pages
+
+The public site can be hosted on Cloudflare Pages using **Direct Upload**. The private Python worker and SQLite database stay on your PC or cluster. A Git push alone will not update the site: `dist/` is ignored by Git, and Pages cannot rebuild it from source without your local database.
+
+After each successful export, prepare a folder containing only the current release:
+
+```bash
+python3 scripts/prepare_pages.py
+```
+
+Deploy with Wrangler from the repository root so it includes `functions/` and the D1 binding in `wrangler.jsonc`. Dashboard drag-and-drop uploads do not deploy the signup function. After logging in, run:
+
+```bash
+npx wrangler d1 migrations apply NEWSLETTER_DB --remote
+npx wrangler pages deploy pages-dist --project-name hackeratlas --branch main
+```
+
+Upload the **folder**, not the repository or the whole accumulated `dist/`. The Pages bundle is replaced on each preparation, so repeated local exports do not increase its file count. The site keeps topic browsing, search, maps, and digest previews.
+
+### Topic newsletter interest
+
+The Pages build enables a newsletter signup on each topic page. `POST /api/newsletter/subscribe` saves the normalized email, topic ID, and topic name in the private `hackeratlas-newsletter` D1 database. The topic is validated against the deployed catalog; repeated signups for the same email/topic update the name without creating duplicate rows. No emails, credentials, or signup records are exposed in the static bundle or a public read endpoint. The form includes explicit email-update consent, a honeypot, pending/error/success states, and describes the newsletter as an early signup. The endpoint also checks request origin and bounds request size. The honeypot is basic spam protection, not email ownership verification.
+
+This collects interest only: no confirmation or newsletter emails are sent. Add confirmation, delivery, and unsubscribe support before starting automated mail. The existing Python SMTP subscription system is separate. Plain `dist/` exports keep signup disabled; `scripts/prepare_pages.py` enables it specifically for the Pages deployment.
+
+To see interest by topic without exporting email addresses:
+
+```bash
+npx wrangler d1 execute NEWSLETTER_DB --remote --command 'SELECT topic_id, topic_name, COUNT(*) AS signups FROM newsletter_signups GROUP BY topic_id, topic_name ORDER BY signups DESC'
+```
+
+Subscriber records can be managed privately through the Cloudflare D1 console. Keep any exports outside the public build folders. `wrangler.jsonc` records the production database binding; use a separate D1 database if creating an independent preview environment.
 
 For weekly updates on your PC/cluster, load your environment and schedule:
 
@@ -26,7 +59,7 @@ For weekly updates on your PC/cluster, load your environment and schedule:
 
 This updates the private database, exports after a successful update, and retains the existing newsletter delivery behavior when SMTP is configured. Run only one worker/publisher at a time. Upload the successful export afterward using your host's deployment tool. When your PC is offline, the published site remains available with its last snapshot.
 
-Each export contains the topic map, summaries, activity charts, digest previews, and one story file per topic. The browser loads stories on demand and handles title/URL search, sorting, period filters, and pagination locally. Merged topic links keep working. Email signup is disabled in static mode; subscriptions and delivery still require the existing API or a separate newsletter service.
+Each export contains the topic map, summaries, activity charts, digest previews, and one story file per topic. The browser loads stories on demand and handles title/URL search, sorting, period filters, and pagination locally. Merged topic links keep working. Cloudflare Pages collects newsletter interest in D1; email delivery still requires a separate newsletter service.
 
 Builds read one consistent SQLite snapshot and publish a versioned `dist/releases/<id>/` directory. The entry point, `dist/index.html`, switches only after the build succeeds. Deploy complete snapshots atomically when your host supports it; otherwise upload the new release directory first and `index.html` last. Revalidate `index.html` on each visit; versioned release files can be cached indefinitely. Keep previous release directories for existing tabs and cached entry points. They accumulate, so archive/remove older releases according to your retention window; open tabs using a removed release must reload. A fresh output directory creates a single-release deployment.
 
@@ -154,3 +187,13 @@ Digest preview works without SMTP. To send confirmation and digest messages, set
 - `deploy/`: example single-VM service and HTTPS setup.
 
 See [deploy/README.md](deploy/README.md) for a production deployment. The repository is MIT licensed; the upstream HN data remains governed by its own [dataset terms](https://huggingface.co/datasets/open-index/hacker-news).
+
+### Visitor feedback
+
+The footer sits at the end of each page’s content and shows “Built by Andrea Ritossa · Feedback”. On Cloudflare Pages, “Leave feedback” opens a dialog with a required message (up to 2,000 characters) and an optional reply email. `POST /api/feedback` stores the message, optional email, page route, timestamp, and retry ID in the private D1 `feedback` table. It does not subscribe the sender or send email. The endpoint validates requests, limits body size, checks origin, and includes a honeypot; repeated submissions with the same ID do not create duplicate records. There is no public read endpoint.
+
+Apply migrations before deploying as above. Read feedback privately in the Cloudflare D1 console, or run:
+
+```bash
+npx wrangler d1 execute NEWSLETTER_DB --remote --command 'SELECT message, email, page, created_at FROM feedback ORDER BY created_at DESC LIMIT 100'
+```

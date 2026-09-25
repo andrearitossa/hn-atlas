@@ -1,0 +1,13 @@
+{
+  "name": "hackeratlas",
+  "pages_build_output_dir": "./pages-dist",
+  "compatibility_date": "2026-09-01",
+  "d1_databases": [
+    {
+      "binding": "NEWSLETTER_DB",
+      "database_name": "hackeratlas-newsletter",
+      "database_id": "b25ea9c4-25e9-4547-b753-292c752e0eef",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

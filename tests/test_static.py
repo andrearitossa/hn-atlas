@@ -13,6 +13,7 @@ from database import connect
 import publish
 import server
 import test_browsing
+from scripts.prepare_pages import prepare
 
 
 class StaticTests(unittest.TestCase):
@@ -82,6 +83,21 @@ class StaticTests(unittest.TestCase):
         with self.assertRaises(sqlite3.OperationalError):
             publish.publish(missing, Path(self.directory.name) / 'site')
         self.assertFalse(missing.exists())
+
+    def test_pages_bundle_enables_signup_and_includes_only_current_public_catalog(self):
+        output, old_release = self.export()
+        output, current_release = self.export()
+        bundle = Path(self.directory.name) / 'pages'
+        prepare(output, bundle)
+        self.assertIn('name="hn-newsletter" content="cloudflare"', (bundle / 'index.html').read_text())
+        self.assertIn('name="hn-newsletter" content=""', (output / 'index.html').read_text())
+        self.assertFalse((bundle / 'releases' / old_release.name).exists())
+        self.assertTrue((bundle / 'releases' / current_release.name).exists())
+        overview = json.loads((current_release / 'topics.json').read_text())
+        self.assertEqual(json.loads((bundle / 'newsletter-topics.json').read_text()),
+                         {str(t['id']): t['name'] for t in overview['topics']})
+        self.assertEqual(json.loads((bundle / '_routes.json').read_text())['include'],
+                         ['/api/newsletter/*', '/api/feedback'])
 
     @unittest.skipUnless(shutil.which('node'), 'Node is required for browser data parity checks')
     def test_browser_queries_match_api(self):

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta name="hn-data" content="">
+<meta name="hn-newsletter" content="">
+<meta name="hn-feedback" content="">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HN Atlas</title>
@@ -20,7 +22,7 @@ button { cursor:pointer; }
 header { display:flex; align-items:center; gap:24px; padding:14px 24px; border-bottom:1px solid var(--line); }
 header b { font-size:17px; } header b span { color:var(--hn); }
 .toggle a { color:var(--muted); } .toggle a.on { color:var(--ink); }
-main { flex:1; min-height:0; }
+main { flex:1; min-height:0; overflow-y:auto; }
 .home { height:100%; overflow-y:auto; }
 .home-inner { max-width:1300px; margin:auto; padding:34px clamp(20px,4vw,56px) 60px; }
 .directory-intro { margin:12px 0 30px; }
@@ -90,6 +92,9 @@ small { color:var(--muted); }
 .digest input,.digest select,.digest button { border:1px solid var(--line); border-radius:7px; padding:8px; background:var(--bg); }
 .digest input { width:100%; min-width:0; }
 .digest button { background:var(--hn); color:white; }
+.newsletter-cta { margin-top:14px; border:1px solid var(--hn); border-radius:8px; padding:10px 16px; background:var(--hn); color:white; cursor:pointer; }
+.digest button:disabled { opacity:.6; cursor:wait; }
+.signup-trap { position:absolute; left:-10000px; }
 .digest a { color:var(--hn); }
 #signup-status { display:block; margin-top:10px; overflow-wrap:anywhere; }
 #signup-status div { padding:5px 0; border-top:1px solid var(--line); }
@@ -277,6 +282,26 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
  .zt-footer>span:nth-child(2) { display:none; }
  .zt-view { height:460px; max-height:52dvh; }
 }
+
+.site-footer { margin-top:24px; flex-shrink:0; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:6px 18px; padding:12px 20px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+.site-footer a:hover,.site-footer button:hover { color:var(--hn); }
+.site-footer button { border:0; background:none; padding:4px 0; color:inherit; }
+.feedback-dialog { width:min(460px,calc(100% - 32px)); max-height:85dvh; overflow:auto; padding:26px; border:1px solid var(--line); border-radius:16px; background:var(--bg); color:var(--ink); box-shadow:0 20px 80px #0003; }
+.feedback-dialog::backdrop { background:#0006; backdrop-filter:blur(3px); }
+.feedback-dialog[open] { animation:feedback-in .16s ease-out; }
+@keyframes feedback-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@media(prefers-reduced-motion:reduce) { .feedback-dialog[open] { animation:none; } }
+.feedback-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.feedback-heading h2 { margin:0; font-size:23px; letter-spacing:-.03em; }
+.feedback-close { border:0; background:none; color:var(--muted); padding:4px 8px; font-size:24px; }
+.feedback-dialog p { color:var(--muted); }
+.feedback-dialog label { display:block; margin:16px 0 6px; }
+.feedback-dialog textarea,.feedback-dialog input { width:100%; border:1px solid var(--line); border-radius:8px; padding:10px 12px; font:inherit; color:var(--ink); background:var(--bg); }
+.feedback-dialog textarea { resize:vertical; min-height:130px; }
+.feedback-dialog small { display:block; margin-top:12px; color:var(--muted); }
+.feedback-send { margin-top:18px; border:0; border-radius:8px; background:var(--hn); color:white; padding:11px 18px; }
+.feedback-send:disabled { opacity:.6; cursor:wait; }
+#feedback-status { margin-bottom:0; }
 </style>
 </head>
 <body>
@@ -285,6 +310,25 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
   <nav class="toggle"><a id="topics" href="#/">Browse topics</a><a id="connections" href="#/connections">Connections</a></nav>
 </header>
 <main id="app"></main>
+<footer class="site-footer" hidden>
+  <span>Built by Andrea Ritossa</span>
+  <button type="button" id="feedback-open" hidden>Feedback</button>
+</footer>
+<dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-intro">
+  <div class="feedback-heading"><h2 id="feedback-title">Help shape Hacker Atlas</h2><button type="button" class="feedback-close" id="feedback-close" aria-label="Close feedback">×</button></div>
+  <p id="feedback-intro">Useful, confusing, or missing something? I’d love to hear.</p>
+  <form id="feedback-form">
+    <label for="feedback-message">Your feedback</label>
+    <textarea id="feedback-message" name="message" maxlength="2000" placeholder="What’s on your mind?" required autofocus></textarea>
+    <label for="feedback-email">Email <span class="meta">(optional, for a reply)</span></label>
+    <input id="feedback-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
+    <label class="signup-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+    <small>Your feedback is private. Your email is only used to reply, never to sign you up for a newsletter.</small>
+    <button class="feedback-send" type="submit">Send feedback</button>
+  </form>
+  <p id="feedback-status" role="status" aria-live="polite"></p>
+</dialog>
+
 <div id="tip" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
@@ -458,13 +502,15 @@ const post = p => `<div class="post"><a href="${esc(safeUrl(p.url) || hn(p.id))}
 async function topic(id, version) {
   T ??= await data.topics();
   const t = await topicDetails(id), me = T.topics.find(x => x.id === t.id);
+  const cloudSignup = document.querySelector('meta[name="hn-newsletter"]')?.content === 'cloudflare';
+  const newsletterAvailable = cloudSignup || t.newsletter_available;
   if (version !== routeVersion) return;
   document.title = `${t.name} · HN Atlas`;
   const related = T.edges.filter(e => e.a === t.id || e.b === t.id).map(e => T.topics.find(x => x.id === (e.a === t.id ? e.b : e.a))).filter(Boolean);
   $("#app").innerHTML = `<div class="page">
     <a href="#/" class="meta" style="align-self: start">← All topics</a>
     <div class="hero topic-hero"><div><h1>${esc(t.name)}</h1>
-    <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_30d} in 30 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p></div></div>
+    <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_30d} in 30 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p>${newsletterAvailable ? '<button type="button" class="newsletter-cta" data-section="topic-newsletter">Sign up for the newsletter</button>' : ''}</div></div>
     <nav class="topic-nav" aria-label="On this topic page"><button type="button" data-section="topic-history">01 <span>Timeline</span></button><button type="button" data-section="topic-recent">02 <span>Latest</span></button><button type="button" data-section="topic-archive">03 <span>Explore</span></button></nav>
     <section id="topic-history" class="topic-history" aria-label="Topic timeline" tabindex="-1"><p role="status">Loading history…</p></section>
     <section id="topic-recent" class="recent-stories" tabindex="-1"><p class="eyebrow">02 / CATCH UP</p><h2>The conversation now</h2><p class="section-intro">Stories gathering attention in the last two weeks.</p>${t.trending.slice(0,5).map(post).join("") || '<p class="meta">No recent stories.</p>'}</section>
@@ -483,7 +529,7 @@ async function topic(id, version) {
     <details class="activity"><summary>See this topic’s activity over time <span>↗</span></summary><div class="activity-content"><div class="chart-heading"><div><h2>Topic activity</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Monthly post counts · the latest month may be incomplete. Select a bar to see its count.</p></div></details>
 
     <footer class="topic-footer">${related.length ? `<div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">${related.slice(0,4).map(r=>`<a href="#/topic/${r.id}"><strong>${esc(r.name)} <span>↗</span></strong><p>${esc(r.description)}</p></a>`).join('')}</div></div>` : ''}
-    ${t.newsletter_available ? `<aside class="digest"><strong>Keep up with ${esc(t.name)}</strong><p>A concise digest, delivered at your pace.</p><form id="signup"><input name="email" type="email" placeholder="you@example.com" required aria-label="Email address"><select name="cadence" aria-label="Frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><button>Subscribe</button></form><small id="signup-status" role="status">Unsubscribe any time.</small></aside>` : ''}</footer>
+    ${newsletterAvailable ? `<aside class="digest" id="topic-newsletter" tabindex="-1"><strong>Keep up with ${esc(t.name)}</strong><p>${cloudSignup ? 'Interested in new stories on this topic? Join the early newsletter list.' : 'A concise digest, delivered at your pace.'}</p><form id="signup"><input name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required aria-label="Email address">${cloudSignup ? '<label class="signup-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>' : '<select name="cadence" aria-label="Frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>'}<button type="submit">Sign up for the newsletter</button></form><small>${cloudSignup ? 'By signing up, you agree to receive email updates about this topic. We store your email and topic privately in Cloudflare. Emails haven’t started yet.' : 'Unsubscribe any time.'}</small><small id="signup-status" role="status" aria-live="polite"></small></aside>` : ''}</footer>
   </div>`;
   window.scrollTo(0,0);
   const jump = target => {
@@ -566,13 +612,18 @@ async function topic(id, version) {
   if ($("#signup")) $("#signup").onsubmit = async e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    const status = $("#signup-status"); status.textContent = "Sending confirmation…";
+    const form = e.target, button = form.querySelector('button');
+    if (button.disabled) return;
+    button.disabled = true;
+    const status = $("#signup-status"); status.textContent = cloudSignup ? "Saving…" : "Sending confirmation…";
     try {
-      const r = await fetch("/api/newsletter/subscribe", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...data, topic:+id})});
+      const r = await fetch("/api/newsletter/subscribe", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...data, topic:t.id})});
       const result = await r.json();
       if (!r.ok) throw Error(result.detail || "Could not subscribe");
-      status.textContent = "Check your inbox to confirm.";
-    } catch (err) { status.textContent = err.message; }
+      status.textContent = cloudSignup ? `You’re on the list for ${t.name}. We’ll email you when updates are ready.` : "Check your inbox to confirm.";
+      form.reset();
+    } catch (err) { status.textContent = "Signup failed. Please try again. " + err.message; }
+    finally { button.disabled = false; }
   };
 
 }
@@ -596,7 +647,8 @@ async function loadHistory(id, version, onYear, onRecent) {
       {key:'month', limit:3, name:'Month by month', hint:'Up to 3 stories per month'},
       {key:'week', limit:3, name:'Week by week', hint:'Up to 3 stories per week'}
     ];
-    let level = 0, frame = 0;
+    const defaultLevel = 1;
+    let level = defaultLevel, frame = 0;
     const yearOf = stamp => new Date(stamp*1000).getUTCFullYear();
     const years = history.levels.year.map(p=>yearOf(p.start));
     const label = (p, key) => new Date(p.start*1000).toLocaleDateString(undefined,
@@ -604,12 +656,12 @@ async function loadHistory(id, version, onYear, onRecent) {
     host.innerHTML = `<div class="history-heading"><div><p class="eyebrow">01 / EXPLORE THROUGH TIME</p><h2>Timeline</h2></div><span class="history-span">${years[0]} — ${years.at(-1)}</span></div>
       <p class="section-intro">Start with the latest. Scroll back through time, or zoom in for more.</p>
       <div class="zt-shell">
-        <div class="zt-toolbar"><div class="zt-scale"><strong id="zt-scale-name">Big picture</strong><span id="zt-scale-hint">Up to 2 stories per year</span></div><div class="zt-zoom"><button type="button" id="zt-out" aria-label="Zoom out">−</button><input id="zt-zoom" type="range" min="0" max="3" step="1" value="0" aria-label="Timeline detail" aria-valuetext="Big picture"><button type="button" id="zt-in" aria-label="Zoom in">+</button></div><label class="zt-jump"><span>Jump to</span><select id="zt-year" aria-label="Jump to year">${years.map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label></div>
+        <div class="zt-toolbar"><div class="zt-scale"><strong id="zt-scale-name">${scales[defaultLevel].name}</strong><span id="zt-scale-hint">${scales[defaultLevel].hint}</span></div><div class="zt-zoom"><button type="button" id="zt-out" aria-label="Zoom out">−</button><input id="zt-zoom" type="range" min="0" max="3" step="1" value="${defaultLevel}" aria-label="Timeline detail" aria-valuetext="${scales[defaultLevel].name}"><button type="button" id="zt-in" aria-label="Zoom in">+</button></div><label class="zt-jump"><span>Jump to</span><select id="zt-year" aria-label="Jump to year">${years.map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label></div>
         <div class="zt-view" id="zt-view" tabindex="0" role="region" aria-label="Scrollable news timeline. Use the zoom controls to reveal more detail."><div id="zt-periods"></div></div>
         <div class="zt-footer"><span id="zt-position" role="status"></span><span>Scroll through time <span aria-hidden="true">↕</span></span><button type="button" id="zt-reset">Reset view</button></div>
       </div>
       <div class="zt-below"><button type="button" id="zt-archive">Explore this year’s archive ↗</button><button type="button" id="zt-latest">Catch up with the latest →</button></div>
-      <details class="timeline-method"><summary>About this timeline</summary><p>Zoom from two highlights per year to five, then into months and weeks. Picks are ranked within each period by HN points, with comments breaking ties, and displayed newest first by submission date. Duplicate links within a period are skipped. Stories need at least 10 points; quiet periods stay visible. HN attention is a discovery signal, not a measure of lasting impact. The timeline covers our available archive; first and last periods may be incomplete.</p></details>`;
+      <details class="timeline-method"><summary>About this timeline</summary><p>Start with up to five highlights per year. Zoom out for two highlights, or zoom in to explore months and weeks. Picks are ranked within each period by HN points, with comments breaking ties, and displayed newest first by submission date. Duplicate links within a period are skipped. Stories need at least 10 points; quiet periods stay visible. HN attention is a discovery signal, not a measure of lasting impact. The timeline covers our available archive; first and last periods may be incomplete.</p></details>`;
     const viewport = host.querySelector('#zt-view'), periods = host.querySelector('#zt-periods');
     const slider = host.querySelector('#zt-zoom'), jump = host.querySelector('#zt-year');
     const position = host.querySelector('#zt-position');
@@ -682,7 +734,7 @@ async function loadHistory(id, version, onYear, onRecent) {
       if(frame) return;
       frame=requestAnimationFrame(()=>{frame=0;if(host.isConnected)updatePosition();});
     };
-    host.querySelector('#zt-reset').onclick=()=>{level=0;render();};
+    host.querySelector('#zt-reset').onclick=()=>{level=defaultLevel;render();};
     host.querySelector('#zt-archive').onclick=()=>onYear(jump.value);
     host.querySelector('#zt-latest').onclick=onRecent;
     render();
@@ -692,6 +744,48 @@ async function loadHistory(id, version, onYear, onRecent) {
     host.querySelector('#history-retry').onclick=()=>{host.innerHTML='<p role="status">Loading history…</p>';loadHistory(id,version,onYear,onRecent);};
   }
 }
+
+
+// Feedback stays available across topic navigation; a native dialog handles focus and Escape.
+const siteFooter = $('.site-footer');
+const feedbackDialog = $('#feedback-dialog'), feedbackForm = $('#feedback-form');
+const feedbackStatus = $('#feedback-status'), feedbackOpen = $('#feedback-open');
+let feedbackId = null, feedbackPage = '#/', feedbackSent = false;
+feedbackOpen.hidden = document.querySelector('meta[name="hn-feedback"]')?.content !== 'cloudflare';
+feedbackOpen.onclick = () => {
+  if (feedbackSent) { feedbackForm.reset(); feedbackStatus.textContent = ''; feedbackForm.hidden = false; feedbackSent = false; }
+  feedbackId ??= crypto.randomUUID();
+  feedbackPage = location.hash || '#/';
+  feedbackDialog.showModal();
+};
+$('#feedback-close').onclick = () => feedbackDialog.close();
+feedbackForm.addEventListener('input', () => { feedbackId = crypto.randomUUID(); });
+feedbackForm.onsubmit = async event => {
+  event.preventDefault();
+  const button = feedbackForm.querySelector('button[type="submit"]');
+  if (button.disabled) return;
+  button.disabled = true;
+  feedbackStatus.textContent = 'Sending…';
+  const fields = Object.fromEntries(new FormData(feedbackForm));
+  const controls = [...feedbackForm.elements];
+  controls.forEach(control => control.disabled = true);
+  try {
+    const response = await fetch('/api/feedback', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({...fields, id:feedbackId, page:feedbackPage}),
+      signal:AbortSignal.timeout(15000)
+    });
+    const result = await response.json();
+    if (!response.ok) throw Error(result.detail || 'Please try again.');
+    feedbackStatus.textContent = 'Thanks! Your feedback has been saved. — Andrea';
+    feedbackForm.hidden = true;
+    feedbackSent = true;
+    feedbackId = null;
+    $('#feedback-close').focus();
+  } catch (error) {
+    feedbackStatus.textContent = error.name === 'TimeoutError' ? 'The connection timed out. Please try again.' : 'Could not send. ' + error.message;
+  } finally { controls.forEach(control => control.disabled = false); }
+};
 
 // ---------- wiring ----------
 const tip = $("#tip");
@@ -711,12 +805,17 @@ function route() {
     return;
   }
   tip.hidden=true;
+  siteFooter.remove();
   document.title = "HN Atlas";
   $("#topics").classList.toggle("on", !m && !isConnections && !isTimeline);
   $("#connections").classList.toggle("on", isConnections);
   $("#app").innerHTML = `<p class="loading" role="status">Loading ${m ? "topic" : "topics"}…</p>`;
   (m ? topic(m[1], version) : isConnections ? connections(version) : home(version)).catch(e => {
     if (version === routeVersion) $("#app").innerHTML = `<p class="loading" role="alert">Could not load: ${esc(e.message)}</p>`;
+  }).then(() => {
+    if (version !== routeVersion) return;
+    ($(".home-inner") || $(".page") || $("#app")).append(siteFooter);
+    siteFooter.hidden = false;
   });
 }
 addEventListener("hashchange", route);

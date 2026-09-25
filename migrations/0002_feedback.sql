@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS feedback (
+    id TEXT PRIMARY KEY NOT NULL,
+    message TEXT NOT NULL,
+    email TEXT,
+    page TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

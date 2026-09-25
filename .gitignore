@@ -17,3 +17,5 @@ report/
 .coverage
 .DS_Store
 dist/
+pages-dist/
+.wrangler/
