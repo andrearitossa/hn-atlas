@@ -1,0 +1,3081 @@
+{
+  "source_model": "data/curated-2020-2026/source-model.npz",
+  "source_catalog": "data/curated-2020-2026/source-topics.json",
+  "public_id_offset": 1000,
+  "strategy": "Manual directory curation; max score across retained prototypes per subscription; retired prototypes are excluded and their stories are rerouted.",
+  "groups": [
+    {
+      "id": 1000,
+      "source_ids": [
+        0
+      ],
+      "prototype_ids": [
+        0
+      ],
+      "name": "Plastic pollution and recycling",
+      "description": "Plastic waste, microplastics, recycling, degradation, and alternatives.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1001,
+      "source_ids": [
+        1
+      ],
+      "prototype_ids": [
+        1
+      ],
+      "name": "Computer keyboards and input devices",
+      "description": "Physical keyboards, mice, trackpads, gamepads, shortcuts, and alternative computer-input hardware.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1002,
+      "source_ids": [
+        2
+      ],
+      "prototype_ids": [
+        2
+      ],
+      "name": "SSH and remote server access",
+      "description": "SSH-based remote access, tunneling, and server administration.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1004,
+      "source_ids": [
+        4,
+        220
+      ],
+      "prototype_ids": [
+        4,
+        220
+      ],
+      "name": "Virtual, augmented, and mixed reality",
+      "description": "Immersive displays, headsets, smart glasses, virtual worlds, and applications of VR, AR, and mixed reality.",
+      "reason": "Hardware and virtual-world coverage belong to one durable immersive-computing subscription."
+    },
+    {
+      "id": 1005,
+      "source_ids": [
+        5
+      ],
+      "prototype_ids": [
+        5
+      ],
+      "name": "Serverless and cloud-native platforms",
+      "description": "Serverless, edge, multi-cloud, and cloud-native application platforms.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1007,
+      "source_ids": [
+        7,
+        182
+      ],
+      "prototype_ids": [
+        7,
+        182
+      ],
+      "name": "Energy systems and the clean-energy transition",
+      "description": "Electricity generation, grids, renewable energy, utility policy, power costs, and decarbonization.",
+      "reason": "Utility costs and grid policy belong with energy-system coverage."
+    },
+    {
+      "id": 1008,
+      "source_ids": [
+        8
+      ],
+      "prototype_ids": [
+        8
+      ],
+      "name": "Concurrency and asynchronous systems",
+      "description": "Threads, async programming, parallelism, race detection, and distributed timing.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1009,
+      "source_ids": [
+        9
+      ],
+      "prototype_ids": [
+        9
+      ],
+      "name": "Nuclear energy and nuclear risk",
+      "description": "Fission power, radiation, waste, weapons, accidents, and nuclear policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1010,
+      "source_ids": [
+        10
+      ],
+      "prototype_ids": [
+        10
+      ],
+      "name": "India",
+      "description": "Politics, society, technology, and current affairs concerning India.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1011,
+      "source_ids": [
+        11
+      ],
+      "prototype_ids": [
+        11
+      ],
+      "name": "Remote work and workplace flexibility",
+      "description": "Remote and hybrid work policies, workplace practices, and productivity.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1013,
+      "source_ids": [
+        13
+      ],
+      "prototype_ids": [
+        13
+      ],
+      "name": "Web design and web culture",
+      "description": "Website design, web history, usability, personal sites, and web culture.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1014,
+      "source_ids": [
+        14,
+        197,
+        250
+      ],
+      "prototype_ids": [
+        14,
+        197,
+        250
+      ],
+      "name": "Astronomy and observational science",
+      "description": "Cosmology, galaxies, stars, planets, astronomical observations, telescopes, and observatory instruments.",
+      "reason": "Avoid a brittle single-telescope subscription and redundant solar-system partition."
+    },
+    {
+      "id": 1015,
+      "source_ids": [
+        15
+      ],
+      "prototype_ids": [
+        15
+      ],
+      "name": "Forecasting and prediction",
+      "description": "Methods and applications for forecasting outcomes and future events.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1016,
+      "source_ids": [
+        16
+      ],
+      "prototype_ids": [
+        16
+      ],
+      "name": "Data privacy",
+      "description": "Personal-data practices, privacy law, anonymity, and data brokers.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1017,
+      "source_ids": [
+        17
+      ],
+      "prototype_ids": [
+        17
+      ],
+      "name": "Maps and cartography",
+      "description": "Mapmaking, geographic visualization, mapping tools, and cartographic history.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1020,
+      "source_ids": [
+        20
+      ],
+      "prototype_ids": [
+        20
+      ],
+      "name": "Russia's war against Ukraine",
+      "description": "Military, political, economic, and humanitarian developments in Russia's invasion of Ukraine.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1022,
+      "source_ids": [
+        22
+      ],
+      "prototype_ids": [
+        22
+      ],
+      "name": "Aging and longevity",
+      "description": "Biology, interventions, demographics, and diseases related to aging and lifespan.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1023,
+      "source_ids": [
+        23
+      ],
+      "prototype_ids": [
+        23
+      ],
+      "name": "Team leadership and workplace management",
+      "description": "Leading teams, managing people, communication, influence, ethics, and workplace relationships.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1024,
+      "source_ids": [
+        24,
+        244,
+        233
+      ],
+      "prototype_ids": [
+        24,
+        244,
+        233
+      ],
+      "name": "LLMs and AI applications",
+      "description": "Building, evaluating, deploying, and using large language models and generative AI applications, including ChatGPT.",
+      "reason": "Consolidate overlapping general AI-development, LLM-use, and ChatGPT interests."
+    },
+    {
+      "id": 1025,
+      "source_ids": [
+        25
+      ],
+      "prototype_ids": [
+        25
+      ],
+      "name": "VPNs and privacy tunneling",
+      "description": "VPNs, WireGuard, Tor, proxies, encrypted routing, and censorship circumvention.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1026,
+      "source_ids": [
+        26
+      ],
+      "prototype_ids": [
+        26
+      ],
+      "name": "Smartphones and mobile devices",
+      "description": "Consumer phones, mobile operating systems, repairability, and device markets.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1028,
+      "source_ids": [
+        28,
+        242
+      ],
+      "prototype_ids": [
+        28,
+        242
+      ],
+      "name": "Software engineering practices",
+      "description": "Software quality, code reading and review, testing, maintenance, and development processes.",
+      "reason": "Code review is a development practice; its narrow label was scattering related coverage."
+    },
+    {
+      "id": 1029,
+      "source_ids": [
+        29
+      ],
+      "prototype_ids": [
+        29
+      ],
+      "name": "Spotify and digital audio",
+      "description": "Spotify, podcasts, music discovery, streaming audio, and digital distribution.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1030,
+      "source_ids": [
+        30,
+        48,
+        71,
+        156
+      ],
+      "prototype_ids": [
+        30,
+        48,
+        71,
+        156
+      ],
+      "name": "Tech careers and hiring",
+      "description": "Technology careers, job seeking, hiring, interviews, compensation, and professional development.",
+      "reason": "Unify overlapping career subscriptions; engineering team management remains separate."
+    },
+    {
+      "id": 1031,
+      "source_ids": [
+        31
+      ],
+      "prototype_ids": [
+        31
+      ],
+      "name": "Science institutions and culture",
+      "description": "Scientific institutions, incentives, trust, fraud, policy, and public communication.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1032,
+      "source_ids": [
+        32
+      ],
+      "prototype_ids": [
+        32
+      ],
+      "name": "Ride-hailing and delivery gig work",
+      "description": "Rideshare, delivery platforms, drivers, labor conditions, and transport gig work.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1033,
+      "source_ids": [
+        33
+      ],
+      "prototype_ids": [
+        33
+      ],
+      "name": "CSS",
+      "description": "CSS features, layout, styling, performance, and stylesheet tooling.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1034,
+      "source_ids": [
+        34,
+        106,
+        131,
+        62
+      ],
+      "prototype_ids": [
+        34,
+        106
+      ],
+      "name": "Algorithms and programming language concepts",
+      "description": "Algorithms, programming-language theory, type systems, semantics, programming paradigms, and control flow.",
+      "reason": "A broad durable programming-concepts interest covers the retained theory evidence.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            131
+          ],
+          "reason": "Recursion prototype attracts metaphorical recursion and unrelated loops."
+        },
+        {
+          "ids": [
+            62
+          ],
+          "reason": "Machines/minds theme mixes mechanisms, software, computation and philosophy."
+        }
+      ]
+    },
+    {
+      "id": 1035,
+      "source_ids": [
+        35
+      ],
+      "prototype_ids": [
+        35
+      ],
+      "name": "CPU processors",
+      "description": "CPU products, architectures, benchmarks, and processor-vendor competition.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1036,
+      "source_ids": [
+        36
+      ],
+      "prototype_ids": [
+        36
+      ],
+      "name": "Documents, spreadsheets, and data conversion",
+      "description": "PDF and document tools, spreadsheets, CSV and tabular data, extraction, conversion, and document automation.",
+      "reason": "Rebuilt from explicit document and spreadsheet examples; the old spreadsheet label hid a mixed PDF/software cluster.",
+      "anchor_story_ids": [
+        48477334,
+        26301827,
+        43540256,
+        27379093,
+        32762373,
+        47705802,
+        29123455,
+        47241512,
+        37888350,
+        47119132,
+        31428037,
+        47742444,
+        24368888,
+        47289100,
+        22256776,
+        23124471,
+        44282233,
+        38765627,
+        22130215,
+        47623258,
+        49345728,
+        43888033,
+        36838233
+      ]
+    },
+    {
+      "id": 1037,
+      "source_ids": [
+        37
+      ],
+      "prototype_ids": [
+        37
+      ],
+      "name": "Cryptography and secret management",
+      "description": "Encryption, keys, passwords, passkeys, cryptographic protocols, and secret storage.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1038,
+      "source_ids": [
+        38
+      ],
+      "prototype_ids": [
+        38
+      ],
+      "name": "Speech and voice AI",
+      "description": "Speech recognition, transcription, text-to-speech, voice generation, and voice agents.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1039,
+      "source_ids": [
+        39
+      ],
+      "prototype_ids": [
+        39
+      ],
+      "name": "GPUs and GPU computing",
+      "description": "GPU hardware, accelerators, CUDA, GPU programming, and GPU infrastructure.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1040,
+      "source_ids": [
+        40
+      ],
+      "prototype_ids": [
+        40
+      ],
+      "name": "Command-line tools",
+      "description": "Shells, terminals, CLI utilities, terminal interfaces, and command-line workflows.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1041,
+      "source_ids": [
+        41
+      ],
+      "prototype_ids": [
+        41
+      ],
+      "name": "Algorithmic trading",
+      "description": "Automated trading, market making, backtesting, trading bots, and strategy research.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1042,
+      "source_ids": [
+        42
+      ],
+      "prototype_ids": [
+        42
+      ],
+      "name": "Philosophy",
+      "description": "Philosophical ideas and arguments about knowledge, ethics, mind, metaphysics, and reasoning.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1043,
+      "source_ids": [
+        43,
+        283,
+        54
+      ],
+      "prototype_ids": [
+        43
+      ],
+      "name": "Economic theory and capitalism",
+      "description": "Economics, capitalism, growth, labor, inequality, and political economy.",
+      "reason": "Retained after directory and title-sample review.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            283
+          ],
+          "reason": "Scarcity/abundance theme is too weak a subscription boundary."
+        },
+        {
+          "ids": [
+            54
+          ],
+          "reason": "Billionaire personality grouping is not a stable subject boundary; reroute wealth and economics stories."
+        }
+      ]
+    },
+    {
+      "id": 1044,
+      "source_ids": [
+        44
+      ],
+      "prototype_ids": [
+        44
+      ],
+      "name": "Microsoft Windows",
+      "description": "Windows releases, administration, security, compatibility, and desktop ecosystem news.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1045,
+      "source_ids": [
+        45
+      ],
+      "prototype_ids": [
+        45
+      ],
+      "name": "Python programming",
+      "description": "The Python language, libraries, environments, performance, frameworks, and tooling.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1046,
+      "source_ids": [
+        46
+      ],
+      "prototype_ids": [
+        46
+      ],
+      "name": "User-interface frameworks",
+      "description": "Frameworks and toolkits for building graphical, web, desktop, and application interfaces.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1047,
+      "source_ids": [
+        47
+      ],
+      "prototype_ids": [
+        47
+      ],
+      "name": "Personal productivity apps",
+      "description": "Task managers, planners, notes, time tracking, and personal work-management software.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1049,
+      "source_ids": [
+        49
+      ],
+      "prototype_ids": [
+        49
+      ],
+      "name": "Quantum computing",
+      "description": "Quantum hardware, qubits, error correction, algorithms, and commercialization.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1050,
+      "source_ids": [
+        50,
+        224
+      ],
+      "prototype_ids": [
+        50,
+        224
+      ],
+      "name": "Corporate law and competition",
+      "description": "Corporate litigation, antitrust, competition policy, court decisions, and regulatory enforcement.",
+      "reason": "Competition cases and corporate litigation have overlapping reader interests."
+    },
+    {
+      "id": 1051,
+      "source_ids": [
+        51,
+        282
+      ],
+      "prototype_ids": [
+        51,
+        282
+      ],
+      "name": "Databases and SQL systems",
+      "description": "Database engines, SQL, PostgreSQL, key-value stores, query processing, and distributed data storage.",
+      "reason": "Keep database-product coverage within a durable database subscription."
+    },
+    {
+      "id": 1052,
+      "source_ids": [
+        52
+      ],
+      "prototype_ids": [
+        52
+      ],
+      "name": "Police surveillance technology",
+      "description": "Law-enforcement cameras, facial recognition, monitoring systems, and civil-liberties concerns.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1053,
+      "source_ids": [
+        53,
+        191,
+        203,
+        273
+      ],
+      "prototype_ids": [
+        53,
+        191,
+        203
+      ],
+      "name": "Machine learning research and practice",
+      "description": "Neural networks, transformers, learning methods, model training and evaluation, and practical machine-learning research.",
+      "reason": "Keep related model research and practice together; applications remain distinct.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            273
+          ],
+          "reason": "Compound vector/inference prototype mixes retrieval, database and numeric-vector subjects."
+        }
+      ]
+    },
+    {
+      "id": 1055,
+      "source_ids": [
+        55
+      ],
+      "prototype_ids": [
+        55
+      ],
+      "name": "Go programming",
+      "description": "The Go language, libraries, tooling, concurrency, and implementation practices.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1057,
+      "source_ids": [
+        57
+      ],
+      "prototype_ids": [
+        57
+      ],
+      "name": "Corporate layoffs and tech job markets",
+      "description": "Layoffs, furloughs, restructuring, hiring contractions, and technology-sector job conditions.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1059,
+      "source_ids": [
+        59,
+        56,
+        261
+      ],
+      "prototype_ids": [
+        59,
+        56,
+        261
+      ],
+      "name": "Startup founding and business building",
+      "description": "Founding, validating, bootstrapping, operating, and growing startups and SaaS businesses.",
+      "reason": "Combine overlapping entrepreneurship and small-business interests; financing remains separate."
+    },
+    {
+      "id": 1060,
+      "source_ids": [
+        60
+      ],
+      "prototype_ids": [
+        60
+      ],
+      "name": "Ocean and undersea exploration",
+      "description": "Marine life, shipwrecks, diving, submarines, and undersea exploration.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1064,
+      "source_ids": [
+        64
+      ],
+      "prototype_ids": [
+        64
+      ],
+      "name": "Literature and speculative fiction",
+      "description": "Books, literary criticism, fiction, science fiction, and speculative writing.",
+      "reason": "Rebuild the boundary from manually selected literary examples rather than an apocalyptic theme.",
+      "anchor_story_ids": [
+        22892165,
+        25148172,
+        29584784,
+        38138744,
+        45535622,
+        28455228,
+        28498025,
+        42316833,
+        25055991,
+        24884282,
+        35372024,
+        48964626,
+        41474025,
+        45863049,
+        48657007,
+        31877323,
+        29531774,
+        33365746,
+        34114255,
+        35434307,
+        46526896,
+        40885703,
+        26241243,
+        46277201
+      ]
+    },
+    {
+      "id": 1065,
+      "source_ids": [
+        65
+      ],
+      "prototype_ids": [
+        65
+      ],
+      "name": "Facebook policy and controversies",
+      "description": "Facebook governance, moderation, privacy, advertising, competition, and political controversies.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1066,
+      "source_ids": [
+        66,
+        241
+      ],
+      "prototype_ids": [
+        66,
+        241
+      ],
+      "name": "Linux systems and distributions",
+      "description": "The Linux kernel, distributions, desktops, packaging, administration, and hardware support.",
+      "reason": "One Linux subscription should cover both kernel and distribution developments."
+    },
+    {
+      "id": 1067,
+      "source_ids": [
+        67
+      ],
+      "prototype_ids": [
+        67
+      ],
+      "name": "Twitter and X",
+      "description": "Twitter/X product features, policy, moderation, strategy, and public use.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1068,
+      "source_ids": [
+        68,
+        229
+      ],
+      "prototype_ids": [
+        68,
+        229
+      ],
+      "name": "Filesystems, storage, and backups",
+      "description": "Filesystems, disks, storage systems, backups, synchronization, and digital preservation.",
+      "reason": "Combine related storage-system and personal-backup coverage."
+    },
+    {
+      "id": 1069,
+      "source_ids": [
+        69
+      ],
+      "prototype_ids": [
+        69
+      ],
+      "name": "Hospital care and healthcare systems",
+      "description": "Hospital treatment, staffing, capacity, patient care, and healthcare-system pressures.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1070,
+      "source_ids": [
+        70
+      ],
+      "prototype_ids": [
+        70
+      ],
+      "name": "Digital economy and technology policy",
+      "description": "Public policy, regulation, digital trade, skills, infrastructure, and the economic effects of technology across countries.",
+      "reason": "Remove a false EU-only boundary demonstrated by UK, Australian and international stories."
+    },
+    {
+      "id": 1072,
+      "source_ids": [
+        72
+      ],
+      "prototype_ids": [
+        72
+      ],
+      "name": "Computer networking",
+      "description": "Networking protocols, routing, Ethernet, transport layers, and connectivity infrastructure.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1073,
+      "source_ids": [
+        73
+      ],
+      "prototype_ids": [
+        73
+      ],
+      "name": "Product and UX design",
+      "description": "Product design, user experience, design systems, typography, and design practice.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1074,
+      "source_ids": [
+        74,
+        128
+      ],
+      "prototype_ids": [
+        74,
+        128
+      ],
+      "name": "Mental health research and treatment",
+      "description": "Mental-health conditions, ADHD, psychiatric treatments, psychedelics, and clinical research.",
+      "reason": "A broader clinical interest accommodates the actual treatment evidence."
+    },
+    {
+      "id": 1075,
+      "source_ids": [
+        75
+      ],
+      "prototype_ids": [
+        75
+      ],
+      "name": "Computer graphics and rendering",
+      "description": "Real-time graphics, WebGL, rendering algorithms, 3D scenes, and visual simulation.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1076,
+      "source_ids": [
+        76,
+        19,
+        101,
+        110,
+        214
+      ],
+      "prototype_ids": [
+        76,
+        19,
+        101,
+        110,
+        214
+      ],
+      "name": "JavaScript and TypeScript development",
+      "description": "JavaScript, TypeScript, Node.js, npm, React, and related web application frameworks and tooling.",
+      "reason": "Provide a coherent ecosystem subscription rather than five overlapping product and language slices."
+    },
+    {
+      "id": 1077,
+      "source_ids": [
+        77
+      ],
+      "prototype_ids": [
+        77
+      ],
+      "name": "Cameras, optics, and imaging",
+      "description": "Cameras, lenses, optical systems, microscopy, computational imaging, image capture, and imaging instruments.",
+      "reason": "Make the intended optical/imaging scope explicit; obvious unrelated samples are editorially corrected."
+    },
+    {
+      "id": 1078,
+      "source_ids": [
+        78
+      ],
+      "prototype_ids": [
+        78
+      ],
+      "name": "Puzzle games",
+      "description": "Logic, word, board, and arcade puzzle games and solving challenges.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1079,
+      "source_ids": [
+        79,
+        83,
+        196
+      ],
+      "prototype_ids": [
+        79,
+        83,
+        196
+      ],
+      "name": "Reasoning, decisions, and cognitive bias",
+      "description": "Critical thinking, probability, judgment, behavioral biases, and decision-making under uncertainty.",
+      "reason": "Consolidate closely overlapping cognition and reasoning interests."
+    },
+    {
+      "id": 1080,
+      "source_ids": [
+        80
+      ],
+      "prototype_ids": [
+        80
+      ],
+      "name": "Korean Peninsula affairs",
+      "description": "Politics, society, economics, and security on the Korean Peninsula.",
+      "reason": "The sample spans North and South Korea; the former South Korea label was too narrow."
+    },
+    {
+      "id": 1081,
+      "source_ids": [
+        81
+      ],
+      "prototype_ids": [
+        81
+      ],
+      "name": "Food and nutrition",
+      "description": "Food culture, cooking, diets, nutrition, food technology, and food health.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1082,
+      "source_ids": [
+        82
+      ],
+      "prototype_ids": [
+        82
+      ],
+      "name": "Archaeology and ancient history",
+      "description": "Archaeological discoveries, prehistoric activity, fossils, ancient artifacts, and distant history.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1085,
+      "source_ids": [
+        85,
+        116
+      ],
+      "prototype_ids": [
+        85,
+        116
+      ],
+      "name": "AI assistants and agents",
+      "description": "Conversational assistants, agent frameworks, autonomous workflows, multi-agent systems, and agent evaluation.",
+      "reason": "Chatbot and agent applications have overlapping boundaries; preserve both evidence centers."
+    },
+    {
+      "id": 1086,
+      "source_ids": [
+        86
+      ],
+      "prototype_ids": [
+        86
+      ],
+      "name": "Rust programming",
+      "description": "The Rust language, ecosystem, tooling, runtimes, compilers, and applications.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1087,
+      "source_ids": [
+        87,
+        260
+      ],
+      "prototype_ids": [
+        87,
+        260
+      ],
+      "name": "Macroeconomy, banking, and inflation",
+      "description": "Banks, credit markets, monetary policy, inflation, financial stability, and macroeconomic conditions.",
+      "reason": "Combine overlapping banking and macroeconomic news."
+    },
+    {
+      "id": 1088,
+      "source_ids": [
+        88
+      ],
+      "prototype_ids": [
+        88
+      ],
+      "name": "Video game development",
+      "description": "Game design, engines, programming, development tools, and AI-assisted game creation.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1089,
+      "source_ids": [
+        89
+      ],
+      "prototype_ids": [
+        89
+      ],
+      "name": "Data engineering",
+      "description": "Data pipelines, analytics infrastructure, data products, transformation tools, and data teams.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1090,
+      "source_ids": [
+        90
+      ],
+      "prototype_ids": [
+        90
+      ],
+      "name": "Labor unions and worker organizing",
+      "description": "Unionization, strikes, bargaining, worker protections, compensation, and labor relations.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1091,
+      "source_ids": [
+        91,
+        58,
+        102,
+        219,
+        272
+      ],
+      "prototype_ids": [
+        91,
+        58,
+        102,
+        219,
+        272
+      ],
+      "name": "Cryptocurrency markets and regulation",
+      "description": "Cryptocurrency markets, exchanges, Bitcoin, NFTs, financial risks, enforcement, and regulation.",
+      "reason": "Combine fragmented crypto-market, asset, exchange, and regulatory news."
+    },
+    {
+      "id": 1092,
+      "source_ids": [
+        92
+      ],
+      "prototype_ids": [
+        92
+      ],
+      "name": "Chess",
+      "description": "Chess play, engines, tournaments, analysis, programming, variants, and disputes.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1093,
+      "source_ids": [
+        93
+      ],
+      "prototype_ids": [
+        93
+      ],
+      "name": "C and C++ development",
+      "description": "C and C++ programming, compilers, libraries, memory management, performance, and tooling.",
+      "reason": "The sampled evidence includes both C and C++."
+    },
+    {
+      "id": 1094,
+      "source_ids": [
+        94
+      ],
+      "prototype_ids": [
+        94
+      ],
+      "name": "Open-source software communities",
+      "description": "Open-source maintenance, governance, licensing, sustainability, and contributor culture.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1096,
+      "source_ids": [
+        96
+      ],
+      "prototype_ids": [
+        96
+      ],
+      "name": "Docker and containers",
+      "description": "Docker, runtimes, Compose, DevContainers, and containerized development and deployment.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1097,
+      "source_ids": [
+        97
+      ],
+      "prototype_ids": [
+        97
+      ],
+      "name": "Social media criticism and design",
+      "description": "Social-network design, algorithms, advertising incentives, addiction, and alternatives.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1098,
+      "source_ids": [
+        98,
+        175,
+        265,
+        6
+      ],
+      "prototype_ids": [
+        98,
+        175,
+        265
+      ],
+      "name": "Cybersecurity engineering and vulnerabilities",
+      "description": "Security engineering, vulnerabilities, exploits, defensive and offensive techniques, and threat detection.",
+      "reason": "Unify engineering practice and vulnerability coverage; incident reporting stays separate.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            6
+          ],
+          "reason": "Account-scams prototype mixes account support and unrelated referrals; reroute by the remaining subject centers."
+        }
+      ]
+    },
+    {
+      "id": 1099,
+      "source_ids": [
+        99
+      ],
+      "prototype_ids": [
+        99
+      ],
+      "name": "Consciousness, perception, and mental imagery",
+      "description": "Conscious experience, perception, imagination, mindfulness, and theories of mind.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1100,
+      "source_ids": [
+        100
+      ],
+      "prototype_ids": [
+        100
+      ],
+      "name": "Batteries and energy storage",
+      "description": "Battery materials, grid storage, EV batteries, recycling, and energy-storage technologies.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1103,
+      "source_ids": [
+        103
+      ],
+      "prototype_ids": [
+        103
+      ],
+      "name": "Telecom and broadband policy",
+      "description": "Telecommunications, wireless networks, broadband deployment, market policy, and regulation.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1105,
+      "source_ids": [
+        105
+      ],
+      "prototype_ids": [
+        105
+      ],
+      "name": "Web APIs and API design",
+      "description": "HTTP APIs, REST, OpenAPI, API documentation, testing, and deployment.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1107,
+      "source_ids": [
+        107
+      ],
+      "prototype_ids": [
+        107
+      ],
+      "name": "AI-assisted programming",
+      "description": "AI coding tools, code generation, coding-agent workflows, vibe coding, and software-development consequences.",
+      "reason": "Use a durable activity rather than a fashionable label."
+    },
+    {
+      "id": 1108,
+      "source_ids": [
+        108
+      ],
+      "prototype_ids": [
+        108
+      ],
+      "name": "Hacker News community and ecosystem",
+      "description": "Hacker News culture, participation, moderation, readership, interface, archives, and related tools.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1112,
+      "source_ids": [
+        112
+      ],
+      "prototype_ids": [
+        112
+      ],
+      "name": "Smell, taste, and sensory biology",
+      "description": "Olfaction, taste, chemical sensing, sensory perception, artificial noses, and the biology of sensory detection.",
+      "reason": "The actual interest spans taste and chemical sensing as well as smell."
+    },
+    {
+      "id": 1113,
+      "source_ids": [
+        113,
+        151
+      ],
+      "prototype_ids": [
+        113,
+        151
+      ],
+      "name": "Urban housing and architecture",
+      "description": "Housing affordability, urban planning, architecture, land use, development, and the built environment.",
+      "reason": "Restore a coherent broad urban-interest subscription."
+    },
+    {
+      "id": 1117,
+      "source_ids": [
+        117
+      ],
+      "prototype_ids": [
+        117
+      ],
+      "name": "RSS and feed readers",
+      "description": "RSS feeds, feed readers, aggregation, and tools for following news and blogs.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1119,
+      "source_ids": [
+        119
+      ],
+      "prototype_ids": [
+        119
+      ],
+      "name": "Nuclear fusion energy",
+      "description": "Fusion science, reactors, milestones, commercialization, and fusion applications.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1121,
+      "source_ids": [
+        121
+      ],
+      "prototype_ids": [
+        121
+      ],
+      "name": "Semiconductor industry and business",
+      "description": "Chip-company strategy, competition, acquisitions, licensing, finances, and the semiconductor industry.",
+      "reason": "The Intel-labeled cluster actually covers AMD, Arm, Nvidia, Samsung and other chip companies."
+    },
+    {
+      "id": 1122,
+      "source_ids": [
+        122,
+        27
+      ],
+      "prototype_ids": [
+        122,
+        27
+      ],
+      "name": "Online payments and billing",
+      "description": "Payment networks, merchant billing, cards, settlement, payment fintech, and tools including Stripe.",
+      "reason": "Avoid vendor-specific scattering within payments."
+    },
+    {
+      "id": 1123,
+      "source_ids": [
+        123
+      ],
+      "prototype_ids": [
+        123
+      ],
+      "name": "Corporate leadership changes",
+      "description": "Executive appointments, departures, board disputes, and corporate governance upheavals.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1124,
+      "source_ids": [
+        124,
+        264
+      ],
+      "prototype_ids": [
+        124,
+        264
+      ],
+      "name": "AI governance and societal impacts",
+      "description": "AI safety, governance, regulation, rights, trust, employment, and societal consequences.",
+      "reason": "Unify overlapping policy and societal-impact coverage."
+    },
+    {
+      "id": 1125,
+      "source_ids": [
+        125
+      ],
+      "prototype_ids": [
+        125
+      ],
+      "name": "Fundamental physics and spacetime",
+      "description": "Quantum theory, gravity, spacetime, cosmology, and fundamental physical reality.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1126,
+      "source_ids": [
+        126
+      ],
+      "prototype_ids": [
+        126
+      ],
+      "name": "US elections and Trump politics",
+      "description": "US elections, electoral law, denialism, and Trump-centered political developments.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1127,
+      "source_ids": [
+        127
+      ],
+      "prototype_ids": [
+        127
+      ],
+      "name": "Semiconductor manufacturing competition",
+      "description": "Chip fabrication, fabs, process nodes, and strategic competition among chip makers.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1129,
+      "source_ids": [
+        129
+      ],
+      "prototype_ids": [
+        129
+      ],
+      "name": "Observability and service reliability",
+      "description": "Monitoring, tracing, metrics, telemetry, service reliability, and operational incidents.",
+      "reason": "Retain the operational interest shared by monitoring and incident analysis."
+    },
+    {
+      "id": 1132,
+      "source_ids": [
+        132
+      ],
+      "prototype_ids": [
+        132
+      ],
+      "name": "Amazon Web Services",
+      "description": "AWS services, pricing, infrastructure, deployment, architecture, and operations.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1133,
+      "source_ids": [
+        133,
+        275
+      ],
+      "prototype_ids": [
+        133
+      ],
+      "name": "Investment markets and finance",
+      "description": "Stocks, funds, financial markets, institutional investing, portfolio analysis, and investment risk.",
+      "reason": "Use a durable investment interest rather than several analytics/product slices.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            275
+          ],
+          "reason": "Portfolio prototype confuses finance with personal websites, inventory, and infrastructure costs."
+        }
+      ]
+    },
+    {
+      "id": 1134,
+      "source_ids": [
+        134,
+        104
+      ],
+      "prototype_ids": [
+        134,
+        104
+      ],
+      "name": "Text formats and authoring tools",
+      "description": "Text editors, Markdown, markup, document formats, Unicode, and digital reading, editing, and authoring workflows.",
+      "reason": "Group related text-format and authoring-tool coverage."
+    },
+    {
+      "id": 1135,
+      "source_ids": [
+        135,
+        95
+      ],
+      "prototype_ids": [
+        135,
+        95
+      ],
+      "name": "Image and video creation tools",
+      "description": "Software for creating, editing, generating, and transforming images and video, including AI-assisted workflows.",
+      "reason": "Combine related creative tools across AI and conventional implementation."
+    },
+    {
+      "id": 1136,
+      "source_ids": [
+        136,
+        277
+      ],
+      "prototype_ids": [
+        136
+      ],
+      "name": "Biomedical therapeutic research",
+      "description": "Regenerative medicine, genetics, cancer therapies, transplantation, and prospective treatments.",
+      "reason": "Retained after directory and title-sample review.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            277
+          ],
+          "reason": "Preservation prototype mixes cryonics, injury, death and general preservation; reroute within biomedical and other genuine subjects."
+        }
+      ]
+    },
+    {
+      "id": 1137,
+      "source_ids": [
+        137
+      ],
+      "prototype_ids": [
+        137
+      ],
+      "name": "Pharmaceutical industry and drug policy",
+      "description": "Drug development, medicine access, pharmaceutical regulation, pricing, shortages, and trials.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1138,
+      "source_ids": [
+        138,
+        159
+      ],
+      "prototype_ids": [
+        138
+      ],
+      "name": "Personal finance and financial security",
+      "description": "Household budgeting, saving, debt, mortgages, retirement, financial independence, and personal financial decisions.",
+      "reason": "Rebuild from household-finance evidence and remove the broad earnings/side-hustle prototype.",
+      "anchor_story_ids": [
+        27836008,
+        35265957,
+        44191848,
+        39906972,
+        45268970,
+        24474023,
+        41484793,
+        28068636,
+        43305400,
+        40297546,
+        35122240,
+        43636974,
+        41627557,
+        45114451,
+        42212719,
+        34097819,
+        41713240,
+        42814982,
+        36192076,
+        42729710
+      ],
+      "retired_prototypes": [
+        {
+          "ids": [
+            159
+          ],
+          "reason": "Side-hustle and broad earnings stories did not reliably form household finance."
+        }
+      ]
+    },
+    {
+      "id": 1139,
+      "source_ids": [
+        139,
+        178
+      ],
+      "prototype_ids": [
+        139,
+        178
+      ],
+      "name": "Aviation and aircraft",
+      "description": "Aircraft technology, airlines, flight operations, aviation incidents, safety, and regulation.",
+      "reason": "Combine aviation engineering and operational coverage."
+    },
+    {
+      "id": 1140,
+      "source_ids": [
+        140
+      ],
+      "prototype_ids": [
+        140
+      ],
+      "name": "Mathematics",
+      "description": "Mathematical ideas, proofs, history, education, applications, and recreational problems.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1141,
+      "source_ids": [
+        141
+      ],
+      "prototype_ids": [
+        141
+      ],
+      "name": "Google",
+      "description": "Google's business, products, culture, acquisitions, policy disputes, and history.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1142,
+      "source_ids": [
+        142
+      ],
+      "prototype_ids": [
+        142
+      ],
+      "name": "Ruby and Rails",
+      "description": "Ruby, Rails, Ruby tooling, performance, deployment, and ecosystem developments.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1143,
+      "source_ids": [
+        143
+      ],
+      "prototype_ids": [
+        143
+      ],
+      "name": "Swift and SwiftUI development",
+      "description": "Swift language development and Apple-platform work with SwiftUI and related frameworks.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1144,
+      "source_ids": [
+        144
+      ],
+      "prototype_ids": [
+        144
+      ],
+      "name": "Weather forecasting and monitoring",
+      "description": "Weather forecasts, meteorological data, sensors, hurricanes, and weather services.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1145,
+      "source_ids": [
+        145
+      ],
+      "prototype_ids": [
+        145
+      ],
+      "name": "Authentication and identity",
+      "description": "Authentication, authorization, OAuth, passkeys, MFA, directories, and identity security.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1146,
+      "source_ids": [
+        146,
+        280
+      ],
+      "prototype_ids": [
+        146,
+        280
+      ],
+      "name": "Generative media, authenticity, and rights",
+      "description": "Synthetic media, deepfakes, detection, copyright, licensing, identity harms, and trust in generated content.",
+      "reason": "Combine overlapping generative-media integrity and rights coverage."
+    },
+    {
+      "id": 1147,
+      "source_ids": [
+        147
+      ],
+      "prototype_ids": [
+        147
+      ],
+      "name": "Typography and fonts",
+      "description": "Font creation, glyphs, icon fonts, type selection, proofing, and typography tools.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1148,
+      "source_ids": [
+        148,
+        211,
+        179
+      ],
+      "prototype_ids": [
+        148,
+        211
+      ],
+      "name": "Spaceflight and satellite systems",
+      "description": "Rocket launches, spacecraft, crewed missions, satellites, orbital operations, and space engineering.",
+      "reason": "Consolidate related spaceflight and satellite engineering interests.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            179
+          ],
+          "reason": "Russian-space prototype admits unrelated Russia and espionage stories."
+        }
+      ]
+    },
+    {
+      "id": 1150,
+      "source_ids": [
+        150
+      ],
+      "prototype_ids": [
+        150
+      ],
+      "name": "Democracy and political theory",
+      "description": "Democracy, liberalism, authoritarianism, ideology, participation, and collective action.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1152,
+      "source_ids": [
+        152,
+        21,
+        130,
+        247,
+        238
+      ],
+      "prototype_ids": [
+        152,
+        21,
+        130,
+        247,
+        238
+      ],
+      "name": "Apple ecosystem",
+      "description": "Apple Macs, iPhones, iOS, macOS, Apple Silicon, the App Store, and Apple business and policy.",
+      "reason": "One ecosystem subscription retains product, platform, and corporate coverage."
+    },
+    {
+      "id": 1153,
+      "source_ids": [
+        153,
+        120
+      ],
+      "prototype_ids": [
+        153
+      ],
+      "name": "The Internet as public infrastructure",
+      "description": "Internet governance, ownership, history, resilience, economics, culture, and long-term future.",
+      "reason": "Retained after directory and title-sample review.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            120
+          ],
+          "reason": "Futures theme mixes unrelated technology commentary and personal growth."
+        }
+      ]
+    },
+    {
+      "id": 1154,
+      "source_ids": [
+        154,
+        251
+      ],
+      "prototype_ids": [
+        154
+      ],
+      "name": "Product marketing and pricing",
+      "description": "Product marketing, positioning, pricing strategy, customer acquisition, and go-to-market practices.",
+      "reason": "Keep pricing as a business practice rather than a bucket for subscription announcements.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            251
+          ],
+          "reason": "Subscription-pricing prototype admits coupons and free-tier announcements indiscriminately."
+        }
+      ]
+    },
+    {
+      "id": 1155,
+      "source_ids": [
+        155,
+        111
+      ],
+      "prototype_ids": [
+        155,
+        111
+      ],
+      "name": "Compilers and program analysis",
+      "description": "Compilers, interpreters, language toolchains, static analysis, type checking, linters, and program-analysis tools.",
+      "reason": "Combine related language-tooling and static-analysis coverage."
+    },
+    {
+      "id": 1157,
+      "source_ids": [
+        157
+      ],
+      "prototype_ids": [
+        157
+      ],
+      "name": "Android development and ecosystem",
+      "description": "Android platforms, applications, customization, development workflows, and open-source Android software.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1158,
+      "source_ids": [
+        158
+      ],
+      "prototype_ids": [
+        158
+      ],
+      "name": "Microsoft",
+      "description": "Microsoft's products, business strategy, acquisitions, workforce, and corporate culture.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1160,
+      "source_ids": [
+        160
+      ],
+      "prototype_ids": [
+        160
+      ],
+      "name": "WebAssembly",
+      "description": "WebAssembly runtimes, tooling, optimization, interoperability, and browser and server applications.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1161,
+      "source_ids": [
+        161
+      ],
+      "prototype_ids": [
+        161
+      ],
+      "name": "Animal biology and behavior",
+      "description": "Animal evolution, ecology, health, behavior, reproduction, and human-animal interactions.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1162,
+      "source_ids": [
+        162
+      ],
+      "prototype_ids": [
+        162
+      ],
+      "name": "Timekeeping and temporal systems",
+      "description": "Clocks, calendars, time zones, timestamps, precision timekeeping, and time in software.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1163,
+      "source_ids": [
+        163
+      ],
+      "prototype_ids": [
+        163
+      ],
+      "name": "Mobile and device security",
+      "description": "Mobile-device vulnerabilities, spyware, exploits, privacy threats, hardening, and compromise.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1164,
+      "source_ids": [
+        164
+      ],
+      "prototype_ids": [
+        164
+      ],
+      "name": "Email systems and inbox tools",
+      "description": "Email delivery, servers, forwarding, inbox organization, campaigns, and email infrastructure.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1165,
+      "source_ids": [
+        165
+      ],
+      "prototype_ids": [
+        165
+      ],
+      "name": "Sports culture and performance",
+      "description": "Sports competition, athletes, training, records, equipment, fandom, and sports culture.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1167,
+      "source_ids": [
+        167
+      ],
+      "prototype_ids": [
+        167
+      ],
+      "name": "Real-time and peer-to-peer networking",
+      "description": "WebRTC, WebSockets, P2P, RPC, pub-sub, streaming, and real-time messaging.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1168,
+      "source_ids": [
+        168
+      ],
+      "prototype_ids": [
+        168
+      ],
+      "name": "Iran and regional Middle East conflict",
+      "description": "Iranian domestic crisis, Israel-Iran conflict, and regional Middle East security tensions.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1169,
+      "source_ids": [
+        169
+      ],
+      "prototype_ids": [
+        169
+      ],
+      "name": "Immigration and visa policy",
+      "description": "Immigration, visas, border enforcement, international travel status, and migration policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1170,
+      "source_ids": [
+        170
+      ],
+      "prototype_ids": [
+        170
+      ],
+      "name": "Scientific publishing and peer review",
+      "description": "Academic journals, peer review, retractions, publication integrity, and research access.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1172,
+      "source_ids": [
+        172
+      ],
+      "prototype_ids": [
+        172
+      ],
+      "name": "3D printing",
+      "description": "Additive manufacturing hardware, materials, techniques, designs, and practical projects.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1173,
+      "source_ids": [
+        173,
+        18
+      ],
+      "prototype_ids": [
+        173,
+        18
+      ],
+      "name": "Vehicle technology and mobility",
+      "description": "Electric and autonomous vehicles, driver assistance, automotive engineering, charging, and mobility technology.",
+      "reason": "Combine overlapping vehicle technology interests."
+    },
+    {
+      "id": 1174,
+      "source_ids": [
+        174
+      ],
+      "prototype_ids": [
+        174
+      ],
+      "name": "Elon Musk and X",
+      "description": "Elon Musk's business, legal, political, and public actions, especially involving X and Tesla.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1176,
+      "source_ids": [
+        176
+      ],
+      "prototype_ids": [
+        176
+      ],
+      "name": "Manufacturing supply chains",
+      "description": "Industrial production, factories, material shortages, trade restrictions, and supply-chain disruptions.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1177,
+      "source_ids": [
+        177,
+        109,
+        240,
+        249
+      ],
+      "prototype_ids": [
+        177,
+        109,
+        240,
+        249
+      ],
+      "name": "Web browsers and extensions",
+      "description": "Browser engines, releases, extensions, privacy controls, bookmarks, tabs, and browser workflows.",
+      "reason": "Fold narrow extension and tab-management slices into the browser interest."
+    },
+    {
+      "id": 1180,
+      "source_ids": [
+        180,
+        187,
+        236
+      ],
+      "prototype_ids": [
+        180,
+        187,
+        236
+      ],
+      "name": "Climate science, policy, and impacts",
+      "description": "Climate change, observed warming, extreme weather, emissions policy, carbon removal, and societal impacts.",
+      "reason": "Combine overlapping climate evidence and policy interests."
+    },
+    {
+      "id": 1181,
+      "source_ids": [
+        181
+      ],
+      "prototype_ids": [
+        181
+      ],
+      "name": "Tax policy and tax administration",
+      "description": "Tax systems, enforcement, filing, wealth taxes, inheritance taxes, and tax policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1183,
+      "source_ids": [
+        183
+      ],
+      "prototype_ids": [
+        183
+      ],
+      "name": "AI industry and business",
+      "description": "AI-company strategy, investment, products, adoption, infrastructure, labor, and economics.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1184,
+      "source_ids": [
+        184
+      ],
+      "prototype_ids": [
+        184
+      ],
+      "name": "Journalism and news media",
+      "description": "News institutions, journalism economics, credibility, labor, distribution, and digital media.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1185,
+      "source_ids": [
+        185
+      ],
+      "prototype_ids": [
+        185
+      ],
+      "name": "Robotics",
+      "description": "Robots, humanoids, manipulation, autonomous systems, exosuits, and practical robotics.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1186,
+      "source_ids": [
+        186
+      ],
+      "prototype_ids": [
+        186
+      ],
+      "name": "Personal growth and motivation",
+      "description": "Self-improvement, motivation, life direction, anxiety, productivity, and personal well-being.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1188,
+      "source_ids": [
+        188,
+        267
+      ],
+      "prototype_ids": [
+        188,
+        267
+      ],
+      "name": "Video game platforms and industry",
+      "description": "Consoles, game stores, publishers, distribution, preservation, monetization, and industry policy.",
+      "reason": "Fold the small platform-policy slice into the broader games-industry interest."
+    },
+    {
+      "id": 1189,
+      "source_ids": [
+        189
+      ],
+      "prototype_ids": [
+        189
+      ],
+      "name": "Cloud infrastructure economics",
+      "description": "Cloud pricing, cost optimization, infrastructure sizing, hybrid-cloud tradeoffs, and resource economics.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1190,
+      "source_ids": [
+        190
+      ],
+      "prototype_ids": [
+        190
+      ],
+      "name": "Visual art",
+      "description": "Painting, sculpture, photography, art history, exhibitions, generative art, and criticism.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1192,
+      "source_ids": [
+        192
+      ],
+      "prototype_ids": [
+        192
+      ],
+      "name": "New York City",
+      "description": "New York City government, infrastructure, culture, neighborhoods, services, and daily life.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1193,
+      "source_ids": [
+        193
+      ],
+      "prototype_ids": [
+        193
+      ],
+      "name": "Environmental and chemical health hazards",
+      "description": "Pollution, toxic chemicals, contaminated food and water, exposure risks, and public-health regulation.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1194,
+      "source_ids": [
+        194,
+        266,
+        149
+      ],
+      "prototype_ids": [
+        194,
+        266,
+        149
+      ],
+      "name": "History and cultural essays",
+      "description": "Historical events, biographies, artifacts, cultural history, nostalgia, and historical criticism.",
+      "reason": "Consolidate cultural and political history; avoid a narrowly labeled war-history bucket for general historical essays."
+    },
+    {
+      "id": 1195,
+      "source_ids": [
+        195
+      ],
+      "prototype_ids": [
+        195
+      ],
+      "name": "Music, composition, and audio technology",
+      "description": "Music, composition, instruments, synthesis, music software, recording, and creative audio technology.",
+      "reason": "The evidence includes musical works and appreciation as well as production technology."
+    },
+    {
+      "id": 1198,
+      "source_ids": [
+        198,
+        84
+      ],
+      "prototype_ids": [
+        198,
+        84
+      ],
+      "name": "Cyberattacks, malware, and data breaches",
+      "description": "Malware, ransomware, intrusions, data breaches, cybercrime campaigns, and incident response.",
+      "reason": "Avoid dividing incident news by attack mechanism."
+    },
+    {
+      "id": 1199,
+      "source_ids": [
+        199
+      ],
+      "prototype_ids": [
+        199
+      ],
+      "name": "Nix and NixOS",
+      "description": "Nix, NixOS, reproducible environments, configuration, tools, and ecosystem projects.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1200,
+      "source_ids": [
+        200
+      ],
+      "prototype_ids": [
+        200
+      ],
+      "name": "Raspberry Pi and single-board computers",
+      "description": "Raspberry Pi hardware, related boards, embedded projects, peripherals, and ARM computing.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1201,
+      "source_ids": [
+        201
+      ],
+      "prototype_ids": [
+        201
+      ],
+      "name": "Neuroscience and the brain",
+      "description": "Brain function, neural circuits, cognition, brain interfaces, and neuroscience research.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1202,
+      "source_ids": [
+        202
+      ],
+      "prototype_ids": [
+        202
+      ],
+      "name": "Functional and Lisp programming",
+      "description": "Lisp-family and functional languages, their concepts, implementations, and practice.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1204,
+      "source_ids": [
+        204
+      ],
+      "prototype_ids": [
+        204
+      ],
+      "name": "Software architecture",
+      "description": "Distributed systems, microservices, dependencies, deployment, and architectural trade-offs.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1205,
+      "source_ids": [
+        205
+      ],
+      "prototype_ids": [
+        205
+      ],
+      "name": "Computer architecture and hardware hacking",
+      "description": "Instruction sets, memory, hardware design, emulation, CPUs, and low-level experimentation.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1206,
+      "source_ids": [
+        206,
+        253
+      ],
+      "prototype_ids": [
+        206,
+        253
+      ],
+      "name": "Communication and collaboration software",
+      "description": "Messaging, video meetings, group chat, remote collaboration, and shared-work software.",
+      "reason": "Combine overlapping collaboration and communication tools."
+    },
+    {
+      "id": 1207,
+      "source_ids": [
+        207
+      ],
+      "prototype_ids": [
+        207
+      ],
+      "name": "BSD operating systems",
+      "description": "FreeBSD, NetBSD, OpenBSD, their development, administration, security, and usage.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1208,
+      "source_ids": [
+        208
+      ],
+      "prototype_ids": [
+        208
+      ],
+      "name": "Retro computing and game hardware",
+      "description": "Vintage computers, consoles, operating systems, games, emulation, and hardware restoration.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1209,
+      "source_ids": [
+        209
+      ],
+      "prototype_ids": [
+        209
+      ],
+      "name": "Misinformation and disinformation",
+      "description": "False information, conspiracy theories, detection, moderation, psychology, and societal effects.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1210,
+      "source_ids": [
+        210
+      ],
+      "prototype_ids": [
+        210
+      ],
+      "name": "DNS and domain names",
+      "description": "DNS operations, domains, certificates, registration, hosting, and namespace governance.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1212,
+      "source_ids": [
+        212
+      ],
+      "prototype_ids": [
+        212
+      ],
+      "name": "Language and linguistics",
+      "description": "Language, grammar, etymology, vocabulary, writing systems, translation, and linguistic research.",
+      "reason": "Use the durable underlying language interest."
+    },
+    {
+      "id": 1213,
+      "source_ids": [
+        213
+      ],
+      "prototype_ids": [
+        213
+      ],
+      "name": "Tesla and its vehicles",
+      "description": "Tesla's vehicles, autonomous-driving systems, safety, recalls, business, and financial performance.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1215,
+      "source_ids": [
+        215
+      ],
+      "prototype_ids": [
+        215
+      ],
+      "name": "Wearables and personal sensing",
+      "description": "Wearable devices, health and fitness sensors, personal monitoring, tracking hardware, and sensing applications.",
+      "reason": "The actual interest includes sports and general wearable sensing beyond medical devices."
+    },
+    {
+      "id": 1216,
+      "source_ids": [
+        216,
+        115
+      ],
+      "prototype_ids": [
+        216,
+        115
+      ],
+      "name": "Video platforms and creator ecosystems",
+      "description": "YouTube, TikTok, online video creators, platform policy, recommendations, and creator economics.",
+      "reason": "Combine related online-video platform coverage."
+    },
+    {
+      "id": 1217,
+      "source_ids": [
+        217
+      ],
+      "prototype_ids": [
+        217
+      ],
+      "name": "California and San Francisco",
+      "description": "California and Bay Area civic, economic, housing, education, and public-policy issues.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1218,
+      "source_ids": [
+        218
+      ],
+      "prototype_ids": [
+        218
+      ],
+      "name": "Web analytics",
+      "description": "Website and product analytics, privacy-preserving measurement, tracking, reporting, and alternatives.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1221,
+      "source_ids": [
+        221
+      ],
+      "prototype_ids": [
+        221
+      ],
+      "name": "Personal wellness tracking",
+      "description": "Habit, exercise, mood, meditation, sleep, focus, and everyday-wellbeing tracking.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1223,
+      "source_ids": [
+        223
+      ],
+      "prototype_ids": [
+        223
+      ],
+      "name": "Education and higher education",
+      "description": "Schools, universities, degrees, affordability, enrollment, teaching, and educational outcomes.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1225,
+      "source_ids": [
+        225
+      ],
+      "prototype_ids": [
+        225
+      ],
+      "name": "AI in medicine",
+      "description": "AI applications, claims, risks, and policy in diagnosis, screening, drug discovery, and healthcare.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1226,
+      "source_ids": [
+        226
+      ],
+      "prototype_ids": [
+        226
+      ],
+      "name": "Wikipedia and wikis",
+      "description": "Wikipedia, Wikimedia, wiki alternatives, editing, governance, visualization, and knowledge bases.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1227,
+      "source_ids": [
+        227
+      ],
+      "prototype_ids": [
+        227
+      ],
+      "name": "Coding tools and learning",
+      "description": "Developer environments, coding assistance, programming platforms, practice, and learning to code.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1228,
+      "source_ids": [
+        228
+      ],
+      "prototype_ids": [
+        228
+      ],
+      "name": "Children and parenting",
+      "description": "Child development, parenting, family life, childhood health, education, and reproduction.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1230,
+      "source_ids": [
+        230,
+        246
+      ],
+      "prototype_ids": [
+        230,
+        246
+      ],
+      "name": "Television and streaming media",
+      "description": "Television, streaming-video services, broadcast technology, catalogs, distribution, and media markets.",
+      "reason": "Combine overlapping television and streaming coverage."
+    },
+    {
+      "id": 1231,
+      "source_ids": [
+        231
+      ],
+      "prototype_ids": [
+        231
+      ],
+      "name": "Public transit and rail",
+      "description": "Railways, buses, subways, transit infrastructure, train operations, and transportation comparisons.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1232,
+      "source_ids": [
+        232
+      ],
+      "prototype_ids": [
+        232
+      ],
+      "name": "GitHub",
+      "description": "GitHub repositories, Actions, Copilot, security, outages, workflows, and developer community.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1234,
+      "source_ids": [
+        234
+      ],
+      "prototype_ids": [
+        234
+      ],
+      "name": "Oil and gas markets",
+      "description": "Oil, petroleum, natural gas, fuel prices, production, reserves, and energy-market policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1235,
+      "source_ids": [
+        235
+      ],
+      "prototype_ids": [
+        235
+      ],
+      "name": "Web performance",
+      "description": "Website and web-application speed, measurement, scalability, load behavior, and optimization.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1237,
+      "source_ids": [
+        237
+      ],
+      "prototype_ids": [
+        237
+      ],
+      "name": "Drug legalization policy",
+      "description": "Drug laws, decriminalization, cannabis markets, controlled-substance policy, and public-health effects.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1239,
+      "source_ids": [
+        239
+      ],
+      "prototype_ids": [
+        239
+      ],
+      "name": "Data visualization and diagramming",
+      "description": "Charts, plots, dashboards, visual data exploration, diagramming, and tools for communicating structured information.",
+      "reason": "Replace a polysemous graph-computing boundary with manually selected visualization evidence.",
+      "anchor_story_ids": [
+        40077838,
+        31179617,
+        22710264,
+        44204158,
+        34994281,
+        23079844,
+        31228192,
+        39738745,
+        40196880,
+        45123622,
+        47800135,
+        28492391,
+        26661681,
+        39490791,
+        46887669,
+        28659165,
+        42420049,
+        22358251,
+        26632647,
+        23320889
+      ]
+    },
+    {
+      "id": 1243,
+      "source_ids": [
+        243
+      ],
+      "prototype_ids": [
+        243
+      ],
+      "name": "Military and defense policy",
+      "description": "Armed forces, weapons, military strategy, procurement, deployments, and national-security operations.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1245,
+      "source_ids": [
+        245
+      ],
+      "prototype_ids": [
+        245
+      ],
+      "name": "Biodiversity and ecosystem conservation",
+      "description": "Species, forests, habitats, ecological restoration, and conservation pressures and policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1248,
+      "source_ids": [
+        248
+      ],
+      "prototype_ids": [
+        248
+      ],
+      "name": "Online piracy and copyright enforcement",
+      "description": "Piracy, copyright litigation, blocking, takedowns, DRM, and enforcement overreach.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1252,
+      "source_ids": [
+        252,
+        3
+      ],
+      "prototype_ids": [
+        252,
+        3
+      ],
+      "name": "Writing and technical documentation",
+      "description": "Writing craft, editing, publishing, technical documentation, and communicating ideas clearly.",
+      "reason": "Connect documentation with the broader writing practice."
+    },
+    {
+      "id": 1254,
+      "source_ids": [
+        254
+      ],
+      "prototype_ids": [
+        254
+      ],
+      "name": "Kubernetes operations",
+      "description": "Deploying, securing, troubleshooting, extending, and operating Kubernetes clusters.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1255,
+      "source_ids": [
+        255,
+        118,
+        171,
+        12,
+        63,
+        166
+      ],
+      "prototype_ids": [
+        255,
+        118,
+        171
+      ],
+      "name": "COVID-19 and public health",
+      "description": "The COVID-19 pandemic, epidemiology, public-health responses, vaccines, treatments, and consequences.",
+      "reason": "Replace several dated pandemic slices with a single historical and ongoing public-health interest.",
+      "retired_prototypes": [
+        {
+          "ids": [
+            12
+          ],
+          "reason": "Mortality prototype pulls unrelated deaths into COVID; remove it rather than preserve contaminated scores."
+        },
+        {
+          "ids": [
+            63
+          ],
+          "reason": "Pandemic-economics prototype pulls generic economy and promotions into a dated topic."
+        },
+        {
+          "ids": [
+            166
+          ],
+          "reason": "Contact-tracing prototype admits unrelated tracking and mobile apps."
+        }
+      ]
+    },
+    {
+      "id": 1256,
+      "source_ids": [
+        256
+      ],
+      "prototype_ids": [
+        256
+      ],
+      "name": "Constitutional rights and civil liberties",
+      "description": "Constitutional interpretation, free speech, equality, religious liberty, civil disobedience, and rights cases.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1257,
+      "source_ids": [
+        257,
+        61
+      ],
+      "prototype_ids": [
+        257,
+        61
+      ],
+      "name": "Blockchain and decentralized systems",
+      "description": "Blockchain protocols, smart contracts, decentralized applications, identity, and governance.",
+      "reason": "Combine overlapping decentralized-system technology interests, separate from market news."
+    },
+    {
+      "id": 1258,
+      "source_ids": [
+        258
+      ],
+      "prototype_ids": [
+        258
+      ],
+      "name": "Encryption and online-safety regulation",
+      "description": "Government encryption, surveillance, child-safety, moderation, and digital-rights proposals.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1259,
+      "source_ids": [
+        259
+      ],
+      "prototype_ids": [
+        259
+      ],
+      "name": "Systems programming and performance",
+      "description": "Memory management, allocation, garbage collection, CPU caches, data layout, low-level performance, and systems programming.",
+      "reason": "Rebuild the boundary using actual systems-memory and performance evidence, not generic uses of memory.",
+      "anchor_story_ids": [
+        27995030,
+        35807856,
+        49406757,
+        24919526,
+        46636377,
+        24619515,
+        34022239,
+        29318598,
+        24244856,
+        43282754,
+        41525705,
+        30382046,
+        31153434,
+        24577129,
+        29177698,
+        22712217,
+        31590753,
+        47789545,
+        48503009,
+        43733315,
+        24170475,
+        22299785,
+        32235669
+      ]
+    },
+    {
+      "id": 1262,
+      "source_ids": [
+        262
+      ],
+      "prototype_ids": [
+        262
+      ],
+      "name": "Personal computers and laptops",
+      "description": "Desktop and laptop selection, maintenance, restoration, sharing, and consumer hardware.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1263,
+      "source_ids": [
+        263
+      ],
+      "prototype_ids": [
+        263
+      ],
+      "name": "Startup fundraising and venture capital",
+      "description": "Venture funding, startup financing, investor relations, terms, and the VC ecosystem.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1268,
+      "source_ids": [
+        268,
+        222,
+        114
+      ],
+      "prototype_ids": [
+        268,
+        222,
+        114
+      ],
+      "name": "Web search and discoverability",
+      "description": "Search engines, ranking, indexing, search quality, SEO, and discovering information on the web.",
+      "reason": "Combine Google Search, alternative engines, and search-quality mechanics."
+    },
+    {
+      "id": 1269,
+      "source_ids": [
+        269
+      ],
+      "prototype_ids": [
+        269
+      ],
+      "name": "Amazon business and policy",
+      "description": "Amazon retail, marketplace, labor, products, legal disputes, and corporate strategy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1270,
+      "source_ids": [
+        270
+      ],
+      "prototype_ids": [
+        270
+      ],
+      "name": "Media compression and codecs",
+      "description": "Image and video encoding, compression formats, transcoding, bitrate optimization, and related tooling.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1271,
+      "source_ids": [
+        271
+      ],
+      "prototype_ids": [
+        271
+      ],
+      "name": "Web servers and reverse proxies",
+      "description": "HTTP servers, Nginx, Apache, server configuration, reverse proxies, deployment, and web-serving operations.",
+      "reason": "Broaden the name to match the multi-server evidence; unrelated DNS material must reroute."
+    },
+    {
+      "id": 1274,
+      "source_ids": [
+        274
+      ],
+      "prototype_ids": [
+        274
+      ],
+      "name": "Git usage and tooling",
+      "description": "Git workflows, internals, branching, clients, repository organization, and Git-based developer tools.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1276,
+      "source_ids": [
+        276
+      ],
+      "prototype_ids": [
+        276
+      ],
+      "name": "Vim and Emacs editors",
+      "description": "Vim, Neovim, Emacs, editor configuration, plugins, workflows, and keybindings.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1278,
+      "source_ids": [
+        278
+      ],
+      "prototype_ids": [
+        278
+      ],
+      "name": "Online content moderation and platform governance",
+      "description": "Content moderation, censorship, bans, deplatforming, abusive administration, and platform governance disputes.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1279,
+      "source_ids": [
+        279
+      ],
+      "prototype_ids": [
+        279
+      ],
+      "name": "Reverse engineering",
+      "description": "Methods and tools for analyzing binaries, hardware, protocols, obfuscation, and embedded systems.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1281,
+      "source_ids": [
+        281
+      ],
+      "prototype_ids": [
+        281
+      ],
+      "name": "Website building and CMS tools",
+      "description": "CMS products, site builders, static-site generators, templates, and website deployment tools.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1284,
+      "source_ids": [
+        284
+      ],
+      "prototype_ids": [
+        284
+      ],
+      "name": "Health, fitness, and disease-risk research",
+      "description": "Exercise, diet, sleep, obesity, biomarkers, medication, and lifestyle-related health risks.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1285,
+      "source_ids": [
+        285
+      ],
+      "prototype_ids": [
+        285
+      ],
+      "name": "Data-center infrastructure impacts",
+      "description": "Data-center growth, power and water demand, local impacts, economics, and environmental policy.",
+      "reason": "Retained after directory and title-sample review."
+    },
+    {
+      "id": 1286,
+      "source_ids": [
+        286
+      ],
+      "prototype_ids": [
+        286
+      ],
+      "name": "China technology and geopolitics",
+      "description": "Chinese technology companies, industrial policy, trade restrictions, censorship, and geopolitical competition.",
+      "reason": "Actual evidence is broader than trade restrictions alone."
+    }
+  ],
+  "legacy_aliases": {
+    "0": 1134,
+    "1": 1123,
+    "2": 1066,
+    "3": 1034,
+    "4": 1188,
+    "5": 1198,
+    "6": 1263,
+    "7": 1254,
+    "8": 1016,
+    "9": 1007,
+    "10": 1030,
+    "11": 1039,
+    "12": 1193,
+    "13": 1057,
+    "14": 1255,
+    "15": 1281,
+    "16": 1014,
+    "17": 1140,
+    "18": 1141,
+    "19": 1017,
+    "20": 1173,
+    "21": 1088,
+    "22": 1268,
+    "23": 1094,
+    "24": 1152,
+    "25": 1284,
+    "26": 1023,
+    "27": 1185,
+    "28": 1103,
+    "29": 1026,
+    "30": 1148,
+    "31": 1274,
+    "32": 1212,
+    "33": 1024,
+    "34": 1124,
+    "35": 1032,
+    "36": 1033,
+    "37": 1269,
+    "38": 1034,
+    "39": 1129,
+    "40": 1035,
+    "41": 1089,
+    "42": 1037,
+    "43": 1085,
+    "44": 1259,
+    "45": 1040,
+    "46": 1202,
+    "47": 1150,
+    "48": 1079,
+    "49": 1044,
+    "50": 1045,
+    "51": 1135,
+    "52": 1049,
+    "53": 1050,
+    "54": 1051,
+    "55": 1216,
+    "56": 1098,
+    "57": 1053,
+    "58": 1174,
+    "59": 1270,
+    "60": 1081,
+    "61": 1133,
+    "62": 1060,
+    "63": 1145,
+    "64": 1020,
+    "65": 1065,
+    "66": 1205,
+    "67": 1067,
+    "68": 1208,
+    "69": 1011,
+    "70": 1072,
+    "71": 1028,
+    "72": 1201,
+    "73": 1075,
+    "74": 1076,
+    "75": 1001,
+    "76": 1077,
+    "77": 1078,
+    "78": 1255,
+    "79": 1243,
+    "80": 1059,
+    "81": 1180,
+    "82": 1135,
+    "83": 1284,
+    "84": 1043,
+    "85": 1082,
+    "86": 1096,
+    "87": 1163,
+    "88": 1024,
+    "89": 1086,
+    "90": 1087,
+    "91": 1188,
+    "92": 1030,
+    "93": 1126,
+    "94": 1091,
+    "95": 1204,
+    "96": 1200,
+    "97": 1230,
+    "98": 1139,
+    "99": 1153,
+    "100": 1098,
+    "101": 1099,
+    "102": 1286,
+    "103": 1153,
+    "104": 1113,
+    "105": 1064,
+    "106": 1034,
+    "107": 1271,
+    "108": 1154,
+    "109": 1177,
+    "110": 1051,
+    "111": 1108,
+    "112": 1076,
+    "113": 1122,
+    "114": 1093,
+    "115": 1129
+  },
+  "story_overrides": [
+    {
+      "id": 23933899,
+      "topic": 1145,
+      "title": "Java Paseto Library",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 40068989,
+      "topic": 1076,
+      "title": "Automatically create a form with a zod schema",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 26138247,
+      "topic": 1028,
+      "title": "Step by Step Spring Batch Tutorial",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 38150101,
+      "topic": 1016,
+      "title": "IMSI-Catcher Detector",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 30816281,
+      "topic": 1208,
+      "title": "The Mini PET 40/80D",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 49367942,
+      "topic": 1134,
+      "title": "Show HN: A new way to read books, magnifying in and out",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 39103966,
+      "topic": 1136,
+      "title": "Fingerprinting Biomolecules with the Help of Sound",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 43400288,
+      "topic": 1024,
+      "title": "Show HN: AI Hallucination Checker",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 48788613,
+      "topic": 1024,
+      "title": "Possible evidence of literal prompt injection by Anthropic",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 35846184,
+      "topic": 1205,
+      "title": "The Biofire Smart Gun",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 38039599,
+      "topic": 1162,
+      "title": "Sunshine Protection Act",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 36505473,
+      "topic": 1028,
+      "title": "Google Stopped Maintaining GoMock",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 30281668,
+      "topic": 1103,
+      "title": "Google Fi is blocking frequent travelers and expats",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 24439355,
+      "topic": 1164,
+      "title": "Google Meet Tab on Gmail App",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 24276940,
+      "topic": 1210,
+      "title": "I gave Google the domain YouTube.com.cn",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 44592415,
+      "topic": 1125,
+      "title": "Inflation Without an Inflaton",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    },
+    {
+      "id": 41175666,
+      "topic": 1195,
+      "title": "Drake Releases 100gb Data Dump",
+      "reason": "Manual subject correction after directory-wide title audit; excluded from the paired evaluation sample."
+    }
+  ]
+}

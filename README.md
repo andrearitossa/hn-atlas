@@ -6,17 +6,23 @@ Run ingestion and topic maintenance on your PC or cluster, then publish HTML and
 
 ## Publish a static site
 
-The September 25, 2026 publication uses the completed **static 2020–today map**:
-116 topics fitted across 2,126,688 stories, through 08:49:40 UTC that day.
-It does not use either weekly replay. The public topic catalog, model, and build
-provenance are saved in `data/static-2020-2026/`; the private matching database
-remains at `data/comparison-online-v2/static.db` and is not included in Git.
-Re-export this snapshot with:
+The current publication uses a **manually curated static 2020–today map**:
+206 subscriptions derived from the 287-topic candidate, covering the corpus of
+2,126,688 stories through September 25, 2026 at 08:49:40 UTC. The editorial plan,
+model, catalog, and reproducible build instructions are in
+[`data/curated-2020-2026/`](data/curated-2020-2026/README.md). The earlier 116-topic
+baseline is preserved in `data/static-2020-2026/`, and its public topic links
+redirect to relevant curated subscriptions.
+
+Re-export the curated database with:
 
 ```bash
-.venv/bin/python publish.py --db data/comparison-online-v2/static.db --output dist
+HN_TOPIC_MODEL=data/curated-2020-2026/topic_model.npz .venv/bin/python publish.py --db data/curated-2020-2026/static.db --output dist
 .venv/bin/python scripts/prepare_pages.py
 ```
+
+This snapshot is maintained through explicit editorial revisions, not the automatic
+weekly worker. Its database and the embedding source remain private local files.
 
 After installing dependencies and obtaining the database as described below:
 

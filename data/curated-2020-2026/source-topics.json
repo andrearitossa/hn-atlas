@@ -1,0 +1,1150 @@
+[
+  {
+    "name": "Plastic pollution and recycling",
+    "description": "Plastic waste, microplastics, recycling, degradation, and alternatives."
+  },
+  {
+    "name": "Computer keyboards and input devices",
+    "description": "Physical keyboards, mice, trackpads, gamepads, shortcuts, and alternative computer-input hardware."
+  },
+  {
+    "name": "SSH and remote server access",
+    "description": "SSH-based remote access, tunneling, and server administration."
+  },
+  {
+    "name": "Technical documentation",
+    "description": "Creating, maintaining, publishing, and evaluating technical documentation."
+  },
+  {
+    "name": "AR, VR, and smart glasses",
+    "description": "Augmented-, mixed-, and virtual-reality hardware, displays, and smart glasses."
+  },
+  {
+    "name": "Serverless and cloud-native platforms",
+    "description": "Serverless, edge, multi-cloud, and cloud-native application platforms."
+  },
+  {
+    "name": "Online account scams and recovery",
+    "description": "Phishing, account compromise, recovery, and consumer fraud protection."
+  },
+  {
+    "name": "Renewable energy transition",
+    "description": "Renewable electricity, grids, storage, hydrogen, and decarbonization policy."
+  },
+  {
+    "name": "Concurrency and asynchronous systems",
+    "description": "Threads, async programming, parallelism, race detection, and distributed timing."
+  },
+  {
+    "name": "Nuclear energy and nuclear risk",
+    "description": "Fission power, radiation, waste, weapons, accidents, and nuclear policy."
+  },
+  {
+    "name": "India",
+    "description": "Politics, society, technology, and current affairs concerning India."
+  },
+  {
+    "name": "Remote work and workplace flexibility",
+    "description": "Remote and hybrid work policies, workplace practices, and productivity."
+  },
+  {
+    "name": "COVID-19 mortality and impacts",
+    "description": "COVID-19 deaths, immunity, long COVID, and social consequences."
+  },
+  {
+    "name": "Web design and web culture",
+    "description": "Website design, web history, usability, personal sites, and web culture."
+  },
+  {
+    "name": "Astronomy and cosmology",
+    "description": "Galaxies, exoplanets, interstellar phenomena, and the universe."
+  },
+  {
+    "name": "Forecasting and prediction",
+    "description": "Methods and applications for forecasting outcomes and future events."
+  },
+  {
+    "name": "Data privacy",
+    "description": "Personal-data practices, privacy law, anonymity, and data brokers."
+  },
+  {
+    "name": "Maps and cartography",
+    "description": "Mapmaking, geographic visualization, mapping tools, and cartographic history."
+  },
+  {
+    "name": "Autonomous vehicles",
+    "description": "Self-driving vehicles, driver assistance, robotaxis, and autonomous transport."
+  },
+  {
+    "name": "TypeScript",
+    "description": "The TypeScript language, compiler, types, tools, and ecosystem."
+  },
+  {
+    "name": "Russia's war against Ukraine",
+    "description": "Military, political, economic, and humanitarian developments in Russia's invasion of Ukraine."
+  },
+  {
+    "name": "Apple Silicon Macs",
+    "description": "Apple Silicon Mac hardware, M-series chips, performance, and compatibility."
+  },
+  {
+    "name": "Aging and longevity",
+    "description": "Biology, interventions, demographics, and diseases related to aging and lifespan."
+  },
+  {
+    "name": "Team leadership and workplace management",
+    "description": "Leading teams, managing people, communication, influence, ethics, and workplace relationships."
+  },
+  {
+    "name": "AI development and strategy",
+    "description": "Building, adopting, maintaining, and strategically using AI systems and tools."
+  },
+  {
+    "name": "VPNs and privacy tunneling",
+    "description": "VPNs, WireGuard, Tor, proxies, encrypted routing, and censorship circumvention."
+  },
+  {
+    "name": "Smartphones and mobile devices",
+    "description": "Consumer phones, mobile operating systems, repairability, and device markets."
+  },
+  {
+    "name": "Stripe and online payments",
+    "description": "Stripe products, merchant billing, disputes, integrations, and competitors."
+  },
+  {
+    "name": "Software development practices",
+    "description": "Engineering quality, testing, DevOps, delivery processes, and SDLC practices."
+  },
+  {
+    "name": "Spotify and digital audio",
+    "description": "Spotify, podcasts, music discovery, streaming audio, and digital distribution."
+  },
+  {
+    "name": "Hiring and job seeking",
+    "description": "Recruiting, job searches, candidate evaluation, and employment-market conditions."
+  },
+  {
+    "name": "Science institutions and culture",
+    "description": "Scientific institutions, incentives, trust, fraud, policy, and public communication."
+  },
+  {
+    "name": "Ride-hailing and delivery gig work",
+    "description": "Rideshare, delivery platforms, drivers, labor conditions, and transport gig work."
+  },
+  {
+    "name": "CSS",
+    "description": "CSS features, layout, styling, performance, and stylesheet tooling."
+  },
+  {
+    "name": "Programming language theory",
+    "description": "Type systems, formal semantics, logic, and language-design theory."
+  },
+  {
+    "name": "CPU processors",
+    "description": "CPU products, architectures, benchmarks, and processor-vendor competition."
+  },
+  {
+    "name": "Spreadsheets and tabular-data tools",
+    "description": "Spreadsheets, CSV and Excel workflows, table extraction, and tabular-data tools."
+  },
+  {
+    "name": "Cryptography and secret management",
+    "description": "Encryption, keys, passwords, passkeys, cryptographic protocols, and secret storage."
+  },
+  {
+    "name": "Speech and voice AI",
+    "description": "Speech recognition, transcription, text-to-speech, voice generation, and voice agents."
+  },
+  {
+    "name": "GPUs and GPU computing",
+    "description": "GPU hardware, accelerators, CUDA, GPU programming, and GPU infrastructure."
+  },
+  {
+    "name": "Command-line tools",
+    "description": "Shells, terminals, CLI utilities, terminal interfaces, and command-line workflows."
+  },
+  {
+    "name": "Algorithmic trading",
+    "description": "Automated trading, market making, backtesting, trading bots, and strategy research."
+  },
+  {
+    "name": "Philosophy",
+    "description": "Philosophical ideas and arguments about knowledge, ethics, mind, metaphysics, and reasoning."
+  },
+  {
+    "name": "Economic theory and capitalism",
+    "description": "Economics, capitalism, growth, labor, inequality, and political economy."
+  },
+  {
+    "name": "Microsoft Windows",
+    "description": "Windows releases, administration, security, compatibility, and desktop ecosystem news."
+  },
+  {
+    "name": "Python programming",
+    "description": "The Python language, libraries, environments, performance, frameworks, and tooling."
+  },
+  {
+    "name": "User-interface frameworks",
+    "description": "Frameworks and toolkits for building graphical, web, desktop, and application interfaces."
+  },
+  {
+    "name": "Personal productivity apps",
+    "description": "Task managers, planners, notes, time tracking, and personal work-management software."
+  },
+  {
+    "name": "Software engineering interviews",
+    "description": "Technical interviews, assessments, preparation, and evaluation for software roles."
+  },
+  {
+    "name": "Quantum computing",
+    "description": "Quantum hardware, qubits, error correction, algorithms, and commercialization."
+  },
+  {
+    "name": "Corporate lawsuits and litigation",
+    "description": "Corporate legal disputes, court rulings, lawsuits, and regulatory litigation."
+  },
+  {
+    "name": "Databases and data storage",
+    "description": "Database systems, SQL, key-value stores, query systems, and storage-engine design."
+  },
+  {
+    "name": "Police surveillance technology",
+    "description": "Law-enforcement cameras, facial recognition, monitoring systems, and civil-liberties concerns."
+  },
+  {
+    "name": "Deep learning research",
+    "description": "Neural-network architectures, training, representation learning, generative models, and theory."
+  },
+  {
+    "name": "Billionaires and extreme wealth",
+    "description": "Billionaires, concentrated wealth, philanthropy, influence, and public consequences."
+  },
+  {
+    "name": "Go programming",
+    "description": "The Go language, libraries, tooling, concurrency, and implementation practices."
+  },
+  {
+    "name": "Bootstrapped startup validation and growth",
+    "description": "Bootstrapping, MVP validation, early users, customer acquisition, and small-business growth."
+  },
+  {
+    "name": "Corporate layoffs and tech job markets",
+    "description": "Layoffs, furloughs, restructuring, hiring contractions, and technology-sector job conditions."
+  },
+  {
+    "name": "Crypto exchanges and regulation",
+    "description": "Cryptocurrency exchanges, enforcement actions, failures, and exchange-specific regulation."
+  },
+  {
+    "name": "Startup founding and entrepreneurship",
+    "description": "Forming, validating, operating, funding, and navigating early-stage startups."
+  },
+  {
+    "name": "Ocean and undersea exploration",
+    "description": "Marine life, shipwrecks, diving, submarines, and undersea exploration."
+  },
+  {
+    "name": "Web3 and decentralization",
+    "description": "Web3 applications, decentralized identity, decentralized social systems, and data ownership."
+  },
+  {
+    "name": "Machines, minds, and automata",
+    "description": "Historical and theoretical ideas about automata, machine intelligence, and computation."
+  },
+  {
+    "name": "COVID-19 economic impact",
+    "description": "Pandemic effects on employment, markets, debt, inequality, and economies."
+  },
+  {
+    "name": "Apocalyptic and speculative futures",
+    "description": "Speculative fiction and commentary about collapse, catastrophe, and humanity's future."
+  },
+  {
+    "name": "Facebook policy and controversies",
+    "description": "Facebook governance, moderation, privacy, advertising, competition, and political controversies."
+  },
+  {
+    "name": "Linux operating system",
+    "description": "Linux kernel development, architecture, ecosystem issues, and operating-system debates."
+  },
+  {
+    "name": "Twitter and X",
+    "description": "Twitter/X product features, policy, moderation, strategy, and public use."
+  },
+  {
+    "name": "Filesystems and storage systems",
+    "description": "Filesystem design, disks, SSDs, I/O performance, mounting, and durability."
+  },
+  {
+    "name": "Hospital care and healthcare systems",
+    "description": "Hospital treatment, staffing, capacity, patient care, and healthcare-system pressures."
+  },
+  {
+    "name": "EU digital regulation",
+    "description": "EU technology, platform, privacy, digital-market, and AI regulation."
+  },
+  {
+    "name": "Tech career guidance",
+    "description": "Career advice and development for software engineers, technical professionals, and students."
+  },
+  {
+    "name": "Computer networking",
+    "description": "Networking protocols, routing, Ethernet, transport layers, and connectivity infrastructure."
+  },
+  {
+    "name": "Product and UX design",
+    "description": "Product design, user experience, design systems, typography, and design practice."
+  },
+  {
+    "name": "Psychedelic mental-health treatments",
+    "description": "Psychedelics, ketamine, MDMA, microdosing, and related mental-health treatment research."
+  },
+  {
+    "name": "Computer graphics and rendering",
+    "description": "Real-time graphics, WebGL, rendering algorithms, 3D scenes, and visual simulation."
+  },
+  {
+    "name": "JavaScript",
+    "description": "JavaScript language features, tooling, frameworks, and browser-based projects."
+  },
+  {
+    "name": "Cameras and computational imaging",
+    "description": "Cameras, lenses, image capture, optical imaging, and photogrammetry tools."
+  },
+  {
+    "name": "Puzzle games",
+    "description": "Logic, word, board, and arcade puzzle games and solving challenges."
+  },
+  {
+    "name": "Reasoning and decision-making",
+    "description": "Human, organizational, and AI judgment, inference, critical thinking, and decisions."
+  },
+  {
+    "name": "South Korea",
+    "description": "South Korean politics, society, economy, and Korean Peninsula affairs."
+  },
+  {
+    "name": "Food and nutrition",
+    "description": "Food culture, cooking, diets, nutrition, food technology, and food health."
+  },
+  {
+    "name": "Archaeology and ancient history",
+    "description": "Archaeological discoveries, prehistoric activity, fossils, ancient artifacts, and distant history."
+  },
+  {
+    "name": "Uncertainty and probabilistic reasoning",
+    "description": "Probability, risk, calibration, error rates, confidence, and reasoning under uncertainty."
+  },
+  {
+    "name": "Malware and ransomware",
+    "description": "Malware campaigns, ransomware operations, malicious software analysis, and defenses."
+  },
+  {
+    "name": "AI chatbots and agents",
+    "description": "Conversational AI applications, chatbots, autonomous assistants, and their social effects."
+  },
+  {
+    "name": "Rust programming",
+    "description": "The Rust language, ecosystem, tooling, runtimes, compilers, and applications."
+  },
+  {
+    "name": "Banking and credit-market stress",
+    "description": "Banks, deposits, lending, debt markets, central-bank actions, and financial instability."
+  },
+  {
+    "name": "Video game development",
+    "description": "Game design, engines, programming, development tools, and AI-assisted game creation."
+  },
+  {
+    "name": "Data engineering",
+    "description": "Data pipelines, analytics infrastructure, data products, transformation tools, and data teams."
+  },
+  {
+    "name": "Labor unions and worker organizing",
+    "description": "Unionization, strikes, bargaining, worker protections, compensation, and labor relations."
+  },
+  {
+    "name": "Bitcoin and cryptocurrency markets",
+    "description": "Crypto prices, stablecoins, hacks, scams, memecoins, and market developments."
+  },
+  {
+    "name": "Chess",
+    "description": "Chess play, engines, tournaments, analysis, programming, variants, and disputes."
+  },
+  {
+    "name": "C++ programming",
+    "description": "C++ language evolution, compilers, libraries, idioms, testing, and tools."
+  },
+  {
+    "name": "Open-source software communities",
+    "description": "Open-source maintenance, governance, licensing, sustainability, and contributor culture."
+  },
+  {
+    "name": "AI video creation tools",
+    "description": "AI video generation, editing, transcription, analysis, and creator workflows."
+  },
+  {
+    "name": "Docker and containers",
+    "description": "Docker, runtimes, Compose, DevContainers, and containerized development and deployment."
+  },
+  {
+    "name": "Social media criticism and design",
+    "description": "Social-network design, algorithms, advertising incentives, addiction, and alternatives."
+  },
+  {
+    "name": "Cybersecurity practice",
+    "description": "Security threats, defenses, secure infrastructure, policy, and security careers."
+  },
+  {
+    "name": "Consciousness, perception, and mental imagery",
+    "description": "Conscious experience, perception, imagination, mindfulness, and theories of mind."
+  },
+  {
+    "name": "Batteries and energy storage",
+    "description": "Battery materials, grid storage, EV batteries, recycling, and energy-storage technologies."
+  },
+  {
+    "name": "npm package ecosystem",
+    "description": "npm packages, package security, policies, tooling, and dependency practices."
+  },
+  {
+    "name": "Cryptocurrency policy and regulation",
+    "description": "Government, central-bank, law-enforcement, and financial-sector cryptocurrency policy."
+  },
+  {
+    "name": "Telecom and broadband policy",
+    "description": "Telecommunications, wireless networks, broadband deployment, market policy, and regulation."
+  },
+  {
+    "name": "Text encoding and markup",
+    "description": "Unicode, text formats, markup syntaxes, character representation, and text processing."
+  },
+  {
+    "name": "Web APIs and API design",
+    "description": "HTTP APIs, REST, OpenAPI, API documentation, testing, and deployment."
+  },
+  {
+    "name": "Object-oriented programming",
+    "description": "Object-oriented programming concepts, languages, design approaches, and critiques."
+  },
+  {
+    "name": "Vibe coding",
+    "description": "AI-assisted vibe coding, its workflows, quality concerns, economics, and culture."
+  },
+  {
+    "name": "Hacker News community and ecosystem",
+    "description": "Hacker News culture, participation, moderation, readership, interface, archives, and related tools."
+  },
+  {
+    "name": "Chrome extensions and browser security",
+    "description": "Chrome extensions, extension policies, browser security, and Chrome updates."
+  },
+  {
+    "name": "React and reactive web frameworks",
+    "description": "React, adjacent component frameworks, rendering, state management, and development tooling."
+  },
+  {
+    "name": "Static analysis and type checking",
+    "description": "Static program analysis, compiler checks, type systems, linters, and defect detection."
+  },
+  {
+    "name": "Smell and olfaction",
+    "description": "The biology, perception, history, and technological uses of smell and scent."
+  },
+  {
+    "name": "Urban design and architecture",
+    "description": "City planning, architecture, built environments, development, and urban aesthetics."
+  },
+  {
+    "name": "Search engine optimization",
+    "description": "SEO, AI-search optimization, indexing, ranking, link building, and discoverability."
+  },
+  {
+    "name": "TikTok",
+    "description": "TikTok's business, regulation, culture, creators, competition, and media effects."
+  },
+  {
+    "name": "AI agents",
+    "description": "Autonomous and multi-agent architectures, evaluation, learning, orchestration, and deployment."
+  },
+  {
+    "name": "RSS and feed readers",
+    "description": "RSS feeds, feed readers, aggregation, and tools for following news and blogs."
+  },
+  {
+    "name": "COVID-19 pandemic response",
+    "description": "COVID-19 testing, mitigation, public-health policy, preparedness, and lockdown effects."
+  },
+  {
+    "name": "Nuclear fusion energy",
+    "description": "Fusion science, reactors, milestones, commercialization, and fusion applications."
+  },
+  {
+    "name": "Technology and humanity's future",
+    "description": "Long-term cultural and philosophical perspectives on technology, AI, and human futures."
+  },
+  {
+    "name": "Intel",
+    "description": "Intel's corporate strategy, manufacturing, finances, products, and competitive position."
+  },
+  {
+    "name": "Payments and payment fintech",
+    "description": "Payment networks, cards, settlement, buy-now-pay-later, and payment infrastructure."
+  },
+  {
+    "name": "Corporate leadership changes",
+    "description": "Executive appointments, departures, board disputes, and corporate governance upheavals."
+  },
+  {
+    "name": "AI governance and regulation",
+    "description": "AI safety, policy, rights, regulation, institutional governance, and societal risk."
+  },
+  {
+    "name": "Fundamental physics and spacetime",
+    "description": "Quantum theory, gravity, spacetime, cosmology, and fundamental physical reality."
+  },
+  {
+    "name": "US elections and Trump politics",
+    "description": "US elections, electoral law, denialism, and Trump-centered political developments."
+  },
+  {
+    "name": "Semiconductor manufacturing competition",
+    "description": "Chip fabrication, fabs, process nodes, and strategic competition among chip makers."
+  },
+  {
+    "name": "ADHD",
+    "description": "ADHD diagnosis, causes, treatment, lived experience, attention, and related research."
+  },
+  {
+    "name": "Software observability and monitoring",
+    "description": "Metrics, tracing, alerting, telemetry, monitoring, and observability tooling."
+  },
+  {
+    "name": "iPhone and Apple mobile hardware",
+    "description": "iPhone hardware, repairability, design, connectivity, sales, and product issues."
+  },
+  {
+    "name": "Recursion and iteration in programming",
+    "description": "Recursion, tail calls, loops, iterators, and programming control flow."
+  },
+  {
+    "name": "Amazon Web Services",
+    "description": "AWS services, pricing, infrastructure, deployment, architecture, and operations."
+  },
+  {
+    "name": "Investment markets and institutional finance",
+    "description": "Stocks, hedge funds, private equity, IPOs, speculation, and institutional investment."
+  },
+  {
+    "name": "Markdown and text editors",
+    "description": "Markdown editors, text-editing software, document conversion, and collaborative editing."
+  },
+  {
+    "name": "Image creation and editing tools",
+    "description": "Digital-image generation, editing, transformation, display, and image-processing tools."
+  },
+  {
+    "name": "Biomedical therapeutic research",
+    "description": "Regenerative medicine, genetics, cancer therapies, transplantation, and prospective treatments."
+  },
+  {
+    "name": "Pharmaceutical industry and drug policy",
+    "description": "Drug development, medicine access, pharmaceutical regulation, pricing, shortages, and trials."
+  },
+  {
+    "name": "Wealth and personal financial security",
+    "description": "Wealth, savings, inheritance, class, income inequality, and financial insecurity."
+  },
+  {
+    "name": "Aviation and aircraft",
+    "description": "Civilian, military, autonomous, electric, supersonic, and experimental aircraft."
+  },
+  {
+    "name": "Mathematics",
+    "description": "Mathematical ideas, proofs, history, education, applications, and recreational problems."
+  },
+  {
+    "name": "Google",
+    "description": "Google's business, products, culture, acquisitions, policy disputes, and history."
+  },
+  {
+    "name": "Ruby and Rails",
+    "description": "Ruby, Rails, Ruby tooling, performance, deployment, and ecosystem developments."
+  },
+  {
+    "name": "Swift and SwiftUI development",
+    "description": "Swift language development and Apple-platform work with SwiftUI and related frameworks."
+  },
+  {
+    "name": "Weather forecasting and monitoring",
+    "description": "Weather forecasts, meteorological data, sensors, hurricanes, and weather services."
+  },
+  {
+    "name": "Authentication and identity",
+    "description": "Authentication, authorization, OAuth, passkeys, MFA, directories, and identity security."
+  },
+  {
+    "name": "AI-generated art and media ethics",
+    "description": "Generative-media copyright, plagiarism, licensing, detection, and cultural consequences."
+  },
+  {
+    "name": "Typography and fonts",
+    "description": "Font creation, glyphs, icon fonts, type selection, proofing, and typography tools."
+  },
+  {
+    "name": "Spaceflight and launch missions",
+    "description": "Rocket launches, spacecraft, crewed missions, lunar and Mars exploration, and launch systems."
+  },
+  {
+    "name": "War and political history",
+    "description": "Historical conflicts, revolutions, imperialism, fascism, civil rights, and political legacies."
+  },
+  {
+    "name": "Democracy and political theory",
+    "description": "Democracy, liberalism, authoritarianism, ideology, participation, and collective action."
+  },
+  {
+    "name": "Housing affordability and rental markets",
+    "description": "Home prices, rents, landlords, housing shortages, development, and affordability policy."
+  },
+  {
+    "name": "Apple corporate affairs",
+    "description": "Apple's business strategy, legal disputes, regulation, labor, privacy, and corporate decisions."
+  },
+  {
+    "name": "The Internet as public infrastructure",
+    "description": "Internet governance, ownership, history, resilience, economics, culture, and long-term future."
+  },
+  {
+    "name": "Product marketing and growth",
+    "description": "Product-led growth, customer acquisition, branding, pricing, market fit, and marketing."
+  },
+  {
+    "name": "Compilers and language tooling",
+    "description": "Compilers, JITs, assemblers, interpreters, build systems, and language toolchains."
+  },
+  {
+    "name": "Software engineering careers and practice",
+    "description": "Professional growth, leadership, metrics, team practices, and careers in software engineering."
+  },
+  {
+    "name": "Android development and ecosystem",
+    "description": "Android platforms, applications, customization, development workflows, and open-source Android software."
+  },
+  {
+    "name": "Microsoft",
+    "description": "Microsoft's products, business strategy, acquisitions, workforce, and corporate culture."
+  },
+  {
+    "name": "Personal finance and earning",
+    "description": "Income, compensation, freelancing, spending, investing, mortgages, and financial independence."
+  },
+  {
+    "name": "WebAssembly",
+    "description": "WebAssembly runtimes, tooling, optimization, interoperability, and browser and server applications."
+  },
+  {
+    "name": "Animal biology and behavior",
+    "description": "Animal evolution, ecology, health, behavior, reproduction, and human-animal interactions."
+  },
+  {
+    "name": "Timekeeping and temporal systems",
+    "description": "Clocks, calendars, time zones, timestamps, precision timekeeping, and time in software."
+  },
+  {
+    "name": "Mobile and device security",
+    "description": "Mobile-device vulnerabilities, spyware, exploits, privacy threats, hardening, and compromise."
+  },
+  {
+    "name": "Email systems and inbox tools",
+    "description": "Email delivery, servers, forwarding, inbox organization, campaigns, and email infrastructure."
+  },
+  {
+    "name": "Sports culture and performance",
+    "description": "Sports competition, athletes, training, records, equipment, fandom, and sports culture."
+  },
+  {
+    "name": "COVID-19 contact-tracing apps",
+    "description": "Digital COVID-19 exposure notification, contact tracing, privacy, adoption, and policy."
+  },
+  {
+    "name": "Real-time and peer-to-peer networking",
+    "description": "WebRTC, WebSockets, P2P, RPC, pub-sub, streaming, and real-time messaging."
+  },
+  {
+    "name": "Iran and regional Middle East conflict",
+    "description": "Iranian domestic crisis, Israel-Iran conflict, and regional Middle East security tensions."
+  },
+  {
+    "name": "Immigration and visa policy",
+    "description": "Immigration, visas, border enforcement, international travel status, and migration policy."
+  },
+  {
+    "name": "Scientific publishing and peer review",
+    "description": "Academic journals, peer review, retractions, publication integrity, and research access."
+  },
+  {
+    "name": "COVID-19 vaccines and treatments",
+    "description": "COVID-19 vaccines, antivirals, antibodies, testing, immunity, and clinical research."
+  },
+  {
+    "name": "3D printing",
+    "description": "Additive manufacturing hardware, materials, techniques, designs, and practical projects."
+  },
+  {
+    "name": "Electric vehicles",
+    "description": "EV vehicles, charging, batteries, markets, manufacturing, and electrification policy."
+  },
+  {
+    "name": "Elon Musk and X",
+    "description": "Elon Musk's business, legal, political, and public actions, especially involving X and Tesla."
+  },
+  {
+    "name": "Software vulnerabilities and exploits",
+    "description": "CVEs, software flaws, exploit techniques, active exploitation, patching, and supply-chain attacks."
+  },
+  {
+    "name": "Manufacturing supply chains",
+    "description": "Industrial production, factories, material shortages, trade restrictions, and supply-chain disruptions."
+  },
+  {
+    "name": "Web browsers and extensions",
+    "description": "Browser releases, engines, features, add-ons, and browser-related software."
+  },
+  {
+    "name": "Aviation safety and operations",
+    "description": "Aviation incidents, aircraft defects, airline operations, airport systems, and safety regulation."
+  },
+  {
+    "name": "Russian space and satellite operations",
+    "description": "Russia's space program, ISS activity, antisatellite operations, and related space policy."
+  },
+  {
+    "name": "Climate change policy and impacts",
+    "description": "Climate science, emissions, mitigation policy, climate economics, and societal impacts."
+  },
+  {
+    "name": "Tax policy and tax administration",
+    "description": "Tax systems, enforcement, filing, wealth taxes, inheritance taxes, and tax policy."
+  },
+  {
+    "name": "Electricity prices and utility policy",
+    "description": "Power costs, utility regulation, grid reliability, energy access, and electricity markets."
+  },
+  {
+    "name": "AI industry and business",
+    "description": "AI-company strategy, investment, products, adoption, infrastructure, labor, and economics."
+  },
+  {
+    "name": "Journalism and news media",
+    "description": "News institutions, journalism economics, credibility, labor, distribution, and digital media."
+  },
+  {
+    "name": "Robotics",
+    "description": "Robots, humanoids, manipulation, autonomous systems, exosuits, and practical robotics."
+  },
+  {
+    "name": "Personal growth and motivation",
+    "description": "Self-improvement, motivation, life direction, anxiety, productivity, and personal well-being."
+  },
+  {
+    "name": "Extreme weather and climate records",
+    "description": "Observed warming, extreme weather, heat, drought, ocean temperatures, and climate records."
+  },
+  {
+    "name": "Video game consoles and distribution",
+    "description": "Console platforms, game storefronts, preservation, handheld gaming, and distribution policy."
+  },
+  {
+    "name": "Cloud infrastructure economics",
+    "description": "Cloud pricing, cost optimization, infrastructure sizing, hybrid-cloud tradeoffs, and resource economics."
+  },
+  {
+    "name": "Visual art",
+    "description": "Painting, sculpture, photography, art history, exhibitions, generative art, and criticism."
+  },
+  {
+    "name": "Machine learning practice",
+    "description": "Learning ML, ML systems, evaluation, algorithms, data workflows, and practical applications."
+  },
+  {
+    "name": "New York City",
+    "description": "New York City government, infrastructure, culture, neighborhoods, services, and daily life."
+  },
+  {
+    "name": "Environmental and chemical health hazards",
+    "description": "Pollution, toxic chemicals, contaminated food and water, exposure risks, and public-health regulation."
+  },
+  {
+    "name": "Historical mysteries and artifacts",
+    "description": "Historical documents, artifacts, unresolved episodes, unusual biographies, and investigations of the past."
+  },
+  {
+    "name": "Music technology and composition",
+    "description": "Music software, synthesis, MIDI, generative music, sound design, and music theory."
+  },
+  {
+    "name": "Bias and behavioral research",
+    "description": "Cognitive, social, methodological, genetic, and dataset biases in behavioral research."
+  },
+  {
+    "name": "James Webb Space Telescope",
+    "description": "JWST launch, operation, imagery, discoveries, testing, and astronomical observations."
+  },
+  {
+    "name": "Cybersecurity breaches and ransomware",
+    "description": "Data breaches, ransomware incidents, stolen data, intrusion investigations, and cybercrime victims."
+  },
+  {
+    "name": "Nix and NixOS",
+    "description": "Nix, NixOS, reproducible environments, configuration, tools, and ecosystem projects."
+  },
+  {
+    "name": "Raspberry Pi and single-board computers",
+    "description": "Raspberry Pi hardware, related boards, embedded projects, peripherals, and ARM computing."
+  },
+  {
+    "name": "Neuroscience and the brain",
+    "description": "Brain function, neural circuits, cognition, brain interfaces, and neuroscience research."
+  },
+  {
+    "name": "Functional and Lisp programming",
+    "description": "Lisp-family and functional languages, their concepts, implementations, and practice."
+  },
+  {
+    "name": "Transformer machine learning",
+    "description": "Transformer architectures, theory, implementation, optimization, training, and inference."
+  },
+  {
+    "name": "Software architecture",
+    "description": "Distributed systems, microservices, dependencies, deployment, and architectural trade-offs."
+  },
+  {
+    "name": "Computer architecture and hardware hacking",
+    "description": "Instruction sets, memory, hardware design, emulation, CPUs, and low-level experimentation."
+  },
+  {
+    "name": "Remote collaboration and virtual meetings",
+    "description": "Virtual meetings, remote collaboration tools, co-working, and distributed-team practices."
+  },
+  {
+    "name": "BSD operating systems",
+    "description": "FreeBSD, NetBSD, OpenBSD, their development, administration, security, and usage."
+  },
+  {
+    "name": "Retro computing and game hardware",
+    "description": "Vintage computers, consoles, operating systems, games, emulation, and hardware restoration."
+  },
+  {
+    "name": "Misinformation and disinformation",
+    "description": "False information, conspiracy theories, detection, moderation, psychology, and societal effects."
+  },
+  {
+    "name": "DNS and domain names",
+    "description": "DNS operations, domains, certificates, registration, hosting, and namespace governance."
+  },
+  {
+    "name": "Satellites and satellite constellations",
+    "description": "Satellite technology, constellations, orbital services, imagery, and effects on astronomy."
+  },
+  {
+    "name": "Words, language, and vocabulary",
+    "description": "Wordplay, spelling, dictionaries, grammar, etymology, vocabulary, and language games."
+  },
+  {
+    "name": "Tesla and its vehicles",
+    "description": "Tesla's vehicles, autonomous-driving systems, safety, recalls, business, and financial performance."
+  },
+  {
+    "name": "Node.js development",
+    "description": "Node.js releases, frameworks, modules, deployment, debugging, and development practices."
+  },
+  {
+    "name": "Wearable health technology",
+    "description": "Wearables, implants, health sensors, continuous monitoring, and fitness measurement devices."
+  },
+  {
+    "name": "YouTube platform",
+    "description": "YouTube moderation, recommendations, advertising, creators, viewing tools, and platform behavior."
+  },
+  {
+    "name": "California and San Francisco",
+    "description": "California and Bay Area civic, economic, housing, education, and public-policy issues."
+  },
+  {
+    "name": "Web analytics",
+    "description": "Website and product analytics, privacy-preserving measurement, tracking, reporting, and alternatives."
+  },
+  {
+    "name": "NFTs",
+    "description": "Non-fungible tokens, ownership claims, marketplaces, launches, culture, and digital collectibles."
+  },
+  {
+    "name": "Virtual reality and the metaverse",
+    "description": "Virtual worlds, VR social experiences, immersive applications, headsets, and metaverse concepts."
+  },
+  {
+    "name": "Personal wellness tracking",
+    "description": "Habit, exercise, mood, meditation, sleep, focus, and everyday-wellbeing tracking."
+  },
+  {
+    "name": "Google Search",
+    "description": "Google Search ranking, indexing, quality, privacy, censorship, and product changes."
+  },
+  {
+    "name": "Education and higher education",
+    "description": "Schools, universities, degrees, affordability, enrollment, teaching, and educational outcomes."
+  },
+  {
+    "name": "Big Tech antitrust",
+    "description": "Competition policy, antitrust investigations, lawsuits, and market-power concerns involving major technology companies."
+  },
+  {
+    "name": "AI in medicine",
+    "description": "AI applications, claims, risks, and policy in diagnosis, screening, drug discovery, and healthcare."
+  },
+  {
+    "name": "Wikipedia and wikis",
+    "description": "Wikipedia, Wikimedia, wiki alternatives, editing, governance, visualization, and knowledge bases."
+  },
+  {
+    "name": "Coding tools and learning",
+    "description": "Developer environments, coding assistance, programming platforms, practice, and learning to code."
+  },
+  {
+    "name": "Children and parenting",
+    "description": "Child development, parenting, family life, childhood health, education, and reproduction."
+  },
+  {
+    "name": "Personal file storage and archiving",
+    "description": "Personal file backup, synchronization, organization, sharing, security, and digital preservation."
+  },
+  {
+    "name": "Netflix and streaming media",
+    "description": "Netflix, streaming-video products, catalog strategy, pricing, culture, and media markets."
+  },
+  {
+    "name": "Public transit and rail",
+    "description": "Railways, buses, subways, transit infrastructure, train operations, and transportation comparisons."
+  },
+  {
+    "name": "GitHub",
+    "description": "GitHub repositories, Actions, Copilot, security, outages, workflows, and developer community."
+  },
+  {
+    "name": "GPT and ChatGPT",
+    "description": "GPT and ChatGPT capabilities, prompting, implementation, reliability, use cases, and social effects."
+  },
+  {
+    "name": "Oil and gas markets",
+    "description": "Oil, petroleum, natural gas, fuel prices, production, reserves, and energy-market policy."
+  },
+  {
+    "name": "Web performance",
+    "description": "Website and web-application speed, measurement, scalability, load behavior, and optimization."
+  },
+  {
+    "name": "Carbon capture and carbon removal",
+    "description": "Carbon capture, atmospheric removal, storage, carbon cycling, and climate implications."
+  },
+  {
+    "name": "Drug legalization policy",
+    "description": "Drug laws, decriminalization, cannabis markets, controlled-substance policy, and public-health effects."
+  },
+  {
+    "name": "App Store governance",
+    "description": "App-store rules, curation, removals, payments, competition, and developer disputes."
+  },
+  {
+    "name": "Graph computing",
+    "description": "Graph theory, graph data structures, graph databases, processing, visualization, and computation graphs."
+  },
+  {
+    "name": "Browser tab and bookmark management",
+    "description": "Tools for organizing, suspending, syncing, saving, and navigating tabs, bookmarks, and links."
+  },
+  {
+    "name": "Linux distributions and desktops",
+    "description": "Linux distributions, desktops, package systems, desktop environments, and alternative operating systems."
+  },
+  {
+    "name": "Code review practices",
+    "description": "Code-review processes, standards, tooling, training, and organizational practices."
+  },
+  {
+    "name": "Military and defense policy",
+    "description": "Armed forces, weapons, military strategy, procurement, deployments, and national-security operations."
+  },
+  {
+    "name": "LLM development and use",
+    "description": "LLM integration, deployment, evaluation, fine-tuning, provider choices, and practical limitations."
+  },
+  {
+    "name": "Biodiversity and ecosystem conservation",
+    "description": "Species, forests, habitats, ecological restoration, and conservation pressures and policy."
+  },
+  {
+    "name": "Television technology and history",
+    "description": "Broadcast television, TV hardware, video production, interactive TV, and television history."
+  },
+  {
+    "name": "iOS platform updates",
+    "description": "iOS and iPadOS releases, features, privacy, security fixes, Safari, and platform integration."
+  },
+  {
+    "name": "Online piracy and copyright enforcement",
+    "description": "Piracy, copyright litigation, blocking, takedowns, DRM, and enforcement overreach."
+  },
+  {
+    "name": "Browser privacy and content blocking",
+    "description": "Ad blockers, tracker blocking, cookie protection, privacy extensions, and content controls."
+  },
+  {
+    "name": "Solar-system astronomy",
+    "description": "The Sun, Moon, planets, asteroids, eclipses, and nearby astronomical events."
+  },
+  {
+    "name": "Subscription pricing",
+    "description": "Subscription plans, price changes, free tiers, lifetime deals, annual billing, and cancellations."
+  },
+  {
+    "name": "Writing craft",
+    "description": "Writing habits, editing, writer's block, professional writing, notes, and finding subjects."
+  },
+  {
+    "name": "Chat and video communication apps",
+    "description": "Messaging, group chat, video calls, conferencing, chat migration, and collaboration applications."
+  },
+  {
+    "name": "Kubernetes operations",
+    "description": "Deploying, securing, troubleshooting, extending, and operating Kubernetes clusters."
+  },
+  {
+    "name": "COVID-19 pandemic",
+    "description": "SARS-CoV-2 transmission, variants, epidemiology, modeling, public-health response, and societal effects."
+  },
+  {
+    "name": "Constitutional rights and civil liberties",
+    "description": "Constitutional interpretation, free speech, equality, religious liberty, civil disobedience, and rights cases."
+  },
+  {
+    "name": "Blockchain and cryptocurrency",
+    "description": "Blockchain applications and criticism, Ethereum, wallets, consensus, and smart-contract systems."
+  },
+  {
+    "name": "Encryption and online-safety regulation",
+    "description": "Government encryption, surveillance, child-safety, moderation, and digital-rights proposals."
+  },
+  {
+    "name": "Systems memory and caching performance",
+    "description": "Allocators, garbage collection, memory layout, caching, serialization, and systems performance."
+  },
+  {
+    "name": "Inflation and consumer prices",
+    "description": "Inflation, price pressures, monetary-policy expectations, and household effects of rising costs."
+  },
+  {
+    "name": "SaaS business strategy",
+    "description": "SaaS ideas, enterprise sales, pricing, spending, go-to-market, and operating strategy."
+  },
+  {
+    "name": "Personal computers and laptops",
+    "description": "Desktop and laptop selection, maintenance, restoration, sharing, and consumer hardware."
+  },
+  {
+    "name": "Startup fundraising and venture capital",
+    "description": "Venture funding, startup financing, investor relations, terms, and the VC ecosystem."
+  },
+  {
+    "name": "AI capabilities and societal implications",
+    "description": "AI prospects, risks, anthropomorphism, human responses, and broader social implications."
+  },
+  {
+    "name": "Offensive security and attack detection",
+    "description": "Exploit research, phishing, backdoors, agent attacks, honeypots, and threat detection."
+  },
+  {
+    "name": "Generational nostalgia and cultural change",
+    "description": "Nostalgia, generations, decades, consumer culture, and perceived cultural change."
+  },
+  {
+    "name": "Video-game platforms and industry policy",
+    "description": "Game platforms, publisher policies, monetization, player safety, and industry governance."
+  },
+  {
+    "name": "Web search engines",
+    "description": "Search-engine technology, alternatives, result quality, indexing, and web-search tools."
+  },
+  {
+    "name": "Amazon business and policy",
+    "description": "Amazon retail, marketplace, labor, products, legal disputes, and corporate strategy."
+  },
+  {
+    "name": "Media compression and codecs",
+    "description": "Image and video encoding, compression formats, transcoding, bitrate optimization, and related tooling."
+  },
+  {
+    "name": "Nginx web server",
+    "description": "Nginx configuration, modules, deployment, security, monitoring, and project developments."
+  },
+  {
+    "name": "Bitcoin",
+    "description": "Bitcoin's value, adoption, ideology, mining, energy use, economics, and technical workings."
+  },
+  {
+    "name": "Vector search and efficient LLM inference",
+    "description": "Embeddings, vector search, retrieval, KV caches, quantization, and efficient LLM inference."
+  },
+  {
+    "name": "Git usage and tooling",
+    "description": "Git workflows, internals, branching, clients, repository organization, and Git-based developer tools."
+  },
+  {
+    "name": "Investment portfolio analytics",
+    "description": "Portfolio tracking, stock and options analytics, returns, screening, and backtesting."
+  },
+  {
+    "name": "Vim and Emacs editors",
+    "description": "Vim, Neovim, Emacs, editor configuration, plugins, workflows, and keybindings."
+  },
+  {
+    "name": "Cryonics and biological preservation",
+    "description": "Cryonics, freezing, hibernation, organ preservation, and preservation of tissue or bodies."
+  },
+  {
+    "name": "Online content moderation and platform governance",
+    "description": "Content moderation, censorship, bans, deplatforming, abusive administration, and platform governance disputes."
+  },
+  {
+    "name": "Reverse engineering",
+    "description": "Methods and tools for analyzing binaries, hardware, protocols, obfuscation, and embedded systems."
+  },
+  {
+    "name": "Deepfakes and synthetic-image authenticity",
+    "description": "Deepfakes, face swapping, synthetic imagery, visual trust, detection, and identity harms."
+  },
+  {
+    "name": "Website building and CMS tools",
+    "description": "CMS products, site builders, static-site generators, templates, and website deployment tools."
+  },
+  {
+    "name": "PostgreSQL",
+    "description": "PostgreSQL administration, performance, scaling, schemas, extensions, authorization, and tooling."
+  },
+  {
+    "name": "Scarcity, abundance, and consumption",
+    "description": "Cultural and economic reflections on scarcity, abundance, ownership, consumption, choice, and value."
+  },
+  {
+    "name": "Health, fitness, and disease-risk research",
+    "description": "Exercise, diet, sleep, obesity, biomarkers, medication, and lifestyle-related health risks."
+  },
+  {
+    "name": "Data-center infrastructure impacts",
+    "description": "Data-center growth, power and water demand, local impacts, economics, and environmental policy."
+  },
+  {
+    "name": "China technology trade restrictions",
+    "description": "US-China technology restrictions, chips, export controls, sanctions, and strategic competition."
+  }
+]

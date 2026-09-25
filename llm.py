@@ -10,7 +10,7 @@ NAMER = 'gpt-5.6-terra'
 URL = 'https://api.openai.com/v1/chat/completions'
 
 
-def ask_json(prompt, attempts=5, model=NAMER, reasoning_effort=None):
+def ask_json(prompt, attempts=5, model=NAMER, reasoning_effort=None, timeout=120):
     key = os.environ['OPENAI_API_KEY']
     for attempt in range(attempts):
         ticket = api_usage.reserve(model, [prompt], api_usage.MAX_OUTPUT)
@@ -20,7 +20,7 @@ def ask_json(prompt, attempts=5, model=NAMER, reasoning_effort=None):
                 json={'model': model, 'messages': [{'role': 'user', 'content': prompt}],
                       'response_format': {'type': 'json_object'},
                       **({'reasoning_effort':reasoning_effort} if reasoning_effort else {}),
-                      **api_usage.completion_options()}, timeout=120)
+                      **api_usage.completion_options()}, timeout=timeout)
         except (requests.ConnectionError, requests.Timeout) as error:
             if attempt + 1 >= attempts:
                 raise

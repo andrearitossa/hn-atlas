@@ -1,0 +1,68 @@
+{
+  "raw287": {
+    "routed": 164,
+    "good": 124,
+    "wrong": 20,
+    "good_yield": 0.5904761904761905,
+    "preferred": 160
+  },
+  "curated206": {
+    "routed": 169,
+    "good": 131,
+    "wrong": 16,
+    "good_yield": 0.6238095238095238,
+    "preferred": 175
+  },
+  "sample_coverage": {
+    "raw287": 0.77115,
+    "curated206": 0.7882166666666667
+  },
+  "audit": {
+    "topics": 206,
+    "mean_coherence": 4.067961165048544,
+    "mean_usefulness": 4.038834951456311,
+    "weak_topics": [
+      {
+        "id": "1099",
+        "coherence": 2,
+        "usefulness": 2,
+        "problem": "Several titles fit consciousness/perception (mental music, attention, near-death experiences), but the population is diluted by unclear or unrelated items such as \u201cHypocritespy\u201d and \u201cContinual Speaker Identity Unlearning with Minimal Interference,\u201d which is primarily ML/speech-model research."
+      },
+      {
+        "id": "1163",
+        "coherence": 2,
+        "usefulness": 2,
+        "problem": "Mobile side channels, malware-loaded phones, phone hardening, and mobile forensics fit, but major unrelated populations dilute the label: CrowdStrike Linux kernel crashes, solar-inverter security, and a generic company root-access incident are not mobile-device security."
+      },
+      {
+        "id": "1168",
+        "coherence": 2,
+        "usefulness": 2,
+        "problem": "Several titles fit Iran or regional conflict, but the population is diluted by unrelated Craig Murray/Iceland, an Indonesian stadium crush, and a Taliban execution in Afghanistan; the Lebanese bank-hostage item is only loosely regional."
+      },
+      {
+        "id": "1221",
+        "coherence": 2,
+        "usefulness": 2,
+        "problem": "Some valid wellness-tracking content appears, including workout tracking, Daily time tracking, fever support, and routines, but the population is too mixed: Yu-Gi-Oh health points, dog-care education, and generic morning-routine discussion are not personal wellness tracking."
+      },
+      {
+        "id": "1262",
+        "coherence": 2,
+        "usefulness": 2,
+        "problem": "The label is too narrow for a mixed population: Framework and the MiniDisc laptop fit, but homelab posts, generic DIY savings, computing history, and device age-attestation are not primarily personal-computer/laptop selection or maintenance."
+      }
+    ]
+  },
+  "paired_difference": {
+    "good_yield_delta": 0.03333333333333333,
+    "bootstrap_95_interval": [
+      -0.009523809523809525,
+      0.0761904761904762
+    ],
+    "preference_wins": 22,
+    "preference_losses": 7,
+    "preference_ties": 181
+  },
+  "limits": "Retrospective title/URL model-assisted diagnostic; not human ground truth. Anchors and explicit edits exclude all 210 paired-evaluation stories. Topic audit uses eight random routed titles per subscription. Five weak samples remain and are recorded."
+}
