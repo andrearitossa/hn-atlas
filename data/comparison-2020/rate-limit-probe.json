@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "limits": {
+    "x-ratelimit-limit-requests": "3000",
+    "x-ratelimit-limit-tokens": "1000000",
+    "x-ratelimit-remaining-requests": "2999",
+    "x-ratelimit-remaining-tokens": "31611",
+    "x-ratelimit-reset-requests": "20ms",
+    "x-ratelimit-reset-tokens": "58.103s"
+  },
+  "usage": {
+    "prompt_tokens": 2,
+    "total_tokens": 2
+  }
+}

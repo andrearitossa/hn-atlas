@@ -1,0 +1,10 @@
+{
+  "source": "/home/andrea/technews/data/hackernews.db",
+  "split": 1577836800,
+  "end": 1790326181,
+  "initial_stories": 2678781,
+  "streamed_stories": 2126691,
+  "oldest": 1160418111,
+  "prepared_at": 1790333813,
+  "caveat": "Snapshot scores, edits, deletion state, and modern model knowledge are retrospective."
+}

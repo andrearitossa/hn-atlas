@@ -1,0 +1,123 @@
+[
+  {
+    "id": 49038433,
+    "acceptable": [
+      21,
+      71,
+      83,
+      97
+    ],
+    "title": "Claude Opus 5"
+  },
+  {
+    "id": 48736605,
+    "acceptable": [
+      21,
+      71,
+      83,
+      97
+    ],
+    "title": "Claude Sonnet 5"
+  },
+  {
+    "id": 49354949,
+    "acceptable": [
+      13,
+      67
+    ],
+    "title": "Cerebras CS-4"
+  },
+  {
+    "id": 48759761,
+    "acceptable": [
+      127
+    ],
+    "title": "Vite+ Beta"
+  },
+  {
+    "id": 49803892,
+    "acceptable": [
+      21,
+      71,
+      83,
+      97
+    ],
+    "title": "Claude Opus 5.5"
+  },
+  {
+    "id": 49448210,
+    "acceptable": [
+      21,
+      71,
+      83,
+      97
+    ],
+    "title": "Qwen3.8-Flash-Next"
+  },
+  {
+    "id": 49299605,
+    "acceptable": [
+      21,
+      71,
+      83,
+      97
+    ],
+    "title": "Qwen 3.8 27B"
+  },
+  {
+    "id": 49812769,
+    "acceptable": [
+      52
+    ],
+    "title": "Jev in 25 Lines of Python"
+  },
+  {
+    "id": 48843352,
+    "acceptable": [
+      142
+    ],
+    "title": "My thoughts on the Bun Rust rewrite"
+  },
+  {
+    "id": 49063754,
+    "acceptable": [
+      145
+    ],
+    "title": "PGSimCity - How PostgreSQL Works"
+  },
+  {
+    "id": 49462763,
+    "acceptable": [
+      90
+    ],
+    "title": "Microduck"
+  },
+  {
+    "id": 49388154,
+    "acceptable": [
+      128
+    ],
+    "title": "Kagi added a setting for removing paywalled links from search results"
+  },
+  {
+    "id": 49112232,
+    "acceptable": [
+      140
+    ],
+    "title": "Stacked PRs are now live on GitHub"
+  },
+  {
+    "id": 49723408,
+    "acceptable": [
+      74
+    ],
+    "title": "Mistral X Mozilla: Private, Multilingual AI Browsing"
+  },
+  {
+    "id": 49330781,
+    "acceptable": [
+      89
+    ],
+    "title": "A Preview of DuckDB v2.0"
+  }
+]

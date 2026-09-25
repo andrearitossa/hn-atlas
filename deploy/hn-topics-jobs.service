@@ -1,0 +1,18 @@
+[Unit]
+Description=HN Topics weekly sync and digest delivery
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=hn-topics
+Group=hn-topics
+WorkingDirectory=/srv/hn-topics/app
+EnvironmentFile=/etc/hn-topics.env
+ExecStart=/srv/hn-topics/app/.venv/bin/python jobs.py
+TimeoutStartSec=6h
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/srv/hn-topics/data
+PrivateTmp=true

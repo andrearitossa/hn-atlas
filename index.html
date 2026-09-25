@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="hn-data" content="">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HN Topics</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ff6600'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='36' font-weight='bold' fill='white'%3EH%3C/text%3E%3C/svg%3E">
+<style>
+:root { --bg:#fbfbfa; --ink:#18181b; --muted:#71717a; --line:#e7e7e4; --hn:#f56300; --dot:#a1a1aa; --cool:#3b82f6; }
+@media(prefers-color-scheme:dark) { :root { --bg:#111113; --ink:#ececef; --muted:#a1a1aa; --line:#303036; --dot:#686872; --cool:#60a5fa; } }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body { margin:0; height:100vh; display:flex; flex-direction:column; background:var(--bg); color:var(--ink); font:14px/1.5 system-ui,sans-serif; }
+a { color:inherit; text-decoration:none; }
+button,input,select { font:inherit; color:inherit; }
+button,a,input,select { -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:2px solid var(--hn); outline-offset:3px; }
+button { cursor:pointer; }
+header { display:flex; align-items:center; gap:24px; padding:14px 24px; border-bottom:1px solid var(--line); }
+header b { font-size:17px; } header b span { color:var(--hn); }
+.toggle a { color:var(--muted); } .toggle a.on { color:var(--ink); }
+main { flex:1; min-height:0; }
+.home { height:100%; overflow-y:auto; }
+.home-inner { max-width:1300px; margin:auto; padding:34px clamp(20px,4vw,56px) 60px; }
+.directory-intro { margin:12px 0 30px; }
+.eyebrow { color:var(--hn); text-transform:uppercase; letter-spacing:.13em; font-size:11px; font-weight:750; }
+.directory-intro h1 { font-size:clamp(30px,4vw,48px); line-height:1.12; letter-spacing:-.05em; margin:8px 0 14px; }
+.directory-intro h1 span { color:var(--hn); }
+
+.browse-tools { display:flex; gap:12px; flex-wrap:wrap; }
+.browse-tools input { flex:1; min-width:240px; border:1px solid var(--line); border-radius:10px; padding:13px 15px; background:var(--bg); }
+.browse-tools select,.browse-tools>button,#more-stories { border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:var(--bg); color:inherit; }
+.sort { display:flex; align-items:center; gap:3px; border:1px solid var(--line); border-radius:10px; padding:4px; }
+.sort button { background:none; border:0; border-radius:7px; padding:7px 11px; color:var(--muted); white-space:nowrap; }
+.sort button.on { background:var(--ink); color:var(--bg); }
+.directory-summary { margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:12px; }
+.directory-summary a { color:var(--hn); padding:8px 0; }
+.directory-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.topic-card { display:flex; flex-direction:column; min-height:170px; padding:20px; border:1px solid var(--line); border-radius:14px; transition:border-color .18s,transform .18s; }
+.topic-card:hover { border-color:var(--hn); transform:translateY(-2px); }
+.topic-card strong { font-size:17px; line-height:1.25; }
+.topic-card:hover strong { color:var(--hn); }
+.topic-card p { color:var(--muted); font-size:13px; margin:9px 0 16px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.card-kicker { display:flex; justify-content:space-between; gap:8px; margin-top:auto; font-size:11px; color:var(--muted); }
+.card-kicker small { font-size:inherit; }
+.more { background:none; border:1px solid var(--line); border-radius:20px; display:block; margin:24px auto 0; padding:10px 24px; }
+.empty { grid-column:1/-1; padding:40px; text-align:center; color:var(--muted); }
+ .toggle { display:flex; gap:20px; }
+.connections-page { position:relative; height:100%; display:flex; flex-direction:column; padding:34px clamp(20px,4vw,56px) 40px; max-width:1300px; margin:auto; }
+.connections-heading { display:flex; justify-content:space-between; align-items:center; gap:24px; margin:12px 0 24px; }
+.connections-heading h1 { margin:0 0 10px; font-size:clamp(30px,4vw,48px); letter-spacing:-.05em; line-height:1.12; }
+.connections-heading h1 span { color:var(--hn); }
+.connections-heading input { width:280px; max-width:100%; border:1px solid var(--line); background:var(--bg); border-radius:10px; padding:13px 15px; }
+.connections-canvas { position:relative; flex:1; min-width:0; min-height:320px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg); }
+.connections-layout { display:flex; flex:1; min-height:0; gap:14px; }
+.connections-canvas #map { position:absolute; inset:0; }
+.map-legend { position:absolute; top:16px; left:18px; display:flex; align-items:center; gap:7px; color:var(--muted); background:var(--bg); font-size:11px; pointer-events:none; z-index:1; }
+.legend-dot { width:8px; height:8px; border-radius:50%; background:var(--dot); }
+.legend-ring { width:12px; height:12px; border:1px solid var(--hn); border-radius:50%; margin-left:10px; }
+.map-results { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; }
+.map-results:not(:empty) { margin-bottom:14px; }
+.map-results>span { color:var(--muted); }
+.map-results button { background:none; color:inherit; cursor:pointer; border:1px solid var(--line); border-radius:20px; padding:6px 10px; }
+.map-results button:hover { color:var(--hn); border-color:var(--hn); }
+svg { display:block; width:100%; height:100%; }
+#map { touch-action:none; cursor:grab; }
+.map-help { position:absolute; left:18px; bottom:18px; font-size:11px; color:var(--muted); pointer-events:none; }
+.map-controls { position:absolute; right:12px; bottom:12px; display:flex; gap:5px; }
+.map-controls button { border:1px solid var(--line); border-radius:10px; background:var(--bg); min-width:40px; height:40px; padding:0 12px; }
+.map-controls button:hover { color:var(--hn); border-color:var(--hn); }
+.topic-dot { stroke:var(--bg); stroke-width:1.5; cursor:pointer; transition:opacity .2s, r .2s; }
+.topic-dot:hover,.topic-dot:focus { stroke:var(--ink); stroke-width:2; }
+.dim { opacity:.08; }
+line { stroke:var(--line); }
+text { fill:var(--ink); font-size:12px; }
+#map text { pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:3px; font-size:11px; font-weight:550; }
+.map-edge { fill:none; transition:stroke-opacity .2s; }
+#tip { position:fixed; pointer-events:none; background:var(--ink); color:var(--bg); padding:8px 10px; border-radius:6px; max-width:300px; font-size:12px; }
+.page { max-width:1200px; height:100%; margin:auto; padding:24px 32px 48px; overflow-y:auto; }
+.hero { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-top:18px; }
+.page h1 { font-size:30px; line-height:1.15; margin:0 0 12px; letter-spacing:-.03em; }
+.meta { color:var(--muted); margin:0; }
+small { color:var(--muted); }
+.up { color:var(--hn); } .down { color:var(--cool); }
+.digest { border:1px solid var(--line); background:color-mix(in srgb,var(--bg) 94%,var(--hn)); border-radius:14px; padding:18px; min-width:280px; max-width:360px; }
+.digest strong { display:block; font-size:16px; }
+.digest p { margin:4px 0 12px; color:var(--muted); }
+.digest form { display:flex; gap:6px; flex-wrap:wrap; }
+.digest input,.digest select,.digest button { border:1px solid var(--line); border-radius:7px; padding:8px; background:var(--bg); }
+.digest input { width:100%; min-width:0; }
+.digest button { background:var(--hn); color:white; }
+.digest a { color:var(--hn); }
+#signup-status { display:block; margin-top:10px; overflow-wrap:anywhere; }
+#signup-status div { padding:5px 0; border-top:1px solid var(--line); }
+.related { display:flex; flex-wrap:wrap; gap:6px; font-size:13px; margin:20px 0; }
+.related a:hover { color:var(--hn); }
+.activity { border:1px solid var(--line); border-radius:14px; padding:18px; margin:20px 0 28px; }
+.chart-heading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:center; }
+.chart-heading h2 { margin:0; font-size:16px; }
+#chart-readout { color:var(--muted); margin:3px 0 12px; font-size:13px; }
+#activity-chart { height:210px; }
+.activity rect { fill:var(--hn); opacity:.45; cursor:pointer; }
+.activity rect.selected { opacity:1; }
+.activity text { fill:var(--muted); font-size:11px; }
+.chart-note { font-size:11px; color:var(--muted); margin:4px 0 0; }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(--muted); }
+.post { padding:12px 0; border-top:1px solid var(--line); }
+.post a:hover { color:var(--hn); }
+.post small { display:block; margin-top:4px; font-size:11px; }
+.loading { color:var(--muted); padding:30px; }
+@media(max-width:900px) { .directory-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { body { height:auto; } .home,.page { height:auto; overflow:visible; } .home-inner,.page { padding:20px 16px 40px; } .directory-grid { grid-template-columns:1fr; } .topic-card { min-height:145px; } .hero { flex-direction:column; } .digest { width:100%; max-width:none; } .cols { grid-template-columns:1fr; gap:14px; }  .connections-page { height:auto; min-height:calc(100dvh - 56px); padding:20px 16px; } .connections-heading { flex-direction:column; align-items:stretch; gap:16px; } .connections-heading h1 { font-size:30px; } .connections-heading input { width:100%; } .connections-canvas { min-height:440px; } .toggle { gap:14px; font-size:12px; } .activity { padding:12px; } #activity-chart { height:170px; } .card-kicker { font-size:12px; } }
+
+.map-preview { position:relative; flex-shrink:0; overflow-y:auto; width:300px; padding:20px; border:1px solid var(--line); border-radius:14px; background:var(--bg); color:var(--ink); }
+.map-preview .eyebrow { color:var(--hn); margin:0 0 8px; }
+.map-preview h2 { font-size:20px; line-height:1.2; letter-spacing:-.03em; margin:0 16px 9px 0; }
+.map-preview>p:not(.eyebrow) { font-size:12px; color:var(--muted); margin:0 0 13px; }
+.preview-close { position:absolute; top:10px; right:10px; border:0; background:none; color:var(--muted); font-size:22px; }
+.preview-stats { color:var(--muted); font-size:11px; }
+.preview-open { display:flex; justify-content:space-between; margin:16px 0 10px; padding:10px 12px; border-radius:8px; color:var(--bg); background:var(--ink); font-weight:650; }
+.preview-related { display:flex; flex-direction:column; gap:2px; }
+.preview-related button { background:none; border:0; text-align:left; color:var(--muted); font-size:11px; padding:6px 0; }
+.preview-related button:hover,.preview-open:hover { color:var(--hn); }
+@media(max-width:600px) { .map-preview { position:static; width:100%; padding:18px; margin-top:12px; overflow:visible; } .map-legend { left:12px; font-size:9px; gap:4px; } .connections-canvas .map-help { font-size:9px; bottom:60px; } }
+
+.map-result-options { display:flex; flex-wrap:wrap; gap:6px; max-height:112px; overflow-y:auto; width:100%; }
+.map-result-options button { text-align:left; }
+.preview-stories { border-top:1px solid var(--line); padding-top:4px; }
+.map-preview h3 { color:var(--muted); font-size:10px; margin:14px 0 7px; }
+.preview-stories a { display:block; font-size:12px; color:var(--ink); padding:7px 0; border-bottom:1px solid var(--line); }
+.preview-stories a:hover { color:var(--hn); }
+.preview-stories p,.preview-related p { font-size:12px; color:var(--muted); }
+@media(max-width:600px) { .connections-layout { display:block; } .connections-canvas { min-height:360px; height:360px; flex:none; } .map-preview { position:relative; } }
+
+
+.topic-history { margin:20px 0 36px; padding:26px; border:1px solid var(--line); border-radius:16px; background:var(--bg); }
+.history-heading { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.history-heading h2 { font-size:28px; letter-spacing:-.035em; margin:0; }
+.history-heading p { margin:6px 0; }
+.history-span { font-size:23px; white-space:nowrap; letter-spacing:-.04em; }
+.history-span small { display:block; font-size:11px; color:var(--muted); letter-spacing:0; text-align:right; }
+.history-years { display:flex; overflow-x:auto; gap:8px; padding:16px 2px; margin-top:12px; border-bottom:1px solid var(--line); }
+.history-years button { flex-shrink:0; background:transparent; border:1px solid var(--line); padding:10px 20px; border-radius:9px; }
+.history-years small { display:block; color:var(--muted); font-size:10px; }
+.history-years button[aria-pressed="true"] { border-color:var(--hn); background:var(--hn); color:#111; }
+.history-years button[aria-pressed="true"] small { color:#111; }
+.history-year-title { display:flex; align-items:center; gap:18px; margin:22px 0 16px; }
+.history-year-title h3 { font-size:26px; margin:0; color:var(--ink); }
+.history-picks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.history-pick { border-top:3px solid var(--hn); padding:16px 14px; background:color-mix(in srgb,var(--line) 25%,var(--bg)); border-radius:0 0 10px 10px; display:flex; flex-direction:column; }
+.history-pick .eyebrow { font-size:9px; margin:0 0 16px; }
+.history-pick time { font-size:12px; color:var(--muted); }
+.history-pick h4 { font-size:18px; line-height:1.4; letter-spacing:-.02em; margin:8px 0; overflow-wrap:anywhere; }
+.history-pick h4 a:hover { color:var(--hn); }
+.history-pick .meta { font-size:11px; overflow-wrap:anywhere; }
+.history-discussion { font-size:11px; margin-top:auto; padding-top:12px; color:var(--muted); }
+.history-navigation { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:22px 0; }
+.history-navigation button,#history-retry { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:9px 12px; }
+.history-navigation button:disabled { opacity:.4; cursor:default; }
+.timeline-method { font-size:12px; color:var(--muted); line-height:1.6; }
+.recent-stories { margin-bottom:30px; }
+@media(max-width:700px) { .topic-history { padding:18px; } .history-picks { grid-template-columns:1fr; } .history-heading { align-items:start; flex-direction:column; gap:10px; } .history-span small { text-align:left; } .history-navigation { flex-wrap:wrap; } .history-year-title { align-items:start; flex-direction:column; gap:2px; } }
+
+/* A reading path: orientation, history, current stories, then the archive. */
+.page { max-width:1100px; padding-top:28px; }
+.topic-hero { margin:24px 0 16px; }
+.topic-hero h1 { font-size:clamp(32px,4vw,48px); letter-spacing:-.045em; max-width:850px; line-height:1.06; }
+.topic-description { max-width:760px; font-size:16px; line-height:1.65; color:var(--muted); margin:14px 0; }
+.topic-stats { color:var(--muted); font-size:11px; display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
+.topic-nav { position:sticky; top:0; z-index:3; background:var(--bg); display:flex; gap:28px; border-bottom:1px solid var(--line); padding:16px 0; margin-bottom:24px; }
+.topic-nav button { border:0; padding:6px 0; background:none; color:var(--hn); font-size:10px; letter-spacing:.04em; }
+.topic-nav span { color:var(--ink); font-size:13px; margin-left:7px; letter-spacing:0; }
+.topic-nav button:hover span { color:var(--hn); }
+#topic-history,#topic-recent,#topic-archive { scroll-margin-top:82px; }
+.topic-history { border:0; padding:8px 0 30px; border-bottom:1px solid var(--line); border-radius:0; margin:0 0 40px; }
+.history-heading h2,.recent-stories h2,.topic-archive h2,.topic-footer h2 { font-size:28px; letter-spacing:-.035em; line-height:1.2; margin:8px 0; }
+.history-heading .eyebrow,.recent-stories>.eyebrow,.topic-archive>.eyebrow { font-size:10px; }
+.history-span { font-size:17px; }
+.history-heading { margin-bottom:12px; }
+.history-years { border-bottom:0; padding:16px 2px 0; margin-top:6px; }
+.history-years button { min-width:84px; scroll-margin-block:90px; }
+.history-year-title { justify-content:space-between; }
+#explore-year { border:0; background:none; color:var(--muted); font-size:12px; padding:8px 0; text-align:left; }
+#explore-year:hover { color:var(--hn); }
+.history-pick { padding:20px; border-top-width:2px; border-radius:0 0 12px 12px; }
+.history-pick h4 { font-size:20px; line-height:1.3; margin:10px 0 14px; font-weight:650; }
+.history-pick .eyebrow { margin-bottom:12px; }
+.history-navigation { margin:18px 0; }
+.history-navigation button { border:0; padding:10px 0; font-size:13px; }
+#history-next { color:var(--hn); font-weight:600; }
+.section-intro { color:var(--muted); margin:8px 0 22px; }
+.recent-stories { margin:0 0 48px; }
+.recent-stories .post { padding:18px 0; }
+.recent-stories .post>a { font-size:19px; line-height:1.45; letter-spacing:-.015em; }
+.post small { line-height:1.8; }
+.topic-archive .browse-tools { margin-bottom:16px; gap:8px; }
+.topic-archive .browse-tools input { flex-basis:100%; }
+.topic-archive select { flex:1; min-width:140px; }
+#archive-context { font-size:12px; margin:10px 0 18px; }
+#story-results .post { padding:16px 0; }
+#more-stories { margin:16px 0; width:100%; }
+#story-status { font-size:12px; margin-top:12px; }
+.activity { margin:30px 0 40px; padding:0; border:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); border-radius:0; }
+.activity>summary { padding:18px 0; color:var(--muted); font-size:13px; cursor:pointer; }
+.activity>summary span { float:right; }
+.activity-content { padding:10px 0 20px; }
+.topic-footer { padding:0 0 30px; }
+.related-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:22px; }
+.related-cards a { border:1px solid var(--line); border-radius:12px; padding:20px; }
+.related-cards a:hover { border-color:var(--hn); }
+.related-cards strong { display:flex; justify-content:space-between; gap:12px; font-size:15px; }
+.related-cards p { font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.6; }
+.topic-footer .digest { max-width:none; margin-top:28px; }
+@media(max-width:700px) { .page { padding:20px 20px 40px; } .topic-hero { margin-top:24px; } .topic-description { font-size:14px; } .topic-nav { top:0; gap:25px; } .history-heading { flex-direction:row; align-items:center; } .history-span { font-size:14px; } .history-picks { gap:12px; } .history-pick { padding:18px; } .history-pick h4 { font-size:21px; } .history-pick .eyebrow { margin-bottom:8px; } .history-year-title { flex-direction:row; align-items:center; gap:16px; } .related-cards { grid-template-columns:1fr; } .history-heading h2,.recent-stories h2,.topic-archive h2 { font-size:26px; } .history-navigation { gap:8px; } .history-navigation .meta { font-size:11px; } }
+@media(prefers-reduced-motion:no-preference) { .history-pick { animation:chapter-in .25s ease-out; } @keyframes chapter-in { from { opacity:.5; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } } }
+
+.zt-shell { border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--bg); }
+.zt-toolbar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 22px; border-bottom:1px solid var(--line); }
+.zt-scale { min-width:165px; }
+.zt-scale strong { display:block; font-size:15px; letter-spacing:-.02em; }
+.zt-scale>span { display:block; font-size:11px; color:var(--muted); margin-top:3px; }
+.zt-zoom { display:flex; align-items:center; gap:10px; }
+.zt-zoom button { width:36px; height:36px; background:var(--bg); border:1px solid var(--line); border-radius:50%; font-size:23px; line-height:1; }
+.zt-zoom button:hover:not(:disabled) { color:var(--hn); border-color:var(--hn); }
+.zt-zoom button:disabled { opacity:.3; cursor:default; }
+.zt-zoom input { width:100px; accent-color:var(--hn); cursor:pointer; appearance:none; background:transparent; height:36px; }
+.zt-zoom input::-webkit-slider-runnable-track { height:3px; background:var(--line); border-radius:8px; }
+.zt-zoom input::-webkit-slider-thumb { appearance:none; width:15px; height:15px; border-radius:50%; background:var(--hn); margin-top:-6px; }
+.zt-zoom input::-moz-range-track { height:3px; background:var(--line); border-radius:8px; }
+.zt-zoom input::-moz-range-thumb { width:15px; height:15px; border:0; border-radius:50%; background:var(--hn); }
+.zt-jump { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:11px; }
+.zt-jump select { background:var(--bg); border:1px solid var(--line); padding:8px; border-radius:8px; color:var(--ink); }
+.zt-view { height:560px; max-height:65dvh; min-height:320px; overflow-y:auto; overflow-x:hidden; scrollbar-width:thin; scrollbar-color:var(--dot) transparent; overflow-anchor:none; }
+.zt-period { display:grid; grid-template-columns:110px minmax(0,1fr); gap:20px; padding:28px 24px 12px; position:relative; }
+.zt-period:before { content:''; position:absolute; top:0; bottom:0; left:143px; width:1px; background:var(--line); }
+.zt-date { position:sticky; top:18px; align-self:start; padding-top:2px; }
+.zt-date button { border:0; background:none; padding:0; color:var(--ink); font-size:20px; font-weight:650; letter-spacing:-.04em; text-align:left; }
+.zt-date button:disabled { cursor:default; }
+.zt-date button>span { font-size:13px; color:var(--hn); }
+.zt-date small { display:block; font-size:10px; color:var(--muted); margin-top:5px; }
+.zt-dot { position:absolute; top:10px; right:-14px; height:9px; width:9px; border-radius:50%; background:var(--hn); box-shadow:0 0 0 5px var(--bg); }
+.zt-stories { align-content:start; display:grid; grid-template-columns:1fr; gap:12px; padding-left:8px; }
+.zt-view[data-level="0"] .zt-stories { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.zt-story { border:1px solid var(--line); border-radius:12px; padding:18px; background:color-mix(in srgb,var(--bg) 97%,var(--hn)); }
+.zt-story time { color:var(--muted); font-size:11px; }
+.zt-story h3 { font-size:18px; line-height:1.35; letter-spacing:-.02em; font-weight:600; text-transform:none; color:var(--ink); margin:9px 0 16px; overflow-wrap:anywhere; }
+.zt-story h3 a:hover { color:var(--hn); }
+.zt-story h3 span { font-size:13px; color:var(--muted); }
+.zt-meta { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; font-size:10px; color:var(--muted); }
+.zt-meta>span { overflow-wrap:anywhere; }
+.zt-meta a:hover { color:var(--hn); }
+.zt-quiet { color:var(--muted); font-size:12px; padding:16px 0; }
+.zt-end { text-align:center; color:var(--muted); font-size:11px; padding:30px; }
+.zt-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; border-top:1px solid var(--line); padding:12px 22px; color:var(--muted); font-size:11px; }
+.zt-footer button,.zt-below button { padding:4px 0; border:0; background:none; color:var(--muted); font-size:11px; }
+.zt-footer button:hover,.zt-below button:hover { color:var(--hn); }
+.zt-below { display:flex; justify-content:space-between; gap:16px; margin:16px 0; }
+#zt-position { color:var(--ink); }
+@media(max-width:700px) {
+ .zt-toolbar { flex-wrap:wrap; gap:12px; padding:16px; }
+ .zt-scale { min-width:0; flex:1; }
+ .zt-zoom { gap:8px; }
+ .zt-zoom input { width:65px; }
+ .zt-jump { flex-basis:100%; justify-content:space-between; border-top:1px solid var(--line); padding-top:10px; }
+ .zt-jump select { padding:5px 8px; }
+ .zt-period { grid-template-columns:1fr; gap:12px; padding:20px 16px 8px 26px; }
+ .zt-period:before { left:13px; }
+ .zt-date { position:relative; top:auto; display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; }
+ .zt-date small { margin:0; }
+ .zt-dot { left:-17px; right:auto; top:9px; width:7px; height:7px; }
+ .zt-stories,.zt-view[data-level="0"] .zt-stories { grid-template-columns:1fr; padding:0; gap:10px; }
+ .zt-story { padding:14px; }
+ .zt-story h3 { font-size:17px; }
+ .zt-footer { gap:8px; padding:12px; font-size:10px; }
+ .zt-footer>span:nth-child(2) { display:none; }
+ .zt-view { height:460px; max-height:52dvh; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="#/"><b>HN <span>Topics</span></b></a>
+  <nav class="toggle"><a id="topics" href="#/">Browse topics</a><a id="connections" href="#/connections">Connections</a></nav>
+</header>
+<main id="app"></main>
+<div id="tip" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="./data.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const hn = id => `https://news.ycombinator.com/item?id=${id}`;
+const safeUrl = u => { try { const x = new URL(u); return ["http:", "https:"].includes(x.protocol) ? x.href : ""; } catch { return ""; } };
+const domain = u => { const x = safeUrl(u); return x ? new URL(x).hostname.replace(/^www\./, "") : ""; };
+const trend = m => `<small class="${m >= 1.2 ? "up" : m <= .8 ? "down" : ""}">${m >= 1 ? "↑" : "↓"} ${m.toFixed(1)}×</small>`;
+let T, routeVersion = 0;
+const browseState = {query: "", sort: "active", limit: 18};
+// Whole words and prefixes; short terms such as AI must match exactly.
+const searchWords = value => (value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
+  .replace(/artificial intelligence/g, "ai").replace(/machine learning/g, "ml")
+  .match(/[\p{L}\p{N}+#]+/gu) || []).map(word => ({js:"javascript",ts:"typescript"}[word] || word));
+const matchingTopics = query => {
+  const words = [...new Set(searchWords(query))];
+  if (!words.length) return [...T.topics];
+  const score = topic => {
+    const title = searchWords(topic.name), description = searchWords(topic.description || "");
+    let total = 0;
+    for (const word of words) {
+      const prefix = term => word.length >= 3 && term.startsWith(word);
+      const weight = title.includes(word) ? 8 : title.some(prefix) ? 5
+        : description.includes(word) ? 2 : description.some(prefix) ? 1 : 0;
+      if (!weight) return 0;
+      total += weight;
+    }
+    return total + (title.join(" ") === words.join(" ") ? 20 : 0);
+  };
+  return T.topics.map(topic => ({topic, score:score(topic)})).filter(item => item.score > 0)
+    .sort((a,b) => b.score-a.score || b.topic.last_30d-a.topic.last_30d || a.topic.name.localeCompare(b.topic.name))
+    .map(item => item.topic);
+};
+const details = new Map();
+function topicDetails(id) {
+  id=Number(id);
+  if (!details.has(id)) details.set(id,data.topic(id).catch(error=>{details.delete(id);throw error;}));
+  return details.get(id);
+}
+
+const topicCard = t => `<a class="topic-card" href="#/topic/${t.id}"><strong>${esc(t.name)}</strong><p>${esc(t.description)}</p><div class="card-kicker"><span>${t.last_30d.toLocaleString()} posts · last 30 days</span>${trend(t.momentum)}</div></a>`;
+
+async function home(version) {
+  T ??= await data.topics();
+  if (version !== routeVersion) return;
+  $("#app").innerHTML = `<div class="home"><div class="home-inner">
+    <div class="directory-intro"><h1>Hacker News, <span>by topic.</span></h1></div>
+    <section aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="moving">Rising</button><button data-sort="az">A–Z</button></div></div>
+    <div class="directory-summary"><p id="result-count" role="status"></p><p class="meta">Stories through ${new Date(T.as_of * 1000).toLocaleDateString()}</p></div>
+    <div class="directory-grid" id="directory"></div><button id="show-more" class="more">Show more topics</button></section>
+  </div></div>`;
+  const render = () => {
+    const query = browseState.query.trim();
+    const matches = matchingTopics(query);
+    if (browseState.sort !== "relevance") matches.sort(browseState.sort === "az" ? (a,b) => a.name.localeCompare(b.name) : browseState.sort === "moving" ? (a,b) => b.momentum-a.momentum || b.last_30d-a.last_30d : (a,b) => b.last_30d-a.last_30d);
+    $("#directory").innerHTML = matches.slice(0,browseState.limit).map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
+    $("#result-count").textContent = `${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}${query ? ' found' : ''}`;
+    $("#show-more").hidden = matches.length <= browseState.limit;
+    document.querySelector('[data-sort="relevance"]').hidden = !query;
+    document.querySelectorAll("[data-sort]").forEach(b => { b.classList.toggle("on",b.dataset.sort === browseState.sort); b.setAttribute("aria-pressed",b.dataset.sort === browseState.sort); });
+  };
+  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; browseState.limit=18; $("#q").value=value; render(); };
+  $("#q").oninput = e => search(e.target.value);
+  $("#q").onkeydown = e => { if (e.key === "Escape") search(""); };
+  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; browseState.limit=18; render();});
+  $("#show-more").onclick=()=>{browseState.limit+=18; render();};
+  render();
+}
+
+async function connections(version) {
+  T ??= await data.topics();
+  if (version !== routeVersion) return;
+  $("#app").innerHTML=`<section class="connections-page">
+    <div class="connections-heading"><div><h1>Topic <span>connections.</span></h1><p class="meta">Select a topic to explore related stories.</p></div><input id="map-search" type="search" placeholder="Search topics" aria-label="Find a topic on the map" autocomplete="off"></div>
+    <div id="map-results" class="map-results" aria-live="polite"></div>
+    <div class="connections-layout"><div class="connections-canvas"><svg id="map" aria-label="Interactive topic connections"></svg><div class="map-legend"><span class="legend-dot"></span> Topics <span class="legend-ring"></span> Rising</div><span class="map-help">Drag to move · + / − to zoom</span><div class="map-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div>
+  </section>`;
+  if (!window.d3) { $(".connections-canvas").innerHTML='<p class="loading">The map could not load. <a href="#/">Browse topics →</a></p>'; return; }
+  const map=drawMap();
+  const results=$("#map-results");
+  $("#map-search").oninput=e=>{
+    const q=e.target.value.trim(), matches=matchingTopics(q);
+    map.filter(new Set(matches.map(t=>t.id)));
+    results.innerHTML=q ? `<span>${matches.length} matching topics · select to explore</span><div class="map-result-options">`+matches.map(t=>`<button data-result="${t.id}">${esc(t.name)}</button>`).join("")+`</div>`+(matches.length ? "" : "<span>Try fewer words or a broader subject.</span>") : "";
+  };
+  results.onclick=e=>{const button=e.target.closest("[data-result]");if(button)map.select(Number(button.dataset.result));};
+  $(".connections-page").onkeydown=e=>{if(e.key==="Escape"){map.clear();$("#map-search").focus();}};
+
+}
+
+function drawMap() {
+  const svg=d3.select("#map").attr("viewBox","0 0 1000 620"), layer=svg.append("g");
+  const x=d3.scaleLinear([0,1],[65,935]), y=d3.scaleLinear([0,1],[62,550]);
+  const radius=d3.scaleSqrt([0,d3.max(T.topics,t=>t.size)],[3,12]);
+  const byId=new Map(T.topics.map(t=>[t.id,t]));
+  const edges=T.edges.filter(e=>byId.has(e.a)&&byId.has(e.b));
+  const neighbors=new Map(T.topics.map(t=>[t.id,new Set([t.id])]));
+  edges.forEach(e=>{neighbors.get(e.a).add(e.b);neighbors.get(e.b).add(e.a);});
+  let selected=null, matching=new Set(byId.keys()), hovered=null;
+  const paths=layer.append("g").selectAll("path").data(edges).join("path").attr("class","map-edge")
+    .attr("d",e=>{const a=byId.get(e.a),b=byId.get(e.b);return `M${x(a.x)},${y(a.y)} Q${(x(a.x)+x(b.x))/2+12},${(y(a.y)+y(b.y))/2-12} ${x(b.x)},${y(b.y)}`;});
+  const rings=layer.append("g").attr("pointer-events","none").selectAll("circle")
+    .data(T.topics.filter(t=>t.momentum>=1.2)).join("circle")
+    .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)+4)
+    .attr("fill","none").attr("stroke","var(--hn)").attr("stroke-opacity",.7).attr("stroke-width",.8);
+  const dots=layer.append("g").selectAll("circle").data(T.topics).join("circle").attr("class","topic-dot")
+    .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)).attr("fill","var(--dot)")
+    .attr("tabindex",0).attr("role","button").attr("aria-label",t=>`Explore ${t.name}`).attr("aria-pressed","false");
+  const labels=layer.append("g").selectAll("text").data(T.topics).join("text")
+    .attr("class","map-label").attr("x",t=>Math.max(100,Math.min(900,x(t.x)))).attr("y",t=>y(t.y)-radius(t.size)-9)
+    .attr("text-anchor","middle").text(t=>t.name);
+  const refresh=()=>{
+    const active=selected ?? hovered, connected=active==null ? null : neighbors.get(active);
+    const visible=t=>connected ? connected.has(t.id) : matching.has(t.id);
+    dots.attr("opacity",t=>visible(t) ? 1 : .13).attr("r",t=>radius(t.size)+(t.id===active ? 3 : 0))
+      .attr("tabindex",t=>visible(t)?0:-1).attr("aria-pressed",t=>t.id===selected).attr("fill",t=>t.id===active ? "var(--hn)" : "var(--dot)")
+      .attr("stroke",t=>t.id===active ? "var(--ink)" : "var(--bg)");
+    rings.attr("opacity",t=>visible(t) ? 1 : .08);
+    paths.attr("stroke",e=>active!=null && (e.a===active||e.b===active) ? "var(--hn)" : "var(--dot)")
+      .attr("stroke-opacity",e=>active==null ? .3 : (e.a===active||e.b===active) ? .8 : .025)
+      .attr("stroke-width",e=>active!=null && (e.a===active||e.b===active) ? 1.5 : .7);
+    const boxes=[], shown=new Set();
+    const candidates=[...T.topics].filter(visible).sort((a,b)=>(b.id===active)-(a.id===active)||b.size-a.size);
+    for(const t of candidates.slice(0,connected ? 15 : matching.size<T.topics.length ? 25 : innerWidth<600 ? 10 : 24)) {
+      const cx=Math.max(100,Math.min(900,x(t.x))),cy=y(t.y)-radius(t.size)-9,w=t.name.length*5.7;
+      const box=[cx-w/2-5,cy-13,cx+w/2+5,cy+3];
+      if(boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
+      boxes.push(box);shown.add(t.id);
+    }
+    labels.attr("display",t=>shown.has(t.id)?null:"none").style("fill",t=>t.id===active ? "var(--ink)" : "var(--muted)");
+  };
+  const preview=$("#map-preview");
+  const clear=()=>{selected=null;hovered=null;preview.hidden=true;refresh();};
+  const select=id=>{
+    const t=byId.get(id);
+    if(!t)return;
+    selected=id;hovered=null;
+    const related=[...neighbors.get(id)].filter(other=>other!==id).map(other=>byId.get(other)).sort((a,b)=>b.last_30d-a.last_30d);
+    preview.hidden=false;
+    preview.innerHTML=`<button class="preview-close" aria-label="Close topic preview">×</button><p class="eyebrow">${related.length} connected topics</p><h2>${esc(t.name)}</h2><p>${esc(t.description)}</p><div class="preview-stats">${t.last_30d.toLocaleString()} posts in 30 days<br>${t.momentum.toFixed(1)}× the monthly average of the prior 90 days</div><a class="preview-open" href="#/topic/${id}">Read this topic <span>↗</span></a><div class="preview-stories" id="map-stories"><p>Loading recent stories…</p></div><h3>Explore related topics</h3><div class="preview-related">${related.map(r=>`<button data-neighbor="${r.id}">${esc(r.name)} →</button>`).join("") || '<p>No connections yet.</p>'}</div>`;
+    refresh();
+    topicDetails(id).then(data=>{
+      if(selected!==id || !preview.isConnected)return;
+      preview.querySelector("#map-stories").innerHTML='<h3>Recent stories</h3>'+data.trending.slice(0,3).map(p=>`<a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} ↗</a>`).join("")+(data.trending.length ? "" : '<p>No trending stories in the last 14 days.</p>');
+    }).catch(()=>{if(selected===id && preview.isConnected)preview.querySelector("#map-stories").innerHTML='<p>Stories could not load. Open the topic to try again.</p>';});
+    if(innerWidth<600)preview.scrollIntoView({behavior:"smooth",block:"nearest"});
+  };
+  preview.onclick=e=>{
+    if(e.target.closest(".preview-close")){const previous=selected;clear();dots.filter(t=>t.id===previous).node()?.focus();}
+    const next=e.target.closest("[data-neighbor]");if(next)select(Number(next.dataset.neighbor));
+  };
+  dots.on("pointerenter focus",(_,t)=>{if(selected===null){hovered=t.id;refresh();}})
+    .on("pointerleave blur",()=>{hovered=null;refresh();})
+    .on("click",(_,t)=>select(t.id)).on("keydown",(e,t)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(t.id);}});
+  const zoom=d3.zoom().scaleExtent([1,6]).on("zoom",e=>layer.attr("transform",e.transform));
+  svg.call(zoom).on("wheel.zoom",null).on("dblclick.zoom",null);
+  $("#zoom-in").onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1.5);
+  $("#zoom-out").onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.5);
+  $("#zoom-reset").onclick=()=>{clear();svg.transition().duration(300).call(zoom.transform,d3.zoomIdentity);};
+  refresh();
+  return {select,clear,filter:ids=>{matching=ids;clear();}};
+}
+
+// ---------- topic page ----------
+const post = p => `<div class="post"><a href="${esc(safeUrl(p.url) || hn(p.id))}" title="${esc(p.title)}" target="_blank" rel="noopener">${esc(p.title)}</a>
+  <small>${safeUrl(p.url) ? `<a href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener">↗ ${esc(domain(p.url))}</a> · ` : ""}<a href="${hn(p.id)}" target="_blank" rel="noopener">HN · ${p.descendants ?? 0} comments</a> · ${p.score} points · ${new Date(p.time * 1000).toLocaleDateString()}</small></div>`;
+
+async function topic(id, version) {
+  T ??= await data.topics();
+  const t = await topicDetails(id), me = T.topics.find(x => x.id === t.id);
+  if (version !== routeVersion) return;
+  document.title = `${t.name} · HN Topics`;
+  const related = T.edges.filter(e => e.a === t.id || e.b === t.id).map(e => T.topics.find(x => x.id === (e.a === t.id ? e.b : e.a))).filter(Boolean);
+  $("#app").innerHTML = `<div class="page">
+    <a href="#/" class="meta" style="align-self: start">← All topics</a>
+    <div class="hero topic-hero"><div><h1>${esc(t.name)}</h1>
+    <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_30d} in 30 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p></div></div>
+    <nav class="topic-nav" aria-label="On this topic page"><button type="button" data-section="topic-history">01 <span>Timeline</span></button><button type="button" data-section="topic-recent">02 <span>Latest</span></button><button type="button" data-section="topic-archive">03 <span>Explore</span></button></nav>
+    <section id="topic-history" class="topic-history" aria-label="Topic timeline" tabindex="-1"><p role="status">Loading history…</p></section>
+    <section id="topic-recent" class="recent-stories" tabindex="-1"><p class="eyebrow">02 / CATCH UP</p><h2>The conversation now</h2><p class="section-intro">Stories gathering attention in the last two weeks.</p>${t.trending.slice(0,5).map(post).join("") || '<p class="meta">No recent stories.</p>'}</section>
+    <section id="topic-archive" class="topic-archive" tabindex="-1" aria-label="Browse topic stories"><p class="eyebrow">03 / GO DEEPER</p><h2>Follow your curiosity</h2><p class="section-intro">Find a particular story, revisit a year, or see what resonated.</p>
+      <form id="story-search" class="browse-tools">
+        <input name="q" type="search" maxlength="200" placeholder="Search titles or websites…" aria-label="Search stories">
+        <select name="sort" aria-label="Sort stories"><option value="newest">Newest</option><option value="top" selected>Highest rated</option><option value="discussed">Most discussed</option></select>
+        <select name="days" aria-label="Story period"><option value="0">All time</option><option value="7">Last week</option><option value="30" selected>Last month</option><option value="365">Last year</option></select>
+        <select name="year" aria-label="Archive year"><option value="0">Any year</option>${[...new Set(t.monthly.map(m=>m.month?.slice(0,4)).filter(Boolean))].sort().reverse().map(y=>`<option value="${y}">${y}</option>`).join('')}</select>
+        <button type="submit">Search</button><button type="button" id="reset-search" hidden>Clear filters</button>
+      </form>
+      <p id="archive-context" class="meta"></p>
+      <div id="story-results"></div><p id="story-status" class="meta" role="status"></p>
+      <button id="more-stories" type="button" hidden>Load more stories</button>
+    </section>
+    <details class="activity"><summary>See this topic’s activity over time <span>↗</span></summary><div class="activity-content"><div class="chart-heading"><div><h2>Topic activity</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Monthly post counts · the latest month may be incomplete. Select a bar to see its count.</p></div></details>
+
+    <footer class="topic-footer">${related.length ? `<div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">${related.slice(0,4).map(r=>`<a href="#/topic/${r.id}"><strong>${esc(r.name)} <span>↗</span></strong><p>${esc(r.description)}</p></a>`).join('')}</div></div>` : ''}
+    ${t.newsletter_available ? `<aside class="digest"><strong>Keep up with ${esc(t.name)}</strong><p>A concise digest, delivered at your pace.</p><form id="signup"><input name="email" type="email" placeholder="you@example.com" required aria-label="Email address"><select name="cadence" aria-label="Frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><button>Subscribe</button></form><small id="signup-status" role="status">Unsubscribe any time.</small></aside>` : ''}</footer>
+  </div>`;
+  window.scrollTo(0,0);
+  const jump = target => {
+    const section = document.getElementById(target);
+    section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+    section.focus({preventScroll:true});
+  };
+  document.querySelectorAll('[data-section]').forEach(button=>button.onclick=()=>jump(button.dataset.section));
+  const storyForm = $("#story-search"), results = $("#story-results"), more = $("#more-stories"), storyStatus = $("#story-status");
+  let storyOffset = 0, storyQuery = new URLSearchParams(), storyRequest = 0;
+  async function loadStories(reset = false) {
+    const request = ++storyRequest;
+    if (reset) { storyOffset = 0; storyQuery = new URLSearchParams(new FormData(storyForm)); results.innerHTML = ""; }
+    more.disabled = true;
+    storyStatus.textContent = "Loading stories…";
+    const params = new URLSearchParams(storyQuery); params.set("offset", storyOffset); params.set("limit",10);
+    const year = storyQuery.get('year'), days = Number(storyQuery.get('days'));
+    const period = year && year !== '0' ? year : days ? `the last ${days} days` : 'all years';
+    $('#archive-context').textContent = `${{top:'Highest rated',newest:'Newest',discussed:'Most discussed'}[storyQuery.get('sort')]} · ${period}${storyQuery.get('q') ? ` · “${storyQuery.get('q')}”` : ''}`;
+    $('#reset-search').hidden = !(storyQuery.get('q') || year !== '0' || days !== 30 || storyQuery.get('sort') !== 'top');
+    try {
+      const page = await data.stories(t.id, params);
+      if (request !== storyRequest || version !== routeVersion) return;
+      results.insertAdjacentHTML("beforeend", page.posts.map(post).join(""));
+      storyOffset = page.next_offset;
+      more.hidden = storyOffset === null;
+      storyStatus.textContent = results.children.length ? `${results.children.length} stories shown.` : "No stories match. Try another search or period.";
+    } catch {
+      if (request !== storyRequest || version !== routeVersion) return;
+      storyStatus.textContent = "Could not load stories. Try again.";
+      more.hidden = false;
+    } finally { if (request === storyRequest) more.disabled = false; }
+  }
+  storyForm.onsubmit = e => { e.preventDefault(); loadStories(true); };
+  storyForm.onchange = e => {
+    if (e.target.name === 'year' && e.target.value !== '0') storyForm.elements.days.value = '0';
+    if (e.target.name === 'days') storyForm.elements.year.value = '0';
+    if (e.target.tagName === 'SELECT') loadStories(true);
+  };
+  $('#reset-search').onclick = () => { storyForm.reset(); loadStories(true); };
+  loadHistory(t.id, version, year => {
+    storyForm.reset(); storyForm.elements.year.value = year; storyForm.elements.days.value = '0';
+    loadStories(true); jump('topic-archive');
+  },()=>jump('topic-recent'));
+  more.onclick = () => loadStories();
+  loadStories(true);
+  if (window.d3 && t.monthly?.length) {
+    const parse=d3.utcParse("%Y-%m"), format=d3.utcFormat("%B %Y");
+    const months=new Map(t.monthly.filter(m=>m.month).map(m=>[m.month,m.posts]));
+    const dates=[...months.keys()].sort();
+    const all=d3.utcMonth.range(parse(dates[0]),d3.utcMonth.offset(parse(dates.at(-1)),1))
+      .map(date=>({date,posts:months.get(d3.utcFormat("%Y-%m")(date)) || 0}));
+    const draw=range=>{
+      const data=range ? all.slice(-range) : all, W=Math.max(280,$("#activity-chart").clientWidth),H=210;
+      const chart=d3.select("#activity-chart").attr("viewBox",`0 0 ${W} ${H}`);
+      chart.selectAll("*").remove();
+      const x=d3.scaleBand(data.map(m=>+m.date),[48,W-14]).padding(.22);
+      const y=d3.scaleLinear([0,d3.max(data,m=>m.posts)||1],[H-34,14]).nice();
+      chart.append("g").attr("class","chart-grid").attr("transform","translate(48,0)")
+        .call(d3.axisLeft(y).ticks(4).tickSize(-(W-62)).tickFormat(d3.format("~s"))).call(g=>g.select(".domain").remove());
+      const ticks=data.filter((m,i)=>i % Math.max(1,Math.ceil(data.length/(W<500 ? 3 : 5)))===0).map(m=>+m.date);
+      chart.append("g").attr("transform",`translate(0,${H-34})`)
+        .call(d3.axisBottom(x).tickValues(ticks).tickFormat(d=>d3.utcFormat("%b %Y")(new Date(d))).tickSize(0).tickPadding(12))
+        .call(g=>g.select(".domain").remove());
+      const bars=chart.append("g").selectAll("rect").data(data).join("rect")
+        .attr("x",m=>x(+m.date)).attr("y",m=>y(m.posts)).attr("width",x.bandwidth()).attr("height",m=>H-34-y(m.posts))
+        .attr("rx",2).attr("tabindex",0).attr("role","button")
+        .attr("aria-label",m=>`${format(m.date)}: ${m.posts.toLocaleString()} posts`);
+      const select=m=>{ bars.classed("selected",d=>d===m); $("#chart-readout").textContent=`${format(m.date)} · ${m.posts.toLocaleString()} posts`; };
+      bars.on("pointerenter focus click",(_,m)=>select(m)).on("keydown",(e,m)=>{if(e.key==="Enter" || e.key===" "){e.preventDefault();select(m);}});
+      select(data.at(-1));
+      document.querySelectorAll("[data-range]").forEach(b=>{b.classList.toggle("on",+b.dataset.range===range); b.setAttribute("aria-pressed",+b.dataset.range===range);});
+    };
+    document.querySelectorAll("[data-range]").forEach(b=>b.onclick=()=>draw(+b.dataset.range));
+    $('.activity').ontoggle = () => { if ($('.activity').open) draw(12); };
+  } else {
+    $(".activity").hidden=true;
+    document.querySelectorAll("[data-range]").forEach(b=>b.disabled=true);
+  }
+  if ($("#signup")) $("#signup").onsubmit = async e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    const status = $("#signup-status"); status.textContent = "Sending confirmation…";
+    try {
+      const r = await fetch("/api/newsletter/subscribe", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...data, topic:+id})});
+      const result = await r.json();
+      if (!r.ok) throw Error(result.detail || "Could not subscribe");
+      status.textContent = "Check your inbox to confirm.";
+    } catch (err) { status.textContent = err.message; }
+  };
+
+}
+
+// ---------- zoomable topic history ----------
+async function loadHistory(id, version, onYear, onRecent) {
+  const host = $('#topic-history');
+  try {
+    const source = await data.timelineZoom(id);
+    const history = source?.levels ? {...source, levels:Object.fromEntries(
+      Object.entries(source.levels).map(([key,periods])=>[key,[...periods].reverse()]))} : source;
+    if (version !== routeVersion || !host.isConnected) return;
+    if (!history?.levels) throw Error('Timeline data unavailable');
+    if (!history.levels.year.length) {
+      host.innerHTML = '<h2>Timeline</h2><p class="meta">No stories yet. This topic’s history will appear here.</p>';
+      return;
+    }
+    const scales = [
+      {key:'year', limit:2, name:'Big picture', hint:'Up to 2 stories per year'},
+      {key:'year', limit:5, name:'Year by year', hint:'Up to 5 stories per year'},
+      {key:'month', limit:3, name:'Month by month', hint:'Up to 3 stories per month'},
+      {key:'week', limit:3, name:'Week by week', hint:'Up to 3 stories per week'}
+    ];
+    let level = 0, frame = 0;
+    const yearOf = stamp => new Date(stamp*1000).getUTCFullYear();
+    const years = history.levels.year.map(p=>yearOf(p.start));
+    const label = (p, key) => new Date(p.start*1000).toLocaleDateString(undefined,
+      {timeZone:'UTC',year:'numeric',...(key==='year' ? {} : {month:'short'}),...(key==='week' ? {day:'numeric'} : {})});
+    host.innerHTML = `<div class="history-heading"><div><p class="eyebrow">01 / EXPLORE THROUGH TIME</p><h2>Timeline</h2></div><span class="history-span">${years[0]} — ${years.at(-1)}</span></div>
+      <p class="section-intro">Start with the latest. Scroll back through time, or zoom in for more.</p>
+      <div class="zt-shell">
+        <div class="zt-toolbar"><div class="zt-scale"><strong id="zt-scale-name">Big picture</strong><span id="zt-scale-hint">Up to 2 stories per year</span></div><div class="zt-zoom"><button type="button" id="zt-out" aria-label="Zoom out">−</button><input id="zt-zoom" type="range" min="0" max="3" step="1" value="0" aria-label="Timeline detail" aria-valuetext="Big picture"><button type="button" id="zt-in" aria-label="Zoom in">+</button></div><label class="zt-jump"><span>Jump to</span><select id="zt-year" aria-label="Jump to year">${years.map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label></div>
+        <div class="zt-view" id="zt-view" tabindex="0" role="region" aria-label="Scrollable news timeline. Use the zoom controls to reveal more detail."><div id="zt-periods"></div></div>
+        <div class="zt-footer"><span id="zt-position" role="status"></span><span>Scroll through time <span aria-hidden="true">↕</span></span><button type="button" id="zt-reset">Reset view</button></div>
+      </div>
+      <div class="zt-below"><button type="button" id="zt-archive">Explore this year’s archive ↗</button><button type="button" id="zt-latest">Catch up with the latest →</button></div>
+      <details class="timeline-method"><summary>About this timeline</summary><p>Zoom from two highlights per year to five, then into months and weeks. Picks are ranked within each period by HN points, with comments breaking ties, and displayed newest first by submission date. Duplicate links within a period are skipped. Stories need at least 10 points; quiet periods stay visible. HN attention is a discovery signal, not a measure of lasting impact. The timeline covers our available archive; first and last periods may be incomplete.</p></details>`;
+    const viewport = host.querySelector('#zt-view'), periods = host.querySelector('#zt-periods');
+    const slider = host.querySelector('#zt-zoom'), jump = host.querySelector('#zt-year');
+    const position = host.querySelector('#zt-position');
+    const visiblePeriod = () => {
+      const top = viewport.getBoundingClientRect().top + 24;
+      const sections=[...periods.querySelectorAll('.zt-period')];
+      return sections.find(el=>el.getBoundingClientRect().bottom>top) || sections.at(-1);
+    };
+    const updatePosition = () => {
+      const el = visiblePeriod();
+      if (!el) return;
+      const p = history.levels[scales[level].key][Number(el.dataset.index)];
+      jump.value = String(yearOf(Math.max(history.start,p.start)));
+      position.textContent = (scales[level].key==='week' ? 'Week of ' : '') + label(p,scales[level].key);
+    };
+    // Keep a visible article fixed when it survives the zoom; otherwise keep its period.
+    const capture = () => {
+      const box = viewport.getBoundingClientRect();
+      const article = [...periods.querySelectorAll('[data-story]')].find(el=>{
+        const rect = el.getBoundingClientRect();
+        return rect.bottom>box.top+70 && rect.top<box.bottom;
+      });
+      const el = article || visiblePeriod();
+      return {time:Number(el.dataset.time), story:article?.dataset.story,
+              offset:el.getBoundingClientRect().top-box.top};
+    };
+    const restore = anchor => {
+      const article = anchor.story && periods.querySelector(`[data-story="${anchor.story}"]`);
+      const buckets = history.levels[scales[level].key];
+      let index = buckets.findIndex(p=>p.start<=anchor.time && p.end>anchor.time);
+      if (index<0) index=anchor.time<buckets.at(-1).start ? buckets.length-1 : 0;
+      const el = article || periods.children[index];
+      viewport.scrollTop += el.getBoundingClientRect().top-viewport.getBoundingClientRect().top-(article ? anchor.offset : 12);
+      updatePosition();
+    };
+    const render = anchor => {
+      const scale = scales[level];
+      viewport.dataset.level = level;
+      periods.innerHTML = history.levels[scale.key].map((p,i)=>{
+        const picks = p.posts.slice(0,scale.limit).sort((a,b)=>b.time-a.time||b.id-a.id);
+        const title = label(p,scale.key);
+        return `<section class="zt-period" data-index="${i}" data-time="${p.end-1}"><div class="zt-date"><span class="zt-dot"></span>${scale.key==='week' ? '<small>Week of</small>' : ''}<button type="button" data-drill="${p.end-1}" ${level===3 ? 'disabled' : ''} aria-label="Zoom into ${esc(title)}">${esc(title)}${level<3 ? ' <span>+</span>' : ''}</button><small>${p.count.toLocaleString()} stories</small></div><div class="zt-stories">${picks.map(p=>`<article class="zt-story" data-story="${p.id}" data-time="${p.time}"><time datetime="${new Date(p.time*1000).toISOString()}">${new Date(p.time*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',timeZone:'UTC'})}</time><h3><a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} <span>↗</span></a></h3><div class="zt-meta"><span>${esc(domain(p.url)||'Hacker News')}</span><a href="${hn(p.id)}" target="_blank" rel="noopener">${p.score.toLocaleString()} points · ${p.descendants||0} comments</a></div></article>`).join('') || `<p class="zt-quiet">${p.count ? 'A quiet stretch. No stories reached 10 points.' : 'No stories in this period.'}</p>`}</div></section>`;
+      }).join('') + '<div class="zt-end">You’ve reached the beginning of this archive.</div>';
+      periods.querySelector('.zt-period:last-of-type').style.minHeight=`${viewport.clientHeight}px`;
+      host.querySelector('#zt-scale-name').textContent=scale.name;
+      host.querySelector('#zt-scale-hint').textContent=scale.hint;
+      slider.value=level;
+      slider.setAttribute('aria-valuetext',scale.name);
+      host.querySelector('#zt-out').disabled=level===0;
+      host.querySelector('#zt-in').disabled=level===3;
+      if(anchor) restore(anchor); else viewport.scrollTop=0;
+      updatePosition();
+    };
+    const zoomTo = (next, anchor=capture()) => {
+      const bounded=Math.max(0,Math.min(3,next));
+      if (bounded===level) return;
+      level=bounded; render(anchor);
+    };
+    host.querySelector('#zt-out').onclick=()=>zoomTo(level-1);
+    host.querySelector('#zt-in').onclick=()=>zoomTo(level+1);
+    slider.oninput=()=>zoomTo(Number(slider.value));
+    jump.onchange=()=>restore({time:Math.max(history.start,Math.min(history.as_of,Date.UTC(Number(jump.value)+1,0,1)/1000-1))});
+    periods.onclick=e=>{
+      const button=e.target.closest('[data-drill]');
+      if (!button || level===3) return;
+      zoomTo(level+1,{time:Number(button.dataset.drill)});
+      viewport.focus({preventScroll:true});
+    };
+    viewport.onscroll=()=>{
+      if(frame) return;
+      frame=requestAnimationFrame(()=>{frame=0;if(host.isConnected)updatePosition();});
+    };
+    host.querySelector('#zt-reset').onclick=()=>{level=0;render();};
+    host.querySelector('#zt-archive').onclick=()=>onYear(jump.value);
+    host.querySelector('#zt-latest').onclick=onRecent;
+    render();
+  } catch {
+    if (version !== routeVersion || !host.isConnected) return;
+    host.innerHTML='<h2>Timeline</h2><p class="meta">The history could not load.</p><button type="button" id="history-retry">Try again</button>';
+    host.querySelector('#history-retry').onclick=()=>{host.innerHTML='<p role="status">Loading history…</p>';loadHistory(id,version,onYear,onRecent);};
+  }
+}
+
+// ---------- wiring ----------
+const tip = $("#tip");
+document.addEventListener("pointermove", e => {
+  const t = e.target.closest("[data-tip]");
+  tip.hidden = !t;
+  if (t) { tip.textContent = t.dataset.tip; tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = Math.min(e.clientY + 12, innerHeight - tip.offsetHeight - 8) + "px"; }
+});
+function route() {
+  const version = ++routeVersion;
+  const m = location.hash.match(/^#\/topic\/(\d+)/);
+  const isConnections=location.hash === "#/connections";
+  const isTimeline=/^#\/timeline(?:\?|$)/.test(location.hash);
+  if (isTimeline) {
+    const legacy = new URLSearchParams(location.hash.split('?')[1] || '');
+    location.replace(/^\d+$/.test(legacy.get('topic') || '') ? `#/topic/${legacy.get('topic')}` : '#/');
+    return;
+  }
+  tip.hidden=true;
+  document.title = "HN Topics";
+  $("#topics").classList.toggle("on", !m && !isConnections && !isTimeline);
+  $("#connections").classList.toggle("on", isConnections);
+  $("#app").innerHTML = `<p class="loading" role="status">Loading ${m ? "topic" : "topics"}…</p>`;
+  (m ? topic(m[1], version) : isConnections ? connections(version) : home(version)).catch(e => {
+    if (version === routeVersion) $("#app").innerHTML = `<p class="loading" role="alert">Could not load: ${esc(e.message)}</p>`;
+  });
+}
+addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
