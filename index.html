@@ -302,6 +302,83 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .feedback-send { margin-top:18px; border:0; border-radius:8px; background:var(--hn); color:white; padding:11px 18px; }
 .feedback-send:disabled { opacity:.6; cursor:wait; }
 #feedback-status { margin-bottom:0; }
+
+/* The directory uses viewport-sized pages, keeping navigation and feedback in view. */
+body.home-route { height:100dvh; }
+.home { height:100%; overflow:visible; }
+.home-inner { height:100%; min-height:0; display:flex; flex-direction:column; padding:18px clamp(16px,4vw,56px) 0; }
+.home .directory-intro { flex-shrink:0; margin:0 0 14px; }
+.home .directory-intro h1 { font-size:clamp(26px,3vw,40px); margin:0; }
+.home .directory-section { flex:1; min-height:0; display:flex; flex-direction:column; }
+.home .browse-tools,.home .directory-summary,.directory-pagination { flex-shrink:0; }
+.home .directory-summary { margin-top:8px; gap:8px; font-size:11px; }
+.home .directory-summary p { margin:6px 0; }
+.home .directory-grid { flex:1; min-height:0; gap:10px; }
+.home .topic-card { min-height:0; padding:14px; }
+.home .topic-card strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.home .topic-card p { margin:7px 0; }
+.home .site-footer { margin-top:0; padding:9px 0; }
+.directory-pagination { display:flex; align-items:center; justify-content:center; gap:16px; padding:10px 0; font-size:12px; }
+.directory-pagination button { border:1px solid var(--line); border-radius:8px; background:var(--bg); padding:6px 12px; }
+.directory-pagination button:disabled { opacity:.4; cursor:default; }
+.home .empty { padding:12px; }
+.home .directory-grid.compact .topic-card p { display:none; }
+.home .directory-grid.compact .topic-card { padding:10px; }
+@media(max-width:600px) {
+ .home .browse-tools { gap:8px; }
+ .home .browse-tools input { flex:1 0 100%; width:100%; min-width:0; padding:9px 12px; }
+ .home .sort { width:100%; padding:2px; }
+ .home-route header { padding:12px 16px; gap:16px; }
+ .home-route header b,.home-route .toggle a { white-space:nowrap; }
+ .home-route .toggle { gap:10px; }
+ .home .sort button { flex:1; padding:7px 8px; font-size:12px; }
+ .home .topic-card strong { font-size:15px; }
+ .home .card-kicker { font-size:10px; }
+ .home .directory-intro { margin-bottom:10px; }
+}
+@media(max-height:500px) {
+ .home-inner { padding-top:8px; }
+ .home .directory-intro { margin-bottom:6px; }
+ .home .directory-intro h1 { font-size:22px; }
+ .home .browse-tools { flex-wrap:nowrap; gap:6px; }
+ .home .browse-tools input { flex:1 1 0; min-width:0; width:0; padding:6px 8px; }
+ .home .sort { width:auto; }
+ .home .sort button { padding:4px 6px; font-size:11px; }
+ .home .directory-summary { margin-top:2px; }
+ .home .site-footer { padding:4px 0; }
+ .directory-pagination { padding:5px 0; }
+ .home .topic-card strong { font-size:14px; }
+ .home .card-kicker { font-size:10px; }
+}
+
+body.connections-route { height:100dvh; }
+.connections-route .connections-page { height:100%; min-height:0; padding:18px clamp(16px,4vw,56px) 0; }
+.connections-route .connections-heading { flex-shrink:0; margin:0 0 14px; gap:12px; }
+.connections-route .connections-heading h1 { font-size:clamp(26px,3vw,40px); margin:0; }
+.connections-route .connections-heading p { margin:5px 0 0; }
+.connections-route .connections-layout { position:relative; display:flex; min-height:0; }
+.connections-route .connections-canvas { flex:1; height:auto; min-height:0; }
+.connections-route .map-preview { min-height:0; max-height:100%; overflow-y:auto; overscroll-behavior:contain; }
+.connections-route .map-results { flex-shrink:0; max-height:22dvh; overflow-y:auto; }
+.connections-route .map-result-options { max-height:none; }
+.connections-route .site-footer { margin-top:0; padding:9px 0; }
+@media(max-width:600px) {
+ .connections-route header { padding:12px 16px; gap:16px; }
+ .connections-route header b,.connections-route .toggle a { white-space:nowrap; }
+ .connections-route .toggle { gap:10px; }
+ .connections-route .connections-heading { gap:10px; }
+ .connections-route .connections-heading input { padding:9px 12px; }
+ .connections-route .map-preview { position:absolute; inset:0; z-index:2; width:100%; height:100%; margin:0; padding:16px; }
+ .connections-route .preview-close { position:sticky; float:right; top:0; right:0; background:var(--bg); z-index:1; }
+}
+@media(max-height:500px) {
+ .connections-route .connections-page { padding-top:8px; }
+ .connections-route .connections-heading { flex-direction:row; align-items:center; margin-bottom:8px; }
+ .connections-route .connections-heading h1 { font-size:22px; }
+ .connections-route .connections-heading p { display:none; }
+ .connections-route .connections-heading input { width:42%; padding:6px 8px; }
+ .connections-route .site-footer { padding:4px 0; }
+}
 </style>
 </head>
 <body>
@@ -341,7 +418,8 @@ const safeUrl = u => { try { const x = new URL(u); return ["http:", "https:"].in
 const domain = u => { const x = safeUrl(u); return x ? new URL(x).hostname.replace(/^www\./, "") : ""; };
 const trend = m => `<small class="${m >= 1.2 ? "up" : m <= .8 ? "down" : ""}">${m >= 1 ? "↑" : "↓"} ${m.toFixed(1)}×</small>`;
 let T, routeVersion = 0;
-const browseState = {query: "", sort: "active", limit: 18};
+const browseState = {query: "", sort: "active", page: 0};
+let homeResizeObserver;
 // Whole words and prefixes; short terms such as AI must match exactly.
 const searchWords = value => (value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
   .replace(/artificial intelligence/g, "ai").replace(/machine learning/g, "ml")
@@ -379,26 +457,49 @@ async function home(version) {
   if (version !== routeVersion) return;
   $("#app").innerHTML = `<div class="home"><div class="home-inner">
     <div class="directory-intro"><h1>Hacker News, <span>by topic.</span></h1></div>
-    <section aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="moving">Rising</button><button data-sort="az">A–Z</button></div></div>
+    <section class="directory-section" aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="moving">Rising</button><button data-sort="az">A–Z</button></div></div>
     <div class="directory-summary"><p id="result-count" role="status"></p><p class="meta">Stories through ${new Date(T.as_of * 1000).toLocaleDateString()}</p></div>
-    <div class="directory-grid" id="directory"></div><button id="show-more" class="more">Show more topics</button></section>
+    <div class="directory-grid" id="directory"></div><nav class="directory-pagination" aria-label="Topic pages"><button type="button" id="topics-prev">← Previous</button><span id="topics-page" role="status"></span><button type="button" id="topics-next">Next →</button></nav></section>
   </div></div>`;
+  $('.home-inner').append(siteFooter);
+  siteFooter.hidden = false;
+  const grid = $('#directory');
+  let pageSize = 0;
   const render = () => {
     const query = browseState.query.trim();
     const matches = matchingTopics(query);
     if (browseState.sort !== "relevance") matches.sort(browseState.sort === "az" ? (a,b) => a.name.localeCompare(b.name) : browseState.sort === "moving" ? (a,b) => b.momentum-a.momentum || b.last_30d-a.last_30d : (a,b) => b.last_30d-a.last_30d);
-    $("#directory").innerHTML = matches.slice(0,browseState.limit).map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
+    const pages = Math.max(1, Math.ceil(matches.length / pageSize));
+    browseState.page = Math.max(0, Math.min(browseState.page, pages - 1));
+    $("#directory").innerHTML = matches.slice(browseState.page * pageSize, (browseState.page + 1) * pageSize).map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
     $("#result-count").textContent = `${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}${query ? ' found' : ''}`;
-    $("#show-more").hidden = matches.length <= browseState.limit;
+    $('#topics-page').textContent = matches.length ? `Page ${browseState.page + 1} of ${pages}` : 'No results';
+    $('#topics-prev').disabled = browseState.page === 0;
+    $('#topics-next').disabled = browseState.page >= pages - 1;
     document.querySelector('[data-sort="relevance"]').hidden = !query;
     document.querySelectorAll("[data-sort]").forEach(b => { b.classList.toggle("on",b.dataset.sort === browseState.sort); b.setAttribute("aria-pressed",b.dataset.sort === browseState.sort); });
   };
-  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; browseState.limit=18; $("#q").value=value; render(); };
+  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; browseState.page=0; $("#q").value=value; render(); };
   $("#q").oninput = e => search(e.target.value);
   $("#q").onkeydown = e => { if (e.key === "Escape") search(""); };
-  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; browseState.limit=18; render();});
-  $("#show-more").onclick=()=>{browseState.limit+=18; render();};
-  render();
+  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; browseState.page=0; render();});
+  $('#topics-prev').onclick = () => { browseState.page--; render(); };
+  $('#topics-next').onclick = () => { browseState.page++; render(); };
+  const fit = () => {
+    if (version !== routeVersion) return;
+    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    const rows = Math.max(1, Math.floor((grid.clientHeight + 10) / 150));
+    const size = columns * rows;
+    grid.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
+    grid.classList.toggle('compact', grid.clientHeight / rows < 135);
+    if (size === pageSize) return;
+    if (pageSize) browseState.page = Math.floor(browseState.page * pageSize / size);
+    pageSize = size;
+    render();
+  };
+  fit();
+  homeResizeObserver = new ResizeObserver(fit);
+  homeResizeObserver.observe(grid);
 }
 
 async function connections(version) {
@@ -477,7 +578,7 @@ function drawMap() {
       if(selected!==id || !preview.isConnected)return;
       preview.querySelector("#map-stories").innerHTML='<h3>Recent stories</h3>'+data.trending.slice(0,3).map(p=>`<a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} ↗</a>`).join("")+(data.trending.length ? "" : '<p>No trending stories in the last 14 days.</p>');
     }).catch(()=>{if(selected===id && preview.isConnected)preview.querySelector("#map-stories").innerHTML='<p>Stories could not load. Open the topic to try again.</p>';});
-    if(innerWidth<600)preview.scrollIntoView({behavior:"smooth",block:"nearest"});
+    if(innerWidth<=600)preview.querySelector('.preview-close').focus({preventScroll:true});
   };
   preview.onclick=e=>{
     if(e.target.closest(".preview-close")){const previous=selected;clear();dots.filter(t=>t.id===previous).node()?.focus();}
@@ -805,6 +906,9 @@ function route() {
     return;
   }
   tip.hidden=true;
+  homeResizeObserver?.disconnect();
+  document.body.classList.toggle('home-route', !m && !isConnections);
+  document.body.classList.toggle('connections-route', isConnections);
   siteFooter.remove();
   document.title = "HN Atlas";
   $("#topics").classList.toggle("on", !m && !isConnections && !isTimeline);
@@ -814,7 +918,7 @@ function route() {
     if (version === routeVersion) $("#app").innerHTML = `<p class="loading" role="alert">Could not load: ${esc(e.message)}</p>`;
   }).then(() => {
     if (version !== routeVersion) return;
-    ($(".home-inner") || $(".page") || $("#app")).append(siteFooter);
+    ($(".home-inner") || $(".page") || $(".connections-page") || $("#app")).append(siteFooter);
     siteFooter.hidden = false;
   });
 }
