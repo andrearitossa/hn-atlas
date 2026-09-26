@@ -1,6 +1,6 @@
 {
-  "total": 1077000,
-  "completed_this_run": 580000,
-  "last_id": 36278874,
-  "elapsed": 639.9734219480015
+  "complete": true,
+  "total": 2126688,
+  "elapsed_this_run": 2047.7587444430028,
+  "finished_at": 1790337519
 }

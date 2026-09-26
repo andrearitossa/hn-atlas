@@ -1,0 +1,7 @@
+{
+  "static_from": "data/comparison-online-v2",
+  "seed_from": "data/comparison-online-v2/stream.npz",
+  "seed_names": "data/comparison-online-v2/stream-initial-topics.json",
+  "policy": "Broad durable interests; no automatic splits; at most one exceptional new interest per 90 days.",
+  "pilot_weeks": 3
+}

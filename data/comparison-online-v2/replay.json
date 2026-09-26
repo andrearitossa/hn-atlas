@@ -1,0 +1,29 @@
+{
+  "through": 1752451200,
+  "weeks": 80,
+  "last_week": {
+    "week": 80,
+    "through": 1752451200,
+    "seconds": 67.80086031399696,
+    "events": [
+      [
+        "refine",
+        6
+      ],
+      [
+        "split",
+        258
+      ],
+      [
+        "refine",
+        135
+      ],
+      [
+        "split",
+        259
+      ]
+    ],
+    "topics": 257
+  },
+  "complete": false
+}

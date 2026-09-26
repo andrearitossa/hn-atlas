@@ -1,0 +1,7 @@
+{
+  "sql": "CREATE INDEX IF NOT EXISTS embeddings_routing ON embeddings(input_version,id)",
+  "started_at": 1790339942.4896753,
+  "elapsed": 4.815694808959961,
+  "checkpoint_before": 11,
+  "kind": "performance-only; unchanged query and decision rules"
+}

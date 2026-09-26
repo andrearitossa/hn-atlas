@@ -1,0 +1,2902 @@
+[
+  {
+    "id": 0,
+    "name": "Writing and markup tools",
+    "description": "Software, formats, and workflows for authoring, editing, typesetting, and publishing text documents.",
+    "typical": [
+      "Show HN: Markdown Viewer and Editor",
+      "Paperditor \u2013 a free, open-source WYSIWYG Markdown editor",
+      "Show HN: Marklite: Lightweight Markdown Viewer/Editor",
+      "Show HN: Text editor that does it all",
+      "MarkText: A simple and elegant open-source Markdown editor",
+      "Show HN: TeXposit \u2013 Feature rich LaTeX and Markdown editor"
+    ],
+    "varied": [
+      "Show HN: Gemtype \u2013 an open source Grammarly alternative Chrome extension",
+      "CommandBoard \u2013 Your productivity toolkit in Markdown files",
+      "What's in a Name: A Guide to the Many Flavours of TeX",
+      "Show HN: Paper \u2013 A Journaling CLI for Developers",
+      "Show HN: MintPDF \u2013 HTML/Markdown to PDF API with an MCP Server",
+      "SuperDoc \u2013 Modern Docx Editor and Agent SDK"
+    ],
+    "assigned_in_window": 920,
+    "first_story_at": 1782551066,
+    "last_story_at": 1790317888,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 1,
+    "name": "Tech executive leadership",
+    "description": "CEOs, founders, boards, executive appointments, and leadership controversies at technology companies.",
+    "typical": [
+      "Kara Swisher: Important CEO straits [video]",
+      "Pivotal CEO left the eVTOL company",
+      "Tim Cook's CEO-Like Pay Package Shows He Isn't Going Anywhere",
+      "John Ternus Is Now Apple CEO",
+      "Apple's New CEO Taps Retired Hardware Executive for Management Team",
+      "Anthropic CEO reportedly worried new hires only care about money"
+    ],
+    "varied": [
+      "Heading OS \u2013 Run a company (as the CEO) from Claude Code, with data kept private",
+      "Alibaba Contributing $3M USD to Omarchy to Work on Making \"Ideal\" Agentic OS",
+      "Tim Cook's CEO-Like Pay Package Shows He Isn't Going Anywhere",
+      "I Interviewed the Outbid.lol Guy",
+      "John Ternus Replaces Tim Cook as Apple CEO",
+      "John Ternus Is Now Apple's CEO"
+    ],
+    "assigned_in_window": 268,
+    "first_story_at": 1782588701,
+    "last_story_at": 1790305444,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 2,
+    "name": "Linux and Unix systems",
+    "description": "Linux distributions, kernels, desktops, and related Unix-like operating-system development.",
+    "typical": [
+      "The Linux distro and desktop brawler",
+      "Good Linux Hardware",
+      "Linux Finally Reached My Desk",
+      "Linux 7.2",
+      "Softlanding Linux System \u2013 ArchiveOS",
+      "Bluefin \u2013 The Next Generation Linux Workstation"
+    ],
+    "varied": [
+      "A 25-year-old video patent just expired, ending a legal headache for Linux",
+      "The smallest possible Linux distribution",
+      "Show HN: Oxbow, a dynamic tiling window manager for the Wayland compositor River",
+      "Denial WM: New Wayland Compositor with Flutter Directly Embedded",
+      "NixOS on a Cadillac Lyriq",
+      "XCP-ng: A sovereign alterbative to VMware"
+    ],
+    "assigned_in_window": 666,
+    "first_story_at": 1782561663,
+    "last_story_at": 1790323609,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 3,
+    "name": "Programming language theory and design",
+    "description": "Programming-language design, semantics, type systems, generics, functional programming, compilers, DSLs, and implementation techniques.",
+    "typical": [
+      "Practical Foundations for Programming Languages [pdf]",
+      "F*: A general-purpose proof-oriented programming language",
+      "Executable pseudocode for learning CS without syntax barriers",
+      "G#: A Go-like language for .NET",
+      "Show HN: Eight: a symbolic, indentation-based programming language",
+      "Notes on Structured Programming [pdf]"
+    ],
+    "varied": [
+      "Empirical Computation: Prompting versus Programming [pdf]",
+      "Exploring SML (Language Review by a Firmware Guy)",
+      "Type Systems You Might Not Know (But Will Love)",
+      "Functional Programming in hica",
+      "A Shared Syntax for Custom Languages",
+      "Voyage-code-4: code retrieval built for coding agents"
+    ],
+    "assigned_in_window": 654,
+    "first_story_at": 1782571083,
+    "last_story_at": 1790303679,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 4,
+    "name": "Video game industry",
+    "description": "Game platforms, publishers, consoles, game-development technology, and the commercial games market.",
+    "typical": [
+      "Hollywood's Video Game Era Is Here. Will It Be Any Good?",
+      "Games look real now. We're in the future",
+      "Sony makes bold claim about game ownership",
+      "Marvel Wolverine trailer swarmed by PlayStation fans angry at Sony ditching disc",
+      "ROG Xbox Ally X20 / Tokyo Games Show 2026: Improving, but No SteamOS Planned",
+      "PS1 Games with DLSS 5 [video]"
+    ],
+    "varied": [
+      "Amazon and Microsoft pivot cloud gaming strategies to target different players",
+      "Tell HN: Fable 5 promotion extended through July 12, 2026 at 11:59:59 PM PT",
+      "Artificial \u2013 Official Teaser Trailer (2026) [video]",
+      "Domino's Pizza parodies Sony's discontinuation of physical games",
+      "Fable 5 is greenlit to return",
+      "Path of Exile 2: Shaders and Device Removed Issues Fixed [video]"
+    ],
+    "assigned_in_window": 292,
+    "first_story_at": 1782580266,
+    "last_story_at": 1790277770,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 5,
+    "name": "Cyberattacks and data breaches",
+    "description": "Ransomware, hacking incidents, malware, data theft, cybercrime groups, and their victims.",
+    "typical": [
+      "Berlin cyberattack: hackers leak highly sensitive data across dark web",
+      "Hackers using calls, websites, meticulous tactics targeting US financial firms",
+      "A Security Pro Hacked North Korean Hackers. He Found They'd Breached Hundreds",
+      "Canadian spy agency hacked drug traffickers, extremists and a ransomware gang",
+      "What leaked messages tell us about global hacking gang",
+      "Cybersecurity experts raise alarm after back-to-back data breaches"
+    ],
+    "varied": [
+      "ASCII smuggling isn't just an AI security risk",
+      "Steam Machine and Steam Controller Customers in Europe Hit by Cyber Attack",
+      "AI Agent Platforms Are Getting Hacked. Here's What's Missing",
+      "Three UK airports hit by cyber-attack with data of 8.7M customers accessed",
+      "FBI: Russian hackers now target Signal backup recovery keys",
+      "DOJ: Uncle Sam bought forensics software from same Russian operation supplying"
+    ],
+    "assigned_in_window": 603,
+    "first_story_at": 1782571698,
+    "last_story_at": 1790315114,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 6,
+    "name": "Startup financing",
+    "description": "Startup fundraising rounds, valuations, IPOs, acquisitions, and venture-backed company financing.",
+    "typical": [
+      "8090 Raises $135M Series A",
+      "Factory raises $200M at $5B valuation",
+      "Temporal raises $550M at a $12.55B valuation",
+      "Instinct.co Raises $350M",
+      "Anduril in talks to raise funding at $100B valuation, over 3x last year's mark",
+      "Temporal Raises $550M at a $12.55B Valuation"
+    ],
+    "varied": [
+      "Natural raises $30M to reinvent payments for AI agents \u2013 and take on Stripe",
+      "Anthropic tells investors annualized revenue run rate climbed to $65B in July",
+      "Anthropic and Nscale strike $45B cloud deal, sources say",
+      "Meta Got Everything It Wanted in a Secret Louisiana Data Center Deal",
+      "Former Labour deputy Watson joins Palantir as \u00a3330M NHS deal nears break point",
+      "Fast-fashion giant Shein aims for $27B valuation in Hong Kong market debut"
+    ],
+    "assigned_in_window": 546,
+    "first_story_at": 1782565800,
+    "last_story_at": 1790303469,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 7,
+    "name": "Cloud infrastructure and Kubernetes",
+    "description": "Cloud platforms, Kubernetes deployment, infrastructure automation, DevOps, and cloud-service operations.",
+    "typical": [
+      "Multi-Cloud DocumentDB Deployment (Kubernetes Operator)",
+      "Cheap self-hosted Kubernetes on Hetzner cloud (2025)",
+      "Cloudfleet \u2013 A Freemium Kubernetes Control Plane",
+      "Kubernetes Best Practices",
+      "Watch SKE Lift Turn Existing AWS Infrastructure into a Platform",
+      "Deployah \u2013 deploy to Kubernetes from a short spec, no Helm, nothing in-cluster"
+    ],
+    "varied": [
+      "Stelm \u2013 A BYOC canvas for AWS infra",
+      "Show HN: ORC8R, one-click compute for devs, no ops required, demo available",
+      "Show HN: Laya decision engine on AWS Lambda, backed by Lambda SnapStart",
+      "Oracle Cloud's $304 Flex VM: First Observations from Fresh Deployments",
+      "Cloud Architect Assistant \u2013 compare clouds, generate Terraform",
+      "Deployah, Spec-to-Release for Kubernetes"
+    ],
+    "assigned_in_window": 477,
+    "first_story_at": 1782563480,
+    "last_story_at": 1790290898,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 8,
+    "name": "Digital privacy",
+    "description": "Online privacy, surveillance, data protection, encryption, and privacy-related policy or software.",
+    "typical": [
+      "An American Privacy Emergency",
+      "Privacy issue on Signal: Group and contact data isn't deleted",
+      "Security versus Privacy",
+      "Companies' Handling of Users Privacy Rights Spurs States' Probe (2025)",
+      "Re: Security versus Privacy",
+      "How to Maintain Our Privacy in the AI Age"
+    ],
+    "varied": [
+      "There is no way to know if an LLM API is manipulating you",
+      "New Bedford police officer accused of using Flock cameras to track ex-partner",
+      "They tell us surveillance makes us safer. It undermines our democratic rights",
+      "Your Child's privacy is worth more than likes (2022)",
+      "Opening up 'Zero-Knowledge Proof' technology to promote privacy in age assurance",
+      "California, U.S. lawmakers debate license plate reader technology"
+    ],
+    "assigned_in_window": 430,
+    "first_story_at": 1782570681,
+    "last_story_at": 1790302406,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 9,
+    "name": "Climate mitigation, clean energy, and storage",
+    "description": "Decarbonization, renewable power, electrification, batteries, energy storage, carbon removal, and climate-energy policy.",
+    "typical": [
+      "Batteries 'cheaper' than gas plants as data centres fuel turbine costs",
+      "Chinese Industry Is Starting to Wean Off Fossil Fuels",
+      "Solar Power Is Booming in Emerging Markets",
+      "Electric Approaches Reshape Carbon Capture Tech",
+      "Solar helps 'stabilise' Europe's grids as heatwaves spike power demand",
+      "Scientists find method to convert factory CO2 emissions directly into fuel"
+    ],
+    "varied": [
+      "Carbon-aware electricity pricing, measured daily on 38 grids",
+      "Pennsylvania Data Center Limits Are a Threat to Gas Firms, Trade Group Says",
+      "Australian data centres will use seven times more power by 2036",
+      "Big Batteries to Bolster the Grid Are Stuck Waiting to Plug In",
+      "Tiny data centre used to heat public swimming pool",
+      "Steady Progress Reshapes Australia's Energy Market \u2013 July 2026 Update"
+    ],
+    "assigned_in_window": 688,
+    "first_story_at": 1782555738,
+    "last_story_at": 1790305680,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 10,
+    "name": "Tech careers and hiring",
+    "description": "Job seeking, recruiting, compensation, career changes, relocation, and hiring conditions for technology workers.",
+    "typical": [
+      "Burned out, how do I get out of the rut?",
+      "Ask HN: Future of junior level software developers outside US and UK",
+      "Ask HN: Who here has gotten a job offer from 'Ask HN: Who wants to be hired?'",
+      "What I Look for When Hiring Senior Software Engineers",
+      "Show HN: AI Resume Screening \u2013 Looking for feedback from recruiters",
+      "Ask HN: How have interviews changed over the last year?"
+    ],
+    "varied": [
+      "Engineer earns a year's salary in 2 months by doing RLFH tasks",
+      "Ask HN: What is a good advice for someone looking to fractional hire a team?",
+      "Show HN: Obvelum \u2013 an anonymous hiring portal where companies apply to you",
+      "Merit,  Hire engineers based on simulated work",
+      "How to ask for help from people who don't know you",
+      "Be the First to Apply for the Job"
+    ],
+    "assigned_in_window": 457,
+    "first_story_at": 1782561663,
+    "last_story_at": 1790301903,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 11,
+    "name": "GPU computing",
+    "description": "GPUs for scientific computing, AI, graphics, programming frameworks, cloud capacity, and accelerator hardware.",
+    "typical": [
+      "Ninfer: High-performance single-GPU inference",
+      "Etched Sohu vs. Nvidia: Transformer ASIC vs. GPU (2026)",
+      "Specialized GPU Kernel Generation",
+      "Which GPU Is Suitable for Running Your AI Workloads?",
+      "Bolt Graphics' Advanced GPU to Take on Nvidia \u2013 Architosh",
+      "Nvidia links gaming PCs into a local AI cluster"
+    ],
+    "varied": [
+      "Neso: Metal MSL and D3D12 HLSL Back End for Triton",
+      "D7VK 1.12, a DXVK fork for Direct3D 3-7 on top of Vulkan",
+      "Benchmarking Speculative Decoding on DGX Spark: 11.5 \u2192 29.5 tok/s",
+      "GPU Compute Tightness Index",
+      "Getting 50 GB/S Back from the Apple Neural Engine",
+      "Locality-Aware Automatic Differentiation on the GPU for Mesh-Based Computations"
+    ],
+    "assigned_in_window": 707,
+    "first_story_at": 1782568274,
+    "last_story_at": 1790314220,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 12,
+    "name": "Environmental degradation",
+    "description": "Biodiversity loss, pollution, climate impacts, ecological damage, and environmental regulation.",
+    "typical": [
+      "Fossils show carbon emissions harm forests, not 'green the planet'",
+      "Underwater oxygen loss threatens earth's stability, researchers warn",
+      "Some trees are worsening urban air quality as climate warms",
+      "China Planted 78 Billion New Trees\u2014and Seriously Messed Up Its Water Cycle",
+      "Environmental groups urge EPA to reject new PFAS to cool datacenters",
+      "Planting trees in the wrong places is not a climate solution"
+    ],
+    "varied": [
+      "US oil reserves are so low, the caverns holding them could be damaged",
+      "Zoos Are Doubling Down on Unnatural Habitats",
+      "Not a natural calamity: it is being done to us knowingly",
+      "Controlled Burns Have Saved Giant Sequoias",
+      "London Underground users should know about toxic dust risk, whistleblower says",
+      "Tragedy of the Commons"
+    ],
+    "assigned_in_window": 328,
+    "first_story_at": 1782578134,
+    "last_story_at": 1790261557,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 13,
+    "name": "Layoffs and workplace conditions",
+    "description": "Job cuts, hiring freezes, severance, labor-market conditions, and employer workplace policies.",
+    "typical": [
+      "Uber to axe 10% of its workforce in biggest cuts since pandemic",
+      "Uber Lays Off 10% of Employees in Reorganization",
+      "Amazon layoffs take their toll in saturated job market",
+      "CFPB Employees Report to New Office as Potential Layoffs Loom",
+      "Uber to lay off 10% of staff in biggest cuts since Covid",
+      "Visa to Cut 7% of Workforce"
+    ],
+    "varied": [
+      "BrooklynVegan, Alt Press Hit with Mass Layoffs",
+      "Apple Pay Chief Jennifer Bailey Retiring in October",
+      "Microsoft's Xbox to Cut 3,200 Jobs, Divest Five Studios in Major Overhaul",
+      "Remote workers flock to California beach",
+      "How tech workers are feeling in 2026: a workforce splitting in two",
+      "Blue-Collar Jobs Are the New Flashpoint in Data-Center Fight"
+    ],
+    "assigned_in_window": 352,
+    "first_story_at": 1782570984,
+    "last_story_at": 1790275249,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 14,
+    "name": "COVID-19 vaccines and treatments",
+    "description": "COVID-19 vaccination, therapeutics, testing, public-health restrictions, and pandemic-response evidence.",
+    "typical": [
+      "Top US doctors offer flu, Covid vaccine recommendations to ease confusion",
+      "Menstrual Cycle Phase Alters Covid-19 Vaccine Outcomes",
+      "Flu vaccine shown to increase infections",
+      "FDA approves updated Covid-19 vaccines for dominant XFG variant",
+      "New HIV vaccine shows unprecedented success in preclinical study",
+      "FDA Approves Moderna's mRNA Flu Vaccine"
+    ],
+    "varied": [
+      "AAP: How pediatricians are navigating federal leaders' fearmongering on vaccines",
+      "The Biggest Obstacle to New Cancer Cures",
+      "One local man's immunity to ticks could save us all (2015)",
+      "Doctors are ignoring new federal vaccine recommendations",
+      "Moderna's Cancer Vaccine Just Passed Its Biggest Test",
+      "Flu vaccine shown to increase infections"
+    ],
+    "assigned_in_window": 185,
+    "first_story_at": 1782724721,
+    "last_story_at": 1790307451,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 15,
+    "name": "Personal website creation",
+    "description": "Tools, techniques, templates, hosting approaches, and experiments for building simple personal websites.",
+    "typical": [
+      "Minimal Website Design Directory",
+      "Show HN: Built a Website for People Who Miss the Old Web",
+      "Built a Website for People Who Miss the Old Web",
+      "Show HN: A Catalog of Website Design.md",
+      "Curated Website Design Examples",
+      "Web Design Museum"
+    ],
+    "varied": [
+      "Outbid \u2013 A Million Dollar Homepage for 2026?",
+      "Wiki Is Not Enough",
+      "Human Glitch \u2013 twenty small web experiences, each one starts free",
+      "Iframe.diy \u2013 \"iframe server\" static site",
+      "Show HN: A public feed of website changes",
+      "Show HN: A website that generates A/B tests to improve itself"
+    ],
+    "assigned_in_window": 592,
+    "first_story_at": 1782580280,
+    "last_story_at": 1790282522,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 16,
+    "name": "Astronomy and astrophysics",
+    "description": "Celestial objects, cosmology, planetary systems, space observations, and astrophysical discoveries.",
+    "typical": [
+      "Astronomers discover black hole 'star'",
+      "Scientists Solve Mystery of Bizarre 'Alien Megastructure' Star",
+      "Astronomers discover a new kind of cosmic object \u2013 a black hole 'star'",
+      "Astronomers Discover the Existence of a Black Hole Star",
+      "Astronomers capture an unprecedented view of gas giant formation in action",
+      "A Star Orbiting Our Galaxy's Supermassive Black Hole Tests Limits of Relativity"
+    ],
+    "varied": [
+      "Early Earth's Aurora may have made a ion-beam reactor for prebiotic chemistry",
+      "Astronomers discover a new kind of cosmic object \u2013 a black hole 'star'",
+      "Show HN: Voyager 1 could've lasted MUCH longer",
+      "Proposed new satellite fleets could overwhelm the night sky",
+      "The universe may have been building rocky planets almost from the start",
+      "Scientists discover Kelvin-Helmholtz Instability on the surface of the Sun"
+    ],
+    "assigned_in_window": 565,
+    "first_story_at": 1782562125,
+    "last_story_at": 1790324998,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 17,
+    "name": "Mathematics",
+    "description": "Mathematical research, theory, education, formalization, proofs, and mathematical philosophy.",
+    "typical": [
+      "Terence Tao: Understanding 6 essential mathematical concepts",
+      "Mathematical Discourse",
+      "Mathematics Without Mathematicians",
+      "Terence Tao explains 6 essential mathematical concepts [video]",
+      "The greatest mathematician explains 6 essential concepts of math",
+      "The function of LLM-based math \"proofs\""
+    ],
+    "varied": [
+      "Ask HN: What do you do with the user guide of the universe?",
+      "Learning more about Claude's mathematical capabilities",
+      "By coincidence an independent result on Euler blowup has been released",
+      "A Mole of Moles",
+      "I guess we live in the P = NP world after all",
+      "Math News: The Additivity Conjecture in Knot Theory Is False [video]"
+    ],
+    "assigned_in_window": 910,
+    "first_story_at": 1782563794,
+    "last_story_at": 1790307628,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 18,
+    "name": "Google",
+    "description": "Google products, search operations, corporate actions, legal disputes, regulation, and company history.",
+    "typical": [
+      "Google Just Ruined One of Its Most Important Tools",
+      "Google probed by Swiss regulator over Android default search feature",
+      "What Is Google",
+      "Goodbye Google",
+      "Google avoids a breakup of its ad tech business",
+      "EU Fines Google $1.02B for Favoring Its Own Services"
+    ],
+    "varied": [
+      "I Let Google's Personal Intelligence Access My Life\u2013and It's a Help",
+      "Gemini 4 Leak. Google is back",
+      "Top EU court upholds Google Android fine in landmark antitrust case",
+      "Show HN: See every Google ad any company is running (free, no signup)",
+      "Google kills Tenor GIF API, forcing changes at X, Discord, and more",
+      "Impact of Google AI Overviews on Wikipedia Traffic"
+    ],
+    "assigned_in_window": 437,
+    "first_story_at": 1782619487,
+    "last_story_at": 1790320581,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 19,
+    "name": "Maps and geospatial visualization",
+    "description": "Cartography, GIS, map-based data visualization, geographic datasets, navigation, and spatial tools.",
+    "typical": [
+      "Show HN: TravelMap, my trips on a MapLibre globe",
+      "Street View Live Earth Map",
+      "Show HN: map data onto a globe",
+      "GeoJSON Map Viewer",
+      "Show HN: I built a map to visualize the walkable area from any location",
+      "Visualization of all roads within any city"
+    ],
+    "varied": [
+      "Show HN: Habit Pocket \u2013 track numbers and times of day, not just checkmarks",
+      "UN votes to adopt new map that makes our world look different",
+      "OpenInterstate \u2013 Canonicalized U.S. Interstate Highway Data",
+      "Satellite Tracker \u2013 Live Map of Starlink and 30k Satellites",
+      "Show HN: World Models 101 - an interactive guide to World Models",
+      "I ditched Google Maps' offline mode for this app"
+    ],
+    "assigned_in_window": 689,
+    "first_story_at": 1782561258,
+    "last_story_at": 1790306405,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 20,
+    "name": "Vehicles and transportation technology",
+    "description": "Electric vehicles, automotive companies, autonomous driving, vehicle hardware, and road transportation.",
+    "typical": [
+      "Indian EV makers beat Tesla, BYD in global efficiency race",
+      "Waymo Bringing Chinese EVs to American Streets",
+      "Tesla and others begin record vehicle recall in China",
+      "Tesla Is Reclaiming the U.S. EV Market as Legacy Automakers Retreat",
+      "Tesla's Electric Semi Has Its First Fatal Crash",
+      "Tesla owners to get insurance discount if they use self-driving"
+    ],
+    "varied": [
+      "BYD Ultra-Fast Charged Han 350 Times in 9 Days",
+      "Toyota to roll out near autonomous cars from 2028",
+      "Old car engines find a second life as handmade electric guitars",
+      "BMW Spider-Man in-car advertising",
+      "Castla: Android Auto alternative for Tesla (2024)",
+      "Camera Chase Vehicle"
+    ],
+    "assigned_in_window": 504,
+    "first_story_at": 1782567690,
+    "last_story_at": 1790322056,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 21,
+    "name": "Game development",
+    "description": "Creating games, game engines, physics, multiplayer systems, game assets, and game-development experimentation.",
+    "typical": [
+      "Stride Game Engine",
+      "Compact 2D/3D game engine",
+      "Oneshot 3D Game Simulator",
+      "3D FPS SVG XML game engine with oscilloscope output Xbox controller support",
+      "Show HN: AI game builder and editor built with Rails and Godot",
+      "Modern Object Pascal Introduction for Programmers \u2013 Castle Game Engine"
+    ],
+    "varied": [
+      "9 months building an advanced StarCraft reporting tool with Go and Claude",
+      "Neo Radar: A browser-based orbital mechanics engine with 41k real asteroids",
+      "Space exploration game made using Claude Opus 5",
+      "Picophysics: Single file physics for games on platforms like N64, PSX, DC",
+      "Show HN: Vein, a minimalist open-source resource management game",
+      "Zork in browser with hand-crafted animated pixel-art scenes"
+    ],
+    "assigned_in_window": 709,
+    "first_story_at": 1782557564,
+    "last_story_at": 1790323757,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 22,
+    "name": "Web search",
+    "description": "Search engines, search-result quality, search tooling, indexing, ranking, and search-oriented AI applications.",
+    "typical": [
+      "Show HN: A new type of search engine",
+      "SelfSearch \u2013 one-click manual site indexing, private peer to peer search engine",
+      "Show HN: I created a search engine to quickly find things in my source code",
+      "A metasearch engine and privacy-first multi-engine search aggregator",
+      "Want a Simple, Metasearch Engine?",
+      "Semantic Search, in the Browser, in a Day"
+    ],
+    "varied": [
+      "I like the Uruky search engine",
+      "Show HN: Nearby places ranked by quality score, not ads",
+      "LLM Web Search Benchmarks: More Searches Beat a Better Search Engine",
+      "The New Shape of Search: How Conversational AI Recomposes Information Seeking",
+      "Remembering the pre-Google web, when search was an experiment",
+      "Show HN: Metis \u2013 An agent harness pushing DeepSeek to Opus-tier coding (82%)"
+    ],
+    "assigned_in_window": 493,
+    "first_story_at": 1782569123,
+    "last_story_at": 1790306828,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 23,
+    "name": "Open source ecosystems",
+    "description": "Open-source licensing, maintenance, governance, foundations, community economics, and open-source projects.",
+    "typical": [
+      "Who Is Open Source About?",
+      "Funding open-source software without compromising it",
+      "Humanity in Open Source",
+      "Contributing to Open-Source in 2026",
+      "Open-Source Licensing 101",
+      "Who's Writing Open Source Code?"
+    ],
+    "varied": [
+      "Show HN: Free OSS Software Factory Template",
+      "Mojo is now open source",
+      "Open Source is not a business model (2016)",
+      "Open knowledge compiler: a compiler for the open knowledge format",
+      "Show HN: Descript wanted $24/mo, I built an open-source alternative in a weekend",
+      "Ask HN: Is what Open Commonplace legal?"
+    ],
+    "assigned_in_window": 610,
+    "first_story_at": 1782560555,
+    "last_story_at": 1790325961,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 24,
+    "name": "Apple ecosystem",
+    "description": "Apple hardware, software, chips, policies, legal issues, and company announcements.",
+    "typical": [
+      "Apple Leadership",
+      "Apple reports third quarter results",
+      "Apple Apparently Cancels Plans for Two New MacBooks",
+      "MacPhone: I Created the Hybrid Mac-iPhone Desktop-Handheld Apple Won't Make",
+      "Apple = Sony (2012)",
+      "Apple raises prices of last years iPhones"
+    ],
+    "varied": [
+      "Booting Google's Fuchsia OS on an Apple M3 MacBook",
+      "Apple Neural Engine: A Complete Guide",
+      "Apple Removes iPhone 16 and iPhone 17 from Texture and Grain Support",
+      "Apple's US App Store Commission Revenue Down 18% This Year",
+      "Apple's Robo-Repo",
+      "Apple's Camera-Equipped AirPods See Them in Action"
+    ],
+    "assigned_in_window": 542,
+    "first_story_at": 1782556847,
+    "last_story_at": 1790306605,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 25,
+    "name": "Fitness and exercise",
+    "description": "Exercise methods, training, athletic performance, physical activity, fitness tracking, and recreational sport.",
+    "typical": [
+      "Two simple tests to see how your fitness compares with Elite older athletes",
+      "Elite Young Runners Are Becoming Freakishly Fast. Welcome to 'Trackflation'",
+      "Professional cyclists can top 100 km/h. But safety has not kept pace",
+      "Exercises Physical Therapists Wish Everyone Did to Age Well",
+      "Experts offer advice on performing endurance events in excessive heat",
+      "Course Topography: Uphill Finishes"
+    ],
+    "varied": [
+      "My fitness tracker knew I was pregnant before I did",
+      "British runner Josh Kerr breaks world record for mile which stood for 27 years",
+      "Show HN: Gotaper \u2013 A minimalist, journal-inspired race planner for athletes",
+      "How to combine exercise with video games",
+      "Running as good as a nap to help cope with sleep deprivation",
+      "Show HN: RizzFit \u2013 Free fitness calculators that cite their formulas, no signup"
+    ],
+    "assigned_in_window": 305,
+    "first_story_at": 1782553396,
+    "last_story_at": 1790288158,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 26,
+    "name": "Software engineering management",
+    "description": "Product and engineering management, team organization, productivity, metrics, prioritization, and technical leadership.",
+    "typical": [
+      "Bring a Product Manager Mindset to Your Next Engineering Job",
+      "Spec driven development for product managers",
+      "How Technical Should a Product Manager Be",
+      "Art of Engineering Management \u2013 Building high-impact teams",
+      "Survey: From Agile to a Product Operating Model",
+      "Platform Engineering Still Matters"
+    ],
+    "varied": [
+      "Platform Adoption: Tooling, Training, Buy-In",
+      "Weighing the Business Case for Quality",
+      "Ask HN: What's your team's SDLC look like in this AI world?",
+      "Observability Turned Uncertainty into a Business Model",
+      "Stop Worrying About Technical Debt",
+      "How can engineering leaders avoid becoming Bond villains?"
+    ],
+    "assigned_in_window": 516,
+    "first_story_at": 1782555524,
+    "last_story_at": 1790290238,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 27,
+    "name": "Robotics",
+    "description": "Humanoid, legged, microscopic, remote-controlled, and AI-enabled robots and their applications.",
+    "typical": [
+      "Robots Building Robots",
+      "Robot-Use Agents",
+      "The Humanoid That Pays to Stand Still \u2013 Robotics",
+      "'Robots building robots': a 10k unit industrial humanoid robot smart factory",
+      "World Humanoid Robot Games [video]",
+      "World Humanoid Robot Games"
+    ],
+    "varied": [
+      "WAIC 2026: a glimpse of embodied AI innovations, humanoid robots [video]",
+      "China wants to solve the hardest problem in robotics \u2013 making hands",
+      "Why Robot Brains Will Live in the Cloud",
+      "Robot physics that only passes in the friendly world is a lie \u2013 Dual gate",
+      "Obstacle avoidance for robots of multiple sizes and forms Horizon Zero Dawn [pdf]",
+      "China's humanoid robots captivated the world, a rental market shows their limits"
+    ],
+    "assigned_in_window": 560,
+    "first_story_at": 1782560270,
+    "last_story_at": 1790280433,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 28,
+    "name": "Broadband and telecom policy",
+    "description": "Internet access, broadband infrastructure, wireless spectrum, telecommunications regulation, and network-provider practices.",
+    "typical": [
+      "FCC Weakens U.S. Broadband Speed Goals to the Benefit of Elon Musk and Comcast",
+      "Wi-Fi and Cellular Industries Duke It Out over 6-GHz Band",
+      "FCC pays $340k/year to keep 100's of empty Alaska buildings wired for internet",
+      "FCC abolishes gigabit speed goal",
+      "FCC abolishes gigabit speed goal, suggesting it is unfair to slower technologies",
+      "Ottawa to help finance nationwide sovereign internet network"
+    ],
+    "varied": [
+      "Telstar: Narrowing transatlantic divide to size of TV screen",
+      "SFR (French Internet provider) is blocking opencode.ai",
+      "My Mac's Wi-Fi Was Crawling at 50 Mbps with a Perfect Signal",
+      "5G, full bars, nothing loads: Or how I learned to start learning with LLMs",
+      "Why American data centers can't plug in",
+      "V2X Technology Gets a 5G Cellphone Network Solution"
+    ],
+    "assigned_in_window": 248,
+    "first_story_at": 1782559909,
+    "last_story_at": 1790306980,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 29,
+    "name": "Smartphones and mobile platforms",
+    "description": "Smartphones, mobile operating systems, phone hardware, mobile-device support, and adjacent wearable devices.",
+    "typical": [
+      "Samsung reveals Galaxy Z Fold 8 that will compete with the iPhone Ultra",
+      "Light Phone Flip",
+      "We Built a Different Kind of Smartphone \u2013 Minimal Phone 2 [video]",
+      "Best Foldable Phones",
+      "Light Flip Phone",
+      "Hisense launches A10 e-ink smartphone with detachable color screen"
+    ],
+    "varied": [
+      "Ask HN: What do people do with Android phones once security updates end?",
+      "Show HN: Android client for DJI Osmo action/handheld cameras",
+      "Sensor Watch",
+      "I am a better person without my phone",
+      "Android phones knew Venezuela earthquake was coming",
+      "Mirror Mirror: Mirror your PC screen to your phone over your local network"
+    ],
+    "assigned_in_window": 474,
+    "first_story_at": 1782565057,
+    "last_story_at": 1790311210,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 30,
+    "name": "Space missions and launch systems",
+    "description": "Rockets, spacecraft, launch programs, lunar and planetary missions, satellites, and space exploration.",
+    "typical": [
+      "NASA Taps SpaceX's Starlink to Deliver Artemis III Imagery from Orion",
+      "NASA aims to save a sinking space telescope with a rendezvous in orbit",
+      "SpaceX's next Starship launch is Sept. 22, aims to reach orbit for first time",
+      "SpaceX Starmind Orbital Satellite",
+      "NASA Swift Boost Spacecraft Prepares to Continue Mission",
+      "Unplanned impact: NASA says SpaceX rocket parts could hit Moon"
+    ],
+    "varied": [
+      "SpaceX Rocket Crashes into Moon",
+      "Moon landing anniversary, former astronauts say voting is Americans' mission",
+      "Antigravity Teamwork",
+      "China's Tianwen-2 Space Probe Reaches Earth Quasi-Moon, the Asteroid Kamo'oalewa",
+      "Teams Make Contact with Spacecraft Set to Boost NASA's Swift Science",
+      "Chinese spacecraft Tianwen-2 beams back first image of Earth's \"mini moon\""
+    ],
+    "assigned_in_window": 599,
+    "first_story_at": 1782577973,
+    "last_story_at": 1790324970,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 31,
+    "name": "Git and code repositories",
+    "description": "Git workflows, repository hosting, Git tooling, commit practices, and source-control automation.",
+    "typical": [
+      "GitHub Handles Git LFS",
+      "GitSwitch \u2013 Manage multiple GitHub accounts without SSH config headaches",
+      "Show HN: Azure DevOps/GitHub TUI",
+      "Simple Git Management Tool",
+      "Minimal Git CI using hooks",
+      "Highlights from Git 2.55 \u2013 The GitHub Blog"
+    ],
+    "varied": [
+      "Upcoming deprecation of GitHub Spark on github.com",
+      "Show HN: Loading GitHub PRs in 50ms instead of 1\u20133s+",
+      "The reconciler: distributing standards across ten repos without a monorepo",
+      "How to publish to PyPI using GitHub Actions securely",
+      "GitHub cuts short offer to burn repos on CD after mockery ensues",
+      "Heckle: Converting Git forges into Terraform/OpenTofu"
+    ],
+    "assigned_in_window": 852,
+    "first_story_at": 1782570067,
+    "last_story_at": 1790319729,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 32,
+    "name": "Language learning and linguistics",
+    "description": "Natural languages, linguistic theory, language-learning tools, speech, multilingual models, and communication research.",
+    "typical": [
+      "Personalized Language Learning",
+      "Show HN: Linguin, a live multilingual dictionary for 120 languages",
+      "How the words we teach English language learners changed",
+      "Show HN: Lex \u2013 a calm language-learning toolkit for 34 languages",
+      "Language models are bad at reading plain English [video]",
+      "Languages That Stretch Your DI Capabilities and Imagination"
+    ],
+    "varied": [
+      "We let models localize into 16 languages. How we made it read native.",
+      "Contrastive Language Models",
+      "Learning Nalbinding",
+      "Alman: German, Simplified",
+      "Language plasticity is more important than ever",
+      "Vox, a systems language whose code reads like English"
+    ],
+    "assigned_in_window": 466,
+    "first_story_at": 1782571533,
+    "last_story_at": 1790323610,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 33,
+    "name": "LLMs in learning and knowledge work",
+    "description": "Using, evaluating, teaching with, and understanding limitations of large language models in education and professional work.",
+    "typical": [
+      "Self Study in the Age of LLMs",
+      "LLMs Are Bad at Teaching",
+      "Ab(use) of LLMs for Learning",
+      "How LLMs Work",
+      "A Pragmatic Approach to LLMs",
+      "Learning Programming in an Age of LLMs"
+    ],
+    "varied": [
+      "For Chinese LLMs, do you care about mainland-hosted vs. overseas endpoints?",
+      "MIT Just Proved LLMs Will Stop Getting Smarter, and Money Won't Fix It [video]",
+      "How to Write with an LLM",
+      "We are setting up a generation to fail at school",
+      "Show HN: VernLLM \u2013 LLM fallback, no gateway",
+      "Word Count for Students: What You Need to Know"
+    ],
+    "assigned_in_window": 879,
+    "first_story_at": 1782556745,
+    "last_story_at": 1790320786,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 34,
+    "name": "AI industry and societal impact",
+    "description": "Artificial intelligence governance, business adoption, public perception, risks, and prominent industry developments.",
+    "typical": [
+      "Media execs sound alarm on AI",
+      "Using AI",
+      "OpenAI,Anthropic etc. 100 companies call for action to defend against rogue AI",
+      "Predictions for the Future of AI",
+      "Why some experts increasingly fear AI will take over",
+      "Governments are making a dangerous bet on the AI boom"
+    ],
+    "varied": [
+      "Anthropic researcher says AI has more than 10% chance of 'killing all humans'",
+      "Why agentic AI needs better experts",
+      "AI entrepreneur is developing agents that can plan ahead for the unexpected",
+      "AI-generated stories rated better quality than human-written ones, study finds",
+      "Canada's Anti-AI Movement Is Powered by an AI News Aggregator",
+      "Are we threatened by AI misalignment seen in the OpenAI Hugging Face attack?"
+    ],
+    "assigned_in_window": 5904,
+    "first_story_at": 1782556109,
+    "last_story_at": 1790324338,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 35,
+    "name": "On-demand transport and delivery",
+    "description": "Ride-hailing, robotaxis, app-based delivery, and the labor and business issues around these platforms.",
+    "typical": [
+      "Atlanta Uber Drivers Say Waymo Robotaxis Are Driving Down Their Pay",
+      "Uber's robotaxi lobbying effort puts it on a collision course with Waymo",
+      "Show HN: Hackney \u2013 Compare Uber, Lyft, Waymo, and Robotaxi Prices",
+      "Uber is lobbying to keep robotaxi rides 85% human in New Jersey",
+      "Uber pledges $10B to win robotaxi race",
+      "Uber allies with driver unions in bid to slow robotaxi rollout"
+    ],
+    "varied": [
+      "A golden opportunity: Seattle's surveillance pricing ban",
+      "Deep Dive: Why Did DoorDash Ship a CLI?",
+      "Delivery workers made $104M more in tips after NYC began enforcing new law",
+      "Amazon's Zoox Gets Clearance to Start Paid Robotaxi Rides",
+      "DoorDash Takes to the Sky with Its Own Drones",
+      "Uber to cut 10% of workforce in bid to move 'simpler and faster'"
+    ],
+    "assigned_in_window": 178,
+    "first_story_at": 1782579164,
+    "last_story_at": 1790321938,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 36,
+    "name": "CSS and web styling",
+    "description": "CSS techniques, frameworks, design patterns, learning resources, and CSS-based projects.",
+    "typical": [
+      "CSS properties you should know for better text designs",
+      "Learn CSS Layout",
+      "95CSS: A Windows 95-style CSS framework",
+      "PureCSS Lace",
+      "CSS features you can use today with no build step",
+      "CSS Is Still Awesome"
+    ],
+    "varied": [
+      "Superdesign Prompt Library",
+      "Designing for Dual Screen and Foldable Devices with CSS (2023)",
+      "You might want to build your WebApp in Canvas instead of HTML",
+      "You Don't Need Initial-Scale in Your HTML",
+      "3D CSS Super Mario",
+      "Symbols That Speak Color"
+    ],
+    "assigned_in_window": 365,
+    "first_story_at": 1782551171,
+    "last_story_at": 1790279181,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 37,
+    "name": "Amazon",
+    "description": "Amazon's corporate strategy, labor practices, retail operations, devices, logistics, and AWS-related issues.",
+    "typical": [
+      "The Amazon tax",
+      "Amazon accused in lawsuit of systematic discrimination against pregnant workers",
+      "Amazon fixing bug that billed some AWS customers billions of dollars",
+      "Amazon cuts jobs in its AI unit",
+      "The Amazon tactics that hiked prices across the internet",
+      "Amazon expands shoppable features on Prime Video"
+    ],
+    "varied": [
+      "Slashing Our AWS Bill at Levels.fyi, Part 2",
+      "Amazon Achieves Enshitification Inception",
+      "Amazon completes $50B investment in OpenAI",
+      "Sears didn't miss e-commerce \u2013 Eddie Lampert stripped it [video]",
+      "Amazon's New Encryption Method Still Doesn't Deliver Real Privacy",
+      "Amazon seller reveals shadow bribery market within Amazon"
+    ],
+    "assigned_in_window": 177,
+    "first_story_at": 1782706570,
+    "last_story_at": 1790285696,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 38,
+    "name": "Algorithms and computation",
+    "description": "Algorithm design, analysis, optimization, data structures, and computational techniques.",
+    "typical": [
+      "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+      "Lattice enumeration: O(R^N) complexity reduced to O(R^2) with no floating point",
+      "Breaking the 1.58-bit Barrier for Ternary LLMs",
+      "Measuring Gauss-Seidel loop-carried dependency and fixing it via loop unrolling",
+      "Why LLM infrastructure chokes: ternary and pentary logic matrix replacement",
+      "Underspecification Does Not Imply Incoherence in LLM Code Generation"
+    ],
+    "varied": [
+      "A new O(log N) algorithm for the egg-dropping problem",
+      "Next version of OpenClaw uses a decision model to decide between steer or queue",
+      "Stealing Reasoning Traces from Proprietary LLM APIs",
+      "One trie, three jobs, zero benchmarks won",
+      "Settling a 2006 conjecture on Huffman codes",
+      "Building a High Performance Order matching system from scratch"
+    ],
+    "assigned_in_window": 574,
+    "first_story_at": 1782565090,
+    "last_story_at": 1790286070,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 39,
+    "name": "Observability and production operations",
+    "description": "Monitoring, logging, metrics, alerting, reliability engineering, and operating data systems.",
+    "typical": [
+      "Lightweight Spring Boot Monitoring Without Prometheus and Grafana",
+      "How to Read Server Monitoring Graphs",
+      "Show HN: Tiny uptime monitor (account-less, agent-native)",
+      "BtrLog: Low-Latency Logging for Cloud Database Systems",
+      "SQL Alerting in Cloud Monitoring Observability",
+      "Rails Pulse: a comprehensive performance monitoring and debugging gem"
+    ],
+    "varied": [
+      "How to ship a database every day",
+      "Anacraft \u2013 Google Analytics, mined block by block",
+      "Symfony-YAML Audit Complete",
+      "One-command OpenTelemetry setup on Linux hosts",
+      "Self-improving agents are event sourced",
+      "Why did your metric change? Root-cause and significance testing for CSVs"
+    ],
+    "assigned_in_window": 455,
+    "first_story_at": 1782552431,
+    "last_story_at": 1790298907,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 40,
+    "name": "Computer processors and hardware",
+    "description": "CPUs, GPUs, chip fabrication, server hardware, processor architectures, and hardware-market developments.",
+    "typical": [
+      "Intel Crescent Island 160GB to 480GB LPDDR5X AI GPU at Hot Chips 2026",
+      "Intel Diamond Rapids the 2027 Intel Xeon at Hot Chips 2026",
+      "AMD MI400 GPU at Hot Chips 2026",
+      "Intel committed to manufacturing 14A node",
+      "AMD Helios MI400 System Architecture at Hot Chips 2026",
+      "Intel Diamond Rapids the 2027 Intel Xeon at Hot Chips 2026 \u2013 ServeTheHome"
+    ],
+    "varied": [
+      "Running AMD OpenSIL and Coreboot on the First Available Ryzen AM5 Motherboard",
+      "AMD EPYC 9006 Venice Announced and Looks Poised to Be a Grand Slam",
+      "Gemini 3.8 Flash (High) Intelligence, Performance and Price Analysis",
+      "HP ZBook Ultra G3a 16 Preview: 192GB Unified Memory Aims for Top Local AI Laptop",
+      "Apple GPU Microarchitecture (2022)",
+      "Apple M6 Pro achieves the highest single-core CPU score in Geekbench 7"
+    ],
+    "assigned_in_window": 591,
+    "first_story_at": 1782574802,
+    "last_story_at": 1790309126,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 41,
+    "name": "Data engineering",
+    "description": "Data architectures, data lakes, analytics systems, data products, databases, and large-scale data processing.",
+    "typical": [
+      "Show HN: Dex \u2013 Explore any Data Warehouse without worrying about costs",
+      "Datalevin 1.1.0: Top Performance Across Data Models",
+      "Data-eng-bench, Snowflake's data engineering benchmark for agents",
+      "DataBench: A frontier benchmark for complex data work and analytical reasoning",
+      "Databricks Data Mesh Best Practices: A Practical Implementation Guide",
+      "Show HN: DataZen \u2013 a local-first client for cross-database workflows"
+    ],
+    "varied": [
+      "Make Every Agent a Data Agent",
+      "Cohere Parse: Enterprise document intelligence at scale",
+      "Show HN: AI Notebook for Data Science \u2013 Kind of Like Cursor but for Jupyter",
+      "Datasette Dashboards",
+      "Show HN: Bol.ai \u2013 Extract structured data from Bills of Lading",
+      "AI needs the best-of-breed data stack: Postgres and ClickHouse"
+    ],
+    "assigned_in_window": 342,
+    "first_story_at": 1782642282,
+    "last_story_at": 1790271400,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 42,
+    "name": "Cryptography and key management",
+    "description": "Encryption, passwords, passkeys, certificates, cryptographic protocols, and secret-storage practices.",
+    "typical": [
+      "Show HN: PGP made convenient (encrypted at rest with passkeys)",
+      "Show HN: Using the secure enclave in a pass/password-store iOS client",
+      "Show HN: Send secrets a server can't decrypt, even if compelled to",
+      "Show HN: Anonymous age verification with passkey-powered encryption",
+      "Client Vault Proxy: Cryptographic Architecture Specification",
+      "New Methods That Compromise Passkey Authentication"
+    ],
+    "varied": [
+      "Fnox: Manage secrets with encryption or cloud providers \u2013 or both",
+      "Rare Not Random Using Token Efficiency for Secrets Scanning",
+      "8 Out of 10 Banks in Belgium Hate This One Weird EID RCE",
+      "macOS 26.4 silently enabled login keychain data protection",
+      "FuturePost Unlock \u2013 Create time-locked QR codes that unlock your message later",
+      "Shellit \u2013 Open-source SSH client with self-hosted E2EE sync and MCP"
+    ],
+    "assigned_in_window": 543,
+    "first_story_at": 1782568345,
+    "last_story_at": 1790314479,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 43,
+    "name": "AI assistants and agents",
+    "description": "AI chatbots, voice agents, coding copilots, automation agents, and practical AI-assistant products.",
+    "typical": [
+      "Show HN: OpenHelper AI \u2013 The Free and Open Source AI Chatbot",
+      "Show HN: OpenHelper AI Chatbot \u2013 The Free and Open Source AI Chatbot",
+      "x.ai Voice Agent Builder",
+      "An interesting website, looks like AI companion but only voice",
+      "Show HN: Give your AI agent a personality (and a voice) without external APIs",
+      "A full-duplex AI phone agent that listens while speaking"
+    ],
+    "varied": [
+      "Show HN: ChacharApp \u2013 Free, local voice dictation for Mac (open source)",
+      "Show HN: Put an AI agent on a FaceTime audio/video call (open source, WebRTC)",
+      "Multiple agents, two Macs, and several skills",
+      "Meta's New Muse AI Agent Read My Private Messages. I Never Asked It To",
+      "Using AI for Good Episode 1: SpiralOS Concept",
+      "Show HN: I gave my AI coding agents a group chat (it's just a Git repo)"
+    ],
+    "assigned_in_window": 2331,
+    "first_story_at": 1782565954,
+    "last_story_at": 1790323615,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 44,
+    "name": "Systems performance and memory",
+    "description": "Memory management, SIMD, parallelism, cache behavior, low-level optimization, and systems performance.",
+    "typical": [
+      "Memory Ordering in CPUs",
+      "Latency Optimizations on the System Level",
+      "Two Memory Management Optimizations Going into Linux 7.3",
+      "Analog in-memory computing attention mechanism for fast and energy-efficient LLM",
+      "CUDA Shared Memory Swizzling",
+      "Deep dive: Quad storage for optimal throughput and latency"
+    ],
+    "varied": [
+      "Why aren't my two Cortex-A9 cores cache coherent?",
+      "SOTA on the hardest AI memory benchmark (BEAM, 10M tokens), with a smaller model",
+      "GLM 5.3 Flash faster and cheaper",
+      "A simple fix for LLM tail latency",
+      "Semantic caching has a structural gap that no threshold fixes",
+      "Why strict memory overcommit matters for Postgres"
+    ],
+    "assigned_in_window": 832,
+    "first_story_at": 1782569988,
+    "last_story_at": 1790269763,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 45,
+    "name": "Terminal and command-line tools",
+    "description": "Shells, terminals, command-line workflows, CLI utilities, and terminal-based development tools.",
+    "typical": [
+      "Terminal velocity: the shell tools that make Claude Code fly",
+      "Terminal browser in Claude Code",
+      "Terminal Guide: Discover CLI tools that make work faster and more enjoyable",
+      "Show HN: A terminal browser you can use over SSH",
+      "Ranger \u2013 a powerful terminal file manager with Vim keybindings",
+      "Show HN: Yank.run \u2013 search and yank shell-command snippets from the terminal"
+    ],
+    "varied": [
+      "Why I Still Build Small Windows Tools with AutoIt",
+      "Show HN: Ordered dithering command-line tool",
+      "Adding side drawer with workspace concepts to rio (rust terminal) like cmux has",
+      "A terminal designed for ClaudeCode to replace Claude Desktop",
+      "Show HN: MulmoTerminal \u2013 Run many Claude Code sessions, see which needs you",
+      "Terminal Graph \u2013 Infinite Spatial Terminal Canvas"
+    ],
+    "assigned_in_window": 928,
+    "first_story_at": 1782553456,
+    "last_story_at": 1790321100,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 46,
+    "name": "Lisp and Clojure",
+    "description": "Lisp-family languages, including Clojure, Scheme, Common Lisp, their tooling, and their ecosystems.",
+    "typical": [
+      "Dependently typed Clojure DSL with a Lean4 compatible kernel",
+      "Show HN: Cljbang.el \u2013 A Clojure-like language that runs as Emacs Lisp",
+      "Fancy Little Lisp \u03bbs",
+      "Clojure 1.12.6",
+      "Code reviewing lone Lisp with Sol and Fable",
+      "Jolt: Clojure on Chez Scheme"
+    ],
+    "varied": [
+      "How to Use Claude Code: A Complete Beginner's Guide (2026)",
+      "Show HN: I got Claude Code and Codex to argue about my code",
+      "Claude Opus 5.5",
+      "A Claude Code rules pack that ships with its own eval evidence",
+      "Dissecting Claude Science",
+      "Claude Fable 5.1 tightens restrictions on reusing thinking blocks"
+    ],
+    "assigned_in_window": 420,
+    "first_story_at": 1782577448,
+    "last_story_at": 1790321712,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 47,
+    "name": "Political philosophy and ideology",
+    "description": "Liberalism, rationalism, conservatism, academic freedom, moral theory, and ideological debate.",
+    "typical": [
+      "Ideological differences in the expanse of the moral circle (2019)",
+      "The War for Sociology",
+      "The Common Good: A Catholic Philosophical Perspective",
+      "Antonio Gramsci: How Language Makes Power Feel Like Common Sense",
+      "The Men Who Believed Some Men Are More Equal Than Others",
+      "Steven Pinker on How Common Knowledge Builds and Weakens Societies"
+    ],
+    "varied": [
+      "The Enemy of Art",
+      "In Fighting for Every Black Child, Did I Betray My Own?",
+      "Confessions of a Democratic Socialist [video]",
+      "Who Is Antigone? The 2500-Year-Old Rebel with a Cause",
+      "Good people refuse to do bad things",
+      "What Kind of Particularism?"
+    ],
+    "assigned_in_window": 637,
+    "first_story_at": 1782559282,
+    "last_story_at": 1790325269,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 48,
+    "name": "Cognitive bias and scientific reasoning",
+    "description": "Reasoning errors, epistemology, research reliability, social-science inference, and flawed decision-making.",
+    "typical": [
+      "Chain-of-Thought Reasoning in the Wild Is Not Always Faithful (2025)",
+      "The Myth of Perfect Knowledge",
+      "Fundamental Attribution Error",
+      "Anticipated Difficulty Bias, and Why Experience Doesn't Fix It",
+      "The importance of stupidity in scientific research",
+      "The Inference Gap"
+    ],
+    "varied": [
+      "The Jacobian Conjecture Is False per Anthropic",
+      "From Weak Cues to Real Identities: Evaluating Inference-Driven De-Anonymization",
+      "The Actual Epistemic Crisis",
+      "Local Reasoning for Global Properties",
+      "Forcing Fable to Generate Disinformation",
+      "The power (and weakness) of Narrative in Biotech"
+    ],
+    "assigned_in_window": 662,
+    "first_story_at": 1782561339,
+    "last_story_at": 1790320198,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 49,
+    "name": "Microsoft Windows ecosystem",
+    "description": "Windows, Microsoft desktop products, Windows development, platform changes, and related Microsoft announcements.",
+    "typical": [
+      "Microsoft built a dedicated app that forces Bing everywhere on Windows 11",
+      "Microsoft never learns, IT admins rage as a new OneDrive app invades Windows 11",
+      "Microsoft Needs Windows Lite",
+      "Microsoft adds another year to Windows 10 extended update program",
+      "Microsoft extends free Windows 10 security updates until October 12, 2027",
+      "Microsoft is serious about fixing Windows, and it's doing things right this time"
+    ],
+    "varied": [
+      "Be careful downloading Windows 11 apps from Google",
+      "Microsoft starts testing cleaner Windows Search without ads",
+      "Microsoft Confirms October 7 Windows and Surface Event Featuring RTX Spark",
+      "Forced to use a Pin in Windows 11, some alternatives",
+      "Microsoft killed FoxPro in 2007. Anyway, here's FoxPro revived",
+      "ClipX (Windows clipboard manager) updated after 18 years"
+    ],
+    "assigned_in_window": 353,
+    "first_story_at": 1782574429,
+    "last_story_at": 1790326180,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 50,
+    "name": "Python programming",
+    "description": "Learning, using, optimizing, tooling, frameworks, and libraries for the Python language.",
+    "typical": [
+      "Testing in Python",
+      "Show HN: AI tool for learning Python from scratch",
+      "Working to Make Python Lazy",
+      "Google Python Style Guide",
+      "Pocketpy: Portable Python 3.x interpreter written in C11",
+      "Thinking in Python"
+    ],
+    "varied": [
+      "MX2 \u2013 A next-generation mail protocol sandbox in Python",
+      "Show HN: Python Static Site Generator for Small Businesses",
+      "PySINDy \u2013 A package for the sparse identification of nonlinear dynamical systems",
+      "A Jupyter kernel for C++ running in the Web browser (2025)",
+      "JIT Go Brrr: The Path to a Supported JIT Compiler for CPython",
+      "Working to Make Python Lazy"
+    ],
+    "assigned_in_window": 376,
+    "first_story_at": 1782646386,
+    "last_story_at": 1790299673,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 51,
+    "name": "AI image and video generation",
+    "description": "Generative AI for images and video, synthetic faces, deepfakes, visual AI tools, and related detection concerns.",
+    "typical": [
+      "Show HN: AI Video Detector \u2013 check whether a video may be AI-generated",
+      "RetinaFace: Open-source precise AI face detection and analysis",
+      "Show HN: Image generation API using AI",
+      "Identifying fake cosmetics using AI",
+      "Researchers developed short training to improves people's detection of AI faces",
+      "Show HN: Create realistic group photos in real time with AI"
+    ],
+    "varied": [
+      "TrellisMark: Can we uniquely fingerprint 1B users with AI text watermarking?",
+      "'Artificial' Teaser Trailer",
+      "Can AI glasses replace the smartphone?",
+      "Electrif-AI Everything",
+      "Show HN: SynthCut \u2013 An open-source, local-first AI video editor",
+      "The OpenAI\u2013Hugging Face Incident [video]"
+    ],
+    "assigned_in_window": 543,
+    "first_story_at": 1782561578,
+    "last_story_at": 1790312475,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 52,
+    "name": "Quantum computing and quantum physics",
+    "description": "Quantum computers, qubits, quantum information, quantum matter, and enabling physics research.",
+    "typical": [
+      "The Mathematical Principles of Quantum Computer [pdf]",
+      "PsiQuantum has a plan to make a quantum computer out of light",
+      "Building a Quantum Computer, One Fragile Qubit at a Time",
+      "Researchers Reveal the Power of 'Quantum Proofs'",
+      "Show HN: I Designed a Quantum Computer",
+      "Rational quantum mechanics: Testing quantum theory with quantum computers"
+    ],
+    "varied": [
+      "Physicists link the Riemann Hypothesis to phase transitions in quantum systems",
+      "Why Navier-Stokes Pushes Math and Physics to the Edge \u2013 Quanta Magazine",
+      "QLoRA Explained \u2013 How 4 Bit Quantization Unlocks Frontier Models",
+      "Experiment with tiny quantum universe: time 'arises' from changes in disorder",
+      "In Hilbert Space, All Things Are Quantumly Possible",
+      "Q-CTRL Achieves GPS-Free Quantum Gravimetric Navigation Demo in Field Trial"
+    ],
+    "assigned_in_window": 309,
+    "first_story_at": 1782551883,
+    "last_story_at": 1790302267,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 53,
+    "name": "Corporate litigation and regulation",
+    "description": "Lawsuits, antitrust actions, privacy enforcement, bankruptcies, contracts, and legal disputes involving companies.",
+    "typical": [
+      "eBay, former executives to pay $56M to settle couple's harassment case",
+      "FTC to File Lawsuit Alleging Amazon Deceived Advertisers",
+      "Attorney General Cancels Settlement Talks over $111B Warner Bros. Discovery Deal",
+      "eBay and former execs will pay $56M to settle harassment of Natick couple",
+      "States sue to block Paramount's $110B Warner Bros. deal",
+      "eBay agrees $56M settlement with bloggers over harassment case"
+    ],
+    "varied": [
+      "An update on our dispute with Disney",
+      "Texas police department ordered to close for failing to provide public benefit",
+      "Following complaints, Dyson is withdrawing its $500 toothbrush from sale",
+      "DOJ finds three federal STEM education programs unconstitutional",
+      "Justice Department Lawyers Reportedly Afraid to Put Things in Writing",
+      "Small Inventors Are Being Squeezed by a Convoluted Patent Process"
+    ],
+    "assigned_in_window": 842,
+    "first_story_at": 1782555420,
+    "last_story_at": 1790314782,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 54,
+    "name": "PostgreSQL",
+    "description": "PostgreSQL administration, SQL features, schema design, extensions, performance, and operational practices.",
+    "typical": [
+      "Plruby, Procedures for PostgreSQL in Ruby",
+      "The Art of PostgreSQL",
+      "PostgreSQL for Everything",
+      "Talking Postgres: Working on Postgres After 13 Years on SQL Server",
+      "Elm for PostgreSQL",
+      "PostgreSQL as a Temporal Database"
+    ],
+    "varied": [
+      "Count(distinct) Is Too Slow: Approximations and Sampling in Postgres",
+      "Changes in MySQL 26.7.0",
+      "Show HN: Restoredrill \u2013 proves your Postgres backups restore",
+      "Tin: full-text search for Postgres",
+      "To Every Agent Its Own Database",
+      "Let's break autovacuum in Postgres: reproducing failures to make it observable"
+    ],
+    "assigned_in_window": 651,
+    "first_story_at": 1782570574,
+    "last_story_at": 1790275437,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 55,
+    "name": "YouTube and TikTok policy",
+    "description": "Moderation, bans, regulation, creator policies, age verification, and social effects of YouTube and TikTok.",
+    "typical": [
+      "Legal Experts Say Meta's Settlement Puts YouTube, TikTok and Snap on Notice",
+      "YouTube sets Made For Kids flag on inappropriate video,won't let owner change it",
+      "TikTok's owner fined nearly $30M in Brazil over safety of minors",
+      "TikTok CEO says over two dozen Jewish organizations are telling them who to ban",
+      "Texas judge rules TikTok misled users on child safety feature",
+      "YouTube urges creators to fight proposed UK algorithm changes"
+    ],
+    "varied": [
+      "TikTok to pay $400M in landmark child privacy settlement",
+      "YouTuber Davie504 slapped with ridiculous copyright claim [video]",
+      "YouTuber Banned for Impersonating Himself",
+      "Show HN: KidScreen, a finite YouTube shelf chosen by parents",
+      "Childhood exposure to pornography and the normalization of online exploitation",
+      "Incompetent Content Moderation and Sexy Stuff"
+    ],
+    "assigned_in_window": 244,
+    "first_story_at": 1782709885,
+    "last_story_at": 1790287636,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 56,
+    "name": "Hacking and exploitation",
+    "description": "Software vulnerabilities, exploits, malware, phishing, reverse engineering, and offensive-security incidents.",
+    "typical": [
+      "On Hacking",
+      "Hacking Legends",
+      "Hacking from the Backcountry",
+      "Show HN: NetHackers",
+      "Hacker's Guide to UART Root Shells [video]",
+      "Hacker Koan"
+    ],
+    "varied": [
+      "Secret Claude tracker surprises users after Anthropic's anti-surveillance stance",
+      "Pyshackle: A hard pre-execution gate for AI agent tool calls (open source)",
+      "Hacker's Guide to UART Root Shells [video]",
+      "When Bugs Feel Like Sabotage",
+      "Open source project fools AI scrapers with poisoned font",
+      "Hacking Legends"
+    ],
+    "assigned_in_window": 444,
+    "first_story_at": 1782579952,
+    "last_story_at": 1790325630,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 57,
+    "name": "Machine learning and LLM research",
+    "description": "Large language models, neural-network research, representation learning, multimodal models, and machine-learning theory.",
+    "typical": [
+      "Using large language models for research in the natural sciences",
+      "Potemkin Understanding in Large Language Models (2025)",
+      "Knowledge Distillation of Black-Box Large Language Models (2024)",
+      "How Language Models Work",
+      "An Overview of Large Language Models for Statisticians",
+      "Deep Learning Overview"
+    ],
+    "varied": [
+      "Self-hosted inference orchestrators compared: LocalAI, exo, GPUStack, vLLM",
+      "Miles v0.1: Production-level Post-training",
+      "Husky: A model-specific inference engine up to 4.5x faster than Apple's MLX",
+      "Improving PlantVillage Dataset: How I Solved Background Bias",
+      "Mage a Lightweight, Research-Friendly Multimodal Model Family",
+      "Using evolution to automate AI model research"
+    ],
+    "assigned_in_window": 1186,
+    "first_story_at": 1782585419,
+    "last_story_at": 1790323343,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 58,
+    "name": "Elon Musk",
+    "description": "Elon Musk's businesses, compensation, public actions, legal disputes, and influence on Tesla, X, and OpenAI.",
+    "typical": [
+      "Investors are having doubts about Elon Musk's grandiose ambitions",
+      "Donald Trump confident Elon Musk will donate SpaceX stock to Trump accounts",
+      "Elon Musk Runs from Interview at Last Minute as SpaceX Stock Crashed [video]",
+      "Elon Musk Unmasked in Alex Gibney Documentary",
+      "US judge rejects Elon Musk bid set aside Twitter fraud verdict",
+      "Musk's SpaceX tumbles back to Earth, dragging Tesla stock down with it"
+    ],
+    "varied": [
+      "Musk's AI company sues its users as victim lawsuits over Grok deepfakes mount",
+      "SpaceX and the myth of independent Wall St research",
+      "Musk's SpaceX tumbles back to Earth, dragging Tesla stock down with it",
+      "Space datacenters proposed by Musk and Bezos 'catastrophic' for planet",
+      "Musk promotes blatant Tesla FSD misuse as crash lawyers rejoice",
+      "Elon Musk's Memphis AI empire is the epicenter of the data center backlash"
+    ],
+    "assigned_in_window": 161,
+    "first_story_at": 1782598029,
+    "last_story_at": 1790323850,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 59,
+    "name": "Compression and binary formats",
+    "description": "Image codecs, quantization, binary encodings, archive formats, decoding, and data-compression techniques.",
+    "typical": [
+      "ALP: Adaptive lossless floating-point compression",
+      "Bonsai 2 27B: Near-Lossless Compression in a 9x Smaller Footprint",
+      "Compressing a flag to 11 bits",
+      "Show HN: misa77 - a codec that decodes 2x faster than LZ4 (at better ratios)",
+      "A new wavelet codec for thumbnails/preview (200B\u201336KB)",
+      "Show HN: Hikaru \u2013 image compression that hits an exact file size, no slider"
+    ],
+    "varied": [
+      "How Is Compression Prediction?",
+      "F*Ex: Frams' Fast File EXchange",
+      "FFmpeg 9.0",
+      "Let's See Paul Allen's SIMD CSV Parser",
+      "Hopf Spherical Compression and Quantization in C++23",
+      "Tengu Decoded: what the Claude Code binary does"
+    ],
+    "assigned_in_window": 349,
+    "first_story_at": 1782552868,
+    "last_story_at": 1790324115,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 60,
+    "name": "Food and agriculture",
+    "description": "Food production, farming, nutrition, ingredients, food technology, and agricultural supply issues.",
+    "typical": [
+      "Cut to the Bone: Farmers at the Mercy of the Meat Monopolists",
+      "Where our food crops come from",
+      "Taylor Farms became a top salad supplier before US diarrhea outbreak",
+      "The Truth About American Food Safety",
+      "Changing the world one vegetable at a time: UK first carbon-negative greengrocer",
+      "How does food get traded around the world?"
+    ],
+    "varied": [
+      "Europe Built a Single Market\u2013Now It's Packaging It Away",
+      "Products make going back unimaginable",
+      "What's horned, fluffy, and ethically dubious? Yak clones",
+      "Purchased a small farm during the lockdown era (w/o a rural background)",
+      "Cooking for Engineers - Recipe Infographics",
+      "Monsanto's Cruel, and Dangerous, Monopolization on American Farming (2008)"
+    ],
+    "assigned_in_window": 386,
+    "first_story_at": 1782564018,
+    "last_story_at": 1790315089,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 61,
+    "name": "Stock markets and investing",
+    "description": "Equities, valuations, investor behavior, market sentiment, venture finance, and personal investment decisions.",
+    "typical": [
+      "Private Equity: In the Doldrums, Out of Favor with Some Institutional Investors",
+      "Hedge Funds Are the Wild Card in the Turbulent Bond Market",
+      "Investors in Situational Awareness deserved to lose their shirts",
+      "US Corporate Insiders Are Selling Stocks at a Near Record Pace",
+      "Private Credit Investors Prefer to Be Trapped Than Take 26% Loss",
+      "After Losses, Retail Investors Flock to 3x Leverage as 2x Product Are Restricted"
+    ],
+    "varied": [
+      "I fact-checked classic trading-book claims against 3,946 days of futures data",
+      "Boom? If AI Sales in the US Go South, Let's Not Bail Out Big Money Bettors",
+      "Wagering on Wildfires? There's a New Prediction Market for That",
+      "Wagering on Wildfires? There's a New Prediction Market for That",
+      "Is the stock market in a bubble? \u2013 levelsio (Pieter Levels)",
+      "Investors Want Quarterly Reports, Unfavorable Results and All"
+    ],
+    "assigned_in_window": 522,
+    "first_story_at": 1782570720,
+    "last_story_at": 1790322392,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 62,
+    "name": "Oceans and marine life",
+    "description": "Oceanography, marine animals, icebergs, underwater exploration, ships, fisheries, and ocean-environment phenomena.",
+    "typical": [
+      "One of the World's 'Most Wanted' Lost Fish Is Rediscovered",
+      "B.C. boaters warned to avoid mysterious floating island",
+      "Deep-sea vehicles spot 'alien' sharks deep beneath the waves in the Pacific",
+      "Footage Shows Dolphins Hunting with Shells Off the East Coast of Australia",
+      "There are so many bones everywhere: The whale graveyards that transform deep sea",
+      "The Giant Fish of Americas Rivers"
+    ],
+    "varied": [
+      "The Extinct Tasmanian Tiger's Bite Was Unlike Any Other Predatory Mammal's",
+      "Why Garfield Phones Are Washing Up on a French Beach Since the '80s",
+      "Rare Half-Male, Half-Female Bird Took Up Residence Outside of Chicago",
+      "Vancouver Coastal Sea Wolf",
+      "Sunken Nazi warships resurface as water levels drop",
+      "Chinese ship completes first regular Arctic voyage to UK on 'Polar Silk Road'"
+    ],
+    "assigned_in_window": 487,
+    "first_story_at": 1782568212,
+    "last_story_at": 1790285208,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 63,
+    "name": "Authentication and identity management",
+    "description": "Login systems, OAuth, decentralized identity, access control, credentials, and identity-platform security.",
+    "typical": [
+      "AI Authentication and Authorization",
+      "Web Authentication API (WebAuthn) Level 3",
+      "Steps to Secure Your Authentication System",
+      "OAuth Identity and Authorization Chaining Across Domains",
+      "Add extra security to your SPA with DPoP and FusionAuth",
+      "What's the best way to do authentication in modern applications"
+    ],
+    "varied": [
+      "Discord Is Bringing Back Age Verification",
+      "Agent Proxy: Secure Credential Brokering for Agents",
+      "Customer Identity vs. Identity Access Management Explained",
+      "Tata's B2B platform returned OTPs in API responses",
+      "Ask HN: How do you provide your AI agents with access to credentials/secrets?",
+      "Show HN: Mcptunnels \u2013 ngrok for MCP with basic OAuth"
+    ],
+    "assigned_in_window": 363,
+    "first_story_at": 1782575413,
+    "last_story_at": 1790322901,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 64,
+    "name": "Russia's war against Ukraine",
+    "description": "The Russian invasion of Ukraine, military developments, cyberwarfare, diplomacy, aid, and war-related impacts.",
+    "typical": [
+      "Ukrainian drones hit Russia's refinery Zelenskyy says Siberia now 'within reach'",
+      "Russia fires economist over Ukraine war warning",
+      "Putin is forced to admit the country faces shortages in wake Ukrainian attacks",
+      "Ukraine strikes Russia's only Soyuz rocket plant with Flamingo missiles",
+      "Ukraine's Drones Are Now Reaching Siberia and Imperiling Russian Energy Assets",
+      "How Russia Blackmails Ordinary Ukrainians to Spread Terror in Ukraine [video]"
+    ],
+    "varied": [
+      "A Russian phone number, WhatsApp, and 140 outbound SSH alerts",
+      "By placing an ad on this site, you can also help Ukrainians earn money",
+      "Serbia's Vu\u010dI\u0107 to resign within weeks and call snap elections",
+      "Ratko Mladic, ex-Bosnian Serb warlord oversaw atrocities, dies in prison at 84",
+      "Female assassin kills Ukraine submarine commander who defected to Russia",
+      "Iran strikes on CIA facilities prompt questions about possible Russian role"
+    ],
+    "assigned_in_window": 377,
+    "first_story_at": 1782560987,
+    "last_story_at": 1790272800,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 65,
+    "name": "Facebook and Meta governance",
+    "description": "Facebook and Meta moderation, legal disputes, platform policies, market power, and societal effects.",
+    "typical": [
+      "Meta loses bid to dismiss states' claims Facebook, Instagram addict children",
+      "Meta loses bid to dismiss US states' claims that FB, Instagram addict children",
+      "Zuckerberg lied about concern for child safety",
+      "Facebook takes no action on AI far-right influence campaign flagged a month ago",
+      "Big Tech accused of stonewalling European social media researchers",
+      "Zuckerberg encouraged growth over child safety, ex-Meta executive testifies"
+    ],
+    "varied": [
+      "Reddit Age Verification in Europe",
+      "EU wants 13+ age restriction for social media",
+      "X latest to block Saudi dissident accounts inside kingdom",
+      "France doubles down on restricting access to Polymarketre",
+      "How US states and international trustbusters can beat Big Tech",
+      "Three Reasons Europe learned to distrust Big Tech before America did"
+    ],
+    "assigned_in_window": 205,
+    "first_story_at": 1782571085,
+    "last_story_at": 1790286521,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 66,
+    "name": "Low-level systems and hardware",
+    "description": "Kernel internals, processor behavior, firmware, operating-system architecture, and related systems-level debugging and security.",
+    "typical": [
+      "Linux Left Legacy I/O and Memory Handlers Open in Kernel Lockdown Mode",
+      "Hardware backdoors in some x86 CPUs",
+      "A Linux Kernel 0-day Journey \u2013 From a limited UAF to Physical Memory R/W",
+      "Linux Patched for Safe RET Interrupt Vulnerability",
+      "Off By: Exploiting a Use-After-Free in the Linux Kernel",
+      "DDRop: Memory Interposer Attacks on Confidential VMs by Dropping DDR5 Writes"
+    ],
+    "varied": [
+      "VMs can't boot with Network Mode set to Bridged on Apple M5 Pro machines",
+      "MicroVM sandbox on Win, Mac, Linux, with policy engine",
+      "Bringing BPF to Binfmt_misc",
+      "Whoop replacement noop 10.5 released",
+      "A kernel module for FreeBSD that uses GitHub's downtime as an entropy source",
+      "Show HN: DOOM in the kernel, or fibers in eBPF"
+    ],
+    "assigned_in_window": 402,
+    "first_story_at": 1782553244,
+    "last_story_at": 1790289805,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 67,
+    "name": "Twitter/X platform",
+    "description": "Twitter/X product features, governance, algorithms, verification, policies, and user experience.",
+    "typical": [
+      "Twitter Is Back at Twitter.now",
+      "Twitter Viewer",
+      "Twitter \u2013 The Square Is Back",
+      "Twitter is making a comeback, kinda",
+      "Twitter: The square is back. And this time, it's yours",
+      "Twitter Viewer Service Discontinued"
+    ],
+    "varied": [
+      "Twitter Search Filters",
+      "Show HN: Yogile \u2013 Photo sharing without accounts",
+      "IG Follow \u2013 Export Instagram Followers and Following to CSV and Excel",
+      "Show HN: A directory of the best tweets available on twitter. hand-picked. no AI",
+      "New Social Network \"Twitter.now\" Launches Under Twitter Name, Trademark Battle",
+      "A quick ramble on the UK social media ban for teens"
+    ],
+    "assigned_in_window": 198,
+    "first_story_at": 1782631245,
+    "last_story_at": 1790323701,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 68,
+    "name": "Retro and hobby computing",
+    "description": "Vintage computers, consoles, homebrew machines, retro hardware restoration, and programming for constrained historical systems.",
+    "typical": [
+      "8Bit Computers",
+      "8086 CPU, chipset, 640 KB RAM, floppy, keyboard and VGA screen in one CSS file",
+      "16-bit Intel 8088 chip (c. 1985)",
+      "Memo-1: A 6502 computer built from scratch, using a Minitel as its terminal",
+      "Z80 \u2013 The 1970s Microprocessor Still Alive (2021)",
+      "Zeal 8-Bit Computer"
+    ],
+    "varied": [
+      "JevEmon: Typed Decisions over GBA RAM to Walk Pok\u00e9mon FireRed",
+      "ZX Spectrum System Tour: Memory Mapping",
+      "Bespoke Synth: open-source modular synthesizer/DAW for Linux, Mac & Windows",
+      "Show HN: A browser IDE for m68000, Z80 assembly (and more), with graphics",
+      "Windows XP 2002 for the Itanium: Unbridled rage",
+      "Interactive demo of MINIX1-like O/S on emulated CPU"
+    ],
+    "assigned_in_window": 602,
+    "first_story_at": 1782557341,
+    "last_story_at": 1790321265,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 69,
+    "name": "Remote work and workplace life",
+    "description": "Remote and hybrid work practices, management, isolation, burnout, compensation, and workplace policy.",
+    "typical": [
+      "Ask HN: Do you love your job?",
+      "Ask HN: How to get started with a sustainable bootstrapped business of your own?",
+      "Ask HN: 30, burnt out, with 6-10 months of runway. What would you do?",
+      "Remote work benefits are much bigger than a paycheck",
+      "How much of your workweek goes the way you expected? [pdf]",
+      "Ask HN: Losing motivation to work in the IT field, need advice"
+    ],
+    "varied": [
+      "Ask HN: Is Traditional SaaS Dying?",
+      "Show HN: REST - Living Without Burnout. A manifesto about sustainable discipline",
+      "Side projects, kids, full time job",
+      "Show HN: Deskies \u2013 ambient presence for friends across companies",
+      "A Manager Asked How to Tell His Report to \"Get a Life\" [video]",
+      "The new addiction to working all the time"
+    ],
+    "assigned_in_window": 199,
+    "first_story_at": 1782552333,
+    "last_story_at": 1790299333,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 70,
+    "name": "Computer networking",
+    "description": "Network protocols, routing, VPNs, NAT traversal, network services, infrastructure, and network security.",
+    "typical": [
+      "NodePass \u2013 Universal TCP/UDP Tunneling Solution",
+      "Show HN: wireplug.org \u2013 Free roaming and NAT traversal for WireGuard",
+      "WireGuard-Native NAT Traversal",
+      "Linux Transparent Proxy Internals",
+      "SecurePkt \u2013 High-Speed, Post-Quantum UDP Tunnel Protocol and SOCKS5 Gateway`",
+      "Operational Guidelines for DNS Transport in Mixed IPv4/IPv6 Environments"
+    ],
+    "varied": [
+      "Show HN: Dynpipe \u2013 Easy Web and CLI P2P transfer tool using simple word codes",
+      "RFC 8890 \u2013 The Internet is for End Users (2020)",
+      "Show HN: Aquifer \u2013 Admission control for bursty vLLM traffic",
+      "We probed every remote server in the official MCP registry (15,329 URLs)",
+      "GhostWire \u2013 Resilient P2P Mesh Communication",
+      "Show HN: We Implemented the IPv8 Internet-Draft in Linux, Libc, and BGP"
+    ],
+    "assigned_in_window": 755,
+    "first_story_at": 1782598288,
+    "last_story_at": 1790272300,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 71,
+    "name": "Software testing",
+    "description": "Unit, mutation, performance, specification, test-driven, and quality-assurance practices for software.",
+    "typical": [
+      "Mini Test Planning: How to add rigor without slowing down QA",
+      "Lessons Learned from Fixing Flaky Tests with Claude",
+      "Unit Tests: Protecting Your Code from Being Poorly Handled by Others",
+      "After failing hidden test cases, I built a systematic checklist for",
+      "The Joel Test: 12 Steps to Better Code",
+      "Show HN: Qpilot \u2013 run your manual test cases without writing test code"
+    ],
+    "varied": [
+      "Wrangling Evals",
+      "Code Critique: Intent, Drift, and Spotlight for AI-Generated Diffs at Scale",
+      "ProofRun \u2013 a local verification receipt for AI coding agents",
+      "Guardrails as Scapegoats: Auditing Unfaithful Safety Refusals in Tool-Augmented",
+      "Ask HN: How do you handle Code compliance today?",
+      "Show HN: A benchmark for AI agent guardrails that caught my own plugin"
+    ],
+    "assigned_in_window": 658,
+    "first_story_at": 1782560704,
+    "last_story_at": 1790311763,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 72,
+    "name": "Neuroscience and the brain",
+    "description": "Brain function, neural systems, cognition, neurotechnology, and neuroscience research.",
+    "typical": [
+      "Human neurons flourish in mouse brains: new view of neurodevelopmental disorders",
+      "Brain turns listening inward during REM sleep, EEG recordings suggest",
+      "Mice with human brain cells offer a tool to study disease",
+      "Researchers have created a mouse with a partly human brain",
+      "Reading Minds Almost: Scientists Just Reconstructed Vision from Brain Waves",
+      "New research shows how psychedelics reorganise the patterns in your brain"
+    ],
+    "varied": [
+      "Scientists reverse brain aging, with a nasal spray",
+      "Scientists create mice with part-human brains",
+      "MRIs Show Dogs Are Good at Distinguishing Between Human Emotions",
+      "The positive effect of walking on creative thinking",
+      "Sex differences in attention are present at birth",
+      "Will humans one day talk to animals? This scientist is bringing us closer"
+    ],
+    "assigned_in_window": 555,
+    "first_story_at": 1782577559,
+    "last_story_at": 1790268356,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 73,
+    "name": "Digital image and generative graphics",
+    "description": "Creating, processing, generating, compositing, and programmatically rendering digital images and visual graphics.",
+    "typical": [
+      "Show HN: Goldenboy \u2013 in-browser dithering and pixel art for photos and video",
+      "Generate clean, transparent clip art and animated GIFs in seconds",
+      "Text art tools",
+      "Pixel Composer: Node based VFX compositor for pixel art",
+      "Animated Thinking Orb Components",
+      "Show HN: 2K Animated Images"
+    ],
+    "varied": [
+      "Can Seedance 2.0 Draw in 2D? The Anime Animation Playbook",
+      "Cartesian \u2013 AI 3D Modeling for Design",
+      "Show HN: Kario \u2013 AI Native Motion Graphics Editor",
+      "Guiding Ships with Moire Patterns (2018)",
+      "Two Pixels Become One",
+      "Digital Stamp Maker"
+    ],
+    "assigned_in_window": 932,
+    "first_story_at": 1782561458,
+    "last_story_at": 1790319348,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 74,
+    "name": "JavaScript development",
+    "description": "JavaScript and TypeScript languages, runtimes, tooling, frameworks, packaging, and browser-oriented development.",
+    "typical": [
+      "Modern JavaScript Tricks for Cleaner Everyday Code",
+      "QuickJS: An Embeddable JavaScript Engine",
+      "GoodJsCode, a practical guide to writing cleaner JavaScript",
+      "Gea \u2013 A new JavaScript framework for old time's sake",
+      "Show HN: JavaScript syntax highlighter in 12.7kB of WebAssembly, Shiki 99.9%",
+      "JavaScript installer pnpm recast in Rust because ECMAScript can't keep up"
+    ],
+    "varied": [
+      "Show HN: Lightweight, TypeScript-first mocking library for AWS SDK v3 and Vitest",
+      "Spice-ts: a TypeScript-native SPICE circuit simulator",
+      "Show HN: Scriptlet \u2013 a native macOS app for package.json scripts",
+      "An alfred / Raycast clone built with electron",
+      "Show HN: Tiny and CSP-safe expression language for JavaScript",
+      "Nub \u2013 A TypeScript-first toolchain that runs TypeScript files and package.json"
+    ],
+    "assigned_in_window": 364,
+    "first_story_at": 1782564040,
+    "last_story_at": 1790316644,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 75,
+    "name": "Computer keyboards and input customization",
+    "description": "Physical keyboards, layouts, ergonomic designs, keyboard testing, remapping, shortcuts, and related input-device customization.",
+    "typical": [
+      "Moonlander Ergonomic Keyboard",
+      "Kasroz: An Optimal Keyboard for Swipe",
+      "Show HN: I built a keyboard-first window switcher for macOS",
+      "ThinkPad Ergonomic Keyboard with Trackpoint",
+      "Ergonomic keyboard generator with hand scanning",
+      "Mac app that offers the ability to add artificial mechanical keyboard sounds"
+    ],
+    "varied": [
+      "Show HN: Window Switcher \u2013 Better same-app window switching for macOS",
+      "Operating a computer with your tongue: the Augmental MouthPad [video]",
+      "Raghu // dark-factory \u2013 press any key or click to power on",
+      "Fixing my tooltip accessibility mistake",
+      "Show HN: Take, a Mac screen recorder that comes out edited",
+      "Axiotron Modbook"
+    ],
+    "assigned_in_window": 490,
+    "first_story_at": 1782564635,
+    "last_story_at": 1790322360,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 76,
+    "name": "Optics and computational imaging",
+    "description": "Optical sensing, cameras, lenses, light measurement, imaging systems, and computational techniques for optical data.",
+    "typical": [
+      "3D Visualization of E8 Using an H4 Folding Matrix [pdf]",
+      "J-Lens for video models: uncovering steerable physical dynamics",
+      "Scanning Light Field Display [3D rotating display] [video]",
+      "4K Analog Video Feedback Fractal Device",
+      "4K Video Feedback Fractal Device",
+      "Spect Image Formation [pdf]"
+    ],
+    "varied": [
+      "Integrated optical isolators for broadband multi-laser operation",
+      "4K Analog Video Feedback Device",
+      "Fiber-immersion microfabrication with sub-10\u00b5m resolution for under $300 [video]",
+      "Show HN: Fixing optical computing jitter via fluid dynamics in GPU registers",
+      "Curveball",
+      "Simple Outlier Detection in a Kalman Filter"
+    ],
+    "assigned_in_window": 577,
+    "first_story_at": 1782560012,
+    "last_story_at": 1790306008,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 77,
+    "name": "Puzzles and logic games",
+    "description": "Recreational logic, arithmetic, word, deduction, and programming puzzles, including their design and solution methods.",
+    "typical": [
+      "Show HN: Posting Puzzle \u2013 A Game Made of Post's Correspondence Problem",
+      "Show HN: Criboku \u2013 a daily logic puzzle based on cribbage",
+      "Show HN: A Mondrian-style puzzle block game",
+      "Show HN: Daily Math Puzzle",
+      "Puzzle Corner",
+      "A Puzzle"
+    ],
+    "varied": [
+      "lonely 20 questions, a game for people with no friends",
+      "Show HN: Seedle, daily -dle for Minecraft seeds",
+      "Can repeated Monty Hall games reveal whether the host knows?",
+      "Show HN: Term Sheets Against Humanity: VC card game where you read the partner",
+      "SquidGPT, an elimination death game for AI",
+      "Tetris Font"
+    ],
+    "assigned_in_window": 606,
+    "first_story_at": 1782553948,
+    "last_story_at": 1790307917,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 78,
+    "name": "COVID-19 pandemic",
+    "description": "COVID-19 transmission, public-health interventions, reporting, social effects, and pandemic-era analysis.",
+    "typical": [
+      "Covid-19 Misinformation",
+      "Influenza A spike: Covid-era measures return as doctor say system under pressure",
+      "New virus catalog reveals which pathogens pose the greatest threat",
+      "Modeling the Covid-19 Outbreak with J (2020)",
+      "The contagion of fear",
+      "The Covid-19 scandal is still unfolding"
+    ],
+    "varied": [
+      "How HIV started a century before anyone noticed",
+      "Cultural effects of the Western African Ebola virus epidemic",
+      "Is there a global loneliness epidemic? Research paints a complex picture",
+      "The contagion of fear",
+      "More than 18,200 cyclosporiasis cases now suspected in US",
+      "Two Have Died in the Cyclospora Outbreak. The Fifty-State Count Is Now 21,913"
+    ],
+    "assigned_in_window": 91,
+    "first_story_at": 1782589353,
+    "last_story_at": 1790146117,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 79,
+    "name": "US defense and national security",
+    "description": "US military, Pentagon, weapons, nuclear strategy, defense procurement, and national-security policy.",
+    "typical": [
+      "U.S. has deployed space-control weapons in orbit, Air Force secretary says",
+      "US Military confirms it has deployed weapons in space",
+      "US Air Force secretary reveals deployment of on-orbit space control weapons",
+      "The Pentagon Wars",
+      "U.S. has deployed first space-based weapon, Air Force secretary says",
+      "US military reveals it has weapons in space"
+    ],
+    "varied": [
+      "Agent Swarms",
+      "Schools are adding pepper-spraying drones to help combat active shooters",
+      "US Army unit offers 4-day GTA VI pass as reenlistment incentive",
+      "Files on Illegal Spying Show CIA Skeletons from Cold War (2007)",
+      "Inside the AI \"Kill Chain\" That Destroyed an Iranian School",
+      "US used 'virtually all' long-range precision missiles during Iran war"
+    ],
+    "assigned_in_window": 507,
+    "first_story_at": 1782586591,
+    "last_story_at": 1790283556,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 80,
+    "name": "Startup founding",
+    "description": "Launching, funding, operating, marketing, and resolving organizational challenges at startups.",
+    "typical": [
+      "If a startup worth your career",
+      "Startup Marketing 101",
+      "Show HN: Marketing for Solo Technical Founders",
+      "Lessons for founders from my time as a founder",
+      "Find investors for your startup for free",
+      "Ask HN: How do we build a team? (bootstrapped B2B startup)"
+    ],
+    "varied": [
+      "How SaaS startup guys get first 100 customers first, make fkn $500k ARR fast?",
+      "How to restart growth after being stuck at \u20ac16K/mo for two years [video]",
+      "LARP \u2013 Revenue infrastructure for serious founders",
+      "Show HN: A \"roast my startup\" space that won't shadowban you for self-promotion",
+      "Show HN: Foray \u2013 AI that turns your idea into a stress-tested business blueprint",
+      "StartupForge AI \u2013 Generate a startup blueprint from an idea"
+    ],
+    "assigned_in_window": 410,
+    "first_story_at": 1782567869,
+    "last_story_at": 1790317781,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 81,
+    "name": "Climate change and extreme weather",
+    "description": "Climate trends, warming impacts, ocean and atmospheric conditions, adaptation, and weather extremes linked to climate.",
+    "typical": [
+      "Tracking extreme heat by the hour makes climate change seem worse",
+      "Where we are with climate change",
+      "Strong El Nino could make 2027 the hottest year on record",
+      "Scientists detect a sharp acceleration in global warming",
+      "Climate Change Is Moving Mountains",
+      "Climate change past the point of no return worst impacts are now unavoidable"
+    ],
+    "varied": [
+      "Could We Mitigate Super El Ni\u00f1os by Artificially Changing the Climate?",
+      "San Andreas fault reaches highest stress level in 1k years",
+      "Worst-case glacial lake flood scenarios in a transboundary Himalayan basin 2022",
+      "A Major Cold Intrusion Spreads Across Eastern Europe: Seasonal Frost to Follow",
+      "Italy putting nearly all major cities on highest heat alert",
+      "Why 2 Degrees of Global Warming Means 6 Degrees in Europe"
+    ],
+    "assigned_in_window": 494,
+    "first_story_at": 1782558499,
+    "last_story_at": 1790317268,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 82,
+    "name": "Digital audio and video tools",
+    "description": "Software and services for music playback, audio transformation, streaming, video handling, transcription, and media production.",
+    "typical": [
+      "Show HN: webcast.social \u2013 Got MP3s? Host your own radio show from the browser",
+      "TubeStream \u2013 Turn a YouTube channel into a podcast you can listen to",
+      "Show HN: Live audio dubbing from any browser tab",
+      "Show HN: VODForge \u2013 a free local desktop UI for YouTube video/playlist downloads",
+      "Show HN: Free Spotify Canvas Maker",
+      "How Spotify Studio Works"
+    ],
+    "varied": [
+      "Show HN: I just want to show this song to you [video]",
+      "Show HN: Session Recorder \u2013 an always-on system audio tape for macOS",
+      "Show HN: Fin \u2013 a TUI Jellyfin client powered by mpv with Chromecast support",
+      "Use Claude Code to make synced video edits to a song",
+      "Show HN: webcast.social \u2013 Got MP3s? Host your own radio show from the browser",
+      "Studio by Spotify Labs"
+    ],
+    "assigned_in_window": 673,
+    "first_story_at": 1782564123,
+    "last_story_at": 1790296812,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 83,
+    "name": "Nutrition, exercise, and metabolic health",
+    "description": "Diet, weight, physical activity, metabolism, supplements, and lifestyle research affecting health.",
+    "typical": [
+      "Eating less protein could slow aging, major review finds",
+      "Less Protein, Not More, May Lead to Healthier Aging",
+      "Longer meal intervals linked to faster disease accumulation in older adults",
+      "Belly Fat and Low Vitamin D May More Than Double the Risk of Early Death",
+      "Study links coffee consumption to metabolic health and sex hormones",
+      "Aspirin reverses diet-driven depression-like behavior"
+    ],
+    "varied": [
+      "Glux \u2013 Get your diabetes risk and a 90-day habit plan just for you",
+      "New hope in the fight against cachexia \u2014 cancer\u2019s deadly co-conspirator",
+      "When the ability to smell goes away",
+      "She backed body positivity. He's a scientist. Both are on GLP-1s",
+      "Percent of U.S. adults have CKM syndrome \u2013 but most have never heard of it",
+      "Screen Time for Under-2s Poses Long-Term Health Risks"
+    ],
+    "assigned_in_window": 639,
+    "first_story_at": 1782557461,
+    "last_story_at": 1790276296,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 84,
+    "name": "Economic inequality and affordability",
+    "description": "Income and wealth distribution, debt, housing affordability, labor participation, and household economic pressures.",
+    "typical": [
+      "Reflections on Americans' Net Worth",
+      "Wealth Inequality in America (Updated 2026)",
+      "Wealth Inequality in America (Updated 2026) [video]",
+      "Americans Are Richer Than Everyone Else",
+      "America pays workers just 27% of what its wealth allows \u2013 the worst in the OECD",
+      "Low property taxes freeze the youth out of the economy"
+    ],
+    "varied": [
+      "'Every dollar is mobile': California's rich snap up New Zealand 'golden visas'",
+      "America's Big Cities Are Rapidly Losing Kids",
+      "Undocumented migration does not raise crime rates study finds",
+      "The End of Upward Mobility",
+      "How India spends - a running account of the Indian economy",
+      "Projected economic gains and lives saved under universal healthcare in the US"
+    ],
+    "assigned_in_window": 576,
+    "first_story_at": 1782573712,
+    "last_story_at": 1790317288,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 85,
+    "name": "Archaeology and ancient remains",
+    "description": "Archaeological discoveries, ancient DNA, prehistoric people and animals, fossils, mummies, and material evidence of the past.",
+    "typical": [
+      "Ancient cave paintings can harbor human DNA for millennia, scientists find",
+      "40k-Year-Old Bird Figurines Found in German Cave",
+      "Prehistoric cave discoveries hint at shared culture between Neanderthals humans",
+      "Archaeology team unearths 'prototype' of world-famous Stonehenge monument",
+      "Artifacts dating back 400k years, found in cave, show 'complex and rich'",
+      "Archeologists in Denmark Discover Rare Fragments of 1300 Year Old Clothing"
+    ],
+    "varied": [
+      "With hollow feet and harlequin hats: Tuscan letters, a prank of lapidary origin?",
+      "Ancient Artworks Depicting a Mysterious Unknown City",
+      "The Great Chinese Oil Mystery",
+      "Want to own a real T. rex?",
+      "Show HN: Ancestree \u2013 Give your family members biographies",
+      "Superworms could replace beetles for cleaning skeletal remains"
+    ],
+    "assigned_in_window": 505,
+    "first_story_at": 1782582392,
+    "last_story_at": 1790290531,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 86,
+    "name": "Containers and Docker",
+    "description": "Docker, Podman, container runtimes, container deployment, isolation, image building, and container-oriented development workflows.",
+    "typical": [
+      "Docker-Boot",
+      "Docker releases cloud sandboxes, enabling safe agentic workloads in the cloud",
+      "Docker Hardened Images",
+      "Show HN: Servitor \u2013 simplest way to run local dev containers",
+      "Servitor \u2013 Simplest way to run local dev containers",
+      "Escaping Docker's Hypervisor"
+    ],
+    "varied": [
+      "Show HN: Fleet \u2013 a local-first console for managing Dockerized Hermes AI Agents",
+      "WSL Container \u2013 Linux Containers on Windows",
+      "Show HN: p0rt \u2013 see every dev server, port and Docker container in your menu bar",
+      "Running Docker on Vercel",
+      "I built a Docker image factory in Go \u2013 300 lines, no daemon, full OCI compliance",
+      "Brave's latest browser release offers Containers for better and easier workflow"
+    ],
+    "assigned_in_window": 172,
+    "first_story_at": 1782597116,
+    "last_story_at": 1790288646,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 87,
+    "name": "Apple iOS ecosystem security",
+    "description": "iOS and Apple mobile-platform updates, privacy, app-distribution rules, device security, and related mobile-app behavior.",
+    "typical": [
+      "Apple ordered to change app data consent prompts on iPhones and iPads",
+      "Apple now uses iPhone alerts for targets of mercenary spyware",
+      "Free iPhone Privacy and Security Guide",
+      "Apple using push notifications to alert customers to spyware attacks",
+      "Using Claude Code to reclaim mobile app privacy",
+      "About the security content of iOS 26.5.2 and iPadOS 26.5.2"
+    ],
+    "varied": [
+      "OpenClaw Is Now on iOS and Android",
+      "I built an iOS app that photographs your pantry and tells you what you can cook",
+      "Show HN: WaitToUnlock \u2013 Lock yourself out of iOS ScreenTime",
+      "Show HN: Pipnote \u2013 Share a reminder they can't peek at until it arrives",
+      "OpenDisplay \u2013 open-source Sidecar for Mac to iPhone/iPad",
+      "Show HN: On-device detector for fake lossless audio files (iOS)"
+    ],
+    "assigned_in_window": 480,
+    "first_story_at": 1782566251,
+    "last_story_at": 1790268053,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 88,
+    "name": "ChatGPT and GPT applications",
+    "description": "ChatGPT, GPT-based products, prompting, model capabilities, misuse, integrations, and their practical effects.",
+    "typical": [
+      "Understanding ChatGPT Work",
+      "GPTs in ChatGPT creation getting retired",
+      "The Next Chapter for ChatGPT",
+      "OpenAI Makes ChatGPT ChatGPT Again",
+      "ChatGPT",
+      "ChatGPT Work"
+    ],
+    "varied": [
+      "The ChatGPT/Codex app bundles a full copy of LibreOffice",
+      "Show HN: KnowMeNot \u2013 your ChatGPT vs. a ChatGPT that has never met you",
+      "The ChatGPT \"Super App\" Sort of Super Sucks",
+      "OpenAI Targets Work of Wall Street with New ChatGPT for Financial Services",
+      "OpenAI Will Reset Codex Limits Twice to Celebrate GPT-5.6 in 24h",
+      "GPT-5.6"
+    ],
+    "assigned_in_window": 646,
+    "first_story_at": 1782566868,
+    "last_story_at": 1790322696,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 89,
+    "name": "Rust programming",
+    "description": "The Rust language, its performance, type system, libraries, tooling, and applications built with Rust.",
+    "typical": [
+      "Comprehensive Rust",
+      "Ask HN: Why Rust?",
+      "Show HN: Subrust, a no_std, no alloc Subset-of-Rust interpreter",
+      "Rustwright: Playwright rewritten in Rust that uses 70% less memory",
+      "Rewriting in Rust",
+      "Learning Rust: Updated"
+    ],
+    "varied": [
+      "When Rust Gets Ugly",
+      "MiTeX: LaTeX support for Typst, powered by Rust and WASM",
+      "A toy Swift for the browser, in Rust",
+      "Learning-Rust.Github.io: Rust Programming Language Tutorials for Everyone",
+      "Modern error messages in Rust Coreutils",
+      "Bringing Rails into the Ractor-Age"
+    ],
+    "assigned_in_window": 722,
+    "first_story_at": 1782555724,
+    "last_story_at": 1790316300,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 90,
+    "name": "Macroeconomy, inflation, and monetary policy",
+    "description": "Inflation, interest rates, central banks, employment, recessions, financial markets, and economy-wide impacts.",
+    "typical": [
+      "US 10-Year Breaches 5% as Inflation, Supply Worries Mount",
+      "The biggest gamble in the U.S. economy is starting to look riskier",
+      "Low Interest Rates Ruined the Economy",
+      "Global bond sell-off deepens amid inflation fears",
+      "30-year Treasury yield tops 5.33%, new 19-year high: inflation, spending worries",
+      "Global Bond Slump Sends Long-Term Borrowing Costs to Highest in Decades"
+    ],
+    "varied": [
+      "Bessent Seeks Fed Help in Defending Yen in Unusual Call",
+      "Oil Prices Could Hit Highest Levels in Months After Saudi Pipeline Attacks",
+      "The Housing Recession Is Over",
+      "US grain farmers face worst crisis in decades as Iran war sends costs spiralling",
+      "US diesel prices overtake Biden-era average",
+      "AI Bust Risks Ripple Effects from Growth to Credit, BIS Says"
+    ],
+    "assigned_in_window": 490,
+    "first_story_at": 1782612063,
+    "last_story_at": 1790314462,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 91,
+    "name": "Video games and game history",
+    "description": "Video games, game design, gaming culture, historical titles, game-industry practices, and player experiences.",
+    "typical": [
+      "Adventure (1980 Video Game)",
+      "Show HN: A Dice Roguelike",
+      "Show HN: Daily vibe-coding video games, day 81: World Domination",
+      "A Second-Grade Teacher Revived a Beloved Video Game",
+      "Games Explained",
+      "Xbox 'OG' Adventures"
+    ],
+    "varied": [
+      "Letsplay",
+      "Show HN: Corporate Retro Card Game",
+      "10 years of Pok\u00e9mon Go and the millions still trying to catch 'em all",
+      "The Blood Harvest (2014)",
+      "An evidence-ranked wiki for World of Warcraft: Forever",
+      "Sauna Jungle Expansion"
+    ],
+    "assigned_in_window": 532,
+    "first_story_at": 1782585049,
+    "last_story_at": 1790291505,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 92,
+    "name": "Software developer careers and learning",
+    "description": "Becoming, interviewing, working, growing, and collaborating as a software developer.",
+    "typical": [
+      "The Evolution of a Software Engineer (2013)",
+      "Lessons I learned as a software engineer",
+      "Ask HN: How to Learn Systems Programming",
+      "Ask HN: Coding is a solved problem. What is left for experienced engineers?",
+      "Ask HN: I use coding agents daily, but how do real engineers use them?",
+      "Ask HN: Which course or book changed you as a programmer and software engineer?"
+    ],
+    "varied": [
+      "Coding Is Over. Get over It",
+      "Ask HN: How do you maintain context across your coding sessions?",
+      "When coding gets cheap, engineering gets harder",
+      "The collapse of complex software (2022)",
+      "The Evolution of a Software Engineer (2013)",
+      "From Soft to Hard Skills"
+    ],
+    "assigned_in_window": 567,
+    "first_story_at": 1782566076,
+    "last_story_at": 1790290279,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 93,
+    "name": "US politics and democracy",
+    "description": "US elections, constitutional institutions, political parties, presidents, courts, and democratic governance.",
+    "typical": [
+      "Why a $154B CEO just endorsed stripping most Americans of voting rights",
+      "Trump Administration Admits Canceling Grants to States That Did Not Vote for Him",
+      "Supreme Court Rejects Trump's Restrictions on Mail Voting",
+      "Trump Pushes Out Members of Bipartisan Election Commission Ahead of Midterms",
+      "Supreme Court rejects Trump bid to restrict birthright citizenship",
+      "Missouri election chief rejects bid to hold vote on congressional districts"
+    ],
+    "varied": [
+      "'The Boss Wants This Money': Inside Trump's Unprecedented Fundraising Operation",
+      "Supreme Court ruling guts government's use of geofence warrants",
+      "USPS Failed to Properly Handle Some Primary Election Ballots, Audit Finds",
+      "Judge rebuffs Trump admin demand for phone records from NYT reporters",
+      "NSF memo implementing Trump's 'golden age' of science unsettles researchers",
+      "'Dr Doom' shows support for surveillance cameras at city council meeting [video]"
+    ],
+    "assigned_in_window": 718,
+    "first_story_at": 1782569459,
+    "last_story_at": 1790319780,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 94,
+    "name": "Cryptocurrency markets and regulation",
+    "description": "Bitcoin, crypto assets, stablecoins, exchanges, hacks, regulation, adoption, and crypto-market commentary.",
+    "typical": [
+      "Sorry, but There's Nothing Stable About Bitcoins or Stablecoins",
+      "Crypto vs. community: 4k local US lenders join forces to fight 'stablecoins' law",
+      "Balance Stablecoin Collapses After Bitcoin Vault Is Drained",
+      "New Blockchain and Coin",
+      "Bitcoin's Momentum Cools as Washington's Crypto Promise Faces a Reality Check",
+      "The case against crypto (2021)"
+    ],
+    "varied": [
+      "More than $170M in crypto moves from Bitget wallets to unidentified address",
+      "A single Bitcoin transaction carried an average water footprint of 16K litres",
+      "The Mythical Token-Month",
+      "Codeberg Disallows Cryptocurrency Projects",
+      "Ways to think about token pricing",
+      "Korea Financial Telecommunications Files Patent for Won Stablecoin System"
+    ],
+    "assigned_in_window": 363,
+    "first_story_at": 1782568042,
+    "last_story_at": 1790287433,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 95,
+    "name": "Software architecture and design",
+    "description": "Architectural patterns, system design, extensibility, dependencies, microservices, and design principles for software systems.",
+    "typical": [
+      "Design Patterns",
+      "Infrastructure Patterns for Agentic Applications",
+      "The Two Abstractions of System Design: Hide or Reduce",
+      "Codifying the Rules: Building the Platform Behind the Agentic SDLC",
+      "Software Design",
+      "Structure in Type Design"
+    ],
+    "varied": [
+      "The two types of context every agent needs",
+      "Agentic Fitness Functions: Extending Evolutionary Architecture",
+      "Crossing Boundaries with Integration Events",
+      "Domain-Driven Agents",
+      "Agents on Conductor: Agents Are Workflows",
+      "Why design matters for a web framework: a 7-year evolution"
+    ],
+    "assigned_in_window": 680,
+    "first_story_at": 1782574213,
+    "last_story_at": 1790321191,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 96,
+    "name": "Raspberry Pi and embedded maker projects",
+    "description": "Raspberry Pi, microcontrollers, embedded hardware, home electronics, and hands-on device-building projects.",
+    "typical": [
+      "Raspberry Pi Compute Module 5 Programming Jig",
+      "Open-Source Firmware for PicoCalc/Cardputer/Video Game Module/ESP32/Raspberry",
+      "AROS for Raspberry Pi 3",
+      "Hands-on with Raspberry Pi's CM5 Programming Jig",
+      "Amiga-Inspired AROS Goes Bare Metal on Raspberry Pi",
+      "M5 CardputerZero \u2013 Pocket Raspberry Pi Computer for Hackers"
+    ],
+    "varied": [
+      "An updated look for the Raspberry Pi Desktop",
+      "The irrational effectiveness of the Pi harness",
+      "Home Hardware, Part 1: My Control4 Revenge Arc",
+      "Subscription-free LoRa Meshtastic phone built for reliable on and off-grid",
+      "Show HN: MCUHex \u2013 Flash and Live Monitoring for STM32 Devices over SWD",
+      "Russian kamikaze drone C++ reconstruction of onboard autonomy stack"
+    ],
+    "assigned_in_window": 391,
+    "first_story_at": 1782566306,
+    "last_story_at": 1790282040,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 97,
+    "name": "Streaming video and Netflix",
+    "description": "Netflix and the consumer streaming-video ecosystem, including subscriptions, advertising, content access, devices, and playback technology.",
+    "typical": [
+      "Netflix Has Peaked",
+      "Netflix in Talks to Buy Letterboxd",
+      "Netflix Has to Evolve",
+      "Netflix reportedly among parties in talks to buy Letterboxd",
+      "Netflix Is Exploring Live TV and Bundles as It Struggles to Keep Viewers Hooked",
+      "Disney+: New user agreement allows ads before movies in all subscriptions"
+    ],
+    "varied": [
+      "Netflix Conductor: The Next Chapter",
+      "More Accurate Rotten Tomato audience scores without the push votes",
+      "PrintingFilms.com",
+      "The New Cinema Camera Dominating the Film Industry",
+      "Everybody watches some TV",
+      "Radio and Movies in the 1930s"
+    ],
+    "assigned_in_window": 249,
+    "first_story_at": 1782559930,
+    "last_story_at": 1790311686,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 98,
+    "name": "Aviation",
+    "description": "Commercial, military, and experimental aircraft operations, safety incidents, regulation, and aviation technology.",
+    "typical": [
+      "JetBlue flight hit drone while approaching JFK airport, FAA says",
+      "JetBlue flight hits drone while landing at JFK: Officials",
+      "Military jet triggered UK's latest air traffic meltdown",
+      "NASA Leader Flew His Vintage Jet at DC Air Show over FAA Objections",
+      "GE Aerospace flies hybrid-electric propulsion above 30k feet",
+      "New Drone Nearly Disappears in Flight"
+    ],
+    "varied": [
+      "Boeing Seats Failed Safety Test in Muan Crash Probe",
+      "Flights, 4 cities, 18 nights \u2013 $112 total. Would you do this trip?",
+      "The Impossibility of Airplane Safety Without Flight Instruments",
+      "Reaping the Whirlwind \u2013 Inside the Potomac River Midair Collision",
+      "How to Make a Control Plane for Coding Agents in 2026",
+      "Boeing's Graveyard. Investigation is not detergent"
+    ],
+    "assigned_in_window": 485,
+    "first_story_at": 1782559622,
+    "last_story_at": 1790296242,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 99,
+    "name": "Tech industry culture",
+    "description": "Criticism and analysis of Silicon Valley, technology companies, executives, status, ideology, and their social effects.",
+    "typical": [
+      "Capitalism Gone Wrong",
+      "Big Tech's Money Men Don't Care About the Backlash",
+      "The U.S. Thinks of Itself as Entrepreneurial. But It's Slipping",
+      "The Attention Economy Heist",
+      "The moral catastrophe of Big Tech's totalitarians-for-profit",
+      "The Problem with Capitalism \u2013 Smarter Every Day [video]"
+    ],
+    "varied": [
+      "The Business Is the Business",
+      "No one wants to be the boss: Why is Gen Z turning down promotions?",
+      "Ain't No Economy Like the Attention Economy: On Leaving (But Not Leaving) [video]",
+      "Great Tech Has to Be Scary, by Oscar Oro",
+      "Big tech meets Milton Friedman",
+      "Bending Spoons keeps buying iconic products, who's next?"
+    ],
+    "assigned_in_window": 283,
+    "first_story_at": 1782597823,
+    "last_story_at": 1790286375,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 100,
+    "name": "Software vulnerabilities",
+    "description": "Security flaws, CVEs, exploits, patches, and the exploitation or mitigation of software and infrastructure vulnerabilities.",
+    "typical": [
+      "Vulnerability Cve-2026-82958",
+      "Vulnerability researchers were repeatedly targeted by trojanised exploits",
+      "Vulnerability giving attackers full control of Macs is under active exploitation",
+      "Critical vulnerabilities in MikroTik RouterOS are being actively exploited",
+      "Ubiquiti patches three max severity security vulnerabilities",
+      "Remember CVE 2010-2743 (vulnerability that was exploited in Stuxnet)"
+    ],
+    "varied": [
+      "Preparing GLM-5.3 for Open Release: A Responsible Path to Cyber Defense",
+      "Show HN: I built a cybersecurity challenge for university students",
+      "Gnome Changes Security Disclosure Policies Due to AI-Generated Reports",
+      "AI is straining vulnerability disclosure for maintainers",
+      "Your Product Threatens Your Product",
+      "CVE-2025-13032: Entering and Breaking the Avast Antivirus Sandbox Part 2"
+    ],
+    "assigned_in_window": 751,
+    "first_story_at": 1782567855,
+    "last_story_at": 1790319826,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 101,
+    "name": "Mind and perception",
+    "description": "Philosophical, psychological, and scientific questions about consciousness, imagination, perception, thought, and subjective reality.",
+    "typical": [
+      "Reality is an illusion: brain as an interface to a hidden reality \u2013 M.Levin [video]",
+      "Landscape of Consciousness",
+      "Mental time travel and the evolution of the human mind",
+      "Artificial Phenomenology and Machine Consciousness",
+      "Infinity and the Mind (2019)",
+      "Matter, Memory, and the Paradox of Perception \u2013 Popova on Bergson"
+    ],
+    "varied": [
+      "Emergent Misalignment Recruits a Pre-Existing Persona Subspace",
+      "\"Gauging your humanity This may take some seconds\"",
+      "The Structured Vacuum: Thinking about Nothing [pdf]",
+      "Anthropic reveals a workspace in Claude that mirrors a theory of consciousness",
+      "Diego Boh\u00f3rquez and Mijail D. Serruya: how information moves levels in bodies [video]",
+      "Focusing on \"focus on what you want to see more of\" (2023)"
+    ],
+    "assigned_in_window": 637,
+    "first_story_at": 1782553830,
+    "last_story_at": 1790285447,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 102,
+    "name": "China tech geopolitics",
+    "description": "Technology trade, chip controls, supply chains, and corporate competition shaped by China and Western geopolitical policy.",
+    "typical": [
+      "US lawmakers urge Trump administration to ban Chinese memory chips",
+      "Report suggests the US gov urged Apple to Intel chipmaking deal to avoid tariffs",
+      "Chinese companies doubled down on science after US tech restrictions",
+      "FCC votes to bar sales of devices with parts from Chinese firms posing risks",
+      "U.S. Urges Apple Not to Buy Chinese Memory Chips",
+      "Apple Seeks to Buy Chinese-Made Memory Chips by Lobbying US"
+    ],
+    "varied": [
+      "Tech buyers are baking in sovereignty from day one, says Forrester",
+      "Singapore seizes $42M mansion over Nvidia chip smuggling",
+      "People in Many Countries Now View China More Positively Than the U.S.",
+      "Trump downplays warnings of AI risks as he cites rivalry with China",
+      "Is it even possible for the Chinese Labs to distill US models?",
+      "The FCC is quietly banning entire categories of Chinese technology"
+    ],
+    "assigned_in_window": 459,
+    "first_story_at": 1782564588,
+    "last_story_at": 1790284009,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 103,
+    "name": "Internet and technological society",
+    "description": "Essays and analysis about the internet, computers, digital public life, technological change, and their cultural consequences.",
+    "typical": [
+      "The New Internet",
+      "Computers Are Just a Tool",
+      "The Internet, Reinvented [video]",
+      "The Internet (1997 \u2013 2021)",
+      "How the Early Dreams of the Internet Changed",
+      "The Closure of the Internet: Most Important Social Phenomenon of the Late 2010s"
+    ],
+    "varied": [
+      "In the beginning, it was good \u2013part 1",
+      "The Future Worth Building Is Human",
+      "How the Meta Settlement Could Change the Internet",
+      "The New Moscow: A Digital Utopia Doubling as a Surveillance Trap",
+      "Early 2000s were peak of humanity",
+      "The Question Concerning Technology \u2013 Martin Heidegger (Wikipedia)"
+    ],
+    "assigned_in_window": 370,
+    "first_story_at": 1782570220,
+    "last_story_at": 1790305793,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 104,
+    "name": "Urban housing and architecture",
+    "description": "Architecture, housing, urban design, renovation, climate adaptation, and the built environment in cities.",
+    "typical": [
+      "The flat-pack skyscraper: how wood can shape the cities of the future",
+      "How to Cool Buildings on the Cheap",
+      "What housing in America could look like in 50 years",
+      "3D-printed bridge points the way to greener construction",
+      "New York Needs New Ornamental Architecture",
+      "A Chinese Coal City Finds New Use for Old Mines: Cooling Homes"
+    ],
+    "varied": [
+      "Vertical Farming: Reimagining Agriculture in an Urban Age",
+      "Going Freestanding",
+      "The Architectural Hostility of Doorknobs (2025)",
+      "Brick Territories",
+      "Londoners Are Stewing over Supercar Tourists Who Park Wherever They Want",
+      "Little Tikes iconic children's toys go colorless for 'contemporary feel'"
+    ],
+    "assigned_in_window": 346,
+    "first_story_at": 1782563336,
+    "last_story_at": 1790285503,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 105,
+    "name": "Books and literary criticism",
+    "description": "Books, reading, authors, publishing, literary criticism, and fiction or nonfiction reviews.",
+    "typical": [
+      "Books That Will Change the Way You Look at the World",
+      "The Stubborn Myth of the Literary Genius (2025)",
+      "The Greatest Books of All Time",
+      "Pulp Non-Fiction (2018)",
+      "Ask HN: Books Recommendations?",
+      "Best Books of the 21st Century"
+    ],
+    "varied": [
+      "The Last Essay",
+      "The best Bookshops in the World",
+      "AI Questions Spoil Book and Movie Heat on 'Call Me, I'll Hide the Body' Novel",
+      "Another Taste of Verse [video]",
+      "A Tribute to Donald Knuth (2024)",
+      "Abolish the Top Ten Books List"
+    ],
+    "assigned_in_window": 873,
+    "first_story_at": 1782552119,
+    "last_story_at": 1790304382,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 106,
+    "name": "Programming language syntax",
+    "description": "Programming-language grammar, parsing, naming, text processing, language semantics, and related developer tooling.",
+    "typical": [
+      "Syntax",
+      "Type Declaration Syntax",
+      "Show HN: STXT, indentation-based format with schemas and no escape characters",
+      "Perch: Semantic Code Linting with Jev",
+      "CSS Logical Properties Converter",
+      "Regex is (almost) all you need (2025)"
+    ],
+    "varied": [
+      "Vercel Native Awesome List",
+      "Markup Language Zoo",
+      "Skill: JSON-LD Schema Generator: schema.org structured data markup",
+      "RememberLI",
+      "An Interpretation of the POSIX regex Standard [pdf]",
+      "Reclaim \u2013 Resume tailoring that flags adjacent skills instead of keywordstuffing"
+    ],
+    "assigned_in_window": 365,
+    "first_story_at": 1782569289,
+    "last_story_at": 1790311563,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 107,
+    "name": "Web servers and frameworks",
+    "description": "Web-server architecture, HTTP infrastructure, application frameworks, serverless deployment, and web-development platforms.",
+    "typical": [
+      "Telegram Serverless",
+      "Go server-less for projects that only need to scale from 2-200 users",
+      "AWS Webhook Serverless Ingestion",
+      "Bast \u2013 Go Structured Web Framework for server-side applications",
+      "Show HN: I built a multi-step API testing tool that's designed to be self-hosted",
+      "Substack Gateway \u2013 A REST and MCP Server for Substack"
+    ],
+    "varied": [
+      "Show HN: Mocktail \u2013 Free, open-source mock API server with a built-in dashboard",
+      "Show HN: Self-hosted Minecraft multi-server panel for vanilla and modpacks",
+      "Concurrent Servers: Part 8 \u2013 Go",
+      "My Personal Software Journey: Self-Hosting Agent-Built Apps on a Mac Mini",
+      "Custom Chat Platform \u2013 MirrorFly",
+      "One frozen Gopher API, native clients from Mac OS 9 to Android"
+    ],
+    "assigned_in_window": 573,
+    "first_story_at": 1782554670,
+    "last_story_at": 1790306915,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 108,
+    "name": "Startup marketing and growth",
+    "description": "Customer acquisition, conversion optimization, ecommerce growth, product marketing, and early-stage startup sales.",
+    "typical": [
+      "Need feedback: My first SaaS as a solo-founder to help brands boost visibility",
+      "How to Grow Your Marketplace to 500k Users",
+      "Marketing tool for small businesses test",
+      "Free engagement-rate calculator for creators and brands",
+      "A curated list of tools and resources for lead generation",
+      "Show HN: Offer discounts and get more visitors"
+    ],
+    "varied": [
+      "Show HN: PitchBin \u2013 a vendor database built from the cold emails you get",
+      "Show HN: Keynou Drive \u2013 Branded URL Shortener for SaaS",
+      "Ask HN: How are you creating demo videos for your product?",
+      "Email Is Easy",
+      "Get your FREE custom Email",
+      "Show HN: Developer Inbox"
+    ],
+    "assigned_in_window": 518,
+    "first_story_at": 1782551075,
+    "last_story_at": 1790272375,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 109,
+    "name": "Web browsers and extensions",
+    "description": "Chrome, Firefox, Safari, browser extensions, browser privacy and security, and browser-platform changes.",
+    "typical": [
+      "Show HN: Free and open source browser extension for web automation",
+      "Firefox Local Mode for Web Developers",
+      "My Browser Fingerprint",
+      "Firefox url bars gone after update, how to restore",
+      "WebKit Features for Safari 27.0",
+      "WebKit Features for Safari 26.6"
+    ],
+    "varied": [
+      "Goodbye File Browser, for Real This Time",
+      "FreeCAD in the Browser",
+      "Background Remover Chrome Plugin",
+      "Elektron Machinedrum in the Browser",
+      "Show HN: A free palm-reading tool that works in the browser",
+      "Ask HN: \"Access Denied\" on every visit to Codeberg since a month or so?"
+    ],
+    "assigned_in_window": 615,
+    "first_story_at": 1782551094,
+    "last_story_at": 1790284807,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 110,
+    "name": "Distributed data systems",
+    "description": "Kafka, databases, storage engines, distributed filesystems, stream processing, and data-system reliability.",
+    "typical": [
+      "Diskless Kafka: Object Storage, KIP-1150, and Kafka's Future",
+      "Apache Kafka Performance",
+      "Data liberation: Apache Kafka's native cluster mirroring",
+      "700 MB/s of Kafka throughput, on Postgres",
+      "Can Kafka Support Elastic Partitioning?",
+      "Show HN: an open-source tool for heterogeneous replications - no Kafka"
+    ],
+    "varied": [
+      "Solod 0.3: Concurrency, JSON, more safety",
+      "Show HN: BlazeRules \u2013 YAML rule engine for streaming data, upto 5M records/SEC",
+      "Snapshots, copy-on-write, and the economics of agent sandboxes",
+      "Bitemporal provenance in agent memory: What did we believe, when, and why",
+      "700 MB/s of Kafka throughput, on Postgres",
+      "GraphQL: The Leakiest of Abstractions"
+    ],
+    "assigned_in_window": 277,
+    "first_story_at": 1782563245,
+    "last_story_at": 1790315366,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 111,
+    "name": "Hacker News community",
+    "description": "Hacker News usage, interface, culture, reader tools, related communities, and discussion of the site's content practices.",
+    "typical": [
+      "Ask HN: How do you use Hacker News?",
+      "Show HN: Hacker-News Jobs",
+      "Show HN: Hacker News reader with Reddit style comments",
+      "Show HN: Newsroom Self-hosted, AI-ranked meta-aggregator for HN Subreddits etc.",
+      "Ask HN: Another \"Hacker News\" with less AI and more human-focused hacking news?",
+      "Ask HN: How about a \"Merge Stories\" feature?"
+    ],
+    "varied": [
+      "Most of your Hacker News karma comes from comment scores only you can see",
+      "Online forums, not quite gone, not quite forgotten",
+      "Gutterwire is a new kind of anti-clickbait news \"excerpt aggregator\"",
+      "You can now chat using RSS",
+      "A daily dose of news, debates, puzzles and more",
+      "Show HN: A Kagi News\u2013style news aggregator for Zimbabwe"
+    ],
+    "assigned_in_window": 460,
+    "first_story_at": 1782560594,
+    "last_story_at": 1790267106,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 112,
+    "name": "React and JavaScript UI frameworks",
+    "description": "React, JSX, Next.js, component state, and competing JavaScript or TypeScript frontend framework tooling.",
+    "typical": [
+      "LeanReact-v0.1: A Lean 4 framework to write web applications",
+      "A familiar and performant compile time CSS-in-JS library for React",
+      "Show HN: Density-first components for React and Vue",
+      "You don't need React: creating a minimal UI library in Vanilla JavaScript",
+      "Show HN: Premium React Native screens for building apps faster",
+      "Removing React.js from the codebase and adapting Htmx for UI interactivity (2023)"
+    ],
+    "varied": [
+      "LeanReact: Expressing Composable and Correct React Components in Lean",
+      "Show HN: AI Workflow Builder App Template for React",
+      "React Native 0.86 \u2013 Edge-to-Edge and DevTools Improvements, no breaking changes",
+      "UI8 Forge",
+      "React doesn't need a state management tool, I said. Then I built one",
+      "Octane \u2013 compiled and faster React from creator of Inferno"
+    ],
+    "assigned_in_window": 220,
+    "first_story_at": 1782576911,
+    "last_story_at": 1790262971,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 113,
+    "name": "Online payments and SaaS billing",
+    "description": "Payment platforms, transaction fees, subscriptions, pricing, invoicing, accounting, and purchasing software services.",
+    "typical": [
+      "Show HN: A way to let agents reliably pay for things",
+      "Stripe 2.9% vs. Adyen 0.6% vs. Braintree 2.59%: 2026 Fees",
+      "Show HN: S2Q \u2013 Stripe payouts posted into QuickBooks itemized, no subscription",
+      "Stripe Fee Auditor\u2013upload Balance CSV,see real effective rate(not just 2.9%)",
+      "I built a one-time-payment alternative to subscription cloud movers",
+      "Just Pay the Subscription"
+    ],
+    "varied": [
+      "Show HN: How to Bill International Clients",
+      "Stripe Radar no longer free, migrates free tier to paid plan",
+      "Every invoice in Brazil's economy runs on SOAP 1.2",
+      "Why Snowflake is so expensive",
+      "Show HN: MCPay \u2013 spend authorization and per-call billing for MCP tools",
+      "How Stripe Checkout Works"
+    ],
+    "assigned_in_window": 686,
+    "first_story_at": 1782626340,
+    "last_story_at": 1790305347,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 114,
+    "name": "C and C++ development",
+    "description": "C and C++ languages, standards, compilers, libraries, optimization, systems tooling, and embedded development.",
+    "typical": [
+      "Nested Functions with GCC and Clang",
+      "Trust your compiler: Modern C++",
+      "Heterodox C++",
+      "C++26: Module Improvements",
+      "Thoroughly Understanding C++ ABI (2024)",
+      "C++ Version of vLLM"
+    ],
+    "varied": [
+      "Suyu \u2013 a Nintendo Switch emulator and AArch64 native recompiler written in C++",
+      "Getting silly with C, part and((int*)-8)[3]",
+      "Streamline C++ Code Intelligence Setup in Copilot CLI",
+      "Show HN: Beautiful Type Erasure with C++26 Reflection",
+      "Confectionery: A lightweight build configuration system",
+      "Linux as a library: a coding agent with no VM and no sandbox"
+    ],
+    "assigned_in_window": 379,
+    "first_story_at": 1782565646,
+    "last_story_at": 1790318543,
+    "evidence_since": 1782550181
+  },
+  {
+    "id": 115,
+    "name": "Service outages",
+    "description": "Operational outages, downtime, network failures, disrupted online services, and their consequences for users and infrastructure.",
+    "typical": [
+      "Cloud outage blamed for short disruption of major websites",
+      "The Internet Archive currently down due to power outage",
+      "Tornado VPS services and website are down",
+      "The August 17 outage",
+      "GitLab Outage",
+      "Let's Encrypt Outage"
+    ],
+    "varied": [
+      "'Tonga' Suspends Popular Pirate Site Domains Following Indian Court Order",
+      "Columbia House Is Shutting Down",
+      "Financial Times' 404 Page not Found",
+      "Anthropic Claude and API service outages",
+      "What If a City Ran on UTC for Two Weeks?",
+      "Telegram's t.me domain name is back"
+    ],
+    "assigned_in_window": 392,
+    "first_story_at": 1782550309,
+    "last_story_at": 1790299809,
+    "evidence_since": 1782550181
+  }
+]

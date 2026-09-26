@@ -1,0 +1,38 @@
+{
+  "source": "/home/andrea/technews/data/hackernews.db",
+  "start": 1577836800,
+  "split": 1704067200,
+  "end": 1790326181,
+  "stories": 2126688,
+  "initial_stories": 1252901,
+  "streamed_stories": 873787,
+  "created_at": 1790334900,
+  "input_version": 2,
+  "caveat": "Retrospective snapshot scores/edits/deletions and modern model knowledge, not an as-of historical archive.",
+  "criteria": {
+    "recent_assignment_coverage": 0.85,
+    "static_subject_recall": 0.9,
+    "duplicate_fraction_max": 0.1,
+    "mean_coherence_min": 4,
+    "median_emerging_subject_delay_days_max": 28
+  },
+  "source_stories": 2126691,
+  "excluded_empty_subjects": [
+    38047503,
+    45348676,
+    45381621
+  ],
+  "experiment": "updated initial builds and real weekly maintenance",
+  "static_interval": [
+    1577836800,
+    1790326181
+  ],
+  "seed_interval": [
+    1577836800,
+    1704067200
+  ],
+  "online_interval": [
+    1704067200,
+    1790326181
+  ]
+}

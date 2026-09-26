@@ -1,0 +1,80 @@
+{"week": 1, "through": 1704672000, "seconds": 76.57227675199829, "events": [["birth", 115], ["birth", 116], ["refine", 4], ["split", 117], ["refine", 1], ["split", 118], ["refine", 92], ["refine", 49]], "topics": 119}
+{"week": 2, "through": 1705276800, "seconds": 56.16263432300184, "events": [["refine", 25], ["refine", 62], ["split", 119], ["birth", 120], ["birth", 121]], "topics": 122}
+{"week": 3, "through": 1705881600, "seconds": 61.17896836800355, "events": [["birth", 122], ["birth", 123], ["birth", 124], ["birth", 125], ["birth", 126], ["birth", 127], ["refine", 91], ["split", 128], ["birth", 129]], "topics": 130}
+{"week": 4, "through": 1706486400, "seconds": 50.7740487129995, "events": [["birth", 130], ["birth", 131], ["birth", 132], ["birth", 133]], "topics": 134}
+{"week": 5, "through": 1707091200, "seconds": 44.69778736299486, "events": [["refine", 93], ["split", 134], ["birth", 135], ["birth", 136], ["refine", 29]], "topics": 137}
+{"week": 6, "through": 1707696000, "seconds": 50.80071640700044, "events": [["birth", 137], ["birth", 138]], "topics": 139}
+{"week": 7, "through": 1708300800, "seconds": 45.23921489300119, "events": [["birth", 139]], "topics": 140}
+{"week": 8, "through": 1708905600, "seconds": 52.24253646800207, "events": [["birth", 140], ["birth", 141], ["birth", 142], ["birth", 143], ["refine", 38]], "topics": 144}
+{"week": 9, "through": 1709510400, "seconds": 48.69350930600194, "events": [["birth", 144], ["birth", 145]], "topics": 146}
+{"week": 10, "through": 1710115200, "seconds": 48.31035332800093, "events": [["refine", 93], ["split", 146]], "topics": 147}
+{"week": 11, "through": 1710720000, "seconds": 55.84341462999873, "events": [["birth", 147], ["refine", 18], ["split", 148], ["birth", 149], ["birth", 150], ["birth", 151]], "topics": 152}
+{"week": 12, "through": 1711324800, "seconds": 40.482192652001686, "events": [["birth", 152]], "topics": 153}
+{"week": 13, "through": 1711929600, "seconds": 67.26880979099951, "events": [["refine", 1], ["merge", 114, 1], ["refine", 85], ["split", 153], ["birth", 154]], "topics": 154}
+{"week": 14, "through": 1712534400, "seconds": 73.76129243799369, "events": [["refine", 85], ["split", 155], ["refine", 27], ["refine", 66], ["refine", 63], ["split", 156], ["birth", 157], ["birth", 158], ["birth", 159]], "topics": 159}
+{"week": 15, "through": 1713139200, "seconds": 55.74177168899769, "events": [["birth", 160], ["birth", 161]], "topics": 161}
+{"week": 16, "through": 1713744000, "seconds": 63.32757798399689, "events": [["birth", 162], ["birth", 163], ["refine", 145]], "topics": 163}
+{"week": 17, "through": 1714348800, "seconds": 47.16690721200575, "events": [["birth", 164], ["refine", 103]], "topics": 164}
+{"week": 18, "through": 1714953600, "seconds": 54.2258748000022, "events": [["refine", 15], ["refine", 38], ["split", 165], ["birth", 166], ["birth", 167]], "topics": 167}
+{"week": 19, "through": 1715558400, "seconds": 52.081162840004254, "events": [["refine", 88], ["split", 168], ["birth", 169], ["birth", 170]], "topics": 170}
+{"week": 20, "through": 1716163200, "seconds": 47.065347862000635, "events": [["birth", 171], ["birth", 172]], "topics": 172}
+{"week": 21, "through": 1716768000, "seconds": 45.0302410620061, "events": [["birth", 173]], "topics": 173}
+{"week": 22, "through": 1717372800, "seconds": 55.61755822200212, "events": [["birth", 174], ["refine", 38], ["merge", 89, 38], ["refine", 163]], "topics": 173}
+{"week": 23, "through": 1717977600, "seconds": 53.68126775699784, "events": [["birth", 175], ["birth", 176], ["refine", 94], ["split", 177], ["birth", 178]], "topics": 177}
+{"week": 24, "through": 1718582400, "seconds": 50.47242074400128, "events": [["refine", 59], ["split", 179], ["birth", 180]], "topics": 179}
+{"week": 25, "through": 1719187200, "seconds": 42.95360421299847, "events": [["refine", 88], ["birth", 181], ["birth", 182]], "topics": 181}
+{"week": 26, "through": 1719792000, "seconds": 31.322835186001612, "events": [], "topics": 181}
+{"week": 27, "through": 1720396800, "seconds": 51.8702434049992, "events": [["birth", 183], ["refine", 97], ["split", 184], ["refine", 141], ["split", 185]], "topics": 184}
+{"week": 28, "through": 1721001600, "seconds": 37.240053309004, "events": [["birth", 186]], "topics": 185}
+{"week": 29, "through": 1721606400, "seconds": 26.71022068399907, "events": [], "topics": 185}
+{"week": 30, "through": 1722211200, "seconds": 53.0002387880013, "events": [["refine", 12], ["split", 187], ["birth", 188]], "topics": 187}
+{"week": 31, "through": 1722816000, "seconds": 36.165052629003185, "events": [["birth", 189]], "topics": 188}
+{"week": 32, "through": 1723420800, "seconds": 69.494623478, "events": [["refine", 44], ["split", 190], ["birth", 191], ["birth", 192]], "topics": 191}
+{"week": 33, "through": 1724025600, "seconds": 50.41359950199694, "events": [["birth", 193], ["refine", 24], ["refine", 47]], "topics": 192}
+{"week": 34, "through": 1724630400, "seconds": 37.43592339799943, "events": [["refine", 19], ["split", 194]], "topics": 193}
+{"week": 35, "through": 1725235200, "seconds": 63.12893679499393, "events": [["birth", 195], ["birth", 196], ["refine", 72], ["split", 197], ["refine", 179], ["split", 198], ["refine", 141], ["split", 199], ["birth", 200]], "topics": 199}
+{"week": 36, "through": 1725840000, "seconds": 36.367927605999284, "events": [["birth", 201]], "topics": 200}
+{"week": 37, "through": 1726444800, "seconds": 92.43362585599971, "events": [["refine", 166], ["birth", 202], ["birth", 203], ["birth", 204], ["birth", 205]], "topics": 204}
+{"week": 38, "through": 1727049600, "seconds": 48.56359276800504, "events": [["birth", 206], ["birth", 207], ["birth", 208], ["birth", 209]], "topics": 208}
+{"week": 39, "through": 1727654400, "seconds": 43.219183032997535, "events": [["birth", 210]], "topics": 209}
+{"week": 40, "through": 1728259200, "seconds": 55.41077047200088, "events": [["birth", 211]], "topics": 210}
+{"week": 41, "through": 1728864000, "seconds": 49.113025255996035, "events": [["refine", 95], ["split", 212]], "topics": 211}
+{"week": 42, "through": 1729468800, "seconds": 38.217982889997074, "events": [["birth", 213]], "topics": 212}
+{"week": 43, "through": 1730073600, "seconds": 33.92010785299499, "events": [], "topics": 212}
+{"week": 44, "through": 1730678400, "seconds": 63.71772050100117, "events": [["birth", 214], ["refine", 150], ["refine", 44]], "topics": 213}
+{"week": 45, "through": 1731283200, "seconds": 42.4050424800007, "events": [["birth", 215]], "topics": 214}
+{"week": 46, "through": 1731888000, "seconds": 49.4895231920018, "events": [["birth", 216], ["birth", 217], ["birth", 218]], "topics": 217}
+{"week": 47, "through": 1732492800, "seconds": 37.863137152999116, "events": [], "topics": 217}
+{"week": 48, "through": 1733097600, "seconds": 58.2014932450038, "events": [["birth", 219]], "topics": 218}
+{"week": 49, "through": 1733702400, "seconds": 50.942292517996975, "events": [["birth", 220], ["birth", 221]], "topics": 220}
+{"week": 50, "through": 1734307200, "seconds": 41.04787303800549, "events": [["birth", 222], ["refine", 97]], "topics": 221}
+{"week": 51, "through": 1734912000, "seconds": 72.36981214900152, "events": [["refine", 165], ["refine", 179]], "topics": 221}
+{"week": 52, "through": 1735516800, "seconds": 57.74844459299493, "events": [], "topics": 221}
+{"week": 53, "through": 1736121600, "seconds": 52.52672184899711, "events": [["birth", 223], ["birth", 224]], "topics": 223}
+{"week": 54, "through": 1736726400, "seconds": 61.665358527003264, "events": [], "topics": 223}
+{"week": 55, "through": 1737331200, "seconds": 47.13337390800007, "events": [], "topics": 223}
+{"week": 56, "through": 1737936000, "seconds": 50.732345961005194, "events": [], "topics": 223}
+{"week": 57, "through": 1738540800, "seconds": 38.11956238499988, "events": [["birth", 225]], "topics": 224}
+{"week": 58, "through": 1739145600, "seconds": 69.85300572300184, "events": [["birth", 226], ["birth", 227], ["birth", 228]], "topics": 227}
+{"week": 59, "through": 1739750400, "seconds": 69.20108714399976, "events": [["birth", 229], ["refine", 92]], "topics": 228}
+{"week": 60, "through": 1740355200, "seconds": 61.6497359740024, "events": [["birth", 230]], "topics": 229}
+{"week": 61, "through": 1740960000, "seconds": 65.52298965700174, "events": [["refine", 26], ["split", 231]], "topics": 230}
+{"week": 62, "through": 1741564800, "seconds": 70.51360342900443, "events": [["birth", 232]], "topics": 231}
+{"week": 63, "through": 1742169600, "seconds": 44.29700627400598, "events": [["birth", 233], ["birth", 234], ["refine", 128], ["split", 235], ["birth", 236]], "topics": 235}
+{"week": 64, "through": 1742774400, "seconds": 53.541078396003286, "events": [["birth", 237], ["refine", 17], ["merge", 16, 17]], "topics": 235}
+{"week": 65, "through": 1743379200, "seconds": 38.37854897500074, "events": [["birth", 238]], "topics": 236}
+{"week": 66, "through": 1743984000, "seconds": 64.77529527299339, "events": [["refine", 197], ["split", 239], ["split", 240], ["birth", 241]], "topics": 239}
+{"week": 67, "through": 1744588800, "seconds": 84.70977154799766, "events": [["refine", 86], ["split", 242], ["refine", 38], ["refine", 64], ["refine", 229], ["refine", 234]], "topics": 240}
+{"week": 68, "through": 1745193600, "seconds": 67.8460882349973, "events": [["refine", 23], ["split", 243]], "topics": 241}
+{"week": 69, "through": 1745798400, "seconds": 45.369803590998345, "events": [["refine", 32], ["split", 244], ["birth", 245]], "topics": 243}
+{"week": 70, "through": 1746403200, "seconds": 62.995060686000215, "events": [["refine", 24], ["refine", 230]], "topics": 243}
+{"week": 71, "through": 1747008000, "seconds": 42.930114109003625, "events": [["birth", 246], ["birth", 247], ["birth", 248]], "topics": 246}
+{"week": 72, "through": 1747612800, "seconds": 36.96332277900365, "events": [], "topics": 246}
+{"week": 73, "through": 1748217600, "seconds": 56.620781037003326, "events": [["refine", 26], ["split", 249], ["birth", 250]], "topics": 248}
+{"week": 74, "through": 1748822400, "seconds": 52.26859766800044, "events": [["refine", 47], ["split", 251]], "topics": 249}
+{"week": 75, "through": 1749427200, "seconds": 56.00378877999901, "events": [["refine", 135], ["split", 252], ["refine", 197], ["split", 253], ["birth", 254]], "topics": 252}
+{"week": 76, "through": 1750032000, "seconds": 48.78391085600015, "events": [["birth", 255]], "topics": 253}
+{"week": 77, "through": 1750636800, "seconds": 58.43361550600093, "events": [["refine", 44], ["refine", 179]], "topics": 253}
+{"week": 78, "through": 1751241600, "seconds": 61.719181289001426, "events": [["birth", 256]], "topics": 254}
+{"week": 79, "through": 1751846400, "seconds": 62.61320053399686, "events": [["refine", 137], ["split", 257], ["refine", 164]], "topics": 255}
+{"week": 80, "through": 1752451200, "seconds": 67.80086031399696, "events": [["refine", 6], ["split", 258], ["refine", 135], ["split", 259]], "topics": 257}

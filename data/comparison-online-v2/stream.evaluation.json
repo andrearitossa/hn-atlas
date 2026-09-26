@@ -1,0 +1,846 @@
+{
+  "chosen_k": 150,
+  "trials": [
+    {
+      "k": 60,
+      "heldout_fit": 0.38098013401031494,
+      "ambiguous_fraction": 0.1934,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 90,
+      "heldout_fit": 0.4030288755893707,
+      "ambiguous_fraction": 0.1968,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 120,
+      "heldout_fit": 0.41231879591941833,
+      "ambiguous_fraction": 0.2152,
+      "near_duplicate_pairs": 0
+    },
+    {
+      "k": 150,
+      "heldout_fit": 0.4224281311035156,
+      "ambiguous_fraction": 0.2214,
+      "near_duplicate_pairs": 0
+    }
+  ],
+  "train_before": 1679021269,
+  "unique_stories": 1134862,
+  "input_version": 2,
+  "refit_stories": 1134862,
+  "initialization_sample": 20000,
+  "fit_scope": "all distinct available inputs after chronological model selection",
+  "refit_method": "one incremental pass from globally sampled initialization",
+  "consolidation": [
+    {
+      "ids": [
+        0
+      ],
+      "name": ".NET and C# development",
+      "description": "Covers the C#, .NET, Blazor, and related Microsoft application-development ecosystem."
+    },
+    {
+      "ids": [
+        1
+      ],
+      "name": "AI social impacts",
+      "description": "Covers AI's effects on misinformation, work, bias, authenticity, copyright, and public life."
+    },
+    {
+      "ids": [
+        2
+      ],
+      "name": "Data analytics and visualization",
+      "description": "Covers tools, methods, dashboards, datasets, and practices for analyzing and visualizing data."
+    },
+    {
+      "ids": [
+        3
+      ],
+      "name": "Democracy and political discourse",
+      "description": "Covers democratic values, political communication, misinformation, polarization, and civic culture."
+    },
+    {
+      "ids": [
+        4
+      ],
+      "name": "Retro and homebrew computing",
+      "description": "Covers vintage computers, hobbyist CPUs, retro platforms, and home-built computing hardware."
+    },
+    {
+      "ids": [
+        5
+      ],
+      "name": "Climate change",
+      "description": "Covers climate science, emissions, warming impacts, mitigation, adaptation, and geoengineering."
+    },
+    {
+      "ids": [
+        6
+      ],
+      "name": "Cryptocurrency and Bitcoin",
+      "description": "Covers cryptocurrency markets, Bitcoin, blockchain applications, regulation, fraud, and protocol design."
+    },
+    {
+      "ids": [
+        7
+      ],
+      "name": "Note-taking and personal knowledge tools",
+      "description": "Covers note-taking, bookmarking, document organization, and personal knowledge-management software."
+    },
+    {
+      "ids": [
+        8
+      ],
+      "name": "Neuroscience and brain interfaces",
+      "description": "Covers brain research, cognition, neural implants, brain-computer interfaces, and neurological conditions."
+    },
+    {
+      "ids": [
+        9
+      ],
+      "name": "Electric vehicles",
+      "description": "Covers electric cars and other electric mobility, including costs, batteries, policy, safety, and adoption."
+    },
+    {
+      "ids": [
+        10
+      ],
+      "name": "Political philosophy and ideology",
+      "description": "Covers liberalism, humanism, totalitarianism, Marxism, social movements, and competing political ideas."
+    },
+    {
+      "ids": [
+        11
+      ],
+      "name": "Web application infrastructure",
+      "description": "Covers web frameworks, serverless platforms, hosting, CDNs, gateways, and application deployment."
+    },
+    {
+      "ids": [
+        12
+      ],
+      "name": "Science institutions and publishing",
+      "description": "Covers research culture, scientific publishing, incentives, evaluation, funding, and institutional reform."
+    },
+    {
+      "ids": [
+        13
+      ],
+      "name": "Software vulnerabilities and exploitation",
+      "description": "Covers security flaws, CVEs, exploit techniques, mitigations, and actively exploited vulnerabilities."
+    },
+    {
+      "ids": [
+        14
+      ],
+      "name": "Secure messaging and secret sharing",
+      "description": "Covers encrypted communications, private file sharing, email privacy, password transfer, and secrets management."
+    },
+    {
+      "ids": [
+        15
+      ],
+      "name": "Apple platform policy and security",
+      "description": "Covers Apple's platform rules, privacy and security decisions, legal disputes, and corporate actions."
+    },
+    {
+      "ids": [
+        16
+      ],
+      "name": "Software engineering careers and leadership",
+      "description": "Covers engineering leadership, professional growth, hiring, team culture, and developer careers."
+    },
+    {
+      "ids": [
+        17
+      ],
+      "name": "Workplace careers and employment",
+      "description": "Covers hiring, pay, layoffs, job changes, workplace culture, management, and employee treatment."
+    },
+    {
+      "ids": [
+        18
+      ],
+      "name": "Environmental sustainability and pollution",
+      "description": "Covers waste, recycling, carbon removal, fossil fuels, agriculture, chemicals, and environmental policy."
+    },
+    {
+      "ids": [
+        19
+      ],
+      "name": "Nuclear energy and radiation",
+      "description": "Covers fission and fusion energy, reactors, nuclear policy, accidents, radiation, and nuclear security."
+    },
+    {
+      "ids": [
+        20
+      ],
+      "name": "Rust programming",
+      "description": "Covers writing software, runtimes, systems, tools, integrations, and projects in Rust."
+    },
+    {
+      "ids": [
+        21
+      ],
+      "name": "Police surveillance and civil liberties",
+      "description": "Covers law-enforcement surveillance, facial recognition, police accountability, border enforcement, and privacy rights."
+    },
+    {
+      "ids": [
+        22
+      ],
+      "name": "Startup founding",
+      "description": "Covers startup ideation, validation, fundraising, operations, security, and founder advice."
+    },
+    {
+      "ids": [
+        23
+      ],
+      "name": "Books and reading culture",
+      "description": "Covers reading, literature, writing, book appreciation, literary preservation, and publishing culture."
+    },
+    {
+      "ids": [
+        24
+      ],
+      "name": "Social-media platform governance",
+      "description": "Covers platform moderation, privacy, discrimination, censorship, antitrust, regulation, and social-media policy."
+    },
+    {
+      "ids": [
+        25
+      ],
+      "name": "Twitter and social networking",
+      "description": "Covers Twitter product changes, moderation, verification, APIs, culture, and related social-network features."
+    },
+    {
+      "ids": [
+        26
+      ],
+      "name": "Deep learning research",
+      "description": "Covers neural-network theory, architectures, representations, transformers, vision models, and deep-learning research."
+    },
+    {
+      "ids": [
+        27
+      ],
+      "name": "BSD and open-source operating systems",
+      "description": "Covers BSD systems, kernels, firmware, OS infrastructure, and closely related open-source operating-systems work."
+    },
+    {
+      "ids": [
+        28
+      ],
+      "name": "JavaScript and TypeScript development",
+      "description": "Covers JavaScript, TypeScript, Node.js, modules, tooling, frameworks, and language implementation."
+    },
+    {
+      "ids": [
+        29
+      ],
+      "name": "Apple Silicon Macs",
+      "description": "Covers Apple Silicon hardware, Mac compatibility, macOS behavior, performance, and legacy Macintosh systems."
+    },
+    {
+      "ids": [
+        30
+      ],
+      "name": "Maps and geospatial visualization",
+      "description": "Covers digital maps, GIS, cartography, elevation and geographic data, and map-rendering tools."
+    },
+    {
+      "ids": [
+        31
+      ],
+      "name": "Healthcare delivery and access",
+      "description": "Covers hospitals, telemedicine, treatment access, healthcare costs, and medical-system delivery policy."
+    },
+    {
+      "ids": [
+        32
+      ],
+      "name": "Machine learning practice",
+      "description": "Covers machine-learning systems, engineering, reproducibility, data labeling, applications, and educational resources."
+    },
+    {
+      "ids": [
+        33
+      ],
+      "name": "Keyboards and input hardware",
+      "description": "Covers keyboard designs, construction, and adjacent computer-input devices."
+    },
+    {
+      "ids": [
+        34
+      ],
+      "name": "Typography and fonts",
+      "description": "Covers typefaces, font technology, typesetting, and typography."
+    },
+    {
+      "ids": [
+        35
+      ],
+      "name": "Radio and wireless sensing",
+      "description": "Covers radio signals, SDR, radar, NFC, and related sensing or communications technologies."
+    },
+    {
+      "ids": [
+        36
+      ],
+      "name": "Web browsers",
+      "description": "Covers browser software, browser releases, extensions, and browser privacy or security."
+    },
+    {
+      "ids": [
+        37
+      ],
+      "name": "Banking and financial instability",
+      "description": "Covers banks, credit, central-bank policy, and systemic financial-crisis risks."
+    },
+    {
+      "ids": [
+        38
+      ],
+      "name": "COVID-19 pandemic response",
+      "description": "Covers the social, political, and public-health response to the COVID-19 pandemic."
+    },
+    {
+      "ids": [
+        39,
+        76
+      ],
+      "name": "ChatGPT and conversational AI",
+      "description": "Covers ChatGPT, GPT-based assistants, conversational agents, prompting, integrations, and chatbot applications."
+    },
+    {
+      "ids": [
+        40
+      ],
+      "name": "Speech and voice AI",
+      "description": "Covers speech recognition, speech synthesis, voice assistants, lip reading, and automated subtitling."
+    },
+    {
+      "ids": [
+        41
+      ],
+      "name": "Science fiction",
+      "description": "Covers science-fiction literature, film, television, games, and speculative-fiction ideas."
+    },
+    {
+      "ids": [
+        42
+      ],
+      "name": "Astronomy and cosmology",
+      "description": "Covers observations and theories concerning stars, galaxies, black holes, planets, and the universe."
+    },
+    {
+      "ids": [
+        43
+      ],
+      "name": "API development",
+      "description": "Covers API design, deployment, gateways, SDKs, integration, and API security."
+    },
+    {
+      "ids": [
+        44,
+        108
+      ],
+      "name": "Russia's war against Ukraine",
+      "description": "Covers military, political, humanitarian, technological, censorship, sanctions, and diplomatic developments arising from Russia's invasion of Ukraine."
+    },
+    {
+      "ids": [
+        45
+      ],
+      "name": "Open-source governance",
+      "description": "Covers open-source licensing, maintenance, foundations, funding, and community governance."
+    },
+    {
+      "ids": [
+        46
+      ],
+      "name": "Archaeology and prehistory",
+      "description": "Covers archaeological discoveries, ancient people, artifacts, fossils, and reconstruction of the distant past."
+    },
+    {
+      "ids": [
+        47
+      ],
+      "name": "Higher education",
+      "description": "Covers colleges and universities, including enrollment, tuition, campus policy, and student surveillance."
+    },
+    {
+      "ids": [
+        48
+      ],
+      "name": "COVID-19 health effects and treatment",
+      "description": "Covers COVID-19 clinical outcomes, immunity, prevention claims, treatments, and health interventions."
+    },
+    {
+      "ids": [
+        49
+      ],
+      "name": "COVID-19 vaccines",
+      "description": "Covers the development, efficacy, rollout, safety, and policy of vaccines against COVID-19."
+    },
+    {
+      "ids": [
+        50
+      ],
+      "name": "Python programming",
+      "description": "Covers Python language features, tooling, performance, libraries, and learning Python."
+    },
+    {
+      "ids": [
+        51
+      ],
+      "name": "Distributed data systems",
+      "description": "Covers large-scale data storage, movement, processing, consistency, and distributed infrastructure."
+    },
+    {
+      "ids": [
+        52
+      ],
+      "name": "US healthcare and public health",
+      "description": "Covers healthcare access, drug safety and shortages, regulation, vaccination, and public-health problems in the United States."
+    },
+    {
+      "ids": [
+        53
+      ],
+      "name": "AI image generation and vision",
+      "description": "Covers computer vision, image processing, generative imagery, facial manipulation, and image-search systems."
+    },
+    {
+      "ids": [
+        54
+      ],
+      "name": "Urban transportation",
+      "description": "Covers public transit, traffic, walkability, micromobility, and transportation policy in cities."
+    },
+    {
+      "ids": [
+        55
+      ],
+      "name": "Windows and Microsoft software",
+      "description": "Covers Windows, Microsoft productivity and developer products, and Microsoft platform changes."
+    },
+    {
+      "ids": [
+        56
+      ],
+      "name": "Mathematics",
+      "description": "Covers mathematical ideas, proofs, puzzles, history, education, and computational mathematics."
+    },
+    {
+      "ids": [
+        57
+      ],
+      "name": "Video games",
+      "description": "Covers video-game history, design, technical development, platforms, and individual games."
+    },
+    {
+      "ids": [
+        58
+      ],
+      "name": "Kubernetes",
+      "description": "Covers Kubernetes deployment, operations, networking, security, distributions, and related container infrastructure."
+    },
+    {
+      "ids": [
+        59
+      ],
+      "name": "Aviation and aircraft",
+      "description": "Covers aircraft, airlines, flight safety, drones, military aviation, and aviation regulation."
+    },
+    {
+      "ids": [
+        60
+      ],
+      "name": "Authentication and passkeys",
+      "description": "Covers passwords, passkeys, WebAuthn, OAuth, passwordless login, and authentication security."
+    },
+    {
+      "ids": [
+        61
+      ],
+      "name": "Cyberattacks and data breaches",
+      "description": "Covers ransomware, hacking groups, intrusions, stolen data, malware, and breach response."
+    },
+    {
+      "ids": [
+        62
+      ],
+      "name": "RSS and social content aggregation",
+      "description": "Covers RSS readers, newsletters, federated social feeds, link aggregation, and news-discovery platforms."
+    },
+    {
+      "ids": [
+        63
+      ],
+      "name": "Genetics, aging, and disease biology",
+      "description": "Covers genetic and cellular mechanisms underlying aging, cancer, neurodegeneration, immunity, and disease treatment."
+    },
+    {
+      "ids": [
+        64
+      ],
+      "name": "Tech-industry layoffs",
+      "description": "Covers layoffs, hiring freezes, severance, and workforce reductions at technology and internet companies."
+    },
+    {
+      "ids": [
+        65
+      ],
+      "name": "Programming education",
+      "description": "Covers learning and teaching programming, coding courses, curricula, and technical self-education."
+    },
+    {
+      "ids": [
+        66
+      ],
+      "name": "Linux distributions and ecosystem",
+      "description": "Covers Linux kernels, distributions, desktops, packaging, compatibility, and Linux-focused hardware."
+    },
+    {
+      "ids": [
+        67
+      ],
+      "name": "Quantum science and computing",
+      "description": "Covers quantum physics, quantum information, quantum computing hardware, and quantum-computing theory."
+    },
+    {
+      "ids": [
+        68
+      ],
+      "name": "Systems performance and compilation",
+      "description": "Covers compiler behavior, low-level optimization, runtime performance, CPU features, and systems implementation techniques."
+    },
+    {
+      "ids": [
+        69
+      ],
+      "name": "Equity markets and company valuation",
+      "description": "Covers public-market investing, IPOs, SPACs, stock valuation, and market structure."
+    },
+    {
+      "ids": [
+        70
+      ],
+      "name": "Philosophy and reasoning",
+      "description": "Covers philosophical ideas, ethics, epistemology, formal reasoning, and reflection on mind and knowledge."
+    },
+    {
+      "ids": [
+        71
+      ],
+      "name": "Cybersecurity and cryptography",
+      "description": "Covers security engineering, cryptographic systems, privacy-security tradeoffs, and infrastructure protection."
+    },
+    {
+      "ids": [
+        72
+      ],
+      "name": "Text editors and coding workflows",
+      "description": "Covers Vim, Emacs, Neovim, IDEs, editor plugins, and source-code editing workflows."
+    },
+    {
+      "ids": [
+        73
+      ],
+      "name": "Autonomous vehicles",
+      "description": "Covers self-driving vehicle technology, safety, deployment, and autonomy efforts by Tesla, Waymo, Cruise, and others."
+    },
+    {
+      "ids": [
+        74
+      ],
+      "name": "Digital payments",
+      "description": "Covers card networks, payment infrastructure, fintech payment products, digital wallets, and payment settlement."
+    },
+    {
+      "ids": [
+        75
+      ],
+      "name": "Semiconductor industry",
+      "description": "Covers chip fabrication, semiconductor supply chains, foundries, processors, and national semiconductor policy."
+    },
+    {
+      "ids": [
+        77
+      ],
+      "name": "AWS and serverless infrastructure",
+      "description": "Covers Amazon Web Services, AWS deployment tooling, serverless architecture, cloud migration, and AWS cost operations."
+    },
+    {
+      "ids": [
+        78
+      ],
+      "name": "Real-time graphics and game engines",
+      "description": "Covers rendering, WebGL and WebGPU, rasterization, ray tracing, game engines, animation, and game physics."
+    },
+    {
+      "ids": [
+        79
+      ],
+      "name": "Computer networking",
+      "description": "Covers network protocols, routing, network appliances, internet connectivity, and network infrastructure tools."
+    },
+    {
+      "ids": [
+        80
+      ],
+      "name": "Programming language design and type systems",
+      "description": "Covers language semantics, type systems, functional programming, generics, language implementation, and programming paradigms."
+    },
+    {
+      "ids": [
+        81
+      ],
+      "name": "GitHub platform and workflows",
+      "description": "Covers GitHub products, Actions, Copilot, repository security, GitHub operations, and GitHub-centered workflows."
+    },
+    {
+      "ids": [
+        82
+      ],
+      "name": "Internet outages and DNS operations",
+      "description": "Covers outages of online services, DNS failures, domain registrars, incident reports, and internet reliability."
+    },
+    {
+      "ids": [
+        83
+      ],
+      "name": "CSS and web interface design",
+      "description": "Covers CSS, utility frameworks, layout, typography, web UI components, and browser-facing interface design."
+    },
+    {
+      "ids": [
+        84
+      ],
+      "name": "Git version control",
+      "description": "Covers Git concepts, clients, repository workflows, submodules, Git-based configuration management, and Git internals."
+    },
+    {
+      "ids": [
+        85
+      ],
+      "name": "Hacker News community and mechanics",
+      "description": "Covers Hacker News usage, moderation, voting, discovery, community behavior, and HN-specific tools."
+    },
+    {
+      "ids": [
+        86
+      ],
+      "name": "Databases and SQL systems",
+      "description": "Covers relational databases, PostgreSQL, SQLite, storage engines, schemas, query systems, and database performance."
+    },
+    {
+      "ids": [
+        87
+      ],
+      "name": "Psychology and personal development",
+      "description": "Covers cognition, personality, emotional habits, behavior, happiness, values, and self-improvement ideas."
+    },
+    {
+      "ids": [
+        88
+      ],
+      "name": "Materials science",
+      "description": "Covers material synthesis, superconductors, nanoscale and optical materials, conductivity, and materials applications."
+    },
+    {
+      "ids": [
+        89
+      ],
+      "name": "Android apps and mobile messaging",
+      "description": "Covers Android platform software, Android privacy and security, messaging applications, and mobile-device features."
+    },
+    {
+      "ids": [
+        90
+      ],
+      "name": "COVID-19 tracking and public-health data",
+      "description": "Covers COVID-19 dashboards, epidemiological models, pandemic data, contact tracing, restrictions, and public-health resources."
+    },
+    {
+      "ids": [
+        91
+      ],
+      "name": "Programming language practice and critique",
+      "description": "Covers programming-language learning, comparisons, language culture, code design, and programming practice."
+    },
+    {
+      "ids": [
+        92
+      ],
+      "name": "DIY robotics and mechanical making",
+      "description": "Covers hobbyist robots, fabrication, mechanisms, mechatronics, 3D-printing projects, and physical engineering builds."
+    },
+    {
+      "ids": [
+        93
+      ],
+      "name": "Elon Musk's companies and Twitter takeover",
+      "description": "Covers Elon Musk's business decisions, Tesla-related corporate events, and his acquisition and operation of Twitter."
+    },
+    {
+      "ids": [
+        94
+      ],
+      "name": "Clean energy and battery storage",
+      "description": "Covers renewable generation, grid storage, EV batteries, solar and wind deployment, and low-carbon energy infrastructure."
+    },
+    {
+      "ids": [
+        95
+      ],
+      "name": "Software engineering management",
+      "description": "Covers how software teams plan, organize, estimate, maintain, and improve delivery work."
+    },
+    {
+      "ids": [
+        96
+      ],
+      "name": "Blogging and personal publishing",
+      "description": "Covers creating, hosting, migrating, and operating personal blogs and low-tech publishing websites."
+    },
+    {
+      "ids": [
+        97
+      ],
+      "name": "Unix shell and CLI tooling",
+      "description": "Covers Unix-like terminals, shell scripting, command-line commands, dotfiles, and CLI utilities."
+    },
+    {
+      "ids": [
+        98
+      ],
+      "name": "Streaming video business",
+      "description": "Covers streaming-video platforms, subscriptions, advertising, piracy, and audience economics."
+    },
+    {
+      "ids": [
+        99
+      ],
+      "name": "React and JavaScript frontends",
+      "description": "Covers React, Next.js, and closely related JavaScript frontend development practices and libraries."
+    },
+    {
+      "ids": [
+        100
+      ],
+      "name": "Space missions and exploration",
+      "description": "Covers launch systems, human spaceflight, planetary missions, satellites, and space-agency programs."
+    },
+    {
+      "ids": [
+        101
+      ],
+      "name": "SaaS and e-commerce growth",
+      "description": "Covers marketing, sales, go-to-market, and customer-growth practices for SaaS and online-commerce businesses."
+    },
+    {
+      "ids": [
+        102
+      ],
+      "name": "Animal biology and wildlife",
+      "description": "Covers animal behavior, ecology, physiology, insects, and conservation."
+    },
+    {
+      "ids": [
+        103
+      ],
+      "name": "Urban design and architecture",
+      "description": "Covers buildings, city design, public space, urban development, and architectural experimentation."
+    },
+    {
+      "ids": [
+        104
+      ],
+      "name": "Online video communication",
+      "description": "Covers browser-based video calls, conferencing, virtual collaboration, and social meeting platforms."
+    },
+    {
+      "ids": [
+        105
+      ],
+      "name": "CPUs, GPUs, and AI accelerators",
+      "description": "Covers processor architectures, semiconductor products, benchmarks, and hardware competition for computing and AI workloads."
+    },
+    {
+      "ids": [
+        106
+      ],
+      "name": "Food systems and cuisine",
+      "description": "Covers food culture, nutrition, agriculture, production, regulation, and meal-related technology."
+    },
+    {
+      "ids": [
+        107
+      ],
+      "name": "Online scams and fraud",
+      "description": "Covers phishing, impersonation, spam, account takeover, and other digital financial or identity fraud."
+    },
+    {
+      "ids": [
+        109
+      ],
+      "name": "Technology's future and social impact",
+      "description": "Covers long-term interpretations, predictions, and societal consequences of internet and technological change."
+    },
+    {
+      "ids": [
+        110
+      ],
+      "name": "Digital art and computer graphics",
+      "description": "Covers digital illustration, animation, rendering, visual effects, and graphics tools."
+    },
+    {
+      "ids": [
+        111
+      ],
+      "name": "Wealth inequality and taxation",
+      "description": "Covers the distribution of wealth and income, affluent households, tax policy, and proposals to reduce inequality."
+    },
+    {
+      "ids": [
+        112
+      ],
+      "name": "Macroeconomy and inflation",
+      "description": "Covers inflation, recession, monetary policy, labor conditions, markets, and broad economic cycles."
+    },
+    {
+      "ids": [
+        113
+      ],
+      "name": "Housing markets and policy",
+      "description": "Covers rents, home prices, landlords, zoning, evictions, housing supply, and residential real-estate policy."
+    },
+    {
+      "ids": [
+        114
+      ],
+      "name": "Remote and hybrid work",
+      "description": "Covers working from home, distributed teams, hybrid-office arrangements, and their organizational and social effects."
+    },
+    {
+      "ids": [
+        115
+      ],
+      "name": "Web search and ranking",
+      "description": "Covers search engines, web indexing, result ranking, search interfaces, and SEO's effects on discovery."
+    },
+    {
+      "ids": [
+        116
+      ],
+      "name": "AI critique and governance",
+      "description": "Covers philosophical, social, safety, trust, and governance questions around artificial intelligence and generative AI."
+    }
+  ],
+  "published_subjects": 115
+}

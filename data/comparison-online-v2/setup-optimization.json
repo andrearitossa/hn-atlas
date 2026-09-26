@@ -1,0 +1,5 @@
+{
+  "at": 1790344121,
+  "helper_sha256": "bb7a6cd56910d68eee0a62b9271e1da35e319bcd7008252dc5efba393488e90a",
+  "change": "Bulk index after load; rollback journal during isolated initial copy; no topic-algorithm changes"
+}

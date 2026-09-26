@@ -1,0 +1,2886 @@
+{
+  "at": 1790326180,
+  "nodes": [
+    {
+      "id": 0,
+      "name": "Writing and Typesetting Tools",
+      "description": "Software, formats, fonts, and workflows for creating, editing, formatting, and publishing text documents.",
+      "size": 14372,
+      "x": 0.42119213938713074,
+      "y": 0.9232560396194458,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 41,
+          "similarity": 0.5691410303115845
+        },
+        {
+          "id": 55,
+          "similarity": 0.5412740111351013
+        },
+        {
+          "id": 49,
+          "similarity": 0.5404472351074219
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Tech Executive Leadership",
+      "description": "News and profiles about technology-company leaders, their appointments, departures, influence, and public activities.",
+      "size": 10428,
+      "x": 0.4997176229953766,
+      "y": 0.09087550640106201,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 102,
+          "similarity": 0.5600260496139526
+        },
+        {
+          "id": 62,
+          "similarity": 0.5257111191749573
+        },
+        {
+          "id": 7,
+          "similarity": 0.48830604553222656
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Genetics and Organismal Biology",
+      "description": "Research on genes, evolution, behavior, reproduction, and interactions across living organisms.",
+      "size": 13594,
+      "x": 0.9488107562065125,
+      "y": 0.3105008602142334,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 91,
+          "similarity": 0.5859520435333252
+        },
+        {
+          "id": 81,
+          "similarity": 0.5159772634506226
+        },
+        {
+          "id": 76,
+          "similarity": 0.5014607310295105
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Linux and BSD Systems",
+      "description": "Operating-system news and technical discussion focused on Linux distributions, kernels, desktops, and BSD platforms.",
+      "size": 19312,
+      "x": 0.16941498219966888,
+      "y": 0.7486048936843872,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 73,
+          "similarity": 0.6319921016693115
+        },
+        {
+          "id": 49,
+          "similarity": 0.5176370143890381
+        },
+        {
+          "id": 99,
+          "similarity": 0.49013811349868774
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Programming Language Design",
+      "description": "Language semantics, type systems, functional programming, and implementation techniques across programming languages.",
+      "size": 14165,
+      "x": 0.3451231122016907,
+      "y": 0.8031708002090454,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 50,
+          "similarity": 0.690076470375061
+        },
+        {
+          "id": 118,
+          "similarity": 0.6076754331588745
+        },
+        {
+          "id": 92,
+          "similarity": 0.597169816493988
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Video Game Industry",
+      "description": "Commercial video-game platforms, publishers, hardware, business decisions, and ecosystem developments.",
+      "size": 8121,
+      "x": 0.08705829083919525,
+      "y": 0.4871661067008972,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 94,
+          "similarity": 0.6512755155563354
+        },
+        {
+          "id": 23,
+          "similarity": 0.49541494250297546
+        },
+        {
+          "id": 100,
+          "similarity": 0.37224072217941284
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Cybersecurity Breaches",
+      "description": "Cybersecurity incidents involving ransomware, intrusions, stolen data, espionage, and unauthorized access.",
+      "size": 18243,
+      "x": 0.38449597358703613,
+      "y": 0.3914164900779724,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 61,
+          "similarity": 0.7052557468414307
+        },
+        {
+          "id": 40,
+          "similarity": 0.494844913482666
+        },
+        {
+          "id": 9,
+          "similarity": 0.44787997007369995
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Startup Funding Rounds",
+      "description": "Venture financings, valuations, IPOs, and major investment transactions involving startups and growth companies.",
+      "size": 16730,
+      "x": 0.510147213935852,
+      "y": 0.19140134751796722,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 65,
+          "similarity": 0.5967375040054321
+        },
+        {
+          "id": 1,
+          "similarity": 0.48830604553222656
+        },
+        {
+          "id": 58,
+          "similarity": 0.44621741771698
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Cloud-Native Infrastructure",
+      "description": "Cloud operations, Kubernetes, infrastructure-as-code, and deployment tooling for running applications.",
+      "size": 20049,
+      "x": 0.4580936133861542,
+      "y": 0.7237547636032104,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 112,
+          "similarity": 0.6239211559295654
+        },
+        {
+          "id": 44,
+          "similarity": 0.5782089233398438
+        },
+        {
+          "id": 78,
+          "similarity": 0.4224902093410492
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Digital Privacy",
+      "description": "Protection, collection, regulation, and surveillance of personal data and communications in digital systems.",
+      "size": 11415,
+      "x": 0.3396085500717163,
+      "y": 0.3007524311542511,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 72,
+          "similarity": 0.5057356357574463
+        },
+        {
+          "id": 6,
+          "similarity": 0.44787997007369995
+        },
+        {
+          "id": 47,
+          "similarity": 0.4253179430961609
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Climate Mitigation and Energy Policy",
+      "description": "Emissions reduction, climate targets, carbon removal, and policy choices affecting energy systems.",
+      "size": 8797,
+      "x": 0.8041515946388245,
+      "y": 0.21022573113441467,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 13,
+          "similarity": 0.7255513668060303
+        },
+        {
+          "id": 104,
+          "similarity": 0.71062171459198
+        },
+        {
+          "id": 87,
+          "similarity": 0.6388548612594604
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Software Engineering Careers",
+      "description": "Hiring, compensation, recruiting, job searching, relocation, and career transitions for technology workers.",
+      "size": 19575,
+      "x": 0.6114763617515564,
+      "y": 0.4516988694667816,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 77,
+          "similarity": 0.6777351498603821
+        },
+        {
+          "id": 66,
+          "similarity": 0.5846353769302368
+        },
+        {
+          "id": 29,
+          "similarity": 0.45734721422195435
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "GPU Computing",
+      "description": "GPUs and accelerated-computing hardware, software, platforms, and markets for AI, graphics, and scientific workloads.",
+      "size": 11840,
+      "x": 0.2312501072883606,
+      "y": 0.6289355158805847,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 45,
+          "similarity": 0.6621208786964417
+        },
+        {
+          "id": 48,
+          "similarity": 0.5307678580284119
+        },
+        {
+          "id": 73,
+          "similarity": 0.40815436840057373
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Environmental Conservation and Pollution",
+      "description": "Ecosystem degradation, biodiversity, pollution, environmental regulation, and human effects on habitats.",
+      "size": 8217,
+      "x": 0.8451284766197205,
+      "y": 0.223511204123497,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 87,
+          "similarity": 0.7541983723640442
+        },
+        {
+          "id": 10,
+          "similarity": 0.7255513668060303
+        },
+        {
+          "id": 68,
+          "similarity": 0.521012008190155
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Corporate Layoffs and Workforce Cuts",
+      "description": "Company job cuts, hiring freezes, severance policies, and their effects on workers and labor markets.",
+      "size": 13341,
+      "x": 0.6011269092559814,
+      "y": 0.3429635465145111,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 77,
+          "similarity": 0.528229832649231
+        },
+        {
+          "id": 93,
+          "similarity": 0.4528265595436096
+        },
+        {
+          "id": 90,
+          "similarity": 0.4524136781692505
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "COVID-19 Medical Response",
+      "description": "COVID-19 vaccines, treatments, testing, prevention measures, and related public-health policy.",
+      "size": 32385,
+      "x": 0.9912012219429016,
+      "y": 0.37485310435295105,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 76,
+          "similarity": 0.7144728899002075
+        },
+        {
+          "id": 89,
+          "similarity": 0.47209784388542175
+        },
+        {
+          "id": 2,
+          "similarity": 0.36789050698280334
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Personal Website Creation",
+      "description": "Tools and techniques for building, hosting, and customizing personal or small-scale websites.",
+      "size": 13693,
+      "x": 0.5420425534248352,
+      "y": 0.8774032592773438,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 41,
+          "similarity": 0.5970513224601746
+        },
+        {
+          "id": 112,
+          "similarity": 0.5469763278961182
+        },
+        {
+          "id": 113,
+          "similarity": 0.5445837378501892
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Astronomy and Astrophysics",
+      "description": "Research and discoveries about celestial objects, cosmology, planetary systems, and physical phenomena in space.",
+      "size": 17984,
+      "x": 0.9434912800788879,
+      "y": 0.13531483709812164,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 33,
+          "similarity": 0.619625449180603
+        },
+        {
+          "id": 87,
+          "similarity": 0.46315041184425354
+        },
+        {
+          "id": 91,
+          "similarity": 0.41624268889427185
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Mathematics Research and Theory",
+      "description": "Pure and theoretical mathematics, including number theory, logic, geometry, and foundational questions.",
+      "size": 18078,
+      "x": 0.6589165329933167,
+      "y": 0.6516937613487244,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 43,
+          "similarity": 0.6235291957855225
+        },
+        {
+          "id": 52,
+          "similarity": 0.4811949133872986
+        },
+        {
+          "id": 85,
+          "similarity": 0.452083945274353
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "AI Agent Access Control",
+      "description": "Security, identity, policy enforcement, and governance for AI-agent tool access and workflows.",
+      "size": 8221,
+      "x": 0.4781120717525482,
+      "y": 0.5777098536491394,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 98,
+          "similarity": 0.4487529397010803
+        },
+        {
+          "id": 44,
+          "similarity": 0.426022469997406
+        },
+        {
+          "id": 69,
+          "similarity": 0.39915788173675537
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Google Corporate Developments",
+      "description": "Google product, business, workforce, advertising, privacy, legal, and regulatory developments.",
+      "size": 14862,
+      "x": 0.2553964853286743,
+      "y": 0.32417550683021545,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 24,
+          "similarity": 0.4240981638431549
+        },
+        {
+          "id": 72,
+          "similarity": 0.3757708668708801
+        },
+        {
+          "id": 114,
+          "similarity": 0.3580265939235687
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Geospatial Mapping and Data",
+      "description": "Tools, datasets, visualizations, and analyses representing places, terrain, infrastructure, and activity on maps.",
+      "size": 10242,
+      "x": 0.800426721572876,
+      "y": 0.8057762980461121,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 56,
+          "similarity": 0.3112216591835022
+        },
+        {
+          "id": 110,
+          "similarity": 0.2941604554653168
+        },
+        {
+          "id": 84,
+          "similarity": 0.2738378345966339
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Electric Vehicle Industry",
+      "description": "Electric-vehicle makers, sales, pricing, batteries, charging, policy, and deployment developments.",
+      "size": 18759,
+      "x": 0.41264888644218445,
+      "y": 0.13515245914459229,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 39,
+          "similarity": 0.5600554943084717
+        },
+        {
+          "id": 104,
+          "similarity": 0.4953562617301941
+        },
+        {
+          "id": 62,
+          "similarity": 0.45550405979156494
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Game Development and Engines",
+      "description": "Tools, frameworks, technical techniques, and projects for building video games and game engines.",
+      "size": 11614,
+      "x": 0.1255866438150406,
+      "y": 0.5338151454925537,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 94,
+          "similarity": 0.7412588596343994
+        },
+        {
+          "id": 5,
+          "similarity": 0.49541494250297546
+        },
+        {
+          "id": 85,
+          "similarity": 0.4720160663127899
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Web Search Technology",
+      "description": "Search engines, ranking and result quality, query tools, and AI-enhanced web retrieval interfaces.",
+      "size": 10190,
+      "x": 0.6146159768104553,
+      "y": 0.87154221534729,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 20,
+          "similarity": 0.4240981638431549
+        },
+        {
+          "id": 16,
+          "similarity": 0.4202198386192322
+        },
+        {
+          "id": 115,
+          "similarity": 0.3707951307296753
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Iranian Security and Conflict",
+      "description": "Geopolitical, military, nuclear-security, and infrastructure events centered on Iran and regional conflict.",
+      "size": 7047,
+      "x": 0.7916421890258789,
+      "y": 0.08538714051246643,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 70,
+          "similarity": 0.6208987832069397
+        },
+        {
+          "id": 108,
+          "similarity": 0.6154032349586487
+        },
+        {
+          "id": 86,
+          "similarity": 0.5730528235435486
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Open Source Sustainability",
+      "description": "Open-source governance, licensing, maintenance, funding, labor, and organizational support.",
+      "size": 14597,
+      "x": 0.1752396821975708,
+      "y": 0.8109612464904785,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 3,
+          "similarity": 0.4226796627044678
+        },
+        {
+          "id": 34,
+          "similarity": 0.39028453826904297
+        },
+        {
+          "id": 112,
+          "similarity": 0.2678048014640808
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Apple Platforms and Products",
+      "description": "Apple hardware, operating systems, platform technologies, product strategy, and related legal developments.",
+      "size": 23025,
+      "x": 0.0,
+      "y": 0.6260157227516174,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 32,
+          "similarity": 0.45862752199172974
+        },
+        {
+          "id": 107,
+          "similarity": 0.37904345989227295
+        },
+        {
+          "id": 45,
+          "similarity": 0.3204163908958435
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Exercise and Fitness",
+      "description": "Physical training, fitness tracking, sports performance, exercise physiology, and related health practices.",
+      "size": 6372,
+      "x": 0.8477050065994263,
+      "y": 0.3736707866191864,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 89,
+          "similarity": 0.3878014087677002
+        },
+        {
+          "id": 106,
+          "similarity": 0.3157753348350525
+        },
+        {
+          "id": 95,
+          "similarity": 0.3089948892593384
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Engineering Team Management",
+      "description": "Methods for leading software and product teams, including planning, coordination, productivity, and metrics.",
+      "size": 17161,
+      "x": 0.5738962292671204,
+      "y": 0.5422692894935608,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 98,
+          "similarity": 0.5873266458511353
+        },
+        {
+          "id": 95,
+          "similarity": 0.5710843801498413
+        },
+        {
+          "id": 77,
+          "similarity": 0.5144047737121582
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Humanoid and Autonomous Robotics",
+      "description": "Physical robots, especially humanoid, legged, autonomous, and microrobotic systems and their deployment.",
+      "size": 11476,
+      "x": 0.34902727603912354,
+      "y": 0.0,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 38,
+          "similarity": 0.4233035445213318
+        },
+        {
+          "id": 56,
+          "similarity": 0.2558917701244354
+        },
+        {
+          "id": 99,
+          "similarity": 0.2359456717967987
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Telecommunications Policy and Broadband",
+      "description": "Regulation, competition, infrastructure, access, and service practices in broadband, wireless, and communications networks.",
+      "size": 7436,
+      "x": 0.2858830690383911,
+      "y": 0.44704651832580566,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 78,
+          "similarity": 0.5019010305404663
+        },
+        {
+          "id": 119,
+          "similarity": 0.3805451989173889
+        },
+        {
+          "id": 107,
+          "similarity": 0.36992210149765015
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Smartphones and Mobile OS",
+      "description": "Consumer smartphones, mobile operating systems, makers, device features, and accessory ecosystems.",
+      "size": 11855,
+      "x": 0.028915461152791977,
+      "y": 0.6430806517601013,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 27,
+          "similarity": 0.45862752199172974
+        },
+        {
+          "id": 83,
+          "similarity": 0.41455334424972534
+        },
+        {
+          "id": 99,
+          "similarity": 0.3665968179702759
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Spaceflight and Launch Systems",
+      "description": "Rockets, spacecraft, launch infrastructure, and crewed or robotic space mission programs.",
+      "size": 18600,
+      "x": 0.9275497198104858,
+      "y": 0.1023007184267044,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 17,
+          "similarity": 0.619625449180603
+        },
+        {
+          "id": 101,
+          "similarity": 0.48709309101104736
+        },
+        {
+          "id": 25,
+          "similarity": 0.3216550350189209
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Git and GitHub Workflows",
+      "description": "Git repositories, GitHub and GitLab, version-control workflows, repository management, and related tools.",
+      "size": 16758,
+      "x": 0.2181699275970459,
+      "y": 0.8487918376922607,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 49,
+          "similarity": 0.4958559274673462
+        },
+        {
+          "id": 112,
+          "similarity": 0.4004073739051819
+        },
+        {
+          "id": 26,
+          "similarity": 0.39028453826904297
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Human Language and Linguistics",
+      "description": "Natural-language structure, usage, learning, translation, and technologies for analyzing human languages.",
+      "size": 17135,
+      "x": 0.371183305978775,
+      "y": 0.9447441697120667,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 0,
+          "similarity": 0.42353978753089905
+        },
+        {
+          "id": 50,
+          "similarity": 0.3513779640197754
+        },
+        {
+          "id": 4,
+          "similarity": 0.29880136251449585
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Large Language Models",
+      "description": "LLM capabilities, limitations, evaluation, deployment, practical use, and effects on work and education.",
+      "size": 14924,
+      "x": 0.7414929866790771,
+      "y": 0.5477331876754761,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 51,
+          "similarity": 0.39322108030319214
+        },
+        {
+          "id": 18,
+          "similarity": 0.36364689469337463
+        },
+        {
+          "id": 52,
+          "similarity": 0.3133840560913086
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "California Housing Crisis",
+      "description": "Housing affordability, construction, rents, transit-oriented development, and displacement in California.",
+      "size": 10137,
+      "x": 0.6946267485618591,
+      "y": 0.20833028852939606,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 96,
+          "similarity": 0.5026049613952637
+        },
+        {
+          "id": 90,
+          "similarity": 0.500823974609375
+        },
+        {
+          "id": 13,
+          "similarity": 0.4834192991256714
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "AI Governance and Societal Impact",
+      "description": "AI regulation, safety risks, labor and cultural effects, public attitudes, and industry hype.",
+      "size": 72276,
+      "x": 0.37558549642562866,
+      "y": 0.0064559211023151875,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 30,
+          "similarity": 0.4233035445213318
+        },
+        {
+          "id": 107,
+          "similarity": 0.2830943167209625
+        },
+        {
+          "id": 1,
+          "similarity": 0.2770947813987732
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Ride-Hailing and Delivery Platforms",
+      "description": "App-based passenger transport and delivery platforms, including labor, economics, regulation, and autonomous services.",
+      "size": 5500,
+      "x": 0.41829705238342285,
+      "y": 0.1689542979001999,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 22,
+          "similarity": 0.5600554943084717
+        },
+        {
+          "id": 7,
+          "similarity": 0.42056772112846375
+        },
+        {
+          "id": 42,
+          "similarity": 0.3938432037830353
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Criminal Justice and Policing",
+      "description": "Policing, criminal investigations, prosecutions, detention, extradition, and justice-system accountability.",
+      "size": 16108,
+      "x": 0.6435264348983765,
+      "y": 0.11468102037906647,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 58,
+          "similarity": 0.6434611082077026
+        },
+        {
+          "id": 96,
+          "similarity": 0.548605740070343
+        },
+        {
+          "id": 108,
+          "similarity": 0.5263100862503052
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "CSS and Web Styling",
+      "description": "CSS languages, frameworks, techniques, tutorials, and resources for web-interface styling and layout.",
+      "size": 12081,
+      "x": 0.4730248749256134,
+      "y": 0.8773951530456543,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 16,
+          "similarity": 0.5970513224601746
+        },
+        {
+          "id": 116,
+          "similarity": 0.5865504741668701
+        },
+        {
+          "id": 0,
+          "similarity": 0.5691410303115845
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Amazon Corporate Developments",
+      "description": "Amazon business strategy, operations, labor, marketplace policies, products, subsidiaries, and finances.",
+      "size": 8360,
+      "x": 0.43791839480400085,
+      "y": 0.2198513299226761,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 58,
+          "similarity": 0.4083004593849182
+        },
+        {
+          "id": 39,
+          "similarity": 0.3938432037830353
+        },
+        {
+          "id": 7,
+          "similarity": 0.3637203574180603
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Algorithms and Complexity",
+      "description": "Algorithm design, analysis, optimization, indexing, and computational-complexity results.",
+      "size": 13031,
+      "x": 0.602024495601654,
+      "y": 0.6562889814376831,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 48,
+          "similarity": 0.6273678541183472
+        },
+        {
+          "id": 18,
+          "similarity": 0.6235291957855225
+        },
+        {
+          "id": 4,
+          "similarity": 0.5232595205307007
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Observability and Monitoring",
+      "description": "Tools and practices for collecting, querying, alerting on, and analyzing system metrics, logs, traces, and performance.",
+      "size": 8327,
+      "x": 0.44826698303222656,
+      "y": 0.6808947920799255,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 8,
+          "similarity": 0.5782089233398438
+        },
+        {
+          "id": 59,
+          "similarity": 0.5637462139129639
+        },
+        {
+          "id": 46,
+          "similarity": 0.5628010034561157
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "name": "Computer Processor Industry",
+      "description": "CPUs, GPUs, AI accelerators, chip architectures, manufacturing, and companies supplying processor hardware.",
+      "size": 14552,
+      "x": 0.1974201798439026,
+      "y": 0.643904983997345,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 12,
+          "similarity": 0.6621208786964417
+        },
+        {
+          "id": 73,
+          "similarity": 0.6051510572433472
+        },
+        {
+          "id": 99,
+          "similarity": 0.48103174567222595
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "name": "Data Engineering and Databases",
+      "description": "Systems and tools for storing, modeling, processing, querying, and managing data at scale.",
+      "size": 13945,
+      "x": 0.4195868968963623,
+      "y": 0.649711012840271,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 59,
+          "similarity": 0.6376408338546753
+        },
+        {
+          "id": 44,
+          "similarity": 0.5628010034561157
+        },
+        {
+          "id": 8,
+          "similarity": 0.37631064653396606
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Cryptography and Key Management",
+      "description": "Cryptographic protocols, encryption, passwords, certificates, and the storage and validation of keys and secrets.",
+      "size": 13006,
+      "x": 0.38845324516296387,
+      "y": 0.48138105869293213,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 69,
+          "similarity": 0.6404199600219727
+        },
+        {
+          "id": 61,
+          "similarity": 0.580769419670105
+        },
+        {
+          "id": 6,
+          "similarity": 0.4331531524658203
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "name": "Memory and Performance Optimization",
+      "description": "Memory management, caching, SIMD, parallelism, hashing, and low-level software-performance optimization.",
+      "size": 11993,
+      "x": 0.2777997851371765,
+      "y": 0.6876687407493591,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 73,
+          "similarity": 0.6305269002914429
+        },
+        {
+          "id": 43,
+          "similarity": 0.6273678541183472
+        },
+        {
+          "id": 118,
+          "similarity": 0.5747374892234802
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "name": "Terminal and Command-Line Tools",
+      "description": "Unix-like terminals, shells, command-line utilities, customization, and practical workflows.",
+      "size": 17154,
+      "x": 0.26265618205070496,
+      "y": 0.8437303304672241,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 0,
+          "similarity": 0.5404472351074219
+        },
+        {
+          "id": 3,
+          "similarity": 0.5176370143890381
+        },
+        {
+          "id": 50,
+          "similarity": 0.499165803194046
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Lisp and Clojure Development",
+      "description": "Tools, language features, libraries, workflows, and communities centered on Lisp-family languages.",
+      "size": 8424,
+      "x": 0.3263404071331024,
+      "y": 0.8325808644294739,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 4,
+          "similarity": 0.690076470375061
+        },
+        {
+          "id": 118,
+          "similarity": 0.5328156352043152
+        },
+        {
+          "id": 49,
+          "similarity": 0.499165803194046
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "name": "Political Philosophy and Ideology",
+      "description": "Political ideologies, liberalism, rationalism, public morality, and competing political theories.",
+      "size": 13048,
+      "x": 0.8081557154655457,
+      "y": 0.5190306901931763,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 52,
+          "similarity": 0.6536823511123657
+        },
+        {
+          "id": 111,
+          "similarity": 0.579403817653656
+        },
+        {
+          "id": 108,
+          "similarity": 0.5200262665748596
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "name": "Scientific Reasoning and Bias",
+      "description": "Cognitive biases, flawed inference, uncertainty, and methodological weaknesses in scientific and expert reasoning.",
+      "size": 14569,
+      "x": 0.8234890699386597,
+      "y": 0.4878060817718506,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 51,
+          "similarity": 0.6536823511123657
+        },
+        {
+          "id": 103,
+          "similarity": 0.5144698619842529
+        },
+        {
+          "id": 18,
+          "similarity": 0.4811949133872986
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "name": "Windows Platform Developments",
+      "description": "Microsoft Windows releases, features, updates, built-in applications, and Windows-adjacent developer services.",
+      "size": 10979,
+      "x": 0.09849866479635239,
+      "y": 0.7600701451301575,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 3,
+          "similarity": 0.40397459268569946
+        },
+        {
+          "id": 114,
+          "similarity": 0.3227313160896301
+        },
+        {
+          "id": 83,
+          "similarity": 0.2993261218070984
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "name": "Python Development",
+      "description": "Programming practices, tools, frameworks, runtimes, and learning resources centered on Python.",
+      "size": 16250,
+      "x": 0.30184319615364075,
+      "y": 0.8904644250869751,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 4,
+          "similarity": 0.32621270418167114
+        },
+        {
+          "id": 49,
+          "similarity": 0.3054572641849518
+        },
+        {
+          "id": 50,
+          "similarity": 0.29244422912597656
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "name": "Personal Productivity Apps",
+      "description": "Software for task management, note-taking, planning, time tracking, and organizing personal information.",
+      "size": 14275,
+      "x": 0.45982038974761963,
+      "y": 0.9591984152793884,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 0,
+          "similarity": 0.5412740111351013
+        },
+        {
+          "id": 105,
+          "similarity": 0.4449484348297119
+        },
+        {
+          "id": 49,
+          "similarity": 0.4403255581855774
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "name": "AI and Generative Visual Media",
+      "description": "AI-assisted and procedural tools, techniques, and research for creating, editing, analyzing, and assessing images, video, and visual art.",
+      "size": 21549,
+      "x": 0.7531238198280334,
+      "y": 0.774415910243988,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 84,
+          "similarity": 0.41746535897254944
+        },
+        {
+          "id": 41,
+          "similarity": 0.37360697984695435
+        },
+        {
+          "id": 63,
+          "similarity": 0.36127209663391113
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "name": "Quantum Computing and Physics",
+      "description": "Quantum computation, qubit hardware and software, quantum information, and experimental quantum-physics research.",
+      "size": 9443,
+      "x": 0.7205511331558228,
+      "y": 0.6511341333389282,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 18,
+          "similarity": 0.44249576330184937
+        },
+        {
+          "id": 17,
+          "similarity": 0.4013745188713074
+        },
+        {
+          "id": 84,
+          "similarity": 0.34423020482063293
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "name": "Corporate Lawsuits and Regulation",
+      "description": "Corporate legal disputes, enforcement actions, rulings, settlements, antitrust cases, and bankruptcies.",
+      "size": 15024,
+      "x": 0.600460946559906,
+      "y": 0.12949761748313904,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 40,
+          "similarity": 0.6434611082077026
+        },
+        {
+          "id": 107,
+          "similarity": 0.5056137442588806
+        },
+        {
+          "id": 96,
+          "similarity": 0.4486292004585266
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "name": "PostgreSQL Development",
+      "description": "PostgreSQL techniques, tooling, operations, extensions, and SQL capabilities.",
+      "size": 15593,
+      "x": 0.3987036347389221,
+      "y": 0.6736966967582703,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 46,
+          "similarity": 0.6376408338546753
+        },
+        {
+          "id": 44,
+          "similarity": 0.5637462139129639
+        },
+        {
+          "id": 48,
+          "similarity": 0.3992810547351837
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "name": "Social Video Platform Moderation",
+      "description": "Content rules, account enforcement, algorithmic harms, and regulation affecting video-social platforms.",
+      "size": 9567,
+      "x": 0.25582829117774963,
+      "y": 0.24265120923519135,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 72,
+          "similarity": 0.6354483366012573
+        },
+        {
+          "id": 74,
+          "similarity": 0.5854974389076233
+        },
+        {
+          "id": 100,
+          "similarity": 0.5723595023155212
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "name": "Software Vulnerabilities, Exploits, and Malware",
+      "description": "Security flaws, CVEs, exploit techniques, malware, vulnerability disclosures, patches, and active exploitation.",
+      "size": 18176,
+      "x": 0.3887435793876648,
+      "y": 0.4320816397666931,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 6,
+          "similarity": 0.7052557468414307
+        },
+        {
+          "id": 47,
+          "similarity": 0.580769419670105
+        },
+        {
+          "id": 73,
+          "similarity": 0.5313606858253479
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "name": "Elon Musk Developments",
+      "description": "Elon Musk's business decisions, compensation, public conduct, and leadership across his companies and ventures.",
+      "size": 10120,
+      "x": 0.46298086643218994,
+      "y": 0.10712247341871262,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 1,
+          "similarity": 0.5257111191749573
+        },
+        {
+          "id": 22,
+          "similarity": 0.45550405979156494
+        },
+        {
+          "id": 58,
+          "similarity": 0.39595162868499756
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "name": "Data Compression and Codecs",
+      "description": "Compression algorithms, codecs, quantization, encoding, decoding, and efficient digital-data representations.",
+      "size": 6893,
+      "x": 0.30822935700416565,
+      "y": 0.6579275131225586,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 48,
+          "similarity": 0.5596928000450134
+        },
+        {
+          "id": 43,
+          "similarity": 0.44539186358451843
+        },
+        {
+          "id": 84,
+          "similarity": 0.4128660261631012
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "name": "Food Production and Innovation",
+      "description": "Agriculture, farming, food supply, novel ingredients, processing, and consumer food products.",
+      "size": 10056,
+      "x": 0.8700752258300781,
+      "y": 0.2883298397064209,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 13,
+          "similarity": 0.48530444502830505
+        },
+        {
+          "id": 89,
+          "similarity": 0.4745277762413025
+        },
+        {
+          "id": 10,
+          "similarity": 0.3972879648208618
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "name": "Stock Market Investing",
+      "description": "Public-market investing, stock valuation, trading, market sentiment, brokerages, and equity-market structure.",
+      "size": 13235,
+      "x": 0.5520426630973816,
+      "y": 0.21523818373680115,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 93,
+          "similarity": 0.6068145632743835
+        },
+        {
+          "id": 7,
+          "similarity": 0.5967375040054321
+        },
+        {
+          "id": 97,
+          "similarity": 0.5042608976364136
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "name": "Startup Validation and Growth",
+      "description": "Validating business ideas, finding customers, marketing SaaS products, and scaling startup or consulting ventures.",
+      "size": 20449,
+      "x": 0.6228649616241455,
+      "y": 0.4938655197620392,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 11,
+          "similarity": 0.5846353769302368
+        },
+        {
+          "id": 113,
+          "similarity": 0.5788935422897339
+        },
+        {
+          "id": 77,
+          "similarity": 0.5232794284820557
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "name": "European Public Policy",
+      "description": "Government policy, regulation, and political developments across Europe and the European Union.",
+      "size": 10370,
+      "x": 0.7006823420524597,
+      "y": 0.05763546749949455,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 70,
+          "similarity": 0.45426058769226074
+        },
+        {
+          "id": 108,
+          "similarity": 0.4275825619697571
+        },
+        {
+          "id": 107,
+          "similarity": 0.4118335247039795
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "name": "Ocean and Marine Life",
+      "description": "Marine animals, oceanographic phenomena, coastal waters, reefs, shipwrecks, and human activity at sea.",
+      "size": 11987,
+      "x": 0.9268110394477844,
+      "y": 0.2218368500471115,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 91,
+          "similarity": 0.5841634273529053
+        },
+        {
+          "id": 13,
+          "similarity": 0.521012008190155
+        },
+        {
+          "id": 87,
+          "similarity": 0.4995775818824768
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "name": "Authentication and Identity",
+      "description": "Authentication, authorization, identity management, credentials, OAuth, passwordless flows, and related security issues.",
+      "size": 8031,
+      "x": 0.40462446212768555,
+      "y": 0.5141968727111816,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 47,
+          "similarity": 0.6404199600219727
+        },
+        {
+          "id": 112,
+          "similarity": 0.44652581214904785
+        },
+        {
+          "id": 19,
+          "similarity": 0.39915788173675537
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "name": "Russia-Ukraine War",
+      "description": "Russia's invasion of Ukraine, including military operations, diplomacy, sanctions, civilian effects, and international responses.",
+      "size": 14208,
+      "x": 0.7560640573501587,
+      "y": 0.05383411422371864,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 25,
+          "similarity": 0.6208987832069397
+        },
+        {
+          "id": 108,
+          "similarity": 0.4971146583557129
+        },
+        {
+          "id": 67,
+          "similarity": 0.45426058769226074
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "name": "Historical Figures and Heritage",
+      "description": "Notable people, artifacts, landmarks, and cultural works considered through historical context and legacy.",
+      "size": 21322,
+      "x": 1.0,
+      "y": 0.2339053899049759,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 108,
+          "similarity": 0.5809962153434753
+        },
+        {
+          "id": 111,
+          "similarity": 0.566832423210144
+        },
+        {
+          "id": 91,
+          "similarity": 0.5324169397354126
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "name": "Facebook Platform Governance",
+      "description": "Facebook and Meta moderation, oversight, legal scrutiny, platform governance, and political effects.",
+      "size": 9166,
+      "x": 0.3023053705692291,
+      "y": 0.2507788836956024,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 60,
+          "similarity": 0.6354483366012573
+        },
+        {
+          "id": 74,
+          "similarity": 0.6184264421463013
+        },
+        {
+          "id": 9,
+          "similarity": 0.5057356357574463
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "name": "Kernel and Systems Internals",
+      "description": "Kernel design, debugging, virtualization, boot processes, low-level security, and hardware interactions.",
+      "size": 8582,
+      "x": 0.20566633343696594,
+      "y": 0.6982038021087646,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 3,
+          "similarity": 0.6319921016693115
+        },
+        {
+          "id": 48,
+          "similarity": 0.6305269002914429
+        },
+        {
+          "id": 45,
+          "similarity": 0.6051510572433472
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "name": "Twitter Platform Changes",
+      "description": "Twitter/X product features, verification, algorithms, access policies, moderation, data practices, and platform evolution.",
+      "size": 10760,
+      "x": 0.2889868915081024,
+      "y": 0.21208930015563965,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 72,
+          "similarity": 0.6184264421463013
+        },
+        {
+          "id": 60,
+          "similarity": 0.5854974389076233
+        },
+        {
+          "id": 115,
+          "similarity": 0.4851146340370178
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "name": "Retro Computing Hardware",
+      "description": "Vintage and retro computer, console, and processor hardware projects, restorations, and technical explorations.",
+      "size": 14623,
+      "x": 0.13314245641231537,
+      "y": 0.6483622193336487,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 99,
+          "similarity": 0.5593490600585938
+        },
+        {
+          "id": 73,
+          "similarity": 0.5144160985946655
+        },
+        {
+          "id": 45,
+          "similarity": 0.45028388500213623
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "name": "Clinical Medicine and Therapeutics",
+      "description": "Clinical research, diagnostics, treatments, health-care practice, and human medical interventions.",
+      "size": 13055,
+      "x": 0.9574951529502869,
+      "y": 0.37566062808036804,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 15,
+          "similarity": 0.7144728899002075
+        },
+        {
+          "id": 89,
+          "similarity": 0.7068052291870117
+        },
+        {
+          "id": 2,
+          "similarity": 0.5014607310295105
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "name": "Remote Work Practices",
+      "description": "Remote and hybrid work arrangements, management, collaboration, wellbeing, compensation, and office policy.",
+      "size": 10550,
+      "x": 0.6404480338096619,
+      "y": 0.42942187190055847,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 11,
+          "similarity": 0.6777351498603821
+        },
+        {
+          "id": 14,
+          "similarity": 0.528229832649231
+        },
+        {
+          "id": 66,
+          "similarity": 0.5232794284820557
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "name": "Network Protocols and Infrastructure",
+      "description": "Technical development, operation, performance, and security of networking protocols, routing, VPNs, and services.",
+      "size": 14807,
+      "x": 0.30663931369781494,
+      "y": 0.4896049201488495,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 31,
+          "similarity": 0.5019010305404663
+        },
+        {
+          "id": 112,
+          "similarity": 0.45647016167640686
+        },
+        {
+          "id": 47,
+          "similarity": 0.4299166202545166
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "name": "Materials Engineering and Fabrication",
+      "description": "Advanced materials, manufacturing, microfabrication, additive processes, and engineered structures.",
+      "size": 11430,
+      "x": 0.8096015453338623,
+      "y": 0.6757354736328125,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 84,
+          "similarity": 0.5711188316345215
+        },
+        {
+          "id": 104,
+          "similarity": 0.5478444695472717
+        },
+        {
+          "id": 110,
+          "similarity": 0.38292691111564636
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Software Testing Practices",
+      "description": "Methods, tools, and debates for testing software quality, including unit, mutation, regression, and performance testing.",
+      "size": 11620,
+      "x": 0.5185327529907227,
+      "y": 0.6256380677223206,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 29,
+          "similarity": 0.4751714766025543
+        },
+        {
+          "id": 98,
+          "similarity": 0.4224257469177246
+        },
+        {
+          "id": 44,
+          "similarity": 0.40051165223121643
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "name": "Neuroscience and Brain Research",
+      "description": "Brain and nervous-system research, cognition, neural mechanisms, brain measurement, and neurotherapeutics.",
+      "size": 13254,
+      "x": 0.9219370484352112,
+      "y": 0.43252432346343994,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 103,
+          "similarity": 0.5368177890777588
+        },
+        {
+          "id": 89,
+          "similarity": 0.5175729990005493
+        },
+        {
+          "id": 2,
+          "similarity": 0.5159772634506226
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "name": "JavaScript Development",
+      "description": "JavaScript and TypeScript language features, runtimes, tooling, frameworks, compilation, and application development.",
+      "size": 14249,
+      "x": 0.4256138801574707,
+      "y": 0.828700840473175,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 116,
+          "similarity": 0.727712869644165
+        },
+        {
+          "id": 112,
+          "similarity": 0.5642544031143188
+        },
+        {
+          "id": 41,
+          "similarity": 0.5421310663223267
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "name": "Computer Keyboard Design",
+      "description": "Keyboard hardware, layouts, ergonomics, programmable builds, and keyboard-customization software.",
+      "size": 8911,
+      "x": 0.057324741035699844,
+      "y": 0.6873467564582825,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 55,
+          "similarity": 0.42988792061805725
+        },
+        {
+          "id": 49,
+          "similarity": 0.4230348467826843
+        },
+        {
+          "id": 32,
+          "similarity": 0.41455334424972534
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "name": "Computational Imaging and Optics",
+      "description": "Optical sensors, cameras, lenses, light-based communication, and computational reconstruction of visual scenes.",
+      "size": 10442,
+      "x": 0.7891924977302551,
+      "y": 0.7075324654579163,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 79,
+          "similarity": 0.5711188316345215
+        },
+        {
+          "id": 56,
+          "similarity": 0.41746535897254944
+        },
+        {
+          "id": 63,
+          "similarity": 0.4128660261631012
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "name": "Logic Puzzles and Games",
+      "description": "Deduction, wordplay, arithmetic, strategy, and puzzle-solving challenges, games, and tools.",
+      "size": 10820,
+      "x": 0.6120508313179016,
+      "y": 0.7137057781219482,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 94,
+          "similarity": 0.511770486831665
+        },
+        {
+          "id": 23,
+          "similarity": 0.4720160663127899
+        },
+        {
+          "id": 18,
+          "similarity": 0.452083945274353
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "name": "U.S. Defense Policy",
+      "description": "U.S. military and Pentagon activities, procurement, weapons programs, national-security strategy, and oversight.",
+      "size": 7385,
+      "x": 0.8171339631080627,
+      "y": 0.05051634460687637,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 25,
+          "similarity": 0.5730528235435486
+        },
+        {
+          "id": 108,
+          "similarity": 0.5129692554473877
+        },
+        {
+          "id": 70,
+          "similarity": 0.40631112456321716
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "name": "Climate Change and Extreme Weather",
+      "description": "Observed and projected climate warming, ocean and atmospheric changes, extreme weather, and related impacts.",
+      "size": 10829,
+      "x": 0.8591079711914062,
+      "y": 0.1891297996044159,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 13,
+          "similarity": 0.7541983723640442
+        },
+        {
+          "id": 10,
+          "similarity": 0.6388548612594604
+        },
+        {
+          "id": 68,
+          "similarity": 0.4995775818824768
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "name": "Digital Music Tools",
+      "description": "Software, services, and techniques for playing, managing, producing, transforming, and distributing digital music and audio.",
+      "size": 13234,
+      "x": 0.5392563939094543,
+      "y": 0.9982804656028748,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 105,
+          "similarity": 0.4583120346069336
+        },
+        {
+          "id": 100,
+          "similarity": 0.3852878212928772
+        },
+        {
+          "id": 55,
+          "similarity": 0.38172805309295654
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "name": "Nutrition and Metabolic Health",
+      "description": "Diet, weight, metabolism, supplements, exercise, and effects on chronic disease and longevity.",
+      "size": 11307,
+      "x": 0.9115123152732849,
+      "y": 0.3693074584007263,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 76,
+          "similarity": 0.7068052291870117
+        },
+        {
+          "id": 106,
+          "similarity": 0.5210657119750977
+        },
+        {
+          "id": 81,
+          "similarity": 0.5175729990005493
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "name": "Economic Inequality and Wealth",
+      "description": "Income and wealth disparities, affordability pressures, debt, housing, and class-based economic effects.",
+      "size": 12371,
+      "x": 0.6451269388198853,
+      "y": 0.2400035411119461,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 93,
+          "similarity": 0.704361081123352
+        },
+        {
+          "id": 37,
+          "similarity": 0.500823974609375
+        },
+        {
+          "id": 102,
+          "similarity": 0.49513640999794006
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "name": "Archaeology and Paleontology",
+      "description": "Ancient humans, civilizations, organisms, fossils, and prehistoric genetic or material evidence.",
+      "size": 11512,
+      "x": 0.9553548693656921,
+      "y": 0.2568853199481964,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 2,
+          "similarity": 0.5859520435333252
+        },
+        {
+          "id": 68,
+          "similarity": 0.5841634273529053
+        },
+        {
+          "id": 71,
+          "similarity": 0.5324169397354126
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "name": "Rust Language Development",
+      "description": "Rust programming language features, compiler performance, libraries, frameworks, tooling, and Rust projects.",
+      "size": 15342,
+      "x": 0.35093632340431213,
+      "y": 0.7657641768455505,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 4,
+          "similarity": 0.597169816493988
+        },
+        {
+          "id": 118,
+          "similarity": 0.48404061794281006
+        },
+        {
+          "id": 50,
+          "similarity": 0.40998947620391846
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "name": "Inflation and Monetary Policy",
+      "description": "Inflation, interest rates, central-bank actions, and their effects on employment, housing, banking, and economies.",
+      "size": 13926,
+      "x": 0.6134601831436157,
+      "y": 0.22595007717609406,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 90,
+          "similarity": 0.704361081123352
+        },
+        {
+          "id": 65,
+          "similarity": 0.6068145632743835
+        },
+        {
+          "id": 10,
+          "similarity": 0.47288134694099426
+        }
+      ]
+    },
+    {
+      "id": 94,
+      "name": "Video Game History and Culture",
+      "description": "Video games as cultural and historical artifacts, including preservation, genres, licensing, and gameplay commentary.",
+      "size": 11918,
+      "x": 0.11617392301559448,
+      "y": 0.5042111873626709,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 23,
+          "similarity": 0.7412588596343994
+        },
+        {
+          "id": 5,
+          "similarity": 0.6512755155563354
+        },
+        {
+          "id": 85,
+          "similarity": 0.511770486831665
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "name": "Personal Growth and Self-Improvement",
+      "description": "Advice and reflections on motivation, values, behavior change, social skills, mentorship, and personal development.",
+      "size": 18480,
+      "x": 0.7508898973464966,
+      "y": 0.4612143039703369,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 106,
+          "similarity": 0.6058655977249146
+        },
+        {
+          "id": 29,
+          "similarity": 0.5710843801498413
+        },
+        {
+          "id": 77,
+          "similarity": 0.4940275549888611
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "name": "U.S. Politics and Elections",
+      "description": "American parties, presidents, elections, democratic institutions, courts, and federal or state policy debates.",
+      "size": 11265,
+      "x": 0.69256591796875,
+      "y": 0.14358964562416077,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 108,
+          "similarity": 0.5994469523429871
+        },
+        {
+          "id": 40,
+          "similarity": 0.548605740070343
+        },
+        {
+          "id": 37,
+          "similarity": 0.5026049613952637
+        }
+      ]
+    },
+    {
+      "id": 97,
+      "name": "Cryptocurrency Markets and Regulation",
+      "description": "Cryptocurrencies, stablecoins, exchanges, crypto investing, and legal or political forces shaping digital-asset markets.",
+      "size": 19456,
+      "x": 0.5336118340492249,
+      "y": 0.25198206305503845,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 65,
+          "similarity": 0.5042608976364136
+        },
+        {
+          "id": 7,
+          "similarity": 0.39021897315979004
+        },
+        {
+          "id": 93,
+          "similarity": 0.38150036334991455
+        }
+      ]
+    },
+    {
+      "id": 98,
+      "name": "Software Architecture Patterns",
+      "description": "Design principles, structural patterns, and component or service organization for maintainable software systems.",
+      "size": 14041,
+      "x": 0.5424047708511353,
+      "y": 0.5755429267883301,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 29,
+          "similarity": 0.5873266458511353
+        },
+        {
+          "id": 4,
+          "similarity": 0.4738551676273346
+        },
+        {
+          "id": 19,
+          "similarity": 0.4487529397010803
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "name": "Raspberry Pi and Microcontrollers",
+      "description": "Raspberry Pi, ESP, STM32, embedded platforms, homebuilt CPUs, and related DIY hardware projects.",
+      "size": 8853,
+      "x": 0.14362645149230957,
+      "y": 0.6828722953796387,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 75,
+          "similarity": 0.5593490600585938
+        },
+        {
+          "id": 3,
+          "similarity": 0.49013811349868774
+        },
+        {
+          "id": 45,
+          "similarity": 0.48103174567222595
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "name": "Streaming Video Services",
+      "description": "Consumer streaming-media platforms, subscriptions, advertising, distribution, service policies, and playback devices.",
+      "size": 7033,
+      "x": 0.2139321267604828,
+      "y": 0.24949732422828674,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 60,
+          "similarity": 0.5723595023155212
+        },
+        {
+          "id": 88,
+          "similarity": 0.3852878212928772
+        },
+        {
+          "id": 5,
+          "similarity": 0.37224072217941284
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "name": "Aviation Safety and Operations",
+      "description": "Aircraft operations, aviation incidents, airworthiness, pilots, airports, and aviation regulatory oversight.",
+      "size": 13243,
+      "x": 0.8891115784645081,
+      "y": 0.07132852077484131,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 33,
+          "similarity": 0.48709309101104736
+        },
+        {
+          "id": 25,
+          "similarity": 0.42540597915649414
+        },
+        {
+          "id": 86,
+          "similarity": 0.38937270641326904
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "Tech Industry Culture",
+      "description": "Technology companies' social values, workplace norms, public image, political influence, and cultural impact.",
+      "size": 9830,
+      "x": 0.5116703510284424,
+      "y": 0.04640612006187439,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 1,
+          "similarity": 0.5600260496139526
+        },
+        {
+          "id": 109,
+          "similarity": 0.5015184879302979
+        },
+        {
+          "id": 90,
+          "similarity": 0.49513640999794006
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "name": "Perception and Reality",
+      "description": "How minds perceive, imagine, and interpret reality, including subjective experience of time, space, vision, and consciousness.",
+      "size": 12155,
+      "x": 0.8828315734863281,
+      "y": 0.4789980351924896,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 81,
+          "similarity": 0.5368177890777588
+        },
+        {
+          "id": 52,
+          "similarity": 0.5144698619842529
+        },
+        {
+          "id": 111,
+          "similarity": 0.4332300126552582
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "name": "Renewable Energy Storage",
+      "description": "Low-carbon power generation, grid-scale and vehicle battery storage, and related energy infrastructure.",
+      "size": 12279,
+      "x": 0.7741715312004089,
+      "y": 0.23449885845184326,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 10,
+          "similarity": 0.71062171459198
+        },
+        {
+          "id": 79,
+          "similarity": 0.5478444695472717
+        },
+        {
+          "id": 22,
+          "similarity": 0.4953562617301941
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "name": "Chat and Video Communication",
+      "description": "Messaging, team chat, video calls, screen sharing, and federated interpersonal communication platforms.",
+      "size": 15977,
+      "x": 0.5011996030807495,
+      "y": 1.0,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 88,
+          "similarity": 0.4583120346069336
+        },
+        {
+          "id": 55,
+          "similarity": 0.4449484348297119
+        },
+        {
+          "id": 112,
+          "similarity": 0.4079873561859131
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "name": "Mental Health and Wellbeing",
+      "description": "Depression, loneliness, anxiety, attachment, parenting-related emotional health, and psychological coping.",
+      "size": 12634,
+      "x": 0.7951611876487732,
+      "y": 0.43585634231567383,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 95,
+          "similarity": 0.6058655977249146
+        },
+        {
+          "id": 89,
+          "similarity": 0.5210657119750977
+        },
+        {
+          "id": 51,
+          "similarity": 0.47056543827056885
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "name": "US-China Technology Trade Conflict",
+      "description": "Tariffs, export controls, investment pressure, and supply-chain competition between the United States and China in strategic technology.",
+      "size": 12525,
+      "x": 0.5614710450172424,
+      "y": 0.12971849739551544,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 58,
+          "similarity": 0.5056137442588806
+        },
+        {
+          "id": 93,
+          "similarity": 0.4333309829235077
+        },
+        {
+          "id": 67,
+          "similarity": 0.4118335247039795
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "name": "Global Politics and Conflict",
+      "description": "Political power, authoritarianism, war, regime change, and international order across countries and eras.",
+      "size": 10198,
+      "x": 0.7478863596916199,
+      "y": 0.10982232540845871,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 25,
+          "similarity": 0.6154032349586487
+        },
+        {
+          "id": 96,
+          "similarity": 0.5994469523429871
+        },
+        {
+          "id": 71,
+          "similarity": 0.5809962153434753
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "name": "Digital Culture and Society",
+      "description": "How computers, the internet, and emerging technologies shape social life, public space, and cultural imagination.",
+      "size": 11141,
+      "x": 0.501487135887146,
+      "y": 0.003133291145786643,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 102,
+          "similarity": 0.5015184879302979
+        },
+        {
+          "id": 31,
+          "similarity": 0.3448512554168701
+        },
+        {
+          "id": 103,
+          "similarity": 0.25922417640686035
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "name": "Architecture and Urban Design",
+      "description": "Building design, construction, renovation, housing, and planning of urban spaces.",
+      "size": 8430,
+      "x": 0.8009865880012512,
+      "y": 0.2878004312515259,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 13,
+          "similarity": 0.45615753531455994
+        },
+        {
+          "id": 37,
+          "similarity": 0.44265851378440857
+        },
+        {
+          "id": 10,
+          "similarity": 0.4047873020172119
+        }
+      ]
+    },
+    {
+      "id": 111,
+      "name": "Books and Literary Criticism",
+      "description": "Books, authors, reading, literary works, publishing, and critical reviews.",
+      "size": 16036,
+      "x": 0.8602125644683838,
+      "y": 0.5392972826957703,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 51,
+          "similarity": 0.579403817653656
+        },
+        {
+          "id": 71,
+          "similarity": 0.566832423210144
+        },
+        {
+          "id": 103,
+          "similarity": 0.4332300126552582
+        }
+      ]
+    },
+    {
+      "id": 112,
+      "name": "Web Server Frameworks",
+      "description": "Backend web frameworks, HTTP servers, gateways, and runtime tooling for building and hosting web services.",
+      "size": 15789,
+      "x": 0.45403212308883667,
+      "y": 0.7673285603523254,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 8,
+          "similarity": 0.6239211559295654
+        },
+        {
+          "id": 82,
+          "similarity": 0.5642544031143188
+        },
+        {
+          "id": 116,
+          "similarity": 0.5585667490959167
+        }
+      ]
+    },
+    {
+      "id": 113,
+      "name": "Digital Marketing and Conversion",
+      "description": "Online customer acquisition, advertising, SEO, email, storefront optimization, and conversion strategies.",
+      "size": 12983,
+      "x": 0.5762734413146973,
+      "y": 0.8204008936882019,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 66,
+          "similarity": 0.5788935422897339
+        },
+        {
+          "id": 16,
+          "similarity": 0.5445837378501892
+        },
+        {
+          "id": 117,
+          "similarity": 0.5208651423454285
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "name": "Web Browsers and Extensions",
+      "description": "Web-browser releases, features, privacy and security behavior, performance, and extension ecosystems.",
+      "size": 14827,
+      "x": 0.5248584747314453,
+      "y": 0.9120445847511292,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 16,
+          "similarity": 0.5283511281013489
+        },
+        {
+          "id": 41,
+          "similarity": 0.4198961853981018
+        },
+        {
+          "id": 82,
+          "similarity": 0.39866816997528076
+        }
+      ]
+    },
+    {
+      "id": 115,
+      "name": "Hacker News and Link Aggregators",
+      "description": "Hacker News, social news aggregation, reader experiences, alternatives, and content-discovery communities.",
+      "size": 12487,
+      "x": 0.6077858805656433,
+      "y": 0.9262338280677795,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 74,
+          "similarity": 0.4851146340370178
+        },
+        {
+          "id": 16,
+          "similarity": 0.4773711562156677
+        },
+        {
+          "id": 66,
+          "similarity": 0.37877053022384644
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "name": "React Development",
+      "description": "React, JSX-based UI development, and related frameworks, libraries, state management, and deployment workflows.",
+      "size": 11494,
+      "x": 0.4585380256175995,
+      "y": 0.8292563557624817,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 82,
+          "similarity": 0.727712869644165
+        },
+        {
+          "id": 41,
+          "similarity": 0.5865504741668701
+        },
+        {
+          "id": 112,
+          "similarity": 0.5585667490959167
+        }
+      ]
+    },
+    {
+      "id": 117,
+      "name": "Payments and SaaS Pricing",
+      "description": "Payment platforms, transaction APIs and fees, billing practices, and software subscription pricing.",
+      "size": 11702,
+      "x": 0.4882875382900238,
+      "y": 0.29631507396698,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 113,
+          "similarity": 0.5208651423454285
+        },
+        {
+          "id": 7,
+          "similarity": 0.4129678010940552
+        },
+        {
+          "id": 65,
+          "similarity": 0.3747466206550598
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "name": "C and C++ Development",
+      "description": "Tools, language features, libraries, compilation techniques, and performance practices for C and C++.",
+      "size": 13267,
+      "x": 0.2981942892074585,
+      "y": 0.758672833442688,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 4,
+          "similarity": 0.6076754331588745
+        },
+        {
+          "id": 48,
+          "similarity": 0.5747374892234802
+        },
+        {
+          "id": 50,
+          "similarity": 0.5328156352043152
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "name": "Internet Service Outages",
+      "description": "Outages, downtime, and major service disruptions affecting online platforms, DNS, telecom networks, and digital infrastructure.",
+      "size": 9494,
+      "x": 0.3291231393814087,
+      "y": 0.3798924684524536,
+      "born": 1790326180,
+      "parent": null,
+      "neighbors": [
+        {
+          "id": 6,
+          "similarity": 0.4266032576560974
+        },
+        {
+          "id": 14,
+          "similarity": 0.3949052691459656
+        },
+        {
+          "id": 31,
+          "similarity": 0.3805451989173889
+        }
+      ]
+    }
+  ],
+  "note": "Top three semantic neighbors per topic; diagnostic relationships, not UI graph edges."
+}

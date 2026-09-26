@@ -1,0 +1,106 @@
+{
+  "results": [
+    {
+      "mode": "NOT INDEXED",
+      "seconds": 9.735385330001009,
+      "rows": 7318,
+      "ordered_result_sha256": "b2e7826bf419fa45022593fac5b8372546858d6e78b47ab88b2f3fd462fadbfb",
+      "plan": [
+        [
+          3,
+          0,
+          0,
+          "SCAN e"
+        ],
+        [
+          7,
+          0,
+          0,
+          "USING ROWID SEARCH ON TABLE story_topics FOR IN-OPERATOR"
+        ],
+        [
+          19,
+          0,
+          0,
+          "LIST SUBQUERY 3"
+        ],
+        [
+          21,
+          19,
+          0,
+          "SCAN classification_queue"
+        ],
+        [
+          30,
+          19,
+          0,
+          "LIST SUBQUERY 2"
+        ],
+        [
+          32,
+          30,
+          0,
+          "SEARCH stories USING COVERING INDEX idx_stories_time (time<?)"
+        ],
+        [
+          64,
+          0,
+          0,
+          "SEARCH s USING INTEGER PRIMARY KEY (rowid=?)"
+        ]
+      ]
+    },
+    {
+      "mode": "INDEXED BY embeddings_routing",
+      "seconds": 3.77513960700162,
+      "rows": 7318,
+      "ordered_result_sha256": "b2e7826bf419fa45022593fac5b8372546858d6e78b47ab88b2f3fd462fadbfb",
+      "plan": [
+        [
+          4,
+          0,
+          0,
+          "SEARCH e USING INDEX embeddings_routing (input_version=?)"
+        ],
+        [
+          11,
+          0,
+          0,
+          "USING ROWID SEARCH ON TABLE story_topics FOR IN-OPERATOR"
+        ],
+        [
+          23,
+          0,
+          0,
+          "LIST SUBQUERY 3"
+        ],
+        [
+          25,
+          23,
+          0,
+          "SCAN classification_queue"
+        ],
+        [
+          34,
+          23,
+          0,
+          "LIST SUBQUERY 2"
+        ],
+        [
+          36,
+          34,
+          0,
+          "SEARCH stories USING COVERING INDEX idx_stories_time (time<?)"
+        ],
+        [
+          66,
+          0,
+          0,
+          "SEARCH s USING INTEGER PRIMARY KEY (rowid=?)"
+        ]
+      ]
+    }
+  ],
+  "identical_ordered_results": true,
+  "note": "Same read transaction; sequential timing, not a controlled cold-cache benchmark."
+}
