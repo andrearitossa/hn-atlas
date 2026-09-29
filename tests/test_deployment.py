@@ -73,3 +73,56 @@ print('Deployment complete! https://example.pages.dev')
         result = self.run_deploy()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertFalse(list((self.root / '.wrangler').glob('pages-deploy.*')))
+
+
+class DailyLocalCopyTests(unittest.TestCase):
+    def setUp(self):
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        self.root = Path(folder.name)
+        for directory in ('scripts', '.venv/bin', 'data', 'dist/releases/old'):
+            (self.root / directory).mkdir(parents=True)
+        shutil.copyfile(Path(__file__).resolve().parents[1] / 'scripts/update_site.sh',
+                        self.root / 'scripts/update_site.sh')
+        (self.root / 'dist/index.html').write_text('Old index')
+        (self.root / 'dist/releases/old/data.json').write_text('Old data')
+        python = self.root / '.venv/bin/python'
+        python.write_text('''#!/usr/bin/env python3
+import sys
+from pathlib import Path
+output = Path(sys.argv[sys.argv.index('--publish') + 1])
+(output / 'releases/new').mkdir(parents=True)
+(output / 'releases/new/data.json').write_text('New data')
+(output / 'index.html').write_text('New index')
+(output / 'sitemap.xml').write_text('New sitemap')
+''')
+        python.chmod(0o755)
+
+    def run_daily(self, fail=False):
+        (self.root / 'scripts/deploy_site.sh').write_text('''#!/bin/bash
+set -euo pipefail
+[[ $(cat dist/index.html) == 'Old index' ]]
+cp "$1/index.html" deployed-index
+cp "$1/releases/new/data.json" deployed-data
+''' + ('exit 1\n' if fail else 'exit 0\n'))
+        return subprocess.run(['bash', 'scripts/update_site.sh', '--force'],
+                              cwd=self.root, capture_output=True, text=True)
+
+    def test_success_retains_exact_deployed_export_and_previous_release(self):
+        result = self.run_daily()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        for local, deployed in [('dist/index.html', 'deployed-index'),
+                                ('dist/releases/new/data.json', 'deployed-data')]:
+            self.assertEqual((self.root / local).read_bytes(),
+                             (self.root / deployed).read_bytes())
+        self.assertEqual((self.root / 'dist/sitemap.xml').read_text(), 'New sitemap')
+        self.assertEqual((self.root / 'dist/releases/old/data.json').read_text(), 'Old data')
+        self.assertTrue((self.root / 'data/update-site-success.date').exists())
+        self.assertFalse(list((self.root / '.wrangler').glob('daily-build.*')))
+
+    def test_failed_deployment_preserves_local_copy_and_does_not_mark_success(self):
+        result = self.run_daily(fail=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((self.root / 'dist/index.html').read_text(), 'Old index')
+        self.assertFalse((self.root / 'dist/releases/new').exists())
+        self.assertFalse((self.root / 'data/update-site-success.date').exists())

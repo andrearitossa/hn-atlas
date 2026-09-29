@@ -1,6 +1,6 @@
 {
   "name": "hackeratlas-newsletter-test",
-  "main": "worker.mjs",
+  "main": "entrypoint.mjs",
   "compatibility_date": "2026-09-26",
   "account_id": "c2e5e5e106e0b8c69e797dd75d0d229d",
   "workers_dev": true,

@@ -86,6 +86,8 @@ serve local static files; API behavior is covered by the JavaScript tests.
 Git pushes do not update the public data.
 Daily exports and Pages uploads use private temporary directories under `.wrangler/`,
 so concurrent local preview builds cannot replace files during an upload.
+After a successful daily deployment, the same export is copied into local `dist/`,
+with the index switched last and previous releases retained for open tabs.
 `scripts/deploy_site.sh` also requires Wrangler's explicit deployment confirmation
 before the daily workflow records success. To publish an existing local export
 without repeating ingestion, run `bash scripts/deploy_site.sh dist`.
@@ -297,3 +299,12 @@ timeout --kill-after=5s 1080s env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 .venv
 These are diagnostics, not taxonomy accuracy scores: existing assignments are an
 imperfect reference, sampling emphasizes likely errors, and a recovered candidate
 still needs independent evidence and editorial review before becoming a topic.
+
+Feedback and new newsletter subscriptions notify `andre.ritossa@gmail.com` through
+the existing email Worker's private `NotificationSender` entrypoint (the Pages
+`NOTIFICATIONS` service binding). Signup emails include the catalog topic name and
+subscriber email; feedback includes the message, optional email, and page. Only
+new inserts notify, so retries do not send duplicate emails. Notification failures
+are logged without failing a saved submission; there is no automatic mail retry.
+Deploy `workers/newsletter-test/wrangler.jsonc` before deploying Pages when changing
+this binding or entrypoint.

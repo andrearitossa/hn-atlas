@@ -6,20 +6,23 @@ const source = await readFile(new URL('../functions/api/newsletter/subscribe.js'
 const {onRequest} = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 const origin = 'https://hackeratlas.pages.dev';
 
-function setup({body = {email: ' Reader@Example.com ', topic: 7}, headers = {}, method = 'POST', fail = false} = {}) {
+function setup({body = {email: ' Reader@Example.com ', topic: 7}, headers = {}, method = 'POST', fail = false, duplicate = false, notifyFail = false} = {}) {
   const writes = [];
+  const notifications = [];
   const request = new Request(`${origin}/api/newsletter/subscribe`, {
     method, headers: {Origin: origin, 'Content-Type': 'application/json', ...headers},
     ...(method === 'POST' ? {body: typeof body === 'string' ? body : JSON.stringify(body)} : {}),
   });
   const env = {
+    NOTIFICATIONS: {notify: async event => { if (notifyFail) throw Error("mail failed"); notifications.push(event); }},
     ASSETS: {fetch: async () => Response.json({'7': 'Programming'})},
     NEWSLETTER_DB: {prepare: sql => ({bind: (...args) => ({run: async () => {
       if (fail) throw Error('private storage error');
       writes.push({sql, args});
+      return {meta:{changes:duplicate ? 0 : 1}};
     }})})},
   };
-  return {writes, response: onRequest({request, env})};
+  return {writes, notifications, response: onRequest({request, env})};
 }
 
 test('normalizes email, resolves topic on server and uses bound SQL', async () => {
@@ -58,4 +61,17 @@ test('storage failure is reported without a false success or private details', a
   const result = await response;
   assert.equal(result.status, 503);
   assert.doesNotMatch(await result.text(), /private storage error|Reader/);
+});
+test('new signup notifies with the catalog topic name; duplicates do not notify', async () => {
+  const fresh = setup();
+  await fresh.response;
+  assert.deepEqual(fresh.notifications,[{type:'signup',email:'reader@example.com',topic:'Programming'}]);
+  for (const options of [{duplicate:true},{fail:true}]) {
+    const result = setup(options);
+    await result.response;
+    assert.equal(result.notifications.length,0);
+  }
+});
+test('notification failure does not reject a saved signup', async () => {
+  assert.equal((await setup({notifyFail:true}).response).status,200);
 });

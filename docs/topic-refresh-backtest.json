@@ -1,0 +1,1756 @@
+{
+  "protocol": "12 chronological folds; frozen vs rolling 80 cells, two seeds; no labels, APIs, production writes",
+  "caveats": [
+    "Current story bodies/deletions and stored embeddings are retrospective, not historical snapshots.",
+    "Vector fit and persistence are not semantic precision, novelty, or subscription usefulness.",
+    "Queue counts are current snapshot diagnostics, not historical replay."
+  ],
+  "config": {
+    "k": 80,
+    "train_days": 28,
+    "test_days": 14,
+    "train_cap": 6000,
+    "test_cap": 3000,
+    "seeds": [
+      42,
+      43
+    ]
+  },
+  "folds": [
+    {
+      "cutoff": "2025-10-01",
+      "train": {
+        "embedded_live": 23651,
+        "unique": 21363,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 11621,
+        "unique": 10297,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4700583517551422,
+          "rolling_loss": 0.46778416633605957,
+          "delta": -0.002274234313517809,
+          "persistent": 6,
+          "top_candidate": {
+            "cell": 69,
+            "posts": 23,
+            "sites": 16,
+            "weeks": 4,
+            "max_source_share": 0.13043478260869565,
+            "novelty": 0.3749329447746277,
+            "train_cohesion": 0.5983121991157532,
+            "radius": 0.4515184462070465,
+            "future_posts": 2,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 45419111,
+                "title": "Afghanistan in total Internet blackout caused by Taliban"
+              },
+              {
+                "id": 45421160,
+                "title": "Afghanistan Has Nationwide Internet Blackout, Monitors Say"
+              },
+              {
+                "id": 45418022,
+                "title": "Afghanistan telecom blackout as Taliban shuts off internet"
+              },
+              {
+                "id": 45153925,
+                "title": "Microsoft says Azure cloud service was disrupted by fiber cuts in Red Sea"
+              },
+              {
+                "id": 45359627,
+                "title": "Ask HN: Is .space TLD Down?"
+              },
+              {
+                "id": 45170512,
+                "title": "Why Music Streaming Is Broken Now [video]"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 45433618,
+                "title": "Unama calls on authorities to urgently restore internet access in Afghanistan"
+              },
+              {
+                "id": 45501932,
+                "title": "The End of the Global Internet"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.47027841210365295,
+          "rolling_loss": 0.46931692957878113,
+          "delta": -0.0009614784503355622,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 33,
+            "posts": 45,
+            "sites": 39,
+            "weeks": 4,
+            "max_source_share": 0.06666666666666667,
+            "novelty": 0.3420511484146118,
+            "train_cohesion": 0.5277436375617981,
+            "radius": 0.45225271582603455,
+            "future_posts": 12,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 45264950,
+                "title": "Orcas sink one boat, damage another, off coast of Portugal"
+              },
+              {
+                "id": 45387441,
+                "title": "Sunken World War II Debris Has Become Surprisingly Useful for Sea Creatures"
+              },
+              {
+                "id": 45209828,
+                "title": "Scientists tap 'secret' fresh water under the ocean"
+              },
+              {
+                "id": 45111498,
+                "title": "Students on this Quebec island commute to school by plane"
+              },
+              {
+                "id": 45371163,
+                "title": "Magma Displacement triggered Earthquakes around Santorini"
+              },
+              {
+                "id": 45159897,
+                "title": "Iceland's Hafthor Bjornsson has broken his own Deadlift World Record with 510kg"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 45450164,
+                "title": "AI reveals 'ghost forests' along U.S. coast"
+              },
+              {
+                "id": 45456216,
+                "title": "The Frantic Push to Change Online Maps to Say 'Gulf of America'"
+              },
+              {
+                "id": 45469541,
+                "title": "Orcas are bringing humans gifts"
+              },
+              {
+                "id": 45473606,
+                "title": "Treasure hunters discover $1M in silver and gold coins off Florida coast"
+              },
+              {
+                "id": 45491657,
+                "title": "An idea that won't sink: China planning underwater datacenter deployment"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8186200857162476
+    },
+    {
+      "cutoff": "2025-11-01",
+      "train": {
+        "embedded_live": 23804,
+        "unique": 21534,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 12210,
+        "unique": 10827,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.47408831119537354,
+          "rolling_loss": 0.47266048192977905,
+          "delta": -0.0014278875896707177,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 18,
+            "posts": 53,
+            "sites": 40,
+            "weeks": 4,
+            "max_source_share": 0.07547169811320754,
+            "novelty": 0.28308790922164917,
+            "train_cohesion": 0.6250309348106384,
+            "radius": 0.5077336430549622,
+            "future_posts": 8,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 45640772,
+                "title": "Major AWS Outage Happening"
+              },
+              {
+                "id": 45684068,
+                "title": "What caused the large AWS outage?"
+              },
+              {
+                "id": 45640838,
+                "title": "AWS multiple services outage in us-east-1"
+              },
+              {
+                "id": 45764175,
+                "title": "Amazon have reportedly cancelled their Lord of the Rings MMO, again"
+              },
+              {
+                "id": 45722902,
+                "title": "Organizing Amazon Should Be a Priority for Labor Globally"
+              },
+              {
+                "id": 45546701,
+                "title": "Battlefield 6 players hit server queues as over 500k concurrents after launch"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 45792373,
+                "title": "Reproducing the AWS Outage Race Condition with a Model Checker"
+              },
+              {
+                "id": 45811624,
+                "title": "Google Cloud suspended customer's account 3 times, for 3 different reasons"
+              },
+              {
+                "id": 45827834,
+                "title": "SolarWinds is shutting down Librato"
+              },
+              {
+                "id": 45828878,
+                "title": "Granted: The easiest way to access AWS"
+              },
+              {
+                "id": 45830513,
+                "title": "What are Amazon's layoffs about?"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4752502143383026,
+          "rolling_loss": 0.4733063280582428,
+          "delta": -0.0019439042080193758,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 16,
+            "posts": 24,
+            "sites": 15,
+            "weeks": 4,
+            "max_source_share": 0.25,
+            "novelty": 0.4537195563316345,
+            "train_cohesion": 0.49825143814086914,
+            "radius": 0.33895057439804077,
+            "future_posts": 8,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 45727393,
+                "title": "Daniel Kahneman, Israeli-American, died last year by assisted suicide"
+              },
+              {
+                "id": 45649507,
+                "title": "Grandmaster, Popular Commentator Daniel Naroditsky Tragically Passes Away at 29"
+              },
+              {
+                "id": 45505793,
+                "title": "Saul Zabar, Smoked Fish Czar of Upper West Side, Dies at 97"
+              },
+              {
+                "id": 45731291,
+                "title": "Memories of Rubinstein and Liszt (1920)"
+              },
+              {
+                "id": 45535384,
+                "title": "I'm turning 41, but I don't feel like celebrating"
+              },
+              {
+                "id": 45475495,
+                "title": "Sanae Takaichi set to become Japan's first female prime minister"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 45783411,
+                "title": "Ioannis Yannas, who invented artificial skin for treatment of burns, has died"
+              },
+              {
+                "id": 45792392,
+                "title": "Paul McCartney: The world said I was dead, in so many ways I was"
+              },
+              {
+                "id": 45803865,
+                "title": "Names of 5M holocaust victims now compiled in single database"
+              },
+              {
+                "id": 45837236,
+                "title": "Chess World Cup: Vidit Gujrathi outsmarts 12-year-old prodigy Faustino Oro"
+              },
+              {
+                "id": 45851407,
+                "title": "James Watson, Who Co-Discovered DNA Structure, Dies at 97"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8136624097824097
+    },
+    {
+      "cutoff": "2025-12-01",
+      "train": {
+        "embedded_live": 24018,
+        "unique": 21802,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 12887,
+        "unique": 11519,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.470234751701355,
+          "rolling_loss": 0.470134973526001,
+          "delta": -9.976840374292806e-05,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 1,
+            "posts": 33,
+            "sites": 24,
+            "weeks": 4,
+            "max_source_share": 0.12121212121212122,
+            "novelty": 0.3862571716308594,
+            "train_cohesion": 0.5455459356307983,
+            "radius": 0.3824916481971741,
+            "future_posts": 11,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 45995834,
+                "title": "NTSB Preliminary Report \u2013 UPS Boeing MD-11F Crash [pdf]"
+              },
+              {
+                "id": 46085767,
+                "title": "Airbus issues major A320 recall after mid-air incident grounds planes"
+              },
+              {
+                "id": 45859619,
+                "title": "DC-10 engine separation American Airlines Flight 191"
+              },
+              {
+                "id": 46040491,
+                "title": "Avian Influenza H5N5 Washington Death"
+              },
+              {
+                "id": 45843838,
+                "title": "Anatomy of a boarding pass: how to detect fake flight tickets"
+              },
+              {
+                "id": 45833219,
+                "title": "How do aircraft systems communicate? [video]"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 46121558,
+                "title": "Has the TSA added immigration enforcement to \"Secure Flight\"?"
+              },
+              {
+                "id": 46130630,
+                "title": "Deep-sea search for Malaysia Airlines Flight 370 to resume Dec. 30"
+              },
+              {
+                "id": 46138524,
+                "title": "Search for long-missing Malaysia Airlines flight MH370 to resume"
+              },
+              {
+                "id": 46151143,
+                "title": "Airplane and hospital air is cleaner than you might think"
+              },
+              {
+                "id": 46151319,
+                "title": "Unidentified drones breached no-fly zone to target Zelenskyy's arrival"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4715687930583954,
+          "rolling_loss": 0.46964502334594727,
+          "delta": -0.0019237893866375089,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 59,
+            "posts": 27,
+            "sites": 25,
+            "weeks": 4,
+            "max_source_share": 0.07407407407407407,
+            "novelty": 0.34613966941833496,
+            "train_cohesion": 0.5319438576698303,
+            "radius": 0.4210205376148224,
+            "future_posts": 11,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 46021390,
+                "title": "Artist Reconstructs Face of Julius Caesar and Others from Ancient History"
+              },
+              {
+                "id": 46017277,
+                "title": "The Mausoleum at Halicarnassus Was a Wonder of the Ancient World"
+              },
+              {
+                "id": 45890876,
+                "title": "Historical Reasons"
+              },
+              {
+                "id": 45964082,
+                "title": "Timeline maps of every metro system in the world, 1840-2025"
+              },
+              {
+                "id": 45921861,
+                "title": "The emergence and diversification of dog morphology"
+              },
+              {
+                "id": 45839474,
+                "title": "What Did Medieval Peasants Know? (2022)"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 46112889,
+                "title": "Why ancient Roman buildings last for millennia [video]"
+              },
+              {
+                "id": 46115469,
+                "title": "We built a database of 290,000 English medieval soldiers"
+              },
+              {
+                "id": 46121644,
+                "title": "Early modern humans experienced thoughts as commands from external \"gods\""
+              },
+              {
+                "id": 46185794,
+                "title": "Two thousand years of garden urbanism in the Upper Amazon"
+              },
+              {
+                "id": 46195725,
+                "title": "Thoughts of a Neopagan / the Reconstruction of Neolithic Religion"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8133407831192017
+    },
+    {
+      "cutoff": "2026-01-01",
+      "train": {
+        "embedded_live": 24249,
+        "unique": 22094,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13636,
+        "unique": 12096,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4689098298549652,
+          "rolling_loss": 0.47008317708969116,
+          "delta": 0.0011733524734154344,
+          "persistent": 5,
+          "top_candidate": {
+            "cell": 31,
+            "posts": 22,
+            "sites": 17,
+            "weeks": 4,
+            "max_source_share": 0.13636363636363635,
+            "novelty": 0.4365112781524658,
+            "train_cohesion": 0.6918858885765076,
+            "radius": 0.4872743487358093,
+            "future_posts": 2,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 46196434,
+                "title": "Paramount hostile bid for Warner Bros., challenging offer by Netflix"
+              },
+              {
+                "id": 46302041,
+                "title": "Warner Bros favours Netflix offer over $108B Paramount bid"
+              },
+              {
+                "id": 46192459,
+                "title": "Paramount launches hostile bid for Warner Bros"
+              },
+              {
+                "id": 46233142,
+                "title": "It Will Soon Be Curtains for the Movie Theater"
+              },
+              {
+                "id": 46296627,
+                "title": "WikiFlix shows us what Netflix would have been like 100 years ago"
+              },
+              {
+                "id": 46438122,
+                "title": "How the \u201cMarvelization\u201d of Cinema Accelerates the Decline of Filmmaking"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 46458566,
+                "title": "Disney to integrate Hulu and Disney+ in 2026"
+              },
+              {
+                "id": 46596393,
+                "title": "Paramount wants Warner to show its work"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4700010120868683,
+          "rolling_loss": 0.4664173126220703,
+          "delta": -0.0035837015602737665,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 60,
+            "posts": 29,
+            "sites": 22,
+            "weeks": 4,
+            "max_source_share": 0.13793103448275862,
+            "novelty": 0.3961524963378906,
+            "train_cohesion": 0.5515742301940918,
+            "radius": 0.46373507380485535,
+            "future_posts": 5,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 46446359,
+                "title": "Stewart Cheifet, creator of The Computer Chronicles, has died"
+              },
+              {
+                "id": 46324612,
+                "title": "Brown University, MIT shooting suspect found dead"
+              },
+              {
+                "id": 46297698,
+                "title": "MIT nuclear scientist killed at home"
+              },
+              {
+                "id": 46241403,
+                "title": "The Bay Area's longest-running morning news anchor is off the air. Here's why"
+              },
+              {
+                "id": 46347337,
+                "title": "Twice Accused of Murder, This Writer Later Foresaw the Sinking of the Titanic"
+              },
+              {
+                "id": 46205765,
+                "title": "RIP Raul Malo (The Mavericks)"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 46502239,
+                "title": "Sega co-founder David Rosen has died"
+              },
+              {
+                "id": 46572007,
+                "title": "Grateful Dead founding member Bob Weir dies at 78"
+              },
+              {
+                "id": 46572704,
+                "title": "Cecil Kelley Criticality Accident"
+              },
+              {
+                "id": 46598686,
+                "title": "In Memoriam: The Academic Journal"
+              },
+              {
+                "id": 46603487,
+                "title": "Scott Adams, 'Dilbert' creator and conservative commentator, dies at 68"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8094342947006226
+    },
+    {
+      "cutoff": "2026-02-01",
+      "train": {
+        "embedded_live": 28935,
+        "unique": 26355,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 15362,
+        "unique": 13716,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4594457149505615,
+          "rolling_loss": 0.4577583074569702,
+          "delta": -0.0016874027205631137,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 34,
+            "posts": 31,
+            "sites": 22,
+            "weeks": 4,
+            "max_source_share": 0.0967741935483871,
+            "novelty": 0.40950101613998413,
+            "train_cohesion": 0.6615521907806396,
+            "radius": 0.5953452587127686,
+            "future_posts": 2,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 46608680,
+                "title": "2026 Internet Blackout in Iran"
+              },
+              {
+                "id": 46546849,
+                "title": "Trump warns Iran over protest crackdown amid internet blackout"
+              },
+              {
+                "id": 46585341,
+                "title": "Hours in, the Iranian internet blackout continues"
+              },
+              {
+                "id": 46505352,
+                "title": "Keeping Syria connected during war: Surviving ISIS and Intelligence"
+              },
+              {
+                "id": 46765843,
+                "title": "U.S. carrier strike group enters Middle East region"
+              },
+              {
+                "id": 46506195,
+                "title": "Notes on Afghanistan"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 46939282,
+                "title": "Iranians plead with Trump not to negotiate with the Islamic Republic"
+              },
+              {
+                "id": 46980021,
+                "title": "Iran's Digital Surveillance Machine Is Almost Complete"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.45950350165367126,
+          "rolling_loss": 0.45587462186813354,
+          "delta": -0.00362887280061841,
+          "persistent": 8,
+          "top_candidate": {
+            "cell": 55,
+            "posts": 31,
+            "sites": 26,
+            "weeks": 4,
+            "max_source_share": 0.0967741935483871,
+            "novelty": 0.4046737551689148,
+            "train_cohesion": 0.6370017528533936,
+            "radius": 0.5626220107078552,
+            "future_posts": 0,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 46613864,
+                "title": "Trump Is Venezuelifying the United States"
+              },
+              {
+                "id": 46510585,
+                "title": "Keys to Understanding Trump's Retro Coup in Venezuela"
+              },
+              {
+                "id": 46508710,
+                "title": "Thoughts on Venezuelan Regime Change"
+              },
+              {
+                "id": 46537202,
+                "title": "Show HN: MaduroTrials \u2013 Tracking the SDNY indictments and court documents"
+              },
+              {
+                "id": 46760641,
+                "title": "How Revolutions Really Start"
+              },
+              {
+                "id": 46639797,
+                "title": "Mar\u00eda Corina Machado says she presented Trump with her Nobel peace prize medal"
+              }
+            ],
+            "future_examples": []
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8061655759811401
+    },
+    {
+      "cutoff": "2026-03-01",
+      "train": {
+        "embedded_live": 32170,
+        "unique": 29305,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 16212,
+        "unique": 14559,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4560181498527527,
+          "rolling_loss": 0.45127442479133606,
+          "delta": -0.00474372785538435,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 54,
+            "posts": 33,
+            "sites": 25,
+            "weeks": 4,
+            "max_source_share": 0.12121212121212122,
+            "novelty": 0.33055007457733154,
+            "train_cohesion": 0.6554133892059326,
+            "radius": 0.559883177280426,
+            "future_posts": 1,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 46965157,
+                "title": "Jeffrey Epstein's digital cleanup crew"
+              },
+              {
+                "id": 47062498,
+                "title": "Epstein Files Explorer"
+              },
+              {
+                "id": 46916190,
+                "title": "Epstein files reveal deeper ties to scientists than previously known"
+              },
+              {
+                "id": 47000632,
+                "title": "Epstein Files: if you change the extension to .mp4 you can view the videos"
+              },
+              {
+                "id": 46991376,
+                "title": "Norway's former PM charged with gross corruption over Epstein links"
+              },
+              {
+                "id": 47067543,
+                "title": "Oral History of Michael J. Flynn [video]"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47335229,
+                "title": "Foreign hacker reportedly breached FBI servers holding Epstein files in 2023"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.45652884244918823,
+          "rolling_loss": 0.44992977380752563,
+          "delta": -0.006599089130759239,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 75,
+            "posts": 35,
+            "sites": 26,
+            "weeks": 4,
+            "max_source_share": 0.14285714285714285,
+            "novelty": 0.3269304037094116,
+            "train_cohesion": 0.5968217849731445,
+            "radius": 0.43626540899276733,
+            "future_posts": 33,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 47190510,
+                "title": "OpenAI strikes deal with Pentagon hours after Trump admin bans Anthropic"
+              },
+              {
+                "id": 47050822,
+                "title": "Pentagon threatens to cut off Anthropic in AI safeguards dispute, Axios reports"
+              },
+              {
+                "id": 47169366,
+                "title": "Pentagon officials send Anthropic best and final offer for military use of AI"
+              },
+              {
+                "id": 47114845,
+                "title": "Who Benefits from War?"
+              },
+              {
+                "id": 46860024,
+                "title": "First Contact with America"
+              },
+              {
+                "id": 46897507,
+                "title": "President Xi Jinping Speaks with U.S. President Donald J. Trump on the Phone"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47203794,
+                "title": "Anthropic and Palantir Bring Claude to U.S. Intelligence and Defense (2024)"
+              },
+              {
+                "id": 47208195,
+                "title": "Anthropic's Killer-Robot Dispute with The Pentagon"
+              },
+              {
+                "id": 47208761,
+                "title": "Israeli Air Force sets take-out guidelines, fearing Pentagon pizza index"
+              },
+              {
+                "id": 47212035,
+                "title": "Ask HN: How will most Anthropic customers respond to the threats by the govt?"
+              },
+              {
+                "id": 47217798,
+                "title": "Pentagon head to military officers: You cannot study in these 22 universities"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8090348243713379
+    },
+    {
+      "cutoff": "2026-04-01",
+      "train": {
+        "embedded_live": 30772,
+        "unique": 28160,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13737,
+        "unique": 12319,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4630473554134369,
+          "rolling_loss": 0.45857182145118713,
+          "delta": -0.00447558518499136,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 71,
+            "posts": 30,
+            "sites": 27,
+            "weeks": 4,
+            "max_source_share": 0.1,
+            "novelty": 0.338040828704834,
+            "train_cohesion": 0.49659183621406555,
+            "radius": 0.4066214859485626,
+            "future_posts": 10,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 47575696,
+                "title": "MiniQuest \u2013 LangGraph pipeline that generates live-researched city itineraries"
+              },
+              {
+                "id": 47326837,
+                "title": "Planning a multi-city trip without the spreadsheet nightmare"
+              },
+              {
+                "id": 47495046,
+                "title": "Show HN: WhyThere.life \u2013 Compare cities side-by-side to decide where to move"
+              },
+              {
+                "id": 47562234,
+                "title": "Cloud-free Sentinel-2 Images of German administrative districts"
+              },
+              {
+                "id": 47592489,
+                "title": "What it's like to live in Portland, Oregon"
+              },
+              {
+                "id": 47556927,
+                "title": "Columbus-style pizza gains national recognition as a favorite food destination"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47621245,
+                "title": "A map that glows with the vocabulary of water"
+              },
+              {
+                "id": 47626330,
+                "title": "ATGeo: Places for AT Protocol"
+              },
+              {
+                "id": 47630049,
+                "title": "Longitude Rewards"
+              },
+              {
+                "id": 47703550,
+                "title": "Y'all, You'uns, Yinz, Youse: How Regional Dialects Are Fixing Standard English"
+              },
+              {
+                "id": 47708710,
+                "title": "Metro stop is Ancient Rome's new attraction"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4637943506240845,
+          "rolling_loss": 0.45977190136909485,
+          "delta": -0.004022455774247646,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 17,
+            "posts": 34,
+            "sites": 30,
+            "weeks": 4,
+            "max_source_share": 0.08823529411764706,
+            "novelty": 0.37832534313201904,
+            "train_cohesion": 0.6294371485710144,
+            "radius": 0.47878721356391907,
+            "future_posts": 14,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 47558590,
+                "title": "Solving the Strait of Hormuz Blockage"
+              },
+              {
+                "id": 47358624,
+                "title": "What it will mean for the economy if the Strait of Hormuz stays closed"
+              },
+              {
+                "id": 47253816,
+                "title": "US escort offer met with skepticism as traffic trickle through Strait of Hormuz"
+              },
+              {
+                "id": 47357267,
+                "title": "Tanker Sea Owl I Boarded in the Baltic Sea"
+              },
+              {
+                "id": 47529758,
+                "title": "The Fate of a Soviet Nuclear Sub Decades After It Sank"
+              },
+              {
+                "id": 47405341,
+                "title": "The day Point Loma launched a ship made of concrete"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47596631,
+                "title": "China and Pakistan present new Iran deal: Ceasefire for opening Hormuz"
+              },
+              {
+                "id": 47599716,
+                "title": "Missile from Iran' hits oil tanker off Qatar's coast"
+              },
+              {
+                "id": 47606914,
+                "title": "Secret Codes and Yuan Fees Get Ships Through Iran's Hormuz Tollbooth"
+              },
+              {
+                "id": 47613219,
+                "title": "The Islands That Give Iran a Stranglehold on the Strait of Hormuz"
+              },
+              {
+                "id": 47638847,
+                "title": "A visual guide to Iran's coastline and strategic islands"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8113080263137817
+    },
+    {
+      "cutoff": "2026-05-01",
+      "train": {
+        "embedded_live": 27299,
+        "unique": 24982,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13289,
+        "unique": 11829,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.46584782004356384,
+          "rolling_loss": 0.46384644508361816,
+          "delta": -0.0020013803150504827,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 68,
+            "posts": 48,
+            "sites": 33,
+            "weeks": 4,
+            "max_source_share": 0.10416666666666667,
+            "novelty": 0.3877246379852295,
+            "train_cohesion": 0.6184007525444031,
+            "radius": 0.48875847458839417,
+            "future_posts": 14,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 47695389,
+                "title": "Iran Tightens Its Grip on Hormuz Despite Cease-Fire"
+              },
+              {
+                "id": 47682795,
+                "title": "Trump suspends Iran attack for two weeks, subject to Hormuz Strait opening"
+              },
+              {
+                "id": 47730261,
+                "title": "Polymarket's $269M Question: Did U.S. Forces 'Enter' Iran?"
+              },
+              {
+                "id": 47804413,
+                "title": "Interviewing Japanese about Trump's Pearl Harbor Response [video]"
+              },
+              {
+                "id": 47839835,
+                "title": "F-35 is built for the wrong war"
+              },
+              {
+                "id": 47632551,
+                "title": "Hegseth says U.S. troops are fighting for Jesus. The Pope disagrees"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47975729,
+                "title": "Pro-Iran crew turns DDoS into shakedown as Ubuntu.com stays down"
+              },
+              {
+                "id": 47979763,
+                "title": "Is the U.S. Military Draft Being Reinstated Because of the Iran War?"
+              },
+              {
+                "id": 47987109,
+                "title": "US blockade costs Iran $4.8B, US Navy acting 'sort of like pirates,' Trump says"
+              },
+              {
+                "id": 48026312,
+                "title": "U.S. and Iran Both Claim Control over Strait of Hormuz"
+              },
+              {
+                "id": 48046596,
+                "title": "Unpacking Russian-Iranian Private-Sector Cyber Connections"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.46573808789253235,
+          "rolling_loss": 0.4634241461753845,
+          "delta": -0.002313972217962146,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 27,
+            "posts": 45,
+            "sites": 28,
+            "weeks": 4,
+            "max_source_share": 0.1111111111111111,
+            "novelty": 0.38239872455596924,
+            "train_cohesion": 0.628619909286499,
+            "radius": 0.542914867401123,
+            "future_posts": 14,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 47695389,
+                "title": "Iran Tightens Its Grip on Hormuz Despite Cease-Fire"
+              },
+              {
+                "id": 47736117,
+                "title": "Iran and US fail to reach a deal (conomictimes.indiatimes.com)"
+              },
+              {
+                "id": 47682795,
+                "title": "Trump suspends Iran attack for two weeks, subject to Hormuz Strait opening"
+              },
+              {
+                "id": 47933983,
+                "title": "UAE to leave OPEC"
+              },
+              {
+                "id": 47746782,
+                "title": "Ukraine renews attacks on Russian energy sites \u2013 what has been hit?"
+              },
+              {
+                "id": 47804413,
+                "title": "Interviewing Japanese about Trump's Pearl Harbor Response [video]"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 47975729,
+                "title": "Pro-Iran crew turns DDoS into shakedown as Ubuntu.com stays down"
+              },
+              {
+                "id": 47987109,
+                "title": "US blockade costs Iran $4.8B, US Navy acting 'sort of like pirates,' Trump says"
+              },
+              {
+                "id": 48026312,
+                "title": "U.S. and Iran Both Claim Control over Strait of Hormuz"
+              },
+              {
+                "id": 48052324,
+                "title": "Wind and solar have saved UK from gas imports worth \u00a31.7B since Iran war began"
+              },
+              {
+                "id": 48070291,
+                "title": "Iran war's global energy crisis sharpens China's advantage in clean tech"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8136019706726074
+    },
+    {
+      "cutoff": "2026-06-01",
+      "train": {
+        "embedded_live": 26430,
+        "unique": 24041,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13808,
+        "unique": 12366,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.46442359685897827,
+          "rolling_loss": 0.4636365473270416,
+          "delta": -0.0007870309636928141,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 31,
+            "posts": 79,
+            "sites": 64,
+            "weeks": 4,
+            "max_source_share": 0.05063291139240506,
+            "novelty": 0.2856706976890564,
+            "train_cohesion": 0.5590271353721619,
+            "radius": 0.4478851556777954,
+            "future_posts": 36,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 48313707,
+                "title": "Europe told to cool its datacenter boom before water and power run short"
+              },
+              {
+                "id": 48289203,
+                "title": "Power bills more than 250 per cent higher near data centres"
+              },
+              {
+                "id": 48251436,
+                "title": "The Coming 'Power Wars' Between Humans and Datacenters"
+              },
+              {
+                "id": 48266225,
+                "title": "UK records its highest ever May temperature"
+              },
+              {
+                "id": 48235224,
+                "title": "Quadball Europe Announces European Quadball Cup 2026"
+              },
+              {
+                "id": 48054351,
+                "title": "What's the best heat pump brand?"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 48352110,
+                "title": "How flat is replacing fat in AWS data center networks"
+              },
+              {
+                "id": 48356312,
+                "title": "Launch HN: Expanse (YC P26) \u2013 Unlock Wasted GPU Capacity"
+              },
+              {
+                "id": 48361555,
+                "title": "Ohio hits pause on datacenter tax breaks draining its coffers"
+              },
+              {
+                "id": 48365168,
+                "title": "Texas adds another solar farm as ERCOT grid demand soars"
+              },
+              {
+                "id": 48366144,
+                "title": "US now spending more on data center than on public transportation"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4640352427959442,
+          "rolling_loss": 0.4613890051841736,
+          "delta": -0.00264628860168159,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 14,
+            "posts": 54,
+            "sites": 42,
+            "weeks": 4,
+            "max_source_share": 0.07407407407407407,
+            "novelty": 0.3362275958061218,
+            "train_cohesion": 0.5344687104225159,
+            "radius": 0.425894170999527,
+            "future_posts": 13,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 48170824,
+                "title": "What AI Did to My College Class"
+              },
+              {
+                "id": 48319405,
+                "title": "Funny but serious, Chieng issues an AI warning to grads"
+              },
+              {
+                "id": 48121542,
+                "title": "Princeton Changes Its 133-Year-Old Honor Code over AI Cheating Fears"
+              },
+              {
+                "id": 48161505,
+                "title": "Eric Church knocks it out of the park with his UNC Commencement Speech"
+              },
+              {
+                "id": 48090159,
+                "title": "Fulfilling a life-long dream; 72-year old will graduate from medical school"
+              },
+              {
+                "id": 48169120,
+                "title": "Brown vs. Board of Education (May 17th, 1954)"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 48352124,
+                "title": "A CS student's job hunt in 2026: an honest playbook"
+              },
+              {
+                "id": 48355441,
+                "title": "What It's Like to Be a Student at the First A.I.-Powered University"
+              },
+              {
+                "id": 48368665,
+                "title": "Poor supervision is pushing young researchers out of academia"
+              },
+              {
+                "id": 48375252,
+                "title": "Do you want that computer-science degree?"
+              },
+              {
+                "id": 48391780,
+                "title": "Good Teachers Don't Cheat"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8016185760498047
+    },
+    {
+      "cutoff": "2026-07-01",
+      "train": {
+        "embedded_live": 27666,
+        "unique": 25325,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13712,
+        "unique": 12254,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.4631721079349518,
+          "rolling_loss": 0.4604296088218689,
+          "delta": -0.002742497017607093,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 27,
+            "posts": 46,
+            "sites": 44,
+            "weeks": 4,
+            "max_source_share": 0.043478260869565216,
+            "novelty": 0.43167567253112793,
+            "train_cohesion": 0.60249924659729,
+            "radius": 0.466705322265625,
+            "future_posts": 10,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 48600289,
+                "title": "World Cup Tracker"
+              },
+              {
+                "id": 48447234,
+                "title": "Show HN: I Built a Dashboard for Every 2026 World Cup Squad"
+              },
+              {
+                "id": 48435818,
+                "title": "I Built a Dashboard for Every 2026 World Cup Squad"
+              },
+              {
+                "id": 48647652,
+                "title": "Does This Radio Host Know Everyone in Wales?"
+              },
+              {
+                "id": 48441504,
+                "title": "Denmark midfielder Eriksen collapses on pitch during international friendly"
+              },
+              {
+                "id": 48437293,
+                "title": "Where Do F1 Drivers Live? The Monaco Effect"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 48749245,
+                "title": "How the World Cup Builds Nations"
+              },
+              {
+                "id": 48751734,
+                "title": "FIFA Splits Hairs"
+              },
+              {
+                "id": 48761256,
+                "title": "World Cup dreams shattered as StubHub tickets cancelled at last minute"
+              },
+              {
+                "id": 48769513,
+                "title": "Is tech ruining the World Cup?"
+              },
+              {
+                "id": 48773549,
+                "title": "Bending Spoons just went public: Italy won the World Cup"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.4647212326526642,
+          "rolling_loss": 0.46086785197257996,
+          "delta": -0.0038533643819391727,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 33,
+            "posts": 46,
+            "sites": 39,
+            "weeks": 4,
+            "max_source_share": 0.06521739130434782,
+            "novelty": 0.45691269636154175,
+            "train_cohesion": 0.608420193195343,
+            "radius": 0.45816558599472046,
+            "future_posts": 12,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 48600289,
+                "title": "World Cup Tracker"
+              },
+              {
+                "id": 48447234,
+                "title": "Show HN: I Built a Dashboard for Every 2026 World Cup Squad"
+              },
+              {
+                "id": 48435818,
+                "title": "I Built a Dashboard for Every 2026 World Cup Squad"
+              },
+              {
+                "id": 48438103,
+                "title": "1982 World Championship Double Decker Bus Racing (1982) [video]"
+              },
+              {
+                "id": 48441504,
+                "title": "Denmark midfielder Eriksen collapses on pitch during international friendly"
+              },
+              {
+                "id": 48647652,
+                "title": "Does This Radio Host Know Everyone in Wales?"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 48749245,
+                "title": "How the World Cup Builds Nations"
+              },
+              {
+                "id": 48751734,
+                "title": "FIFA Splits Hairs"
+              },
+              {
+                "id": 48761256,
+                "title": "World Cup dreams shattered as StubHub tickets cancelled at last minute"
+              },
+              {
+                "id": 48769513,
+                "title": "Is tech ruining the World Cup?"
+              },
+              {
+                "id": 48773549,
+                "title": "Bending Spoons just went public: Italy won the World Cup"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.800849437713623
+    },
+    {
+      "cutoff": "2026-08-01",
+      "train": {
+        "embedded_live": 28165,
+        "unique": 25806,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 13972,
+        "unique": 12439,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.46625837683677673,
+          "rolling_loss": 0.46581199765205383,
+          "delta": -0.0004463356744963676,
+          "persistent": 8,
+          "top_candidate": {
+            "cell": 55,
+            "posts": 21,
+            "sites": 17,
+            "weeks": 4,
+            "max_source_share": 0.19047619047619047,
+            "novelty": 0.405483603477478,
+            "train_cohesion": 0.5205410718917847,
+            "radius": 0.37020665407180786,
+            "future_posts": 1,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 48893765,
+                "title": "From Eurovision to NATO, Canada Edges Closer to Europe"
+              },
+              {
+                "id": 49125622,
+                "title": "UEFA vows World Cup boycott as Concacaf, AFC reject FIFA private equity plan"
+              },
+              {
+                "id": 48806173,
+                "title": "Trump intervention causes World Cup storm as FIFA clears US striker Balogun"
+              },
+              {
+                "id": 49121311,
+                "title": "Ecowas"
+              },
+              {
+                "id": 48957399,
+                "title": "Why is tiny Norway so good at sports? It's more than Erling Haaland"
+              },
+              {
+                "id": 49050628,
+                "title": "Dutch\u2013American Friendship Treaty"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 49283439,
+                "title": "IOI 2026 Final Ranking"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.46650269627571106,
+          "rolling_loss": 0.4623548984527588,
+          "delta": -0.00414783600717783,
+          "persistent": 10,
+          "top_candidate": {
+            "cell": 3,
+            "posts": 30,
+            "sites": 23,
+            "weeks": 4,
+            "max_source_share": 0.13333333333333333,
+            "novelty": 0.37127774953842163,
+            "train_cohesion": 0.5148589015007019,
+            "radius": 0.4021512269973755,
+            "future_posts": 14,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 49124858,
+                "title": "Big Food vs. the People"
+              },
+              {
+                "id": 49023931,
+                "title": "The Avocados That May Save Us from a Guacamole Apocalypse"
+              },
+              {
+                "id": 48852084,
+                "title": "The Pursuit of Hungriness: 250 Years of American Food Innovation"
+              },
+              {
+                "id": 48924914,
+                "title": "Sorel Caribou Boots: Great Product, Disappointing Online Shop"
+              },
+              {
+                "id": 48970844,
+                "title": "How to Sell a Kettle"
+              },
+              {
+                "id": 48847633,
+                "title": "What Does \"Processed Meat\" Mean?"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 49157128,
+                "title": "Taylor Farms has rewritten its cyclospora statement four times in sixteen days"
+              },
+              {
+                "id": 49178172,
+                "title": "America's obsession with whey protein has a delicious consequence: More cheese"
+              },
+              {
+                "id": 49183393,
+                "title": "Alberta food banks adopt grocery-style model to give families more choice"
+              },
+              {
+                "id": 49194602,
+                "title": "Products make going back unimaginable"
+              },
+              {
+                "id": 49203407,
+                "title": "Rise of the $100 Hot Dog"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8040844798088074
+    },
+    {
+      "cutoff": "2026-09-01",
+      "train": {
+        "embedded_live": 28219,
+        "unique": 25649,
+        "sampled": 6000
+      },
+      "test": {
+        "embedded_live": 14252,
+        "unique": 12751,
+        "sampled": 3000
+      },
+      "queued_in_train_sample": 0,
+      "seeds": [
+        {
+          "seed": 42,
+          "static_loss": 0.46654781699180603,
+          "rolling_loss": 0.4637317359447479,
+          "delta": -0.0028160763904452324,
+          "persistent": 7,
+          "top_candidate": {
+            "cell": 14,
+            "posts": 43,
+            "sites": 42,
+            "weeks": 4,
+            "max_source_share": 0.023255813953488372,
+            "novelty": 0.3536721467971802,
+            "train_cohesion": 0.4760883152484894,
+            "radius": 0.398001492023468,
+            "future_posts": 10,
+            "persistent": true,
+            "examples": [
+              {
+                "id": 49448381,
+                "title": "Oxymel, a Culinary Oxymoron"
+              },
+              {
+                "id": 49199346,
+                "title": "Taste Is All That's Left"
+              },
+              {
+                "id": 49263518,
+                "title": "My Answers to \"Prove You Are Worthy to Post About Diets\""
+              },
+              {
+                "id": 49414887,
+                "title": "You Cannot Grow a Pumpkin"
+              },
+              {
+                "id": 49327996,
+                "title": "How to develop your own taste in clothing"
+              },
+              {
+                "id": 49379091,
+                "title": "A cotton T-shirt takes roughly 2,700 litres of water to produce"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 49517957,
+                "title": "Don't be the Vitamin B guy"
+              },
+              {
+                "id": 49523313,
+                "title": "Human Taste Became Invisible"
+              },
+              {
+                "id": 49525185,
+                "title": "New Zero-Cal Sugar Is 3,500 Times Sweeter Than Sucrose,but Doesn't Spike Insulin"
+              },
+              {
+                "id": 49531948,
+                "title": "A Little Over, a Little Under"
+              },
+              {
+                "id": 49536574,
+                "title": "Content Credentials: a nutrition label for digital content"
+              }
+            ]
+          }
+        },
+        {
+          "seed": 43,
+          "static_loss": 0.46617862582206726,
+          "rolling_loss": 0.4634450674057007,
+          "delta": -0.0027334820479154587,
+          "persistent": 9,
+          "top_candidate": {
+            "cell": 59,
+            "posts": 23,
+            "sites": 21,
+            "weeks": 4,
+            "max_source_share": 0.13043478260869565,
+            "novelty": 0.42267948389053345,
+            "train_cohesion": 0.7641891241073608,
+            "radius": 0.6818408370018005,
+            "future_posts": 1,
+            "persistent": false,
+            "examples": [
+              {
+                "id": 49328684,
+                "title": "How Text Watermarking Works"
+              },
+              {
+                "id": 49479809,
+                "title": "Text Watermarking"
+              },
+              {
+                "id": 49341389,
+                "title": "Text Watermarking: How It Works"
+              },
+              {
+                "id": 49411015,
+                "title": "Developer's Open Source Tool Strips Anthropic's New Claude Watermark"
+              },
+              {
+                "id": 49392916,
+                "title": "Waiter, there's a watermark in my slop"
+              },
+              {
+                "id": 49187583,
+                "title": "Show HN: My receipt printer prints an original artwork every morning"
+              }
+            ],
+            "future_examples": [
+              {
+                "id": 49536092,
+                "title": "Let's Build Intuition for Watermarking"
+              }
+            ]
+          }
+        }
+      ],
+      "seed_matched_center_similarity": 0.8039098978042603
+    }
+  ],
+  "baseline": {
+    "start": "2025-08-04",
+    "end": "2025-09-01",
+    "counts": {
+      "embedded_live": 23366,
+      "unique": 21242,
+      "sampled": 6000
+    }
+  },
+  "seconds": 77.06185158499989,
+  "current_health": {
+    "embedded": 357489,
+    "queued": 0,
+    "assigned": 357489,
+    "eligible_training": 0
+  },
+  "input_sha256": "e105b22c9527d937fda96a3636caed8d35a045bf158256765c599e75a9127136",
+  "api_calls": 0,
+  "summary": {
+    "mean_static_cosine_loss": 0.4659230497976144,
+    "mean_rolling_cosine_loss": 0.46339443946878117,
+    "relative_loss_reduction": 0.005427098594782104,
+    "seed_fold_wins": 23,
+    "seed_fold_comparisons": 24,
+    "persistent_candidates": 215,
+    "candidate_evaluations": 240,
+    "test_stories": 36000
+  }
+}

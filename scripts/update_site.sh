@@ -25,6 +25,12 @@ build=$(mktemp -d "$PWD/.wrangler/daily-build.XXXXXX")
 trap 'rm -rf "$build"' EXIT
 .venv/bin/python -u refresh.py --skip-discovery --publish "$build/dist"
 bash scripts/deploy_site.sh "$build/dist"
-# Written only after the corpus update and public deployment both succeed.
+# Retain the exact deployed export locally. Copy assets first, then atomically
+# switch the index; keep older releases for tabs that still reference them.
+mv "$build/dist/index.html" "$build/index.html"
+mkdir -p dist
+cp -a "$build/dist/." dist/
+mv "$build/index.html" dist/index.html
+# Written only after the update, deployment, and local synchronization succeed.
 TZ=Europe/Stockholm date +%F > data/update-site-success.tmp
 mv data/update-site-success.tmp data/update-site-success.date

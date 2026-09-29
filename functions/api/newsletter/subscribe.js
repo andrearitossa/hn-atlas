@@ -2,7 +2,7 @@ const reply = (status, body) => Response.json(body, {
   status, headers: {'Cache-Control': 'no-store'},
 });
 
-export async function onRequest({request, env}) {
+export async function onRequest({request, env, waitUntil}) {
   if (request.method !== 'POST') {
     return new Response(null, {status: 405, headers: {Allow: 'POST'}});
   }
@@ -50,10 +50,16 @@ export async function onRequest({request, env}) {
     if (!response.ok) throw new Error('Topic catalog unavailable');
     const topics = await response.json();
     if (typeof topics[String(data.topic)] !== 'string') return reply(400, {detail: 'This topic is no longer available.'});
-    await env.NEWSLETTER_DB.prepare(
+    const saved = await env.NEWSLETTER_DB.prepare(
       'INSERT INTO newsletter_subscriptions (id, email, topic, created_at) VALUES (?, ?, ?, ?) '
       + 'ON CONFLICT(email, topic) DO NOTHING'
     ).bind(crypto.randomUUID(), email, data.topic, Math.floor(Date.now() / 1000)).run();
+    if (saved.meta.changes === 1) {
+      const notification = Promise.resolve().then(() => env.NOTIFICATIONS.notify({type: 'signup', email, topic: topics[String(data.topic)]}))
+        .catch(() => console.error('Admin notification failed: signup'));
+      if (waitUntil) waitUntil(notification);
+      else await notification;
+    }
     return reply(200, {ok: true});
   } catch {
     // Do not log request bodies or email addresses.

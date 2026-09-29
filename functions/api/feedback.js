@@ -2,7 +2,7 @@ const reply = (status, body) => Response.json(body, {
   status, headers: {'Cache-Control': 'no-store'},
 });
 
-export async function onRequest({request, env}) {
+export async function onRequest({request, env, waitUntil}) {
   if (request.method !== 'POST') {
     return new Response(null, {status: 405, headers: {Allow: 'POST'}});
   }
@@ -49,9 +49,15 @@ export async function onRequest({request, env}) {
   }
   const page = typeof data.page === 'string' && /^(?:#\/(?:connections|topics|topic\/\d+)?|\/(?:#\/(?:topics)?|topic\/[a-z0-9-]+\/)?)$/.test(data.page) ? data.page : '#/';
   try {
-    await env.NEWSLETTER_DB.prepare(
+    const saved = await env.NEWSLETTER_DB.prepare(
       'INSERT INTO feedback (id, message, email, page) VALUES (?, ?, ?, ?) ON CONFLICT(id) DO NOTHING'
     ).bind(data.id, message, email || null, page).run();
+    if (saved.meta.changes === 1) {
+      const notification = Promise.resolve().then(() => env.NOTIFICATIONS.notify({type: 'feedback', message, email, page}))
+        .catch(() => console.error('Admin notification failed: feedback'));
+      if (waitUntil) waitUntil(notification);
+      else await notification;
+    }
     return reply(200, {ok: true});
   } catch {
     return reply(503, {detail: 'Could not save your feedback. Please try again.'});
