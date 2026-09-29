@@ -35,8 +35,9 @@ class NewsletterTests(unittest.TestCase):
     def test_selection_uses_overview_and_respects_llm_order(self):
         with patch.object(newsletter,'overview',side_effect=lambda p:dict(p,summary='Overview',text='Body')), \
              patch.object(newsletter.llm,'ask_json',return_value={'ids':[1,3]}) as ask:
-            result=newsletter.select([post(i) for i in range(20)],'Robotics')
             # 1 and 3 are outside this tied-score shortlist, so invalid output falls back.
+            with self.assertLogs('newsletter',level='ERROR'):
+                result=newsletter.select([post(i) for i in range(20)],'Robotics')
             self.assertEqual(len(result),5)
             ask.return_value={'ids':list(range(19,4,-1))}
             result=newsletter.select([post(i) for i in range(20)],'Robotics')

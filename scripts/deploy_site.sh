@@ -13,7 +13,7 @@ npm test
 SITE_BUNDLE="$deployment/site" npm run test:usability
 ./node_modules/.bin/wrangler pages deploy "$deployment/site" --project-name hackeratlas --branch main --commit-dirty=true 2>&1 | tee "$deployment/deploy.log"
 # Wrangler can return zero after an upload error (observed with ENOENT).
-if ! rg -q 'Deployment complete!' "$deployment/deploy.log"; then
+if ! grep -Fq 'Deployment complete!' "$deployment/deploy.log"; then
   echo 'Pages did not confirm a completed deployment; publication failed.' >&2
   exit 1
 fi

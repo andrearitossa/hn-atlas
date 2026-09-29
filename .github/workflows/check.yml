@@ -4,14 +4,14 @@ on:
   pull_request:
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
       - run: python -m pip install -r requirements.txt
@@ -26,8 +26,8 @@ jobs:
       - run: npm run test:usability
         env:
           SITE_BUNDLE: .wrangler/browser-fixture
-      - uses: actions/upload-artifact@v4
-        if: failure()
+      - uses: actions/upload-artifact@v6
+        if: failure() && hashFiles('test-results/**') != ''
         with:
           name: browser-failures
           path: test-results/
