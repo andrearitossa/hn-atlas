@@ -16,7 +16,7 @@ class CuratedRoutingTests(unittest.TestCase):
         labels,_,_=curation.classify(np.array([[1.,0.],[0.,1.]]),model)
         self.assertEqual(labels.tolist(),[1004,1700])
 
-    def test_retired_source_can_alias_without_retaining_its_bad_center(self):
+    def test_source_group_requires_complete_nonoverlapping_coverage(self):
         plan=dict(groups=[dict(id=1000,source_ids=[0,1],prototype_ids=[0],name='A',description='A'),dict(id=1002,source_ids=[2],prototype_ids=[2],name='B',description='B')])
         curation.validate_plan(plan,3)
         plan['groups'][1]['source_ids'].append(1)

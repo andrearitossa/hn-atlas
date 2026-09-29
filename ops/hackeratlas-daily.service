@@ -1,0 +1,15 @@
+[Unit]
+Description=Update Hacker Atlas and deploy the site
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=2h
+StartLimitBurst=3
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/technews
+Environment=TZ=Europe/Stockholm
+ExecStart=/bin/bash %h/technews/scripts/update_site.sh
+TimeoutStartSec=12h
+Restart=on-failure
+RestartSec=15min

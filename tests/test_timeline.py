@@ -11,8 +11,8 @@ import test_browsing
 class TimelineTests(unittest.TestCase):
     setUp = test_browsing.BrowsingTests.setUp
 
-    def test_aliases_bounds_and_empty_period(self):
-        result = server.topic_timeline(1, 30)
+    def test_bounds_and_empty_period(self):
+        result = server.topic_timeline(3, 30)
         self.assertEqual(result['id'], 3)
         self.assertEqual(sum(c['count'] for c in result['chapters']), 2)
         self.assertEqual(server.timeline_overview(90)['chapters'], server.topic_timeline(3, 90)['chapters'])
@@ -70,7 +70,7 @@ class TimelineTests(unittest.TestCase):
             end = int(datetime(2026,1,1,tzinfo=timezone.utc).timestamp())
             result = timeline.history(c,3,end)
             self.assertEqual([ch['period'] for ch in result['chapters']], ['2015','2016','2025'])
-            self.assertEqual([[p['id'] for p in ch['posts']] for ch in result['chapters']], [[1,2],[],[4,5,6]])
+            self.assertEqual([[p['id'] for p in ch['posts']] for ch in result['chapters']], [[1,2],[9],[4,5,6]])
             self.assertEqual(result['chapters'][-1]['count'],5)
             c.execute('UPDATE stories SET deleted=1')
             self.assertEqual(timeline.history(c,3,end)['chapters'], [])
@@ -105,7 +105,8 @@ class TimelineTests(unittest.TestCase):
             months=result['levels']['month']
             self.assertEqual([p['count'] for p in months],[1,7,0,1])
             self.assertEqual(months[2]['posts'],[])
-            self.assertEqual(months[3]['posts'],[])
+            self.assertEqual([p['id'] for p in months[3]['posts']],[9])
+            self.assertEqual([p['id'] for p in result['levels']['week'][-1]['posts']],[9])
             weeks=result['levels']['week']
             self.assertEqual(datetime.fromtimestamp(weeks[0]['start'],timezone.utc).strftime('%Y-%m-%d'),'2024-12-30')
             self.assertEqual([p['id'] for p in weeks[0]['posts']],[1,2,3])
@@ -133,7 +134,7 @@ class TimelineTests(unittest.TestCase):
             wake = asyncio.create_task(heartbeat())
             self.addCleanup(wake.cancel)
             await server.app({'type':'http','asgi':{'version':'3.0','spec_version':'2.4'},'http_version':'1.1',
-                              'method':'GET','scheme':'http','path':'/api/topics/1/timeline',
+                              'method':'GET','scheme':'http','path':'/api/topics/3/timeline',
                               'query_string':query.encode(),'root_path':'','headers':[],
                               'server':('test',80),'client':('test',1234)}, receive, send)
             return messages[0]['status']

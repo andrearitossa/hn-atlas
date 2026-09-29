@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly Hacker Atlas newsletters on Sunday at 18:00 Stockholm time
+
+[Timer]
+OnCalendar=Sun *-*-* 18:00:00 Europe/Stockholm
+Persistent=true
+Unit=hackeratlas-weekly.service
+
+[Install]
+WantedBy=timers.target

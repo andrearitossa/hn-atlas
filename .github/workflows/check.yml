@@ -16,6 +16,18 @@ jobs:
           node-version: '22'
       - run: python -m pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
-      - run: python -m py_compile catalog.py core.py daily.py embed.py hn_import_dump.py hn_sync.py jobs.py llm.py pages.py production.py publish.py quality.py server.py topics.py scripts/*.py
+      - run: python -m compileall -q . -x "data|dist|.venv|.git"
       - run: node --check data.js
-      - run: node --test tests/newsletter.test.mjs tests/feedback.test.mjs
+      - run: node --check topic.js
+      - run: npm ci
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: python tests/build_browser_fixture.py .wrangler/browser-fixture
+      - run: npm run test:usability
+        env:
+          SITE_BUNDLE: .wrangler/browser-fixture
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failures
+          path: test-results/

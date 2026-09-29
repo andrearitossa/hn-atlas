@@ -1,0 +1,33 @@
+{
+  "name": "hackeratlas-newsletter-test",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-26",
+  "account_id": "c2e5e5e106e0b8c69e797dd75d0d229d",
+  "workers_dev": true,
+  "triggers": {
+    "crons": []
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hackeratlas-newsletter",
+      "database_id": "b25ea9c4-25e9-4547-b753-292c752e0eef"
+    }
+  ],
+  "vars": {
+    "FROM_EMAIL": "news@hackeratlas.com",
+    "PUBLIC_URL": "https://hackeratlas-newsletter-test.andre-ritossa.workers.dev",
+    "DELIVERY_DISABLED": "false"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": [
+        "news@hackeratlas.com"
+      ]
+    }
+  ]
+}

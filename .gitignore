@@ -19,3 +19,8 @@ report/
 dist/
 pages-dist/
 .wrangler/
+
+*.lock
+node_modules/
+test-results/
+playwright-report/

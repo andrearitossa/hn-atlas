@@ -12,8 +12,6 @@ def validate_plan(plan, count):
         raise ValueError('Each source topic must have exactly one curated destination')
     if len(prototypes)!=len(set(prototypes)) or any(not 0<=i<count for i in prototypes):
         raise ValueError('Invalid or duplicate prototype')
-    if any(target not in ids for target in plan.get('legacy_aliases',{}).values()):
-        raise ValueError('Legacy alias target must be active')
     decisions=plan.get('story_overrides',[])
     if len({d['id'] for d in decisions})!=len(decisions) or any(d['topic'] not in ids for d in decisions):
         raise ValueError('Invalid editorial decisions')

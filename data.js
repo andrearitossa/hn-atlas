@@ -1,7 +1,11 @@
 /* One interface for the live API and exported snapshots. No build tools required. */
 const data = (() => {
-  const root = document.querySelector('meta[name="hn-data"]').content;
-  const cache = new Map();
+  const configuredRoot = document.querySelector('meta[name="hn-data"]').content;
+  // Resolve once: pushState changes the page URL while this snapshot stays loaded.
+  const root = configuredRoot ? new URL(configuredRoot, document.baseURI).href : '';
+  const initial = document.querySelector('#hn-initial');
+  const cache = new Map(Object.entries(initial?.textContent ? JSON.parse(initial.textContent) : {})
+    .map(([path, value]) => [path, Promise.resolve(value)]));
   const json = async url => {
     const response = await fetch(url);
     if (!response.ok) throw Error(`Request failed (${response.status})`);
@@ -15,21 +19,16 @@ const data = (() => {
     return cache.get(path);
   };
   const topics = () => root ? file('topics.json') : json('/api/topics');
-  const resolve = async id => {
-    const map = await topics();
-    return map.aliases?.[id] ?? Number(id);
-  };
   const topic = async id => root
-    ? file(`topics/${await resolve(id)}.json`) : json(`/api/topics/${id}`);
+    ? file(`topics/${id}.json`) : json(`/api/topics/${id}`);
   // SQLite LIKE folds ASCII case; %, _ and backslashes are literal search text.
   const fold = value => (value || '').replace(/[A-Z]/g, c => c.toLowerCase());
   const stories = async (id, params) => {
     if (!root) return json(`/api/topics/${id}/stories?${params}`);
-    id = await resolve(id);
     const {as_of} = await topics();
-    const posts = await file(`stories/${id}.json`);
-    const q = fold((params.get('q') || '').trim());
     const days = Number(params.get('days') || 0);
+    const posts = await file(`${days > 0 && days <= 30 ? 'recent' : 'stories'}/${id}.json`);
+    const q = fold((params.get('q') || '').trim());
     const year = Number(params.get('year') || 0);
     const offset = Number(params.get('offset') || 0);
     const limit = Number(params.get('limit') || 20);
@@ -40,13 +39,11 @@ const data = (() => {
     return {id, as_of, posts:matches.slice(offset, offset + limit),
       next_offset:offset + limit < matches.length ? offset + limit : null};
   };
-  const digest = async (id, cadence) => root
-    ? (await topic(id)).digests[cadence] : json(`/api/topics/${id}/digest?cadence=${cadence}`);
   const timeline = async (id, days = 0) => root
-    ? (await file(`timelines/${id == null ? 'all' : await resolve(id)}.json`))[days]
+    ? (await file(`timelines/${id == null ? 'all' : id}.json`))[days]
     : json(`${id == null ? '/api/timeline' : `/api/topics/${id}/timeline`}?days=${days}`);
   const timelineZoom = async id => root
-    ? (await file(`timelines/${await resolve(id)}.json`)).zoom
+    ? (await file(`timelines/${id}.json`)).zoom
     : json(`/api/topics/${id}/timeline?view=zoom`);
-  return {topics, topic, stories, digest, timeline, timelineZoom};
+  return {topics, topic, stories, timeline, timelineZoom};
 })();

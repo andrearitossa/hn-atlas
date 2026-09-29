@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topic trends · HN Atlas</title>
+<meta name="description" content="Explore how the volume of Hacker News topics changes over time.">
+<link rel="stylesheet" href="__RELEASE__analytics.css">
+<script defer src="__RELEASE__analytics.js"></script>
+</head>
+<body>
+<header><a href="/" class="brand">HN <span>Atlas</span></a><nav class="site-nav" aria-label="Explore"><a href="/">Connections</a><a href="/#/trends" aria-current="page">Trends</a><a href="/#/topics">Topics</a></nav></header>
+<main class="trends-view">
+<div class="page-heading"><div><p class="eyebrow">THE ARCHIVE / THROUGH TIME</p><h1>Topic trends</h1></div><p class="intro">See which topics are growing. Select a tile to explore its history.</p></div>
+<section class="controls" aria-label="Time controls">
+<div class="toolbar"><div class="period-readout"><h2 id="week-label">Loading topic history…</h2><p id="summary" role="status"></p></div><div class="toolbar-actions"><label class="coverage-control" for="coverage">Topics <select id="coverage"><option value="10" selected>Top 10%</option><option value="50">Top 50%</option><option value="100">All topics · 100%</option></select></label><label class="timeframe-control" for="timeframe">View <select id="timeframe" disabled><option value="week">Weekly</option><option value="month" selected>Monthly</option><option value="year">Yearly</option></select></label><div class="buttons"><button id="previous" aria-label="Previous month" disabled>←</button><button id="play" disabled>Play</button><button id="next" aria-label="Next month" disabled>→</button><button id="latest" disabled>Latest</button></div></div></div>
+<div class="time-scrub"><label class="slider-label" id="period-slider-label" for="week">Month</label><span id="first-date" class="extent-date"></span><input id="week" type="range" min="0" max="0" value="0" disabled><span id="last-date" class="extent-date"></span></div>
+</section>
+<section class="explorer" aria-label="Explore topic trends">
+<div class="map-column"><div class="map-intro"><p id="coverage-note" role="status">Showing the leading topics.</p><div class="map-legend"><span class="legend-swatch" aria-hidden="true"></span><span>Color = topic · Size = story volume</span></div></div><div class="map-shell" id="map-shell" aria-label="Topic treemap viewport"><div id="treemap" aria-label="Topic treemap"></div><div class="map-controls" aria-label="Map zoom"><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><p id="detail" class="detail" aria-live="polite">Select a tile to explore its history.</p></div>
+<aside class="sidebar" aria-label="Selected topic details">
+<section id="selection-panel" class="selection-panel" aria-labelledby="selection-title" hidden><div class="selection-heading"><div><p class="panel-kicker">SELECTED TOPIC</p><h2 id="selection-title"></h2></div><button type="button" id="close-selection" aria-label="Close topic details">×</button></div><p id="selection-period" class="selection-period"></p><div class="selection-stats"><div><strong id="selection-count">—</strong><span>Stories</span></div><div><strong id="selection-share">—</strong><span>Share of memberships</span></div></div><p id="selection-change" class="selection-change"></p><div class="history-heading"><h3>History</h3><span>Stories per period</span></div><svg id="selection-history" viewBox="0 0 300 100" role="img" aria-label="Story count across the selected timeframe" preserveAspectRatio="none"></svg><div class="history-extent"><span id="selection-history-start"></span><span id="selection-history-end"></span></div><h3 class="stories-heading">Top story this period</h3><div id="selection-story" class="selection-story"></div><p class="story-method">Highest HN points in the selected period.</p><a id="selection-open" class="selection-open" href="#">Read topic →</a></section>
+</aside></section>
+<div id="tile-tooltip" role="tooltip" hidden></div>
+<details class="topic-finder"><summary>Find any topic</summary><div class="ranked-pane"><div class="ranked-heading"><h2>All topics this period</h2><p id="result-count" role="status">Loading…</p></div><label class="search-label" for="topic-search">Search topics</label><input id="topic-search" type="search" placeholder="Topic name" autocomplete="off"><div id="ranked-list" class="ranked-list" aria-label="Topics ranked by stories"></div></div></details>
+<table class="data-table" hidden><tbody id="topic-list"></tbody></table>
+<details class="method"><summary>How this works</summary><p>Weeks run Monday–Sunday; months and years follow the UTC calendar. Counts use current topic assignments throughout the archive. Stories can belong to several topics, so area and share represent topic memberships. Unfiled stories are excluded. The map shows only the leading topics and rescales them to fill the canvas. Percentages always refer to all topic memberships. The latest period may be incomplete.</p></details>
+<noscript>Enable JavaScript to explore weekly topic history.</noscript>
+</main>
+</body>
+</html>

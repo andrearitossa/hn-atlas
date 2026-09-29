@@ -35,7 +35,7 @@ def build(c, topic_id=None, days=90, as_of=None):
         where += ' AND st.topic=?'
         params.append(topic_id)
     rows = c.execute(f'SELECT {catalog.POST}, st.topic FROM stories s '
-                     'JOIN story_topics st USING(id) WHERE ' + where +
+                     f"JOIN {catalog.topics.memberships(c) if topic_id is not None else 'story_topics'} st USING(id) WHERE " + where +
                      ' ORDER BY coalesce(s.score,0) DESC,coalesce(s.descendants,0) DESC,s.id DESC', params)
     buckets = {}
     for row in rows:
@@ -71,9 +71,14 @@ def history(c, topic_id, as_of=None):
     """A reading path across the entire topic archive, balanced across years."""
     end = catalog.now(c) if as_of is None else as_of
     rows = [dict(row) for row in c.execute(
-        f'SELECT {catalog.POST} FROM stories s JOIN story_topics st USING(id) '
+        f'SELECT {catalog.POST} FROM stories s JOIN {catalog.topics.memberships(c)} st USING(id) '
         'WHERE st.topic=? AND s.dead=0 AND s.deleted=0 AND s.time<=? '
         'ORDER BY s.time,s.id', (topic_id, end))]
+    return history_posts(rows, topic_id, end)
+
+
+def history_posts(rows, topic_id, end):
+    rows = sorted((p for p in rows if p['time'] <= end), key=lambda p: (p['time'], p['id']))
     buckets = {}
     for post in rows:
         year = datetime.fromtimestamp(post['time'], timezone.utc).strftime('%Y')
@@ -84,7 +89,7 @@ def history(c, topic_id, as_of=None):
         picks = []
         for post in ranked:
             key = article_key(post)
-            if key in featured or (post['score'] or 0) < 10:
+            if key in featured:
                 continue
             featured.add(key)
             picks.append(dict(post, rank=len(picks) + 1))
@@ -98,14 +103,20 @@ def history(c, topic_id, as_of=None):
 
 def zoom(c, topic_id, as_of=None):
     """Nested calendar resolutions for a continuous, zoomable topic history."""
-    from datetime import timedelta
-
     end = catalog.now(c) if as_of is None else as_of
     rows = [dict(row) for row in c.execute(
-        f'SELECT {catalog.POST} FROM stories s JOIN story_topics st USING(id) '
+        f'SELECT {catalog.POST} FROM stories s JOIN {catalog.topics.memberships(c)} st USING(id) '
         'WHERE st.topic=? AND s.dead=0 AND s.deleted=0 AND s.time<=? '
         'ORDER BY coalesce(s.score,0) DESC,coalesce(s.descendants,0) DESC,s.id DESC',
         (topic_id, end))]
+    return zoom_posts(rows, topic_id, end)
+
+
+def zoom_posts(rows, topic_id, end):
+    from datetime import timedelta
+
+    rows = sorted((p for p in rows if p['time'] <= end),
+                  key=lambda p: (p['score'] or 0, p['descendants'] or 0, p['id']), reverse=True)
     start = min((p['time'] for p in rows), default=None)
     levels = {}
     for interval in ('year', 'month', 'week'):
@@ -122,7 +133,7 @@ def zoom(c, topic_id, as_of=None):
             bucket = buckets.setdefault(stamp, {'count': 0, 'posts': [], 'seen': set()})
             bucket['count'] += 1
             key = article_key(post)
-            if key not in bucket['seen'] and (post['score'] or 0) >= 10:
+            if key not in bucket['seen']:
                 bucket['seen'].add(key)
                 if len(bucket['posts']) < (5 if interval == 'year' else 3):
                     bucket['posts'].append(post)

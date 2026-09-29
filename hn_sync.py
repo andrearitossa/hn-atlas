@@ -1,62 +1,41 @@
 #!/usr/bin/env python3
-"""Fetch Hacker News articles into a local SQLite database.
-
-Uses the official HN Firebase API (https://github.com/HackerNews/API). Comments are skipped;
-only stories, jobs and polls are stored.
-
-Use hn_import_dump.py for history. This module updates from the official API.
-"""
-
-import argparse
+"""Incrementally sync HN articles to SQLite; retain the historical archive."""
 import sqlite3
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
 BASE_URL = "https://hacker-news.firebaseio.com/v0"
-FEEDS = ["topstories", "newstories", "beststories", "askstories", "showstories", "jobstories"]
 ARTICLE_TYPES = {"story", "job", "poll"}
+FIELDS = 'id type by time title url text score descendants dead deleted fetched_at'.split()
+UPSERT = (f"INSERT INTO stories ({','.join(FIELDS)}) VALUES ({','.join('?' for _ in FIELDS)}) "
+          "ON CONFLICT(id) DO UPDATE SET " + ','.join(f'{f}=excluded.{f}' for f in FIELDS[1:]))
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS stories (
-    id          INTEGER PRIMARY KEY,
-    type        TEXT,
-    by          TEXT,
-    time        INTEGER,
-    title       TEXT,
-    url         TEXT,
-    text        TEXT,
-    score       INTEGER,
-    descendants INTEGER,
-    dead        INTEGER NOT NULL DEFAULT 0,
-    deleted     INTEGER NOT NULL DEFAULT 0,
-    fetched_at  INTEGER NOT NULL
+    id INTEGER PRIMARY KEY, type TEXT, by TEXT, time INTEGER,
+    title TEXT, url TEXT, text TEXT, score INTEGER, descendants INTEGER,
+    dead INTEGER NOT NULL DEFAULT 0, deleted INTEGER NOT NULL DEFAULT 0,
+    fetched_at INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_stories_time ON stories(time);
 CREATE INDEX IF NOT EXISTS idx_stories_type ON stories(type);
 CREATE INDEX IF NOT EXISTS idx_stories_score ON stories(score);
 
-CREATE TABLE IF NOT EXISTS sync_state (
-    key   TEXT PRIMARY KEY,
-    value INTEGER NOT NULL
-);
+CREATE TABLE IF NOT EXISTS sync_state (key TEXT PRIMARY KEY, value INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS dirty_stories (id INTEGER PRIMARY KEY);
 """
 
 _local = threading.local()
 
 
-def _session() -> requests.Session:
+def get_json(path: str, retries: int = 5):
     if not hasattr(_local, "session"):
         _local.session = requests.Session()
-    return _local.session
-
-
-def get_json(path: str, retries: int = 5):
     for attempt in range(retries):
         try:
-            resp = _session().get(f"{BASE_URL}/{path}.json", timeout=15)
+            resp = _local.session.get(f"{BASE_URL}/{path}.json", timeout=15)
             resp.raise_for_status()
             return resp.json()
         except (requests.RequestException, ValueError):
@@ -66,13 +45,12 @@ def get_json(path: str, retries: int = 5):
 
 
 def fetch_item(item_id: int):
-    # A transient failure must stop the chunk. Silently skipping it makes a
-    # permanent hole when the high-water mark advances.
     return get_json(f"item/{item_id}")
 
 
 def open_db(path: str) -> sqlite3.Connection:
     conn = sqlite3.connect(path)
+    conn.execute('PRAGMA cache_size=-65536')
     conn.execute("PRAGMA journal_mode=WAL")
     conn.executescript(SCHEMA)
     return conn
@@ -80,25 +58,17 @@ def open_db(path: str) -> sqlite3.Connection:
 
 def save_articles(conn: sqlite3.Connection, items) -> int:
     now = int(time.time())
-    items = list(items)
-    # HN deletion tombstones can omit type/title. Preserve the stored article
-    # identity while hiding it everywhere that reads live stories.
+    items = [it for it in items if it]  # Finish all fetches before writing a batch.
+    # Tombstones can omit type/title; still hide the stored article.
     conn.executemany(
         'UPDATE stories SET dead=?,deleted=?,fetched_at=? WHERE id=?',
         [(int(bool(it.get('dead'))), int(bool(it.get('deleted'))), now, it['id'])
-         for it in items if it and (it.get('dead') or it.get('deleted'))],
+         for it in items if it.get('dead') or it.get('deleted')],
     )
-    rows = [
-        (
-            it["id"], it.get("type"), it.get("by"), it.get("time"), it.get("title"),
-            it.get("url"), it.get("text"), it.get("score"), it.get("descendants"),
-            int(bool(it.get("dead"))), int(bool(it.get("deleted"))), now,
-        )
-        for it in items
-        if it and it.get("type") in ARTICLE_TYPES
-    ]
-    # Scores change frequently; content changes must invalidate the old vector
-    # and assignment so refreshed headlines cannot retain stale classifications.
+    rows = [(it['id'], *(it.get(f) for f in FIELDS[1:9]),
+             int(bool(it.get('dead'))), int(bool(it.get('deleted'))), now)
+            for it in items if it.get('type') in ARTICLE_TYPES]
+    # Content changes invalidate classifications; score changes do not.
     tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     if 'embeddings' in tables:
         versioned = 'input_version' in {r[1] for r in conn.execute('PRAGMA table_info(embeddings)')}
@@ -112,24 +82,11 @@ def save_articles(conn: sqlite3.Connection, items) -> int:
                 new = (row[4], row[5], row[6])
                 if subject_text(*old) == subject_text(*new) and metadata(*old)[0] == metadata(*new)[0]:
                     continue
-            if 'story_metadata' in tables and 'article_decisions' in tables:
-                conn.execute('DELETE FROM article_decisions WHERE canonical IN '
-                             '(SELECT canonical FROM story_metadata WHERE id=?)', (row[0],))
-            for table in ('embeddings','embedding_errors','story_topics','classification_queue','story_metadata'):
+            for table in ('embeddings','embedding_errors','story_topics','classification_queue'):
                 if table in tables:
                     conn.execute(f'DELETE FROM {table} WHERE id=?', (row[0],))
-    conn.executemany(
-        """INSERT INTO stories (id, type, by, time, title, url, text, score,
-                                descendants, dead, deleted, fetched_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-           ON CONFLICT(id) DO UPDATE SET
-               type=excluded.type, by=excluded.by, time=excluded.time,
-               title=excluded.title, url=excluded.url, text=excluded.text,
-               score=excluded.score, descendants=excluded.descendants,
-               dead=excluded.dead, deleted=excluded.deleted,
-               fetched_at=excluded.fetched_at""",
-        rows,
-    )
+            conn.execute('INSERT OR IGNORE INTO dirty_stories VALUES (?)', (row[0],))
+    conn.executemany(UPSERT, rows)
     return len(rows)
 
 
@@ -146,29 +103,14 @@ def set_state(conn, key, value):
     )
 
 
-def sync_feeds(conn, pool):
-    ids = set()
-    for feed in FEEDS:
-        feed_ids = get_json(feed) or []
-        print(f"{feed}: {len(feed_ids)} ids")
-        ids.update(feed_ids)
-    print(f"Fetching {len(ids)} unique items...")
-    saved = save_articles(conn, pool.map(fetch_item, sorted(ids)))
-    conn.commit()
-    print(f"Saved {saved} articles.")
-
-
-def fetch_range(conn, pool, hi: int, lo: int, chunk: int):
-    """Fetch ids hi..lo (inclusive, descending) in chunks, committing each one."""
+def fetch_batches(conn, pool, ids, chunk):
+    """Commit complete batches; fetch failures leave earlier batches intact."""
     total = 0
-    start = time.time()
-    for top in range(hi, lo - 1, -chunk):
-        bottom = max(top - chunk + 1, lo)
-        total += save_articles(conn, pool.map(fetch_item, range(top, bottom - 1, -1)))
+    for start in range(0, len(ids), chunk):
+        batch = ids[start:start + chunk]
+        total += save_articles(conn, pool.map(fetch_item, batch))
         conn.commit()
-        done = hi - bottom + 1
-        rate = done / (time.time() - start)
-        print(f"  ids {bottom:>9}..{top:<9} | {total} articles saved | {rate:,.0f} items/s")
+        print(f'  fetched {start + len(batch):,}/{len(ids):,} ids; {total:,} articles saved', flush=True)
     return total
 
 
@@ -180,9 +122,11 @@ def catch_up(conn, pool, chunk: int = 2000) -> int:
     current_max = get_json("maxitem")
     if max_id is None:
         max_id = max(0, current_max - chunk)
-    if max_id is not None and current_max > max_id:
-        print(f"Catching up new items {max_id + 1}..{current_max}")
-        fetch_range(conn, pool, current_max, max_id + 1, chunk)
+    # Persist the starting checkpoint so partial first runs cannot create gaps.
+    if get_state(conn, 'high') is None:
+        set_state(conn, 'high', max_id)
+        conn.commit()
+    fetch_batches(conn, pool, range(current_max, max_id, -1), chunk)
     set_state(conn, "high", current_max)
     conn.commit()
     return current_max
@@ -195,29 +139,4 @@ def refresh_recent(conn, pool, days: int = 14, now=None, fetched_before=None) ->
     ids = [r[0] for r in conn.execute("SELECT id FROM stories WHERE time >= ? AND time<=? "
         "AND (? IS NULL OR fetched_at<?)", (since,now,fetched_before,fetched_before))]
     print(f"Refreshing {len(ids)} stories from the last {days} days")
-    saved = save_articles(conn, pool.map(fetch_item, ids))
-    conn.commit()
-    return saved
-
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--db", default="data/hackernews.db", help="SQLite file (default: data/hackernews.db)")
-    parser.add_argument("--workers", type=int, default=32, help="concurrent requests (default: 32)")
-    args = parser.parse_args()
-
-    conn = open_db(args.db)
-    try:
-        with ThreadPoolExecutor(max_workers=args.workers) as pool:
-            sync_feeds(conn, pool)
-    except KeyboardInterrupt:
-        conn.commit()
-        print("\nInterrupted; progress saved. Re-run to resume.")
-    finally:
-        count = conn.execute("SELECT COUNT(*) FROM stories").fetchone()[0]
-        print(f"Database {args.db}: {count} articles total.")
-        conn.close()
-
-
-if __name__ == "__main__":
-    main()
+    return fetch_batches(conn, pool, ids, 1000)

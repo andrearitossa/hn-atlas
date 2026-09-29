@@ -28,8 +28,11 @@ test('normalizes email, resolves topic on server and uses bound SQL', async () =
   assert.equal(result.status, 200);
   assert.deepEqual(await result.json(), {ok: true});
   assert.equal(result.headers.get('Cache-Control'), 'no-store');
-  assert.deepEqual(writes[0].args, ['reader@example.com', 7, 'Programming']);
-  assert.match(writes[0].sql, /ON CONFLICT\(email, topic_id\)/);
+  assert.match(writes[0].args[0], /^[0-9a-f-]{36}$/);
+  assert.equal(writes[0].args[1], 'reader@example.com');
+  assert.equal(writes[0].args[2], 7);
+  assert.ok(writes[0].args[3] > 0);
+  assert.match(writes[0].sql, /ON CONFLICT\(email, topic\) DO NOTHING/);
 });
 
 test('rejects invalid requests without touching storage', async () => {

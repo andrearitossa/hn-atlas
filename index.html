@@ -19,9 +19,9 @@ button,input,select { font:inherit; color:inherit; }
 button,a,input,select { -webkit-tap-highlight-color:transparent; }
 :focus-visible { outline:2px solid var(--hn); outline-offset:3px; }
 button { cursor:pointer; }
-header { display:flex; align-items:center; gap:24px; padding:14px 24px; border-bottom:1px solid var(--line); }
+header { display:flex; flex-shrink:0; align-items:center; justify-content:space-between; gap:24px; padding:12px clamp(16px,4vw,56px); border-bottom:1px solid var(--line); }
 header b { font-size:17px; } header b span { color:var(--hn); }
-.toggle a { color:var(--muted); } .toggle a.on { color:var(--ink); }
+.toggle a { color:var(--muted); padding:7px 12px; border-radius:7px; transition:background .18s,color .18s; } .toggle a.on,.toggle a[aria-current="page"] { color:var(--ink); background:var(--bg); box-shadow:0 1px 3px #0000000c; }
 main { flex:1; min-height:0; overflow-y:auto; }
 .home { height:100%; overflow-y:auto; }
 .home-inner { max-width:1300px; margin:auto; padding:34px clamp(20px,4vw,56px) 60px; }
@@ -39,8 +39,8 @@ main { flex:1; min-height:0; overflow-y:auto; }
 .directory-summary { margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:12px; }
 .directory-summary a { color:var(--hn); padding:8px 0; }
 .directory-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-.topic-card { display:flex; flex-direction:column; min-height:170px; padding:20px; border:1px solid var(--line); border-radius:14px; transition:border-color .18s,transform .18s; }
-.topic-card:hover { border-color:var(--hn); transform:translateY(-2px); }
+.topic-card { display:flex; flex-direction:column; min-height:170px; padding:20px 6px; border-top:1px solid var(--line); transition:border-color .24s,background .24s; }
+.topic-card:hover { border-color:color-mix(in srgb,var(--hn) 50%,var(--line)); background:color-mix(in srgb,var(--bg) 97%,var(--hn)); }
 .topic-card strong { font-size:17px; line-height:1.25; }
 .topic-card:hover strong { color:var(--hn); }
 .topic-card p { color:var(--muted); font-size:13px; margin:9px 0 16px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
@@ -48,18 +48,17 @@ main { flex:1; min-height:0; overflow-y:auto; }
 .card-kicker small { font-size:inherit; }
 .more { background:none; border:1px solid var(--line); border-radius:20px; display:block; margin:24px auto 0; padding:10px 24px; }
 .empty { grid-column:1/-1; padding:40px; text-align:center; color:var(--muted); }
- .toggle { display:flex; gap:20px; }
+ .toggle { display:flex; gap:2px; padding:3px; border-radius:10px; background:color-mix(in srgb,var(--ink) 5%,var(--bg)); font-size:13px; }
 .connections-page { position:relative; height:100%; display:flex; flex-direction:column; padding:34px clamp(20px,4vw,56px) 40px; max-width:1300px; margin:auto; }
 .connections-heading { display:flex; justify-content:space-between; align-items:center; gap:24px; margin:12px 0 24px; }
 .connections-heading h1 { margin:0 0 10px; font-size:clamp(30px,4vw,48px); letter-spacing:-.05em; line-height:1.12; }
 .connections-heading h1 span { color:var(--hn); }
 .connections-heading input { width:280px; max-width:100%; border:1px solid var(--line); background:var(--bg); border-radius:10px; padding:13px 15px; }
-.connections-canvas { position:relative; flex:1; min-width:0; min-height:320px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg); }
+.connections-canvas { position:relative; flex:1; min-width:0; min-height:320px; border-radius:18px; overflow:hidden; background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--hn) 3%,var(--bg)),var(--bg) 70%); box-shadow:inset 0 0 0 1px var(--line); }
 .connections-layout { display:flex; flex:1; min-height:0; gap:14px; }
 .connections-canvas #map { position:absolute; inset:0; }
-.map-legend { position:absolute; top:16px; left:18px; display:flex; align-items:center; gap:7px; color:var(--muted); background:var(--bg); font-size:11px; pointer-events:none; z-index:1; }
-.legend-dot { width:8px; height:8px; border-radius:50%; background:var(--dot); }
-.legend-ring { width:12px; height:12px; border:1px solid var(--hn); border-radius:50%; margin-left:10px; }
+.map-legend { position:absolute; top:16px; left:18px; display:flex; align-items:center; flex-wrap:wrap; gap:3px 7px; max-width:calc(100% - 36px); padding:3px 5px; color:var(--muted); background:var(--bg); font-size:11px; pointer-events:none; z-index:1; }
+.legend-dot { width:8px; height:8px; flex:none; border-radius:50%; background:hsl(137.508 42% 35%); }
 .map-results { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; }
 .map-results:not(:empty) { margin-bottom:14px; }
 .map-results>span { color:var(--muted); }
@@ -68,8 +67,11 @@ main { flex:1; min-height:0; overflow-y:auto; }
 svg { display:block; width:100%; height:100%; }
 #map { touch-action:none; cursor:grab; }
 .map-help { position:absolute; left:18px; bottom:18px; font-size:11px; color:var(--muted); pointer-events:none; }
-.map-controls { position:absolute; right:12px; bottom:12px; display:flex; gap:5px; }
-.map-controls button { border:1px solid var(--line); border-radius:10px; background:var(--bg); min-width:40px; height:40px; padding:0 12px; }
+.map-controls { position:absolute; right:16px; bottom:16px; display:flex; gap:0; border:1px solid var(--line); border-radius:9px; overflow:hidden; background:var(--bg); box-shadow:0 2px 8px #00000006; }
+.map-controls button { border:0; border-right:1px solid var(--line); border-radius:0; background:var(--bg); min-width:40px; height:40px; padding:0 12px; }
+.map-controls button:last-child { border-right:0; }
+.map-controls button:focus-visible { outline-offset:-3px; }
+.map-controls button:disabled { opacity:.35; cursor:default; }
 .map-controls button:hover { color:var(--hn); border-color:var(--hn); }
 .topic-dot { stroke:var(--bg); stroke-width:1.5; cursor:pointer; transition:opacity .2s, r .2s; }
 .topic-dot:hover,.topic-dot:focus { stroke:var(--ink); stroke-width:2; }
@@ -85,19 +87,33 @@ text { fill:var(--ink); font-size:12px; }
 .meta { color:var(--muted); margin:0; }
 small { color:var(--muted); }
 .up { color:var(--hn); } .down { color:var(--cool); }
-.digest { border:1px solid var(--line); background:color-mix(in srgb,var(--bg) 94%,var(--hn)); border-radius:14px; padding:18px; min-width:280px; max-width:360px; }
-.digest strong { display:block; font-size:16px; }
-.digest p { margin:4px 0 12px; color:var(--muted); }
-.digest form { display:flex; gap:6px; flex-wrap:wrap; }
-.digest input,.digest select,.digest button { border:1px solid var(--line); border-radius:7px; padding:8px; background:var(--bg); }
-.digest input { width:100%; min-width:0; }
-.digest button { background:var(--hn); color:white; }
-.newsletter-cta { margin-top:14px; border:1px solid var(--hn); border-radius:8px; padding:10px 16px; background:var(--hn); color:white; cursor:pointer; }
-.digest button:disabled { opacity:.6; cursor:wait; }
-.signup-trap { position:absolute; left:-10000px; }
-.digest a { color:var(--hn); }
-#signup-status { display:block; margin-top:10px; overflow-wrap:anywhere; }
-#signup-status div { padding:5px 0; border-top:1px solid var(--line); }
+.topic-follow-panel { border:1px solid var(--line); background:color-mix(in srgb,var(--bg) 94%,var(--hn)); border-radius:14px; padding:18px; min-width:280px; max-width:360px; }
+.topic-follow-panel strong { display:block; font-size:16px; }
+.topic-follow-panel p { margin:4px 0 12px; color:var(--muted); }
+.topic-follow-panel form { display:flex; gap:6px; flex-wrap:wrap; }
+.topic-follow-panel input,.topic-follow-panel select,.topic-follow-panel button { border:1px solid var(--line); border-radius:7px; padding:8px; background:var(--bg); }
+.topic-follow-panel input { width:100%; min-width:0; }
+.topic-follow-panel button { background:var(--hn); color:white; }
+.topic-nav .topic-follow-link { margin-left:auto; color:var(--muted); font-size:12px; white-space:nowrap; }
+.topic-nav .topic-follow-link:hover { color:var(--hn); }
+.topic-follow { margin:0 0 44px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); scroll-margin-top:90px; }
+.topic-follow summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 0; cursor:pointer; list-style:none; }
+.topic-follow summary::-webkit-details-marker { display:none; }
+.topic-follow summary strong { display:block; font-size:16px; }
+.topic-follow summary small { display:block; margin-top:3px; }
+.topic-follow-action { color:var(--hn); font-size:13px; white-space:nowrap; }
+.topic-follow-action span { display:inline-block; margin-left:8px; }
+.topic-follow[open] .topic-follow-action span { transform:rotate(45deg); }
+.topic-follow .topic-follow-panel { max-width:560px; min-width:0; border:0; border-radius:0; background:none; padding:0 0 22px; }
+.topic-follow .topic-follow-panel form { flex-wrap:nowrap; margin:14px 0 10px; }
+.topic-follow .topic-follow-panel input[type="email"] { flex:1; width:auto; }
+.topic-follow .topic-follow-panel button { white-space:nowrap; padding:9px 14px; }
+@media(max-width:600px) { .page .topic-nav { display:grid; grid-template-columns:repeat(4,1fr); gap:6px 10px; } .page .topic-nav .topic-follow-link { grid-column:1/-1; justify-self:end; } .topic-follow summary { align-items:start; flex-direction:column; gap:12px; } .topic-follow .topic-follow-panel form { flex-wrap:wrap; } .topic-follow .topic-follow-panel input[type="email"] { flex-basis:100%; } }
+.topic-follow-panel button:disabled { opacity:.6; cursor:wait; }
+.contact-check { position:absolute; left:-10000px; }
+.topic-follow-panel a { color:var(--hn); }
+#follow-status { display:block; margin-top:10px; overflow-wrap:anywhere; }
+#follow-status div { padding:5px 0; border-top:1px solid var(--line); }
 .related { display:flex; flex-wrap:wrap; gap:6px; font-size:13px; margin:20px 0; }
 .related a:hover { color:var(--hn); }
 .activity { border:1px solid var(--line); border-radius:14px; padding:18px; margin:20px 0 28px; }
@@ -116,7 +132,7 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .post small { display:block; margin-top:4px; font-size:11px; }
 .loading { color:var(--muted); padding:30px; }
 @media(max-width:900px) { .directory-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media(max-width:600px) { body { height:auto; } .home,.page { height:auto; overflow:visible; } .home-inner,.page { padding:20px 16px 40px; } .directory-grid { grid-template-columns:1fr; } .topic-card { min-height:145px; } .hero { flex-direction:column; } .digest { width:100%; max-width:none; } .cols { grid-template-columns:1fr; gap:14px; }  .connections-page { height:auto; min-height:calc(100dvh - 56px); padding:20px 16px; } .connections-heading { flex-direction:column; align-items:stretch; gap:16px; } .connections-heading h1 { font-size:30px; } .connections-heading input { width:100%; } .connections-canvas { min-height:440px; } .toggle { gap:14px; font-size:12px; } .activity { padding:12px; } #activity-chart { height:170px; } .card-kicker { font-size:12px; } }
+@media(max-width:600px) { body { height:auto; } .home,.page { height:auto; overflow:visible; } .home-inner,.page { padding:20px 16px 40px; } .directory-grid { grid-template-columns:1fr; } .topic-card { min-height:145px; } .hero { flex-direction:column; } .topic-follow-panel { width:100%; max-width:none; } .cols { grid-template-columns:1fr; gap:14px; }  .connections-page { height:auto; min-height:calc(100dvh - 56px); padding:20px 16px; } .connections-heading { flex-direction:column; align-items:stretch; gap:16px; } .connections-heading h1 { font-size:30px; } .connections-heading input { width:100%; } .connections-canvas { min-height:440px; } .toggle { gap:14px; font-size:12px; } .activity { padding:12px; } #activity-chart { height:170px; } .card-kicker { font-size:12px; } }
 
 .map-preview { position:relative; flex-shrink:0; overflow-y:auto; width:300px; padding:20px; border:1px solid var(--line); border-radius:14px; background:var(--bg); color:var(--ink); }
 .map-preview .eyebrow { color:var(--hn); margin:0 0 8px; }
@@ -128,7 +144,7 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .preview-related { display:flex; flex-direction:column; gap:2px; }
 .preview-related button { background:none; border:0; text-align:left; color:var(--muted); font-size:11px; padding:6px 0; }
 .preview-related button:hover,.preview-open:hover { color:var(--hn); }
-@media(max-width:600px) { .map-preview { position:static; width:100%; padding:18px; margin-top:12px; overflow:visible; } .map-legend { left:12px; font-size:9px; gap:4px; } .connections-canvas .map-help { font-size:9px; bottom:60px; } }
+@media(max-width:600px) { .map-preview { position:static; width:100%; padding:18px; margin-top:12px; overflow:visible; } .map-legend { left:12px; max-width:calc(100% - 24px); font-size:9px; gap:3px 5px; } .connections-canvas .map-help { font-size:9px; bottom:60px; } }
 
 .map-result-options { display:flex; flex-wrap:wrap; gap:6px; max-height:112px; overflow-y:auto; width:100%; }
 .map-result-options button { text-align:left; }
@@ -178,7 +194,7 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .topic-nav button { border:0; padding:6px 0; background:none; color:var(--hn); font-size:10px; letter-spacing:.04em; }
 .topic-nav span { color:var(--ink); font-size:13px; margin-left:7px; letter-spacing:0; }
 .topic-nav button:hover span { color:var(--hn); }
-#topic-history,#topic-recent,#topic-archive { scroll-margin-top:82px; }
+#topic-history,#topic-recent,#topic-activity,#topic-archive { scroll-margin-top:82px; }
 .topic-history { border:0; padding:8px 0 30px; border-bottom:1px solid var(--line); border-radius:0; margin:0 0 40px; }
 .history-heading h2,.recent-stories h2,.topic-archive h2,.topic-footer h2 { font-size:28px; letter-spacing:-.035em; line-height:1.2; margin:8px 0; }
 .history-heading .eyebrow,.recent-stories>.eyebrow,.topic-archive>.eyebrow { font-size:10px; }
@@ -222,7 +238,7 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .related-cards a:hover { border-color:var(--hn); }
 .related-cards strong { display:flex; justify-content:space-between; gap:12px; font-size:15px; }
 .related-cards p { font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.6; }
-.topic-footer .digest { max-width:none; margin-top:28px; }
+.topic-footer .topic-follow-panel { max-width:none; margin-top:28px; }
 @media(max-width:700px) { .page { padding:20px 20px 40px; } .topic-hero { margin-top:24px; } .topic-description { font-size:14px; } .topic-nav { top:0; gap:25px; } .history-heading { flex-direction:row; align-items:center; } .history-span { font-size:14px; } .history-picks { gap:12px; } .history-pick { padding:18px; } .history-pick h4 { font-size:21px; } .history-pick .eyebrow { margin-bottom:8px; } .history-year-title { flex-direction:row; align-items:center; gap:16px; } .related-cards { grid-template-columns:1fr; } .history-heading h2,.recent-stories h2,.topic-archive h2 { font-size:26px; } .history-navigation { gap:8px; } .history-navigation .meta { font-size:11px; } }
 @media(prefers-reduced-motion:no-preference) { .history-pick { animation:chapter-in .25s ease-out; } @keyframes chapter-in { from { opacity:.5; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } } }
 
@@ -308,27 +324,16 @@ h3 { text-transform:uppercase; letter-spacing:.05em; font-size:12px; color:var(-
 .feedback-send:disabled { opacity:.6; cursor:wait; }
 #feedback-status { margin-bottom:0; }
 
-/* The directory uses viewport-sized pages, keeping navigation and feedback in view. */
 body.home-route { height:100dvh; }
-.home { height:100%; overflow:visible; }
-.home-inner { height:100%; min-height:0; display:flex; flex-direction:column; padding:18px clamp(16px,4vw,56px) 0; }
-.home .directory-intro { flex-shrink:0; margin:0 0 14px; }
-.home .directory-intro h1 { font-size:clamp(26px,3vw,40px); margin:0; }
-.home .directory-section { flex:1; min-height:0; display:flex; flex-direction:column; }
-.home .browse-tools,.home .directory-summary,.directory-pagination { flex-shrink:0; }
-.home .directory-summary { margin-top:8px; gap:8px; font-size:11px; }
-.home .directory-summary p { margin:6px 0; }
-.home .directory-grid { flex:1; min-height:0; gap:10px; }
-.home .topic-card { min-height:0; padding:14px; }
-.home .topic-card strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.home .topic-card p { margin:7px 0; }
-.home .site-footer { margin-top:0; padding:9px 0; }
-.directory-pagination { display:flex; align-items:center; justify-content:center; gap:16px; padding:10px 0; font-size:12px; }
-.directory-pagination button { border:1px solid var(--line); border-radius:8px; background:var(--bg); padding:6px 12px; }
-.directory-pagination button:disabled { opacity:.4; cursor:default; }
-.home .empty { padding:12px; }
-.home .directory-grid.compact .topic-card p { display:none; }
-.home .directory-grid.compact .topic-card { padding:10px; }
+.home { height:auto; min-height:100%; overflow:visible; }
+.home-inner { padding:24px clamp(16px,4vw,56px) 0; }
+.home .directory-intro { margin:0 0 24px; }
+.home .directory-summary { margin:12px 0 18px; }
+.home .directory-grid { gap:14px; }
+.home .topic-card { min-height:165px; }
+.home .site-footer { margin-top:36px; }
+.home-route main { scroll-behavior:smooth; }
+@media(prefers-reduced-motion:reduce) { .home-route main { scroll-behavior:auto; } }
 @media(max-width:600px) {
  .home .browse-tools { gap:8px; }
  .home .browse-tools input { flex:1 0 100%; width:100%; min-width:0; padding:9px 12px; }
@@ -337,44 +342,45 @@ body.home-route { height:100dvh; }
  .home-route header b,.home-route .toggle a { white-space:nowrap; }
  .home-route .toggle { gap:10px; }
  .home .sort button { flex:1; padding:7px 8px; font-size:12px; }
- .home .topic-card strong { font-size:15px; }
- .home .card-kicker { font-size:10px; }
- .home .directory-intro { margin-bottom:10px; }
-}
-@media(max-height:500px) {
- .home-inner { padding-top:8px; }
- .home .directory-intro { margin-bottom:6px; }
- .home .directory-intro h1 { font-size:22px; }
- .home .browse-tools { flex-wrap:nowrap; gap:6px; }
- .home .browse-tools input { flex:1 1 0; min-width:0; width:0; padding:6px 8px; }
- .home .sort { width:auto; }
- .home .sort button { padding:4px 6px; font-size:11px; }
- .home .directory-summary { margin-top:2px; }
- .home .site-footer { padding:4px 0; }
- .directory-pagination { padding:5px 0; }
- .home .topic-card strong { font-size:14px; }
- .home .card-kicker { font-size:10px; }
+ .home .topic-card { min-height:145px; }
+ .home .directory-summary { flex-wrap:wrap; }
 }
 
 body.connections-route { height:100dvh; }
-.connections-route .connections-page { height:100%; min-height:0; padding:18px clamp(16px,4vw,56px) 0; }
-.connections-route .connections-heading { flex-shrink:0; margin:0 0 14px; gap:12px; }
-.connections-route .connections-heading h1 { font-size:clamp(26px,3vw,40px); margin:0; }
+.connections-route .connections-page { height:auto; min-height:100%; padding:24px clamp(16px,4vw,56px) 0; }
+.connections-explorer { height:clamp(500px,68dvh,650px); display:flex; flex-direction:column; scroll-margin-top:24px; }
+.connections-route .connections-heading { flex-shrink:0; margin:0 0 20px; gap:12px; }
+.connections-route .connections-heading h1 { font-size:clamp(24px,2.6vw,32px); letter-spacing:-.035em; margin:0; }
+.connections-heading .meta { font-size:13px; }
+.connections-route .home-inner { padding:0; }
+#trends-section,#browse-section { border-top:1px solid var(--line); padding-top:38px; margin-top:54px; scroll-margin-top:24px; }
+#trends-mount { min-height:80px; }
+.trends-fallback { padding:32px 0; color:var(--muted); }
+.trends-fallback a { color:var(--hn); text-decoration:underline; text-underline-offset:3px; }
+.directory-intro h2 { margin:0 0 6px; font-size:26px; letter-spacing:-.035em; }
+.connections-route .site-footer { margin-top:32px; }
+.connections-route main { scroll-behavior:smooth; }
+.map-label { transition:opacity .12s ease-out; }
+.map-preview:not([hidden]) { animation:feedback-in .18s ease-out; }
+@media(prefers-reduced-motion:reduce) { .connections-route main { scroll-behavior:auto; } .map-label,.topic-dot,.map-edge,.topic-card,.toggle a { transition:none; } .map-preview:not([hidden]) { animation:none; } }
 .connections-route .connections-heading p { margin:5px 0 0; }
 .connections-route .connections-layout { position:relative; display:flex; min-height:0; }
 .connections-route .connections-canvas { flex:1; height:auto; min-height:0; }
 .connections-route .map-preview { min-height:0; max-height:100%; overflow-y:auto; overscroll-behavior:contain; }
 .connections-route .map-results { flex-shrink:0; max-height:22dvh; overflow-y:auto; }
 .connections-route .map-result-options { max-height:none; }
-.connections-route .site-footer { margin-top:0; padding:9px 0; }
+.connections-route .site-footer { padding:16px 0; }
 @media(max-width:600px) {
  .connections-route header { padding:12px 16px; gap:16px; }
  .connections-route header b,.connections-route .toggle a { white-space:nowrap; }
- .connections-route .toggle { gap:10px; }
+ .connections-route .toggle { gap:2px; }
+ .connections-route .toggle a { padding:7px 8px; }
  .connections-route .connections-heading { gap:10px; }
  .connections-route .connections-heading input { padding:9px 12px; }
  .connections-route .map-preview { position:absolute; inset:0; z-index:2; width:100%; height:100%; margin:0; padding:16px; }
  .connections-route .preview-close { position:sticky; float:right; top:0; right:0; background:var(--bg); z-index:1; }
+ .connections-explorer { height:clamp(390px,60dvh,500px); }
+ #trends-section,#browse-section { margin-top:40px; padding-top:28px; }
 }
 @media(max-height:500px) {
  .connections-route .connections-page { padding-top:8px; }
@@ -384,17 +390,24 @@ body.connections-route { height:100dvh; }
  .connections-route .connections-heading input { width:42%; padding:6px 8px; }
  .connections-route .site-footer { padding:4px 0; }
 }
+@media(max-width:600px) {
+ header,.home-route header,.connections-route header { padding:10px 12px; gap:8px; }
+ header b { font-size:15px; white-space:nowrap; }
+ .toggle,.home-route .toggle,.connections-route .toggle { gap:1px; padding:2px; }
+ .toggle a,.home-route .toggle a,.connections-route .toggle a { padding:6px 7px; font-size:11px; white-space:nowrap; }
+}
 </style>
 </head>
 <body>
 <header>
-  <a href="#/"><b>HN <span>Atlas</span></b></a>
-  <nav class="toggle"><a id="topics" href="#/">Browse topics</a><a id="connections" href="#/connections">Connections</a></nav>
+  <a href="/"><b>HN <span>Atlas</span></b></a>
+  <nav class="toggle" aria-label="Explore"><a id="connections" href="/">Connections</a><a id="trends" href="/#/trends">Trends</a><a id="topics" href="/#/topics">Topics</a></nav>
 </header>
 <main id="app"></main>
 <footer class="site-footer" hidden>
   <span>Built by Andrea Ritossa</span>
-  <button type="button" id="feedback-open" hidden>Feedback</button>
+  <a href="/#/trends">Trends</a>
+  <button type="button" id="feedback-open">Feedback</button>
 </footer>
 <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-intro">
   <div class="feedback-heading"><h2 id="feedback-title">Help shape Hacker Atlas</h2><button type="button" class="feedback-close" id="feedback-close" aria-label="Close feedback">×</button></div>
@@ -404,7 +417,7 @@ body.connections-route { height:100dvh; }
     <textarea id="feedback-message" name="message" maxlength="2000" placeholder="What’s on your mind?" required autofocus></textarea>
     <label for="feedback-email">Email <span class="meta">(optional, for a reply)</span></label>
     <input id="feedback-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
-    <label class="signup-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+    <label class="contact-check" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
     <small>Your feedback is private. Your email is only used to reply, never to sign you up for a newsletter.</small>
     <button class="feedback-send" type="submit">Send feedback</button>
   </form>
@@ -421,10 +434,10 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&
 const hn = id => `https://news.ycombinator.com/item?id=${id}`;
 const safeUrl = u => { try { const x = new URL(u); return ["http:", "https:"].includes(x.protocol) ? x.href : ""; } catch { return ""; } };
 const domain = u => { const x = safeUrl(u); return x ? new URL(x).hostname.replace(/^www\./, "") : ""; };
-const trend = m => `<small class="${m >= 1.2 ? "up" : m <= .8 ? "down" : ""}">${m >= 1 ? "↑" : "↓"} ${m.toFixed(1)}×</small>`;
 let T, routeVersion = 0;
-const browseState = {query: "", sort: "active", page: 0};
-let homeResizeObserver, activityResizeObserver;
+const browseState = {query: "", sort: "active"};
+let activityResizeObserver, mapResizeObserver;
+const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Whole words and prefixes; short terms such as AI must match exactly.
 const searchWords = value => (value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
   .replace(/artificial intelligence/g, "ai").replace(/machine learning/g, "ml")
@@ -445,7 +458,7 @@ const matchingTopics = query => {
     return total + (title.join(" ") === words.join(" ") ? 20 : 0);
   };
   return T.topics.map(topic => ({topic, score:score(topic)})).filter(item => item.score > 0)
-    .sort((a,b) => b.score-a.score || b.topic.last_30d-a.topic.last_30d || a.topic.name.localeCompare(b.topic.name))
+    .sort((a,b) => b.score-a.score || b.topic.last_7d-a.topic.last_7d || a.topic.name.localeCompare(b.topic.name))
     .map(item => item.topic);
 };
 const details = new Map();
@@ -455,67 +468,50 @@ function topicDetails(id) {
   return details.get(id);
 }
 
-const topicCard = t => `<a class="topic-card" href="#/topic/${t.id}"><strong>${esc(t.name)}</strong><p>${esc(t.description)}</p><div class="card-kicker"><span>${t.last_30d.toLocaleString()} posts · last 30 days</span>${trend(t.momentum)}</div></a>`;
+const topicCard = t => `<a class="topic-card" href="/topic/${t.slug}/"><strong>${esc(t.name)}</strong><p>${esc(t.description)}</p><div class="card-kicker"><span>${t.last_7d.toLocaleString()} posts · past 7 days</span></div></a>`;
 
-async function home(version) {
+async function home(version, host) {
   T ??= await data.topics();
   if (version !== routeVersion) return;
-  $("#app").innerHTML = `<div class="home"><div class="home-inner">
-    <div class="directory-intro"><h1>Hacker News, <span>by topic.</span></h1></div>
-    <section class="directory-section" aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="moving">Rising</button><button data-sort="az">A–Z</button></div></div>
+  if (!host.querySelector(".home")) host.innerHTML = `<div class="home"><div class="home-inner">
+    <div class="directory-intro"><h2>Browse topics</h2><p class="meta">Find your next rabbit hole.</p></div>
+    <section class="directory-section" aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="az">A–Z</button></div></div>
     <div class="directory-summary"><p id="result-count" role="status"></p><p class="meta">Stories through ${new Date(T.as_of * 1000).toLocaleDateString()}</p></div>
-    <div class="directory-grid" id="directory"></div><nav class="directory-pagination" aria-label="Topic pages"><button type="button" id="topics-prev">← Previous</button><span id="topics-page" role="status"></span><button type="button" id="topics-next">Next →</button></nav></section>
+    <div class="directory-grid" id="directory"></div></section>
   </div></div>`;
-  $('.home-inner').append(siteFooter);
-  siteFooter.hidden = false;
-  const grid = $('#directory');
-  let pageSize = 0;
   const render = () => {
     const query = browseState.query.trim();
     const matches = matchingTopics(query);
-    if (browseState.sort !== "relevance") matches.sort(browseState.sort === "az" ? (a,b) => a.name.localeCompare(b.name) : browseState.sort === "moving" ? (a,b) => b.momentum-a.momentum || b.last_30d-a.last_30d : (a,b) => b.last_30d-a.last_30d);
-    const pages = Math.max(1, Math.ceil(matches.length / pageSize));
-    browseState.page = Math.max(0, Math.min(browseState.page, pages - 1));
-    $("#directory").innerHTML = matches.slice(browseState.page * pageSize, (browseState.page + 1) * pageSize).map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
+    if (browseState.sort !== "relevance") matches.sort(browseState.sort === "az" ? (a,b) => a.name.localeCompare(b.name) : (a,b) => b.last_7d-a.last_7d);
+    $("#directory").innerHTML = matches.map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
     $("#result-count").textContent = `${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}${query ? ' found' : ''}`;
-    $('#topics-page').textContent = matches.length ? `Page ${browseState.page + 1} of ${pages}` : 'No results';
-    $('#topics-prev').disabled = browseState.page === 0;
-    $('#topics-next').disabled = browseState.page >= pages - 1;
     document.querySelector('[data-sort="relevance"]').hidden = !query;
     document.querySelectorAll("[data-sort]").forEach(b => { b.classList.toggle("on",b.dataset.sort === browseState.sort); b.setAttribute("aria-pressed",b.dataset.sort === browseState.sort); });
   };
-  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; browseState.page=0; $("#q").value=value; render(); };
+  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; $("#q").value=value; render(); };
   $("#q").oninput = e => search(e.target.value);
   $("#q").onkeydown = e => { if (e.key === "Escape") search(""); };
-  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; browseState.page=0; render();});
-  $('#topics-prev').onclick = () => { browseState.page--; render(); };
-  $('#topics-next').onclick = () => { browseState.page++; render(); };
-  const fit = () => {
-    if (version !== routeVersion) return;
-    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-    const rows = Math.max(1, Math.floor((grid.clientHeight + 10) / 150));
-    const size = columns * rows;
-    grid.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
-    grid.classList.toggle('compact', grid.clientHeight / rows < 135);
-    if (size === pageSize) return;
-    if (pageSize) browseState.page = Math.floor(browseState.page * pageSize / size);
-    pageSize = size;
-    render();
-  };
-  fit();
-  homeResizeObserver = new ResizeObserver(fit);
-  homeResizeObserver.observe(grid);
+  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; render();});
+  if (host.dataset.prerendered) delete host.dataset.prerendered; else render();
 }
 
 async function connections(version) {
   T ??= await data.topics();
   if (version !== routeVersion) return;
-  $("#app").innerHTML=`<section class="connections-page">
-    <div class="connections-heading"><div><h1>Topic <span>connections.</span></h1><p class="meta">Select a topic to explore related stories.</p></div><input id="map-search" type="search" placeholder="Search topics" aria-label="Find a topic on the map" autocomplete="off"></div>
+  document.body.classList.remove('home-route');
+  document.body.classList.add('connections-route');
+  if (!$(".connections-page")) $("#app").innerHTML=`<section class="connections-page">
+    <div class="connections-explorer" id="map-section"><div class="connections-heading"><div><h1>Explore the connections</h1><p class="meta">Follow a topic. See where it leads.</p></div><input id="map-search" type="search" placeholder="Find a topic…" aria-label="Find a topic on the map" autocomplete="off"></div>
     <div id="map-results" class="map-results" aria-live="polite"></div>
-    <div class="connections-layout"><div class="connections-canvas"><svg id="map" aria-label="Interactive topic connections"></svg><div class="map-legend"><span class="legend-dot"></span> Topics <span class="legend-ring"></span> Rising</div><span class="map-help">Drag to move · + / − to zoom</span><div class="map-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div>
+    <div class="connections-layout"><div class="connections-canvas"><svg id="map" tabindex="0" role="group" aria-label="Interactive topic connections. Use plus and minus to zoom, or drag to pan."></svg><div class="map-legend"><span class="legend-dot"></span><span>Color identifies topic · Size shows story volume · Lines connect related topics</span></div><span class="map-help">Drag to explore · Zoom for more names</span><div class="map-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div></div>
+    <section id="trends-section" aria-label="Topic trends"><div id="trends-mount"></div></section>
+    <section id="browse-section" aria-label="Browse topics"></section>
   </section>`;
-  if (!window.d3) { $(".connections-canvas").innerHTML='<p class="loading">The map could not load. <a href="#/">Browse topics →</a></p>'; return; }
+  const trendsMount=$('#trends-mount');
+  if (trendsMount && !trendsMount.hasChildNodes()) trendsMount.innerHTML='<p class="trends-fallback">Topic trends are available on the <a href="/analytics/">Trends page</a>.</p>';
+  await home(version, $('#browse-section'));
+  if (version !== routeVersion) return;
+  if (!window.d3) { $(".connections-canvas").innerHTML='<p class="loading">The map could not load. <a href="/#/topics">Browse topics →</a></p>'; return; }
   const map=drawMap();
   const results=$("#map-results");
   $("#map-search").oninput=e=>{
@@ -529,56 +525,93 @@ async function connections(version) {
 }
 
 function drawMap() {
-  const svg=d3.select("#map").attr("viewBox","0 0 1000 620"), layer=svg.append("g");
-  const x=d3.scaleLinear([0,1],[65,935]), y=d3.scaleLinear([0,1],[62,550]);
-  const radius=d3.scaleSqrt([0,d3.max(T.topics,t=>t.size)],[3,12]);
-  // Color follows map position as a visual guide, not a separate classification.
-  const color=t=>d3.interpolateRgbBasis(["#527be0","#8c69cb","#ce719b","#db9853","#42a99c"])(Math.max(0,Math.min(1,.7*t.x+.3*t.y)));
+  const svg=d3.select("#map"), layer=svg.append("g");
+  const rect=svg.node().getBoundingClientRect();
+  let mapWidth=rect.width || 1000, mapHeight=rect.height || 620;
+  svg.attr('viewBox',`0 0 ${mapWidth} ${mapHeight}`);
+  const x=d3.scaleLinear([0,1],[36,mapWidth-36]), y=d3.scaleLinear([0,1],[64,mapHeight-80]);
+  const radius=d3.scaleSqrt([0,d3.max(T.topics,t=>t.size)],[2.5,Math.min(12,Math.max(6,mapWidth/80))]);
+  // The same stable topic color is used in the trends treemap.
+  const color=t=>`hsl(${(Number(t.id)*137.508)%360} 42% 35%)`;
   const byId=new Map(T.topics.map(t=>[t.id,t]));
   const edges=T.edges.filter(e=>byId.has(e.a)&&byId.has(e.b));
   const neighbors=new Map(T.topics.map(t=>[t.id,new Set([t.id])]));
   edges.forEach(e=>{neighbors.get(e.a).add(e.b);neighbors.get(e.b).add(e.a);});
-  let selected=null, matching=new Set(byId.keys()), hovered=null;
+  let selected=null, matching=new Set(byId.keys()), hovered=null, transform=d3.zoomIdentity;
+  const edgePath=e=>{const a=byId.get(e.a),b=byId.get(e.b);return `M${x(a.x)},${y(a.y)} Q${(x(a.x)+x(b.x))/2+12},${(y(a.y)+y(b.y))/2-12} ${x(b.x)},${y(b.y)}`;};
   const paths=layer.append("g").selectAll("path").data(edges).join("path").attr("class","map-edge")
-    .attr("d",e=>{const a=byId.get(e.a),b=byId.get(e.b);return `M${x(a.x)},${y(a.y)} Q${(x(a.x)+x(b.x))/2+12},${(y(a.y)+y(b.y))/2-12} ${x(b.x)},${y(b.y)}`;});
-  const rings=layer.append("g").attr("pointer-events","none").selectAll("circle")
-    .data(T.topics.filter(t=>t.momentum>=1.2)).join("circle")
-    .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)+4)
-    .attr("fill","none").attr("stroke","var(--hn)").attr("stroke-opacity",.7).attr("stroke-width",.8);
+    .attr("d",edgePath);
   const dots=layer.append("g").selectAll("circle").data(T.topics).join("circle").attr("class","topic-dot")
     .attr("cx",t=>x(t.x)).attr("cy",t=>y(t.y)).attr("r",t=>radius(t.size)).attr("fill",color)
     .attr("tabindex",0).attr("role","button").attr("aria-label",t=>`Explore ${t.name}`).attr("aria-pressed","false");
-  const labels=layer.append("g").selectAll("text").data(T.topics).join("text")
-    .attr("class","map-label").attr("x",t=>Math.max(100,Math.min(900,x(t.x)))).attr("y",t=>y(t.y)-radius(t.size)-9)
+  // Keep labels outside the zoomed layer so names remain a readable size.
+  const labels=svg.append("g").attr("aria-hidden","true").selectAll("text").data(T.topics).join("text")
+    .attr("class","map-label").attr("x",t=>x(t.x)).attr("y",t=>y(t.y)-radius(t.size)-9)
     .attr("text-anchor","middle").text(t=>t.name);
+  let labelWidths=new Map(), labelHeight=12, labelFrame=0;
+  const layoutLabels=()=>{
+    labelFrame=0;
+    if (!svg.node().isConnected) return;
+    const active=selected ?? hovered, connected=active==null ? null : neighbors.get(active);
+    const visible=t=>connected ? connected.has(t.id) : matching.has(t.id);
+    const boxes=[], positions=new Map(), padding=labelHeight*.35;
+    const nodeBoxes=T.topics.filter(visible).map(t=>{
+      const [cx,cy]=transform.apply([x(t.x),y(t.y)]), r=radius(t.size)*transform.k;
+      return [cx-r,cy-r,cx+r,cy+r];
+    });
+    const candidates=[...T.topics].filter(visible).sort((a,b)=>(b.id===active)-(a.id===active)||b.size-a.size||a.id-b.id);
+    for(const t of candidates) {
+      const [cx,cy]=transform.apply([x(t.x),y(t.y)]);
+      if(cx<0 || cx>mapWidth || cy<0 || cy>mapHeight) continue;
+      const w=labelWidths.get(t.id) || t.name.length*labelHeight*.5;
+      const r=(radius(t.size)+(t.id===active ? 3 : 0))*transform.k;
+      // Place each name near its node, using actual visible space at this zoom.
+      const options=[
+        [cx,cy-r-padding], [cx,cy+r+labelHeight],
+        [cx+r+padding+w/2,cy+labelHeight*.3], [cx-r-padding-w/2,cy+labelHeight*.3]
+      ];
+      for(const [lx,ly] of options) {
+        const box=[lx-w/2-padding,ly-labelHeight,lx+w/2+padding,ly+padding];
+        if(box[0]<8 || box[2]>mapWidth-8 || box[1]<60 || box[3]>mapHeight-66) continue;
+        if(boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
+        if(nodeBoxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
+        boxes.push(box);positions.set(t.id,{x:lx,y:ly});break;
+      }
+    }
+    labels.attr("opacity",t=>positions.has(t.id)?1:0)
+      .attr("x",t=>positions.get(t.id)?.x ?? transform.applyX(x(t.x)))
+      .attr("y",t=>positions.get(t.id)?.y ?? transform.applyY(y(t.y)))
+      .style("font-weight",t=>t.id===active ? 700 : 500);
+  };
+  const queueLabels=()=>{if(!labelFrame)labelFrame=requestAnimationFrame(layoutLabels);};
+  const measureLabels=()=>{
+    const rect=svg.node().getBoundingClientRect();
+    if(!rect.width || !rect.height)return;
+    if(rect.width!==mapWidth || rect.height!==mapHeight) {
+      const next=d3.zoomIdentity.translate(transform.x*rect.width/mapWidth,transform.y*rect.height/mapHeight).scale(transform.k);
+      mapWidth=rect.width;mapHeight=rect.height;
+      svg.attr('viewBox',`0 0 ${mapWidth} ${mapHeight}`);
+      x.range([36,mapWidth-36]);y.range([64,mapHeight-80]);
+      radius.range([2.5,Math.min(12,Math.max(6,mapWidth/80))]);
+      paths.attr('d',edgePath);
+      dots.attr('cx',t=>x(t.x)).attr('cy',t=>y(t.y));
+      svg.call(zoom.transform,next);
+    }
+    labels.style('font-size',`${labelHeight}px`).style('stroke-width','3px');
+    labelWidths=new Map();
+    labels.each(function(t){labelWidths.set(t.id,this.getComputedTextLength());});
+    queueLabels();
+  };
   const refresh=()=>{
     const active=selected ?? hovered, connected=active==null ? null : neighbors.get(active);
     const visible=t=>connected ? connected.has(t.id) : matching.has(t.id);
     dots.attr("opacity",t=>visible(t) ? 1 : .13).attr("r",t=>radius(t.size)+(t.id===active ? 3 : 0))
-      .attr("tabindex",t=>visible(t)?0:-1).attr("aria-pressed",t=>t.id===selected).attr("fill",t=>t.id===active ? "var(--hn)" : color(t))
+      .attr("tabindex",t=>visible(t)?0:-1).attr("aria-pressed",t=>t.id===selected).attr("fill",color)
       .attr("stroke",t=>t.id===active ? "var(--ink)" : "var(--bg)");
-    rings.attr("opacity",t=>visible(t) ? 1 : .08);
-    paths.attr("stroke",e=>active!=null && (e.a===active||e.b===active) ? "var(--hn)" : color(byId.get(e.a)))
-      .attr("stroke-opacity",e=>active==null ? .3 : (e.a===active||e.b===active) ? .8 : .025)
+    paths.attr("stroke",e=>active!=null && (e.a===active||e.b===active) ? color(byId.get(active)) : color(byId.get(e.a)))
+      .attr("stroke-opacity",e=>active==null ? .18 : (e.a===active||e.b===active) ? .7 : .025)
       .attr("stroke-width",e=>active!=null && (e.a===active||e.b===active) ? 1.5 : .7);
-    const boxes=[], positions=new Map();
-    const candidates=[...T.topics].filter(visible).sort((a,b)=>(b.id===active)-(a.id===active)||b.size-a.size);
-    const limit=connected ? 24 : innerWidth<600 ? 22 : 52;
-    for(const t of candidates) {
-      if(positions.size>=limit)break;
-      const node=labels.filter(label=>label.id===t.id).node();
-      const w=node.getComputedTextLength() || t.name.length*5.7;
-      const cx=Math.max(w/2+8,Math.min(992-w/2,x(t.x)));
-      // Try both sides of a node, and keep scanning when a busy area is full.
-      for(const cy of [y(t.y)-radius(t.size)-8,y(t.y)+radius(t.size)+16]) {
-        const box=[cx-w/2-4,cy-12,cx+w/2+4,cy+3];
-        if(boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;
-        boxes.push(box);positions.set(t.id,{x:cx,y:cy});break;
-      }
-    }
-    labels.attr("display",t=>positions.has(t.id)?null:"none")
-      .attr("x",t=>positions.get(t.id)?.x ?? x(t.x)).attr("y",t=>positions.get(t.id)?.y ?? y(t.y))
-      .style("fill","var(--ink)");
+    queueLabels();
   };
   const preview=$("#map-preview");
   const clear=()=>{selected=null;hovered=null;preview.hidden=true;refresh();};
@@ -586,13 +619,13 @@ function drawMap() {
     const t=byId.get(id);
     if(!t)return;
     selected=id;hovered=null;
-    const related=[...neighbors.get(id)].filter(other=>other!==id).map(other=>byId.get(other)).sort((a,b)=>b.last_30d-a.last_30d);
+    const related=[...neighbors.get(id)].filter(other=>other!==id).map(other=>byId.get(other)).sort((a,b)=>b.last_7d-a.last_7d);
     preview.hidden=false;
-    preview.innerHTML=`<button class="preview-close" aria-label="Close topic preview">×</button><p class="eyebrow">${related.length} connected topics</p><h2>${esc(t.name)}</h2><p>${esc(t.description)}</p><div class="preview-stats">${t.last_30d.toLocaleString()} posts in 30 days<br>${t.momentum.toFixed(1)}× the monthly average of the prior 90 days</div><a class="preview-open" href="#/topic/${id}">Read this topic <span>↗</span></a><div class="preview-stories" id="map-stories"><p>Loading recent stories…</p></div><h3>Explore related topics</h3><div class="preview-related">${related.map(r=>`<button data-neighbor="${r.id}">${esc(r.name)} →</button>`).join("") || '<p>No connections yet.</p>'}</div>`;
+    preview.innerHTML=`<button class="preview-close" aria-label="Close topic preview">×</button><p class="eyebrow">${related.length} connected topics</p><h2>${esc(t.name)}</h2><p>${esc(t.description)}</p><div class="preview-stats">${t.last_7d.toLocaleString()} posts · past 7 days</div><a class="preview-open" href="/topic/${t.slug}/">Read this topic <span>↗</span></a><div class="preview-stories" id="map-stories"></div><h3>Explore related topics</h3><div class="preview-related">${related.map(r=>`<button data-neighbor="${r.id}">${esc(r.name)} →</button>`).join("") || '<p>No connections yet.</p>'}</div>`;
     refresh();
     topicDetails(id).then(data=>{
       if(selected!==id || !preview.isConnected)return;
-      preview.querySelector("#map-stories").innerHTML='<h3>Recent stories</h3>'+data.trending.slice(0,3).map(p=>`<a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} ↗</a>`).join("")+(data.trending.length ? "" : '<p>No trending stories in the last 14 days.</p>');
+      preview.querySelector("#map-stories").innerHTML='<h3>Recent stories</h3>'+data.trending.slice(0,3).map(p=>`<a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} ↗</a>`).join("")+(data.trending.length ? "" : '<p>No featured stories yet.</p>');
     }).catch(()=>{if(selected===id && preview.isConnected)preview.querySelector("#map-stories").innerHTML='<p>Stories could not load. Open the topic to try again.</p>';});
     if(innerWidth<=600)preview.querySelector('.preview-close').focus({preventScroll:true});
   };
@@ -603,11 +636,30 @@ function drawMap() {
   dots.on("pointerenter focus",(_,t)=>{if(selected===null){hovered=t.id;refresh();}})
     .on("pointerleave blur",()=>{hovered=null;refresh();})
     .on("click",(_,t)=>select(t.id)).on("keydown",(e,t)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(t.id);}});
-  const zoom=d3.zoom().scaleExtent([1,6]).on("zoom",e=>layer.attr("transform",e.transform));
-  svg.call(zoom).on("wheel.zoom",null).on("dblclick.zoom",null);
-  $("#zoom-in").onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1.5);
-  $("#zoom-out").onclick=()=>svg.transition().duration(250).call(zoom.scaleBy,1/1.5);
-  $("#zoom-reset").onclick=()=>{clear();svg.transition().duration(300).call(zoom.transform,d3.zoomIdentity);};
+  const zoom=d3.zoom().scaleExtent([1,12])
+    .filter(e=>e.type==='wheel' ? e.ctrlKey || e.metaKey : !e.button)
+    .on("start",()=>{hovered=null;refresh();svg.style('cursor','grabbing');})
+    .on("zoom",e=>{
+      transform=e.transform;
+      layer.attr("transform",transform);
+      $('#zoom-in').disabled=transform.k>=12;
+      $('#zoom-out').disabled=transform.k<=1;
+      queueLabels();
+    }).on("end",()=>svg.style('cursor',null));
+  svg.call(zoom).on("dblclick.zoom",null);
+  const animate=()=>svg.interrupt().transition().duration(reduceMotion()?0:280).ease(d3.easeCubicOut);
+  $("#zoom-in").onclick=()=>animate().call(zoom.scaleBy,1.5);
+  $("#zoom-out").onclick=()=>animate().call(zoom.scaleBy,1/1.5);
+  $("#zoom-reset").onclick=()=>{clear();animate().call(zoom.transform,d3.zoomIdentity);};
+  $('#zoom-out').disabled=true;
+  svg.on('keydown',e=>{
+    if(e.target!==svg.node())return;
+    const control=({'+' : '#zoom-in', '=' : '#zoom-in', '-' : '#zoom-out', '0' : '#zoom-reset'})[e.key];
+    if(control){e.preventDefault();$(control).click();}
+  });
+  mapResizeObserver=new ResizeObserver(measureLabels);
+  mapResizeObserver.observe(svg.node());
+  measureLabels();
   refresh();
   return {select,clear,filter:ids=>{matching=ids;clear();}};
 }
@@ -618,21 +670,31 @@ const post = p => `<div class="post"><a href="${esc(safeUrl(p.url) || hn(p.id))}
 
 async function topic(id, version) {
   T ??= await data.topics();
-  const t = await topicDetails(id), me = T.topics.find(x => x.id === t.id);
-  const cloudSignup = document.querySelector('meta[name="hn-newsletter"]')?.content === 'cloudflare';
-  const newsletterAvailable = cloudSignup || t.newsletter_available;
+  const match = /^\d+$/.test(id) ? Number(id) : T.topics.find(x => x.slug === id)?.id;
+  if (match == null) throw Error('Topic not found');
+  const t = await topicDetails(match), me = T.topics.find(x => x.id === t.id);
+  const newsletterAvailable = document.querySelector('meta[name="hn-newsletter"]')?.content === 'cloudflare';
   if (version !== routeVersion) return;
-  document.title = `${t.name} · HN Atlas`;
+  if (location.pathname !== `/topic/${t.slug}/`) history.replaceState(null, '', `/topic/${t.slug}/`);
+  updateMetadata(`${t.name} · HN Atlas`, t.description, `/topic/${t.slug}/`);
   const related = T.edges.filter(e => e.a === t.id || e.b === t.id).map(e => T.topics.find(x => x.id === (e.a === t.id ? e.b : e.a))).filter(Boolean);
+  // Keep the current page intact until the next page's visible sections are ready.
+  await Promise.allSettled([
+    data.timelineZoom(t.id),
+    data.stories(t.id, new URLSearchParams('sort=top&days=30&year=0&offset=0&limit=10')),
+  ]);
+  if (version !== routeVersion) return;
+  document.body.classList.remove('home-route', 'connections-route');
   $("#app").innerHTML = `<div class="page">
-    <a href="#/" class="meta" style="align-self: start">← All topics</a>
+    <a href="/#/topics" class="meta" style="align-self: start">← All topics</a>
     <div class="hero topic-hero"><div><h1>${esc(t.name)}</h1>
-    <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_30d} in 30 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p>${newsletterAvailable ? '<button type="button" class="newsletter-cta" data-section="topic-newsletter">Sign up for the newsletter</button>' : ''}</div></div>
-    <section class="activity" aria-labelledby="activity-title"><div class="activity-content"><div class="chart-heading"><div><h2 id="activity-title">The pace of conversation</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Posts per month · first and latest months may be partial. Hover, tap, or focus a bar for its count.</p></div></section>
-    <nav class="topic-nav" aria-label="On this topic page"><button type="button" data-section="topic-history">01 <span>Timeline</span></button><button type="button" data-section="topic-recent">02 <span>Latest</span></button><button type="button" data-section="topic-archive">03 <span>Explore</span></button></nav>
-    <section id="topic-history" class="topic-history" aria-label="Topic timeline" tabindex="-1"><p role="status">Loading history…</p></section>
-    <section id="topic-recent" class="recent-stories" tabindex="-1"><p class="eyebrow">02 / CATCH UP</p><h2>The conversation now</h2><p class="section-intro">Stories gathering attention in the last two weeks.</p>${t.trending.slice(0,5).map(post).join("") || '<p class="meta">No recent stories.</p>'}</section>
-    <section id="topic-archive" class="topic-archive" tabindex="-1" aria-label="Browse topic stories"><p class="eyebrow">03 / GO DEEPER</p><h2>Follow your curiosity</h2><p class="section-intro">Find a particular story, revisit a year, or see what resonated.</p>
+    <p class="topic-description">${esc(t.description)}</p><p class="topic-stats">${t.size.toLocaleString()} stories <span>·</span> ${me.last_7d} in 7 days <span>·</span> Updated ${new Date(t.as_of*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</p></div></div>
+    <nav class="topic-nav" aria-label="On this topic page"><button type="button" data-section="topic-recent">01 <span>Now</span></button><button type="button" data-section="topic-history">02 <span>Timeline</span></button><button type="button" data-section="topic-activity">03 <span>Activity</span></button><button type="button" data-section="topic-archive">04 <span>Explore</span></button>${newsletterAvailable ? '<a class="topic-follow-link" href="#topic-updates">Weekly selection ↗</a>' : ''}</nav>
+    <section id="topic-recent" class="recent-stories" tabindex="-1"><p class="eyebrow">01 / CATCH UP</p><h2>The conversation now</h2><p class="section-intro">Popular recent stories, shown newest first.</p>${t.trending.slice(0,5).sort((a,b)=>b.time-a.time||b.id-a.id).map(post).join("") || '<p class="meta">No recent stories.</p>'}</section>
+    ${newsletterAvailable ? `<details class="topic-follow" id="topic-updates"><summary><span><strong>Keep up with this topic</strong><small>A few highlights, once a week.</small></span><span class="topic-follow-action">Get the weekly email <span aria-hidden="true">＋</span></span></summary><div class="topic-follow-panel"><p>Weekly highlights from ${esc(t.name)}, Sundays at 18:00 Stockholm time.</p><form id="follow-form"><input name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required aria-label="Email address"><label class="contact-check" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><button type="submit">Send me weekly highlights</button></form><small>One email a week about this topic. Unsubscribe any time.</small><small id="follow-status" role="status" aria-live="polite"></small></div></details>` : ''}
+    <section id="topic-history" class="topic-history" aria-label="Topic timeline" tabindex="-1"></section>
+    <section id="topic-activity" class="activity" tabindex="-1" aria-labelledby="activity-title"><div class="activity-content"><div class="chart-heading"><div><h2 id="activity-title">The pace of conversation</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0">All</button></div></div><svg id="activity-chart" role="group" aria-label="Monthly posts; select a bar for its count"></svg><p class="chart-note">Posts per month · first and latest months may be partial. Hover, tap, or focus a bar for its count.</p></div></section>
+    <section id="topic-archive" class="topic-archive" tabindex="-1" aria-label="Browse topic stories"><p class="eyebrow">04 / GO DEEPER</p><h2>Follow your curiosity</h2><p class="section-intro">Find a particular story, revisit a year, or see what resonated.</p>
       <form id="story-search" class="browse-tools">
         <input name="q" type="search" maxlength="200" placeholder="Search titles or websites…" aria-label="Search stories">
         <select name="sort" aria-label="Sort stories"><option value="newest">Newest</option><option value="top" selected>Highest rated</option><option value="discussed">Most discussed</option></select>
@@ -646,10 +708,11 @@ async function topic(id, version) {
     </section>
 
 
-    <footer class="topic-footer">${related.length ? `<div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">${related.slice(0,4).map(r=>`<a href="#/topic/${r.id}"><strong>${esc(r.name)} <span>↗</span></strong><p>${esc(r.description)}</p></a>`).join('')}</div></div>` : ''}
-    ${newsletterAvailable ? `<aside class="digest" id="topic-newsletter" tabindex="-1"><strong>Keep up with ${esc(t.name)}</strong><p>${cloudSignup ? 'Interested in new stories on this topic? Join the early newsletter list.' : 'A concise digest, delivered at your pace.'}</p><form id="signup"><input name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required aria-label="Email address">${cloudSignup ? '<label class="signup-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>' : '<select name="cadence" aria-label="Frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>'}<button type="submit">Sign up for the newsletter</button></form><small>${cloudSignup ? 'By signing up, you agree to receive email updates about this topic. We store your email and topic privately in Cloudflare. Emails haven’t started yet.' : 'Unsubscribe any time.'}</small><small id="signup-status" role="status" aria-live="polite"></small></aside>` : ''}</footer>
+    <footer class="topic-footer">${related.length ? `<div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">${related.slice(0,4).map(r=>`<a href="/topic/${r.slug}/"><strong>${esc(r.name)} <span>↗</span></strong><p>${esc(r.description)}</p></a>`).join('')}</div></div>` : ''}
+</footer>
   </div>`;
   window.scrollTo(0,0);
+  document.querySelectorAll('.topic-follow-link').forEach(link => link.onclick=()=>{ $('#topic-updates').open=true; });
   const jump = target => {
     const section = document.getElementById(target);
     section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
@@ -660,9 +723,9 @@ async function topic(id, version) {
   let storyOffset = 0, storyQuery = new URLSearchParams(), storyRequest = 0;
   async function loadStories(reset = false) {
     const request = ++storyRequest;
-    if (reset) { storyOffset = 0; storyQuery = new URLSearchParams(new FormData(storyForm)); results.innerHTML = ""; }
+    if (reset) { storyOffset = 0; storyQuery = new URLSearchParams(new FormData(storyForm)); }
     more.disabled = true;
-    storyStatus.textContent = "Loading stories…";
+    results.setAttribute("aria-busy", "true");
     const params = new URLSearchParams(storyQuery); params.set("offset", storyOffset); params.set("limit",10);
     const year = storyQuery.get('year'), days = Number(storyQuery.get('days'));
     const period = year && year !== '0' ? year : days ? `the last ${days} days` : 'all years';
@@ -671,6 +734,7 @@ async function topic(id, version) {
     try {
       const page = await data.stories(t.id, params);
       if (request !== storyRequest || version !== routeVersion) return;
+      if (reset) results.innerHTML = "";
       results.insertAdjacentHTML("beforeend", page.posts.map(post).join(""));
       storyOffset = page.next_offset;
       more.hidden = storyOffset === null;
@@ -679,7 +743,7 @@ async function topic(id, version) {
       if (request !== storyRequest || version !== routeVersion) return;
       storyStatus.textContent = "Could not load stories. Try again.";
       more.hidden = false;
-    } finally { if (request === storyRequest) more.disabled = false; }
+    } finally { if (request === storyRequest) { more.disabled = false; results.removeAttribute("aria-busy"); } }
   }
   storyForm.onsubmit = e => { e.preventDefault(); loadStories(true); };
   storyForm.onchange = e => {
@@ -741,20 +805,20 @@ async function topic(id, version) {
     $(".activity").hidden=true;
     document.querySelectorAll("[data-range]").forEach(b=>b.disabled=true);
   }
-  if ($("#signup")) $("#signup").onsubmit = async e => {
+  if ($("#follow-form")) $("#follow-form").onsubmit = async e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
     const form = e.target, button = form.querySelector('button');
     if (button.disabled) return;
     button.disabled = true;
-    const status = $("#signup-status"); status.textContent = cloudSignup ? "Saving…" : "Sending confirmation…";
+    const status = $("#follow-status"); status.textContent = "Saving…";
     try {
       const r = await fetch("/api/newsletter/subscribe", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...data, topic:t.id})});
       const result = await r.json();
       if (!r.ok) throw Error(result.detail || "Could not subscribe");
-      status.textContent = cloudSignup ? `You’re on the list for ${t.name}. We’ll email you when updates are ready.` : "Check your inbox to confirm.";
+      status.textContent = `You’ll receive weekly highlights from ${t.name}.`;
       form.reset();
-    } catch (err) { status.textContent = "Signup failed. Please try again. " + err.message; }
+    } catch (err) { status.textContent = "Could not save your email. Please try again. " + err.message; }
     finally { button.disabled = false; }
   };
 
@@ -785,7 +849,7 @@ async function loadHistory(id, version, onYear, onRecent) {
     const years = history.levels.year.map(p=>yearOf(p.start));
     const label = (p, key) => new Date(p.start*1000).toLocaleDateString(undefined,
       {timeZone:'UTC',year:'numeric',...(key==='year' ? {} : {month:'short'}),...(key==='week' ? {day:'numeric'} : {})});
-    host.innerHTML = `<div class="history-heading"><div><p class="eyebrow">01 / EXPLORE THROUGH TIME</p><h2>Timeline</h2></div><span class="history-span">${years[0]} — ${years.at(-1)}</span></div>
+    host.innerHTML = `<div class="history-heading"><div><p class="eyebrow">02 / EXPLORE THROUGH TIME</p><h2>Timeline</h2></div><span class="history-span">${years[0]} — ${years.at(-1)}</span></div>
       <p class="section-intro">Start with the latest. Scroll back through time, or zoom in for more.</p>
       <div class="zt-shell">
         <div class="zt-toolbar"><div class="zt-scale"><strong id="zt-scale-name">${scales[defaultLevel].name}</strong><span id="zt-scale-hint">${scales[defaultLevel].hint}</span></div><div class="zt-zoom"><button type="button" id="zt-out" aria-label="Zoom out">−</button><input id="zt-zoom" type="range" min="0" max="3" step="1" value="${defaultLevel}" aria-label="Timeline detail" aria-valuetext="${scales[defaultLevel].name}"><button type="button" id="zt-in" aria-label="Zoom in">+</button></div><label class="zt-jump"><span>Jump to</span><select id="zt-year" aria-label="Jump to year">${years.map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label></div>
@@ -793,7 +857,7 @@ async function loadHistory(id, version, onYear, onRecent) {
         <div class="zt-footer"><span id="zt-position" role="status"></span><span>Scroll through time <span aria-hidden="true">↕</span></span><button type="button" id="zt-reset">Reset view</button></div>
       </div>
       <div class="zt-below"><button type="button" id="zt-archive">Explore this year’s archive ↗</button><button type="button" id="zt-latest">Catch up with the latest →</button></div>
-      <details class="timeline-method"><summary>About this timeline</summary><p>Start with up to five highlights per year. Zoom out for two highlights, or zoom in to explore months and weeks. Picks are ranked within each period by HN points, with comments breaking ties, and displayed newest first by submission date. Duplicate links within a period are skipped. Stories need at least 10 points; quiet periods stay visible. HN attention is a discovery signal, not a measure of lasting impact. The timeline covers our available archive; first and last periods may be incomplete.</p></details>`;
+      <details class="timeline-method"><summary>About this timeline</summary><p>Start with up to five highlights per year. Zoom out for two highlights, or zoom in to explore months and weeks. Picks are ranked within each period by HN points, with comments breaking ties, and displayed newest first by submission date. Duplicate links within a period are skipped. There is no minimum point score; quiet periods stay visible. HN attention is a discovery signal, not a measure of lasting impact. The timeline covers our available archive; first and last periods may be incomplete.</p></details>`;
     const viewport = host.querySelector('#zt-view'), periods = host.querySelector('#zt-periods');
     const slider = host.querySelector('#zt-zoom'), jump = host.querySelector('#zt-year');
     const position = host.querySelector('#zt-position');
@@ -835,7 +899,7 @@ async function loadHistory(id, version, onYear, onRecent) {
       periods.innerHTML = history.levels[scale.key].map((p,i)=>{
         const picks = p.posts.slice(0,scale.limit).sort((a,b)=>b.time-a.time||b.id-a.id);
         const title = label(p,scale.key);
-        return `<section class="zt-period" data-index="${i}" data-time="${p.end-1}"><div class="zt-date"><span class="zt-dot"></span>${scale.key==='week' ? '<small>Week of</small>' : ''}<button type="button" data-drill="${p.end-1}" ${level===3 ? 'disabled' : ''} aria-label="Zoom into ${esc(title)}">${esc(title)}${level<3 ? ' <span>+</span>' : ''}</button><small>${p.count.toLocaleString()} stories</small></div><div class="zt-stories">${picks.map(p=>`<article class="zt-story" data-story="${p.id}" data-time="${p.time}"><time datetime="${new Date(p.time*1000).toISOString()}">${new Date(p.time*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',timeZone:'UTC'})}</time><h3><a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} <span>↗</span></a></h3><div class="zt-meta"><span>${esc(domain(p.url)||'Hacker News')}</span><a href="${hn(p.id)}" target="_blank" rel="noopener">${p.score.toLocaleString()} points · ${p.descendants||0} comments</a></div></article>`).join('') || `<p class="zt-quiet">${p.count ? 'A quiet stretch. No stories reached 10 points.' : 'No stories in this period.'}</p>`}</div></section>`;
+        return `<section class="zt-period" data-index="${i}" data-time="${p.end-1}"><div class="zt-date"><span class="zt-dot"></span>${scale.key==='week' ? '<small>Week of</small>' : ''}<button type="button" data-drill="${p.end-1}" ${level===3 ? 'disabled' : ''} aria-label="Zoom into ${esc(title)}">${esc(title)}${level<3 ? ' <span>+</span>' : ''}</button><small>${p.count.toLocaleString()} stories</small></div><div class="zt-stories">${picks.map(p=>`<article class="zt-story" data-story="${p.id}" data-time="${p.time}"><time datetime="${new Date(p.time*1000).toISOString()}">${new Date(p.time*1000).toLocaleDateString(undefined,{month:'short',day:'numeric',timeZone:'UTC'})}</time><h3><a href="${esc(safeUrl(p.url)||hn(p.id))}" target="_blank" rel="noopener">${esc(p.title)} <span>↗</span></a></h3><div class="zt-meta"><span>${esc(domain(p.url)||'Hacker News')}</span><a href="${hn(p.id)}" target="_blank" rel="noopener">${p.score.toLocaleString()} points · ${p.descendants||0} comments</a></div></article>`).join('') || `<p class="zt-quiet">No stories in this period.</p>`}</div></section>`;
       }).join('') + '<div class="zt-end">You’ve reached the beginning of this archive.</div>';
       periods.querySelector('.zt-period:last-of-type').style.minHeight=`${viewport.clientHeight}px`;
       host.querySelector('#zt-scale-name').textContent=scale.name;
@@ -873,7 +937,7 @@ async function loadHistory(id, version, onYear, onRecent) {
   } catch {
     if (version !== routeVersion || !host.isConnected) return;
     host.innerHTML='<h2>Timeline</h2><p class="meta">The history could not load.</p><button type="button" id="history-retry">Try again</button>';
-    host.querySelector('#history-retry').onclick=()=>{host.innerHTML='<p role="status">Loading history…</p>';loadHistory(id,version,onYear,onRecent);};
+    host.querySelector('#history-retry').onclick=()=>{host.innerHTML='';loadHistory(id,version,onYear,onRecent);};
   }
 }
 
@@ -883,17 +947,20 @@ const siteFooter = $('.site-footer');
 const feedbackDialog = $('#feedback-dialog'), feedbackForm = $('#feedback-form');
 const feedbackStatus = $('#feedback-status'), feedbackOpen = $('#feedback-open');
 let feedbackId = null, feedbackPage = '#/', feedbackSent = false;
-feedbackOpen.hidden = document.querySelector('meta[name="hn-feedback"]')?.content !== 'cloudflare';
+const feedbackAvailable = document.querySelector('meta[name="hn-feedback"]')?.content === 'cloudflare';
+feedbackForm.querySelector('button[type="submit"]').disabled = !feedbackAvailable;
 feedbackOpen.onclick = () => {
   if (feedbackSent) { feedbackForm.reset(); feedbackStatus.textContent = ''; feedbackForm.hidden = false; feedbackSent = false; }
   feedbackId ??= crypto.randomUUID();
-  feedbackPage = location.hash || '#/';
+  feedbackPage = location.pathname + location.search + location.hash;
+  if (!feedbackAvailable) feedbackStatus.textContent = 'Feedback sending is available on the published site. This local preview does not send messages.';
   feedbackDialog.showModal();
 };
 $('#feedback-close').onclick = () => feedbackDialog.close();
 feedbackForm.addEventListener('input', () => { feedbackId = crypto.randomUUID(); });
 feedbackForm.onsubmit = async event => {
   event.preventDefault();
+  if (!feedbackAvailable) return;
   const button = feedbackForm.querySelector('button[type="submit"]');
   if (button.disabled) return;
   button.disabled = true;
@@ -926,34 +993,67 @@ document.addEventListener("pointermove", e => {
   tip.hidden = !t;
   if (t) { tip.textContent = t.dataset.tip; tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = Math.min(e.clientY + 12, innerHeight - tip.offsetHeight - 8) + "px"; }
 });
+function updateMetadata(title = 'HN Atlas', description = 'Explore Hacker News by topic: discover stories, follow trends, and browse the archive.', path = '/') {
+  document.title = title;
+  const url = `https://hackeratlas.com${path}`;
+  for (const [key, value] of Object.entries({'description':description, 'og:title':title, 'og:description':description, 'og:url':url, 'og:type':'website', 'twitter:card':'summary', 'twitter:title':title, 'twitter:description':description})) {
+    const attr = key.startsWith('og:') ? 'property' : 'name';
+    let tag = document.querySelector(`meta[${attr}="${key}"]`);
+    if (!tag) { tag = document.createElement('meta'); tag.setAttribute(attr, key); document.head.append(tag); }
+    tag.content = value || '';
+  }
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
+  canonical.href = url;
+}
 function route() {
-  const version = ++routeVersion;
-  const m = location.hash.match(/^#\/topic\/(\d+)/);
-  const isConnections=location.hash === "#/connections";
-  const isTimeline=/^#\/timeline(?:\?|$)/.test(location.hash);
-  if (isTimeline) {
+  const oldTopic = location.hash.match(/^#\/topic\/(\d+)\/?$/);
+  if (oldTopic) history.replaceState(null, '', `/topic/${oldTopic[1]}/`);
+  if (/^#\/timeline(?:\?|$)/.test(location.hash)) {
     const legacy = new URLSearchParams(location.hash.split('?')[1] || '');
-    location.replace(/^\d+$/.test(legacy.get('topic') || '') ? `#/topic/${legacy.get('topic')}` : '#/');
+    history.replaceState(null, '', /^\d+$/.test(legacy.get('topic') || '') ? `/topic/${legacy.get('topic')}/` : '/');
+  }
+  const version = ++routeVersion;
+  const m = location.pathname.match(/^\/topic\/([a-z0-9-]+)\/?$/);
+  const isTopics=location.hash === "#/topics";
+  const isTrends=location.hash === "#/trends";
+  tip.hidden=true;
+  const scrollSection=behavior=>$(isTopics ? '#browse-section' : isTrends ? '#trends-section' : '#map-section')?.scrollIntoView({behavior,block:'start'});
+  $('#topics').classList.toggle('on',!!m || isTopics);
+  $('#trends').classList.toggle('on',!m && isTrends);
+  $('#connections').classList.toggle('on',!m && !isTopics && !isTrends);
+  for (const [link, current] of [['#topics', !!m || isTopics], ['#trends', !m && isTrends], ['#connections', !m && !isTopics && !isTrends]]) {
+    if (current) $(link).setAttribute('aria-current', 'page');
+    else $(link).removeAttribute('aria-current');
+  }
+  if (!m && $('#map-section') && mapResizeObserver) {
+    scrollSection(reduceMotion() ? 'instant' : 'smooth');
     return;
   }
-  tip.hidden=true;
-  homeResizeObserver?.disconnect();
   activityResizeObserver?.disconnect();
-  document.body.classList.toggle('home-route', !m && !isConnections);
-  document.body.classList.toggle('connections-route', isConnections);
-  siteFooter.remove();
-  document.title = "HN Atlas";
-  $("#topics").classList.toggle("on", !m && !isConnections && !isTimeline);
-  $("#connections").classList.toggle("on", isConnections);
-  $("#app").innerHTML = `<p class="loading" role="status">Loading ${m ? "topic" : "topics"}…</p>`;
-  (m ? topic(m[1], version) : isConnections ? connections(version) : home(version)).catch(e => {
+  mapResizeObserver?.disconnect();
+  if (!m) updateMetadata();
+  (m ? topic(m[1], version) : connections(version)).catch(e => {
     if (version === routeVersion) $("#app").innerHTML = `<p class="loading" role="alert">Could not load: ${esc(e.message)}</p>`;
   }).then(() => {
     if (version !== routeVersion) return;
-    ($(".home-inner") || $(".page") || $(".connections-page") || $("#app")).append(siteFooter);
+    ($(".connections-page") || $(".page") || $("#app")).append(siteFooter);
     siteFooter.hidden = false;
+    if(!m)scrollSection('instant');
   });
 }
+// Keep ordinary navigation in the app; modified clicks retain native browser behavior.
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
+  const url = new URL(link.href, location.href);
+  if (url.origin !== location.origin || !(url.pathname === '/' || /^\/topic\/[a-z0-9-]+\/?$/.test(url.pathname))) return;
+  if (url.hash && !['#/', '#/topics', '#/trends'].includes(url.hash)) return;
+  event.preventDefault();
+  if (url.href !== location.href) history.pushState(null, '', url.pathname + url.search + url.hash);
+  route();
+});
+addEventListener("popstate", route);
 addEventListener("hashchange", route);
 route();
 </script>

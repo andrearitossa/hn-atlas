@@ -7,13 +7,10 @@ from unittest.mock import patch
 
 import numpy as np
 
-import daily
 import embed
 import hn_sync
-import production
-import quality
-import routing
 import topics
+import routing
 
 
 class PipelineTests(unittest.TestCase):
@@ -22,10 +19,10 @@ class PipelineTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.conn = sqlite3.connect(f'{self.tmp.name}/test.db')
         self.addCleanup(self.conn.close)
-        self.conn.executescript(hn_sync.SCHEMA + topics.SCHEMA + embed.SCHEMA + ";" + production.SCHEMA + routing.SCHEMA)
+        self.conn.executescript(hn_sync.SCHEMA + topics.TOPIC_SCHEMA + topics.SCHEMA + embed.SCHEMA + ";" + topics.SCHEMA + routing.SCHEMA)
         self.model = f'{self.tmp.name}/model.npz'
         np.savez(self.model, mean=np.zeros(3,dtype='f4'), centroids=np.eye(3,dtype='f4')[:2], input_version=1)
-        self.patch = patch.object(production, 'MODEL_PATH', self.model)
+        self.patch = patch.object(topics, 'MODEL_PATH', self.model)
         self.patch.start(); self.addCleanup(self.patch.stop)
         self.now = 1790326180
         for ident in (0,1):
@@ -44,8 +41,8 @@ class PipelineTests(unittest.TestCase):
         self.conn.commit()
 
     def test_subject_inputs_separate_format_and_submission_commentary(self):
-        self.assertEqual(routing.subject_text('Show HN: Rust guide (2024)','https://x.example/a','Comment'), 'Rust guide')
-        self.assertEqual(routing.subject_text('Rust guide','https://y.example/a','Different'), 'Rust guide')
+        self.assertEqual(routing.subject_text('Show HN: Rust guide (2024)','https://x.example/a','Comment'), 'Rust guide\nComment')
+        self.assertEqual(routing.subject_text('Rust guide','https://y.example/a','Different'), 'Rust guide\nDifferent')
         self.assertEqual(routing.metadata('Show HN: Rust guide','https://x.example/a')[1], 'show')
         self.assertIn('Question body',routing.subject_text('Ask HN: Rust?','', '<p>Question body</p>'))
         self.assertEqual(routing.subject_title('Python 3.14'), 'Python 3.14')
@@ -57,18 +54,6 @@ class PipelineTests(unittest.TestCase):
         self.assertNotEqual(a,routing.metadata('B','https://x.example/article?id=2')[0])
         self.assertNotEqual(routing.metadata('A','https://x.example/')[0],routing.metadata('B','https://x.example/')[0])
 
-    def test_only_weak_or_ambiguous_stories_wait(self):
-        for i in range(1,5):self.story(i,score=200 if i==4 else 10)
-        routing.store(self.conn,[(1,0,.2,.1),(2,0,.5,.001),(3,0,.8,.3),(4,0,.8,.3)],self.now)
-        self.assertEqual(self.conn.execute('SELECT id FROM story_topics').fetchall(),[(3,),(4,)])
-        self.assertEqual(dict(self.conn.execute('SELECT id,reason FROM classification_queue')),
-                         {1:'low_fit',2:'ambiguous'})
-
-    def test_single_center_classification(self):
-        self.conn.execute('DELETE FROM topic_registry WHERE id=1')
-        result=production.classify(self.conn,[42],np.array([[1.,0.,0.]]))
-        self.assertEqual(result[0][:2],(42,0))
-        self.assertGreater(result[0][3],0)
 
     def test_review_rejects_unknown_duplicate_and_missing_decisions(self):
         for value in [{'assignments':[]}, {'assignments':[{'id':1,'topic':99}]},
@@ -77,15 +62,30 @@ class PipelineTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     routing.semantic_decisions([{'id':0}], [{'id':1}])
 
+    def test_review_retries_an_incomplete_response_without_losing_a_story(self):
+        complete={'assignments':[{'id':1,'topic':0},{'id':2,'topic':None}]}
+        with patch.object(routing,'ask_json',side_effect=[{'assignments':[{'id':1,'topic':0}]},complete]) as ask:
+            result=routing.semantic_decisions([{'id':0}],[{'id':1},{'id':2}])
+        self.assertEqual(result,complete['assignments'])
+        self.assertEqual(ask.call_count,2)
+
+    def test_review_splits_incomplete_large_batches_and_preserves_every_id(self):
+        stories=[{'id':i} for i in range(40)]
+        left={'assignments':[{'id':i,'topic':0} for i in range(20)]}
+        right={'assignments':[{'id':i,'topic':None} for i in range(20,40)]}
+        with patch.object(routing,'ask_json',side_effect=[left,left,right]) as ask:
+            result=routing.semantic_decisions([{'id':0}],stories)
+        self.assertEqual(result,left['assignments']+right['assignments'])
+        self.assertEqual(ask.call_count,3)
 
 
     def test_embed_v2_reuses_normalized_input(self):
-        self.story(1,title='Show HN: Rust guide (2024)',text='one')
-        self.story(2,title='Rust guide',text='two')
+        self.story(1,title='Show HN: Rust guide (2024)',text='same body')
+        self.story(2,title='Rust guide',text='same body')
         vector=np.ones(embed.DIM,dtype='f4').tobytes()
         with patch.object(embed,'embed_batch',return_value=[vector]) as call:
             self.assertEqual(embed.embed_pending(self.conn,version=2),2)
-            call.assert_called_once_with(['Rust guide'])
+            call.assert_called_once_with(['Rust guide\nsame body'])
             self.assertEqual(embed.embed_pending(self.conn,version=2),0)
         self.assertEqual(self.conn.execute('SELECT distinct input_version FROM embeddings').fetchall(),[(2,)])
 
@@ -103,7 +103,7 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(embed.embed_pending(self.conn,version=2),1)
 
     def test_content_refresh_invalidates_but_score_refresh_does_not(self):
-        self.story(1,vector=[1,0,0]);routing.store(self.conn,[(1,0,.8,.3)],self.now);self.conn.commit()
+        self.story(1,vector=[1,0,0]);self.conn.execute('INSERT INTO story_topics VALUES(1,0,.8,.3)');self.conn.commit()
         self.story_update(score=20)
         self.assertEqual(self.conn.execute('SELECT count(*) FROM embeddings').fetchone()[0],1)
         self.story_update(title='A completely different subject')
@@ -115,59 +115,38 @@ class PipelineTests(unittest.TestCase):
                                              score=score,time=self.now)])
 
 
-
-    def test_initial_build_refuses_existing_registry_and_model(self):
-        with self.assertRaises(ValueError):topics.main(f'{self.tmp.name}/test.db',self.model)
-        with self.assertRaises(ValueError):topics.main(f'{self.tmp.name}/test.db',f'{self.tmp.name}/new.npz')
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM topics').fetchone()[0],2)
-
-    def test_model_selection_reports_chronological_holdout_tradeoff(self):
-        rng=np.random.default_rng(8)
-        x=np.vstack([rng.normal([1,0,0],.05,(100,3)),rng.normal([0,1,0],.05,(100,3))]).astype('f4')
-        _,centers,report=topics.select_model(x,x[[0,101]],candidates=(2,3),tolerance=.02)
-        self.assertEqual(len(report['trials']),2)
-        self.assertEqual(report['chosen_k'],len(centers))
-        self.assertEqual(report['chosen_k'],2)
-
-    def test_quality_review_prioritizes_observed_weak_topics(self):
-        self.conn.executescript(quality.SCHEMA)
-        for i in range(20):
-            self.story(i+1)
-            self.conn.execute('INSERT INTO story_topics VALUES (?,?,?,?)',(i+1,i%2,.1 if i%2 else .9,.001 if i%2 else .2))
-        self.assertEqual(quality.weak_ids(self.conn,self.now,limit=1),[1])
-
-    def test_consolidation_merges_synonyms_and_rejects_missing_groups(self):
-        centers=np.array([[1.,0.,0.],[.9,.1,0.],[0.,1.,0.]])
-        names=[dict(name=n,description=n) for n in ['Rust Ecosystem','Rust Programming','Python']]
-        result={'groups':[{'ids':[0,1],'name':'Rust','description':'Rust development'},
-                          {'ids':[2],'name':'Python','description':'Python development'}]}
-        with patch.object(topics,'ask_json',return_value=result):
-            merged,labels,_=topics.consolidate_subjects(centers,names,[['title']]*3,[10,20,30])
-        self.assertEqual(len(merged),2)
-        self.assertEqual(labels[0]['name'],'Rust')
-        result['groups'].pop()
-        with patch.object(topics,'ask_json',return_value=result):
-            with self.assertRaises(ValueError):topics.consolidate_subjects(centers,names,[['title']]*3,[10,20,30])
-
-    def test_score_increase_does_not_queue_confident_assignment(self):
-        self.story(1,vector=[1,0,0])
-        routing.store(self.conn,[(1,0,.8,.3)],self.now);self.conn.commit()
-        self.story_update(score=200)
-        routing.store(self.conn,[(1,0,.8,.3)],self.now)
-        self.assertEqual(self.conn.execute('SELECT count(*) FROM classification_queue').fetchone()[0],0)
-        self.assertEqual(self.conn.execute('SELECT topic FROM story_topics').fetchone()[0],0)
-
-    def test_v2_external_commentary_edit_keeps_subject_embedding(self):
+    def test_post_body_edit_invalidates_subject_embedding(self):
         self.story(1,text='Initial note')
         vector=np.ones(embed.DIM,dtype='f4').tobytes()
         with patch.object(embed,'embed_batch',return_value=[vector]):
             embed.embed_pending(self.conn,version=2)
         hn_sync.save_articles(self.conn,[dict(id=1,type='story',title='Rust guide',url='https://site1.example/article/1',
                                              text='A different submission note',score=10,time=self.now)])
-        self.assertEqual(self.conn.execute('SELECT vec FROM embeddings').fetchone()[0],vector)
+        self.assertIsNone(self.conn.execute('SELECT vec FROM embeddings').fetchone())
 
-    def test_discovery_window_excludes_future_stories(self):
-        self.story(1,when=self.now,vector=[1,0,0])
-        self.story(2,when=self.now+86400,vector=[1,0,0])
-        rows,_=production.recent_vectors(self.conn,self.now-86400,until=self.now)
-        self.assertEqual([r[0] for r in rows],[1])
+    def test_changed_old_post_is_embedded_outside_recent_window(self):
+        self.story(1, text='Initial body', when=self.now - 200 * 86400)
+        vector = np.ones(embed.DIM, dtype='f4').tobytes()
+        with patch.object(embed, 'embed_batch', return_value=[vector]):
+            embed.embed_pending(self.conn, version=2, since=0)
+        hn_sync.save_articles(self.conn, [dict(id=1, type='story', title='Rust guide',
+            url='https://site1.example/article/1', text='Updated body',
+            score=20, time=self.now - 200 * 86400)])
+        with patch.object(embed, 'embed_batch', return_value=[vector]) as call:
+            self.assertEqual(embed.embed_pending(self.conn, version=2, since=self.now - 95 * 86400), 1)
+            call.assert_called_once_with(['Rust guide\nUpdated body'])
+        self.assertEqual(self.conn.execute('SELECT count(*) FROM dirty_stories').fetchone()[0], 0)
+
+    def test_changed_input_hash_refreshes_stored_vector_and_assignment(self):
+        self.story(1, text='Original body')
+        vector = np.ones(embed.DIM, dtype='f4').tobytes()
+        with patch.object(embed, 'embed_batch', return_value=[vector]):
+            embed.embed_pending(self.conn, version=2)
+        self.conn.execute('INSERT INTO story_topics VALUES (1,0,.8,.3)')
+        self.conn.execute("UPDATE stories SET text='New body' WHERE id=1")
+        self.conn.commit()
+        with patch.object(embed, 'embed_batch', return_value=[vector]) as call:
+            self.assertEqual(embed.embed_pending(self.conn, version=2), 1)
+            call.assert_called_once_with(['Rust guide\nNew body'])
+            self.assertEqual(embed.embed_pending(self.conn, version=2), 0)
+        self.assertIsNone(self.conn.execute('SELECT id FROM story_topics').fetchone())

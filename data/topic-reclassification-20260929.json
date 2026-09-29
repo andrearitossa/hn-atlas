@@ -1,0 +1,31 @@
+{
+  "model": "gmm2-ae7158b77d095be6",
+  "assigned_at": 1790633908,
+  "backup": "data/backups/topic-labels-before-gmm-1790633908.sqlite",
+  "before_counts": {
+    "story_topics": 1684337,
+    "story_topic_labels": 0,
+    "classification_queue": 445338,
+    "editorial_decisions": 18
+  },
+  "classified": 2129667,
+  "previously_queued": 445336,
+  "changed_primary": 205070,
+  "label_counts": {
+    "1": 1175166,
+    "2": 503713,
+    "3": 450788
+  },
+  "memberships": 3534956,
+  "capped_below_target": 250009,
+  "editorial_overrides": 18,
+  "elapsed_seconds": 400,
+  "independent_prediction_checks": 109,
+  "release": "2366e66fcf174cd586e0d7cb438dc824",
+  "secondary_memberships_checked_in_export": 9,
+  "deployment": "https://b9a5d38a.hackeratlas.pages.dev",
+  "live_verified": true,
+  "live_secondary_memberships_checked": 3,
+  "javascript_tests_passed": 22,
+  "browser_tests_passed": 20
+}

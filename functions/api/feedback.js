@@ -47,7 +47,7 @@ export async function onRequest({request, env}) {
   if (typeof data.id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.id)) {
     return reply(400, {detail: 'Please reopen the feedback form.'});
   }
-  const page = typeof data.page === 'string' && /^#\/(?:connections|topic\/\d+)?$/.test(data.page) ? data.page : '#/';
+  const page = typeof data.page === 'string' && /^(?:#\/(?:connections|topics|topic\/\d+)?|\/(?:#\/(?:topics)?|topic\/[a-z0-9-]+\/)?)$/.test(data.page) ? data.page : '#/';
   try {
     await env.NEWSLETTER_DB.prepare(
       'INSERT INTO feedback (id, message, email, page) VALUES (?, ?, ?, ?) ON CONFLICT(id) DO NOTHING'

@@ -1,0 +1,1 @@
+Help me gather the coolest stories for a newsletter about {topic}. Using the titles, post bodies, and overviews, order all stories from most to least worth sharing. Favor interesting, substantial stories and a varied mix near the top. I'll use the first five. Return only JSON in this format: {"ids": [123, 456, ...]}. Include every supplied ID exactly once.

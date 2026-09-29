@@ -49,12 +49,11 @@ export async function onRequest({request, env}) {
     const response = await env.ASSETS.fetch(new URL('/newsletter-topics.json', origin));
     if (!response.ok) throw new Error('Topic catalog unavailable');
     const topics = await response.json();
-    const name = topics[String(data.topic)];
-    if (typeof name !== 'string') return reply(400, {detail: 'This topic is no longer available.'});
+    if (typeof topics[String(data.topic)] !== 'string') return reply(400, {detail: 'This topic is no longer available.'});
     await env.NEWSLETTER_DB.prepare(
-      'INSERT INTO newsletter_signups (email, topic_id, topic_name) VALUES (?, ?, ?) '
-      + 'ON CONFLICT(email, topic_id) DO UPDATE SET topic_name = excluded.topic_name'
-    ).bind(email, data.topic, name).run();
+      'INSERT INTO newsletter_subscriptions (id, email, topic, created_at) VALUES (?, ?, ?, ?) '
+      + 'ON CONFLICT(email, topic) DO NOTHING'
+    ).bind(crypto.randomUUID(), email, data.topic, Math.floor(Date.now() / 1000)).run();
     return reply(200, {ok: true});
   } catch {
     // Do not log request bodies or email addresses.

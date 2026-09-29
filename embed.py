@@ -1,9 +1,9 @@
-"""Embed article titles with OpenAI text-embedding-3-small into the `embeddings` table.
+"""Embed HN post titles and bodies with OpenAI text-embedding-3-small into the `embeddings` table.
 
 Each vector is stored as raw little-endian float32 bytes (DIM floats), exactly as
 the API returns it with encoding_format=base64:  numpy.frombuffer(vec, "<f4").
 
-    .venv/bin/python embed.py      # embed everything pending (key from .env or env)
+Called by refresh.py; unchanged vectors are reused.
 """
 import base64
 import html
@@ -15,19 +15,13 @@ from datetime import datetime, timezone
 from urllib.parse import urlparse
 
 import requests
-import api_usage
 
 MODEL, DIM = "text-embedding-3-small", 512
 SINCE = int(datetime(2024, 1, 1, tzinfo=timezone.utc).timestamp())
-BATCH, WORKERS = 1000, 4   # 1000 titles ~ 30k tokens; the account allows 1M tokens/min
+BATCH = 32  # At most 256k input bytes, including batches of long post bodies.
 MAX_RETRIES = 20
 
-# Load KEY=value lines from .env (if present) without overriding the real environment.
-if os.path.exists(".env"):
-    for line in open(".env"):
-        k, _, v = line.strip().partition("=")
-        if k and not k.startswith("#"):
-            os.environ.setdefault(k, v.strip().strip("'\""))
+import config
 
 SCHEMA = """CREATE TABLE IF NOT EXISTS embeddings (
     id INTEGER PRIMARY KEY REFERENCES stories(id),
@@ -36,7 +30,7 @@ SCHEMA = """CREATE TABLE IF NOT EXISTS embeddings (
 )"""
 
 
-def to_text(title, url, text, version=1) -> str:
+def to_text(title, url, text, version=2) -> str:
     """What we embed: title, the linked site, and the start of any self-post text."""
     if version == 2:
         from routing import subject_text
@@ -54,7 +48,6 @@ def to_text(title, url, text, version=1) -> str:
 def embed_batch(texts: list[str]) -> list[bytes]:
     """One API call; retries with backoff on rate limits (429) and server errors."""
     for attempt in range(MAX_RETRIES):
-        ticket = api_usage.reserve(MODEL, texts)
         try:
             r = requests.post(
                 "https://api.openai.com/v1/embeddings",
@@ -71,7 +64,6 @@ def embed_batch(texts: list[str]) -> list[bytes]:
         if r.status_code != 429 and r.status_code < 500:
             r.raise_for_status()
             payload = r.json()
-            api_usage.finish(ticket, payload)
             data = sorted(payload["data"], key=lambda d: d["index"])
             return [base64.b64decode(d["embedding"]) for d in data]
         if attempt >= 5:
@@ -80,11 +72,12 @@ def embed_batch(texts: list[str]) -> list[bytes]:
     r.raise_for_status()
 
 
-def embed_pending(conn, version=1, limit=None, since=SINCE, until=None) -> int:
+def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
     """Embed live articles in [since, until), using bounded memory."""
     if version not in (1, 2) or (limit is not None and limit < 1):
         raise ValueError('Invalid embedding version or limit')
     conn.execute(SCHEMA)
+    conn.execute('CREATE TABLE IF NOT EXISTS dirty_stories (id INTEGER PRIMARY KEY)')
     conn.execute('''CREATE TABLE IF NOT EXISTS embedding_errors (
         id INTEGER PRIMARY KEY, reason TEXT, input_version INTEGER, updated_at INTEGER)''')
     columns = {r[1] for r in conn.execute('PRAGMA table_info(embeddings)')}
@@ -93,23 +86,29 @@ def embed_pending(conn, version=1, limit=None, since=SINCE, until=None) -> int:
     if 'input_hash' not in columns:
         conn.execute('ALTER TABLE embeddings ADD COLUMN input_hash TEXT')
     conn.execute('CREATE INDEX IF NOT EXISTS embedding_input ON embeddings(model,input_version,input_hash)')
+    conn.create_function('subject_hash', 3, lambda title, url, body:
+                         hashlib.sha256(to_text(title, url, body, version=version).encode()).hexdigest())
     rows = conn.execute(
-        """SELECT s.id, s.title, s.url, s.text FROM stories s
+        """SELECT s.id, s.title, s.url, s.text, e.id FROM stories s
            LEFT JOIN embeddings e ON e.id = s.id
-           WHERE (e.id IS NULL OR e.input_version != ?) AND s.time >= ? AND s.dead = 0 AND s.deleted = 0
+           WHERE (e.id IS NULL OR e.input_version != ? OR e.model != ?
+                  OR (e.input_hash IS NOT NULL AND e.input_hash != subject_hash(s.title,s.url,s.text)))
+             AND s.id IN (SELECT id FROM stories WHERE time >= ? UNION SELECT id FROM dirty_stories) AND s.dead = 0 AND s.deleted = 0
              AND s.title IS NOT NULL AND (? IS NULL OR s.time < ?)
              AND s.id NOT IN (SELECT id FROM embedding_errors WHERE input_version=?)
            ORDER BY s.id LIMIT ?""",
-        (version, since, until, until, version, limit if limit is not None else -1),
+        (version, MODEL, since, until, until, version, limit if limit is not None else -1),
     )
-    done = 0
+    done = generated_count = reused_count = 0
+    tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     # Cache identical normalized inputs, including repeated submissions. Bounded
     # batches keep memory use predictable; existing v1 embeddings stay compatible.
     while batch := rows.fetchmany(BATCH):
         groups = {}
         for row in batch:
-            text = to_text(*row[1:], version=version)
+            text = to_text(*row[1:4], version=version)
             if not text.strip():
+                conn.execute('DELETE FROM embeddings WHERE id=?', (row[0],))
                 conn.execute('INSERT OR REPLACE INTO embedding_errors VALUES (?,?,?,?)',
                              (row[0],'empty_subject',version,int(time.time())))
                 continue
@@ -121,7 +120,10 @@ def embed_pending(conn, version=1, limit=None, since=SINCE, until=None) -> int:
             cached = conn.execute('SELECT vec FROM embeddings WHERE model=? AND input_version=? AND input_hash=? LIMIT 1',
                                   (MODEL, version, fingerprint)).fetchone()
             if cached:
+                if len(cached[0]) != DIM * 4:
+                    raise ValueError('Cached embedding has unexpected dimensions')
                 vectors[fingerprint] = cached[0]
+                reused_count += len(group['ids'])
             else:
                 pending.append(fingerprint)
         if pending:
@@ -129,26 +131,17 @@ def embed_pending(conn, version=1, limit=None, since=SINCE, until=None) -> int:
             if len(generated) != len(pending) or any(len(v) != DIM * 4 for v in generated):
                 raise ValueError('Embedding response has unexpected count or dimensions')
             vectors.update(zip(pending, generated))
+            generated_count += len(pending)
+        # Changed input must be reviewed again; copying a missing vector alone
+        # does not invalidate existing curated assignments.
+        changed = [(row[0],) for row in batch if row[4] is not None]
+        for table in ('story_topics', 'classification_queue'):
+            if table in tables:
+                conn.executemany(f'DELETE FROM {table} WHERE id=?', changed)
         conn.executemany('INSERT OR REPLACE INTO embeddings(id,model,vec,input_version,input_hash) VALUES (?,?,?,?,?)',
                          [(i, MODEL, vectors[k], version, k) for k, group in groups.items() for i in group['ids']])
+        conn.executemany('DELETE FROM dirty_stories WHERE id=?', [(row[0],) for row in batch])
         conn.commit()
         done += sum(len(group['ids']) for group in groups.values())
-        print(f'  embedded {done:,}', flush=True)
+        print(f'  vectors {done:,}: {reused_count:,} reused, {generated_count:,} generated', flush=True)
     return done
-
-
-if __name__ == "__main__":
-    from hn_sync import open_db
-    import argparse
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--db', default=os.getenv('HN_DB', 'data/hackernews.db'))
-    parser.add_argument('--version', type=int, choices=(1, 2), default=1)
-    parser.add_argument('--limit', type=int)
-    args = parser.parse_args()
-    conn = open_db(args.db)
-    try:
-        if args.version == 2 and conn.execute("SELECT 1 FROM sqlite_master WHERE name='topic_registry'").fetchone():
-            raise SystemExit('Use a separate build database for v2 embeddings; do not mix inputs in a live registry.')
-        embed_pending(conn, version=args.version, limit=args.limit)
-    finally:
-        conn.close()

@@ -1,0 +1,2 @@
+
+15 6 * * * cd /home/andrea/technews && /usr/bin/timeout 4h /bin/bash scripts/newsletter_test_daily.sh >> /home/andrea/technews/.wrangler/newsletter-test-daily.log 2>&1 # hackeratlas-newsletter-test-until-2026-10-17

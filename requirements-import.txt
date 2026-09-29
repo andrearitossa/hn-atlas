@@ -1,3 +1,0 @@
--r requirements.txt
-pyarrow>=19,<26
-huggingface-hub>=1,<2

@@ -4,14 +4,13 @@ import sqlite3
 import tempfile
 import time
 import unittest
-from types import SimpleNamespace
 from unittest.mock import patch
 
 from fastapi import HTTPException
 
 from database import connect
 import hn_sync
-import production
+import topics
 import server
 
 
@@ -22,13 +21,12 @@ class BrowsingTests(unittest.TestCase):
         self.path = f'{self.directory.name}/hn.db'
         self.clock = int(time.time()) - 90 * server.DAY
         with connect(self.path) as c:
-            c.executescript(hn_sync.SCHEMA + production.SCHEMA + '''
+            c.executescript(hn_sync.SCHEMA + topics.SCHEMA + '''
                 CREATE TABLE topics(id INTEGER PRIMARY KEY, name TEXT, description TEXT,
                                     size INTEGER, x REAL, y REAL);
                 CREATE TABLE story_topics(id INTEGER PRIMARY KEY,topic INTEGER,sim REAL);
-                INSERT INTO topics VALUES(1,'Old','','0',0,0),(2,'Middle','',0,0,0),(3,'Current','',99,0,0);
-                INSERT INTO topic_registry(id,centroid,status,parent,born) VALUES
-                    (1,x'0000803f','merged',2,0),(2,x'0000803f','merged',3,0),(3,x'0000803f','active',NULL,0);
+                INSERT INTO topics VALUES(3,'Current','',99,0,0);
+                INSERT INTO topic_registry(id,centroid,born) VALUES(3,x'0000803f',0);
             ''')
             for ident, title, age, dead, deleted in [
                 (1, 'Rust 100% useful', 0, 0, 0), (2, 'Rust guide', 0, 0, 0),
@@ -44,16 +42,10 @@ class BrowsingTests(unittest.TestCase):
         server.topic_list.cache_clear()
         self.addCleanup(server.topic_list.cache_clear)
 
-    def test_aliases_work_for_detail_search_digest_and_subscription(self):
-        self.assertEqual(server.topic(1)['id'], 3)
-        self.assertEqual(server.stories(1)['id'], 3)
-        self.assertEqual(server.digest(1)['id'], 3)
-        with connect(self.path) as c:
-            token = production.subscribe(c, 'Reader@example.com', 1, 'weekly')
-            self.assertEqual(c.execute('SELECT topic FROM subscriptions WHERE token=?', (token,)).fetchone()[0], 3)
-            c.execute("UPDATE topic_registry SET status='merged',parent=1 WHERE id=3")
-            with self.assertRaises(ValueError):
-                production.resolve_topic(c, 1)
+    def test_only_current_topic_ids_work(self):
+        self.assertEqual(server.topic(3)['id'], 3)
+        with self.assertRaises(HTTPException):
+            server.topic(1)
 
     def test_pagination_has_stable_ties_and_an_end(self):
         first = server.stories(3, limit=2)
@@ -74,7 +66,7 @@ class BrowsingTests(unittest.TestCase):
 
             await server.app({
                 'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.4'}, 'http_version': '1.1',
-                'method': 'GET', 'scheme': 'http', 'path': '/api/topics/1/stories',
+                'method': 'GET', 'scheme': 'http', 'path': '/api/topics/3/stories',
                 'query_string': query.encode(), 'root_path': '', 'headers': [],
                 'server': ('test', 80), 'client': ('test', 1234),
             }, receive, send)
@@ -99,10 +91,10 @@ class BrowsingTests(unittest.TestCase):
             c.execute('UPDATE stories SET time=1704067199 WHERE id=1')
             c.execute('UPDATE stories SET time=1704067200 WHERE id=2')
             c.execute('UPDATE stories SET time=1735689600 WHERE id=3')
-        self.assertEqual([p['id'] for p in server.stories(1, year=2024)['posts']], [2])
-        self.assertEqual([p['id'] for p in server.stories(1, year=2023)['posts']], [1])
-        self.assertEqual([p['id'] for p in server.stories(1, year=2025)['posts']], [3])
-        self.assertEqual(server.stories(1, year=2024, q='Old')['posts'], [])
+        self.assertEqual([p['id'] for p in server.stories(3, year=2024)['posts']], [2])
+        self.assertEqual([p['id'] for p in server.stories(3, year=2023)['posts']], [1])
+        self.assertEqual([p['id'] for p in server.stories(3, year=2025)['posts']], [3])
+        self.assertEqual(server.stories(3, year=2024, q='Old')['posts'], [])
 
     def test_deleted_stories_excluded_from_counts_and_results(self):
         detail = server.topic(3)
@@ -113,13 +105,6 @@ class BrowsingTests(unittest.TestCase):
         self.assertEqual(data['topics'][0]['size'], 3)
         self.assertEqual(data['edges'], [])
 
-    def test_preview_uses_snapshot_but_email_uses_current_time(self):
-        preview = server.digest(3)
-        self.assertEqual(preview['as_of'], self.clock)
-        self.assertEqual(len(preview['posts']), 2)
-        with connect(self.path) as c:
-            self.assertEqual(production.ranked_posts(c, 3, 'weekly'), [])
-
     def test_tombstone_without_type_hides_existing_article(self):
         with connect(self.path) as c:
             hn_sync.save_articles(c, [{'id': 1, 'deleted': True}])
@@ -129,7 +114,6 @@ class BrowsingTests(unittest.TestCase):
         with connect(self.path) as c:
             c.execute('DELETE FROM stories')
         self.assertEqual(server.topic(3)['size'], 0)
-        self.assertEqual(server.digest(3)['posts'], [])
         with self.assertRaises(HTTPException) as error:
             server.stories(999)
         self.assertEqual(error.exception.status_code, 404)
@@ -149,18 +133,3 @@ class BrowsingTests(unittest.TestCase):
         with self.assertRaises(sqlite3.ProgrammingError):
             c.execute('SELECT 1')
         self.assertEqual(server.topic(3)['name'], 'Current')
-
-    def test_email_failure_is_retryable_and_keeps_subscription_unconfirmed(self):
-        env = {'SMTP_HOST': 'smtp.example.org', 'SMTP_FROM': 'news@example.org', 'PUBLIC_URL': 'https://example.org'}
-        request = server.SubscriptionRequest(email='reader@example.org', topic=1)
-        client = SimpleNamespace(client=SimpleNamespace(host='198.51.100.8'))
-        with patch.dict('os.environ', env), patch.object(production, 'send', side_effect=OSError):
-            with self.assertRaises(HTTPException) as error:
-                server.subscribe(request, client)
-        self.assertEqual(error.exception.status_code, 503)
-        with connect(self.path) as c:
-            self.assertEqual(c.execute('SELECT confirmed FROM subscriptions').fetchone()[0], 0)
-        with patch.dict('os.environ', env), patch.object(production, 'send'):
-            self.assertEqual(server.subscribe(request, client)['status'], 'confirmation_sent')
-        with connect(self.path) as c:
-            self.assertEqual(c.execute('SELECT count(*) FROM subscriptions').fetchone()[0], 1)

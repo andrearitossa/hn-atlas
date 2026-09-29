@@ -1,0 +1,12 @@
+{
+  "name": "hacker-atlas",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:usability": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "wrangler": "4.141.0"
+  }
+}
