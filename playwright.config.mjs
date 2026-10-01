@@ -11,6 +11,7 @@ export default defineConfig({
   workers: 2,
   reporter: 'list',
   use: {
+    launchOptions: process.env.BRAVE_EXECUTABLE ? { executablePath: process.env.BRAVE_EXECUTABLE } : {},
     baseURL: 'http://127.0.0.1:8791',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Trends sits between Connections and Topics and navigates without remounting', async ({ page }) => {
+test('Browse is the landing page and Explore retains the maps', async ({ page }) => {
   const errors=[];const requests=[];
   page.on('pageerror',error=>errors.push(error.message));
   page.on('request',request=>requests.push(request.url()));
@@ -18,11 +18,14 @@ test('Trends sits between Connections and Topics and navigates without remountin
   const map=await page.locator('#map').elementHandle();
   const treemap=await trends.locator('#tr-treemap').elementHandle();
   const nav=page.getByRole('navigation',{name:'Explore'});
-  await nav.getByRole('link',{name:'Topics'}).click();
-  await expect(page).toHaveURL(/#\/topics$/);
-  await nav.getByRole('link',{name:'Trends'}).click();
+  await nav.getByRole('link',{name:'Browse topics'}).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator('#browse-section')).toBeVisible();
+  await expect(page.locator('#map-section')).toBeHidden();
+  await nav.getByRole('link',{name:'Explore',exact:true}).click();
+  await page.getByRole('link',{name:'See topic trends →'}).click();
   await expect(page).toHaveURL(/#\/trends$/);
-  await expect(nav.getByRole('link',{name:'Trends'})).toHaveAttribute('aria-current','page');
+  await expect(page.getByRole('link',{name:'See topic trends →'})).toHaveAttribute('aria-current','page');
   await expect.poll(()=>trends.evaluate(section=>section.getBoundingClientRect().top)).toBeLessThan(150);
   expect(await map.evaluate(node=>node===document.querySelector('#map'))).toBe(true);
   expect(await treemap.evaluate(node=>node===document.querySelector('#tr-treemap'))).toBe(true);
@@ -103,4 +106,33 @@ test('selected topic is beside the treemap on desktop and a bottom sheet on mobi
     }).toBe(true);
   }
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+});
+
+test('map scrollbars stay stable during animation and return after zoom reset', async ({ page }) => {
+  await page.goto('/#/trends');
+  await expect(page.locator('#tr-summary')).toContainText('topic memberships');
+  const shell=page.locator('#tr-map-shell');
+  await page.locator('#tr-coverage').selectOption('100');
+  await page.locator('#tr-play').click();
+  const states=await shell.evaluate(async element=>{
+    const samples=[];
+    const start=performance.now();
+    while(performance.now()-start<3000){
+      samples.push({width:element.clientWidth,height:element.clientHeight,
+        horizontal:element.scrollWidth>element.clientWidth,vertical:element.scrollHeight>element.clientHeight});
+      await new Promise(requestAnimationFrame);
+    }
+    return samples;
+  });
+  expect(states.length).toBeGreaterThan(20);
+  expect(new Set(states.map(state=>JSON.stringify(state))).size).toBe(1);
+  expect(states[0].horizontal).toBe(false);
+  expect(states[0].vertical).toBe(false);
+  await page.locator('#tr-play').click();
+  await shell.getByRole('button',{name:'Zoom in',exact:true}).click();
+  await expect(shell).toHaveClass(/is-zoomed/);
+  await expect.poll(()=>shell.evaluate(el=>el.scrollWidth>el.clientWidth&&el.scrollHeight>el.clientHeight)).toBe(true);
+  await shell.getByRole('button',{name:'Reset zoom',exact:true}).click();
+  await expect(shell).not.toHaveClass(/is-zoomed/);
+  await expect.poll(()=>shell.evaluate(el=>el.scrollWidth<=el.clientWidth&&el.scrollHeight<=el.clientHeight)).toBe(true);
 });

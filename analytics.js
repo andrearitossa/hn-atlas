@@ -131,6 +131,7 @@
   function clampPan() {}
   function zoom(next) {
     cancelAnimationFrame(frame);hideTooltip();const old=scale;scale=Math.max(1,Math.min(8,next));
+    shell.classList.toggle('is-zoomed',scale>1);
     const x=(shell.scrollLeft+shell.clientWidth/2)*scale/old-shell.clientWidth/2;
     const y=(shell.scrollTop+shell.clientHeight/2)*scale/old-shell.clientHeight/2;
     $('zoom-out').disabled=scale===1;$('zoom-in').disabled=scale===8;
@@ -260,7 +261,16 @@
     document.addEventListener('keydown',event=>{if(event.key==='Escape'){hideTooltip();if(selected!==null)closeSelection();}});
     new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)stop();}).observe(shell);
     document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});document.addEventListener('scroll',hideTooltip,true);
-    new ResizeObserver(()=>{readMetrics();clampPan();hideTooltip();if(displayed){displayed=null;render();}}).observe(shell);
+    let previousSize='';
+    new ResizeObserver(()=>{
+      const width=shell.clientWidth,height=shell.clientHeight;
+      if(!width||!height)return;
+      const size=`${width}:${height}`;
+      if(size===previousSize)return;
+      previousSize=size;
+      readMetrics();clampPan();hideTooltip();
+      if(displayed){displayed=null;render();}
+    }).observe(shell);
     render();
   } catch(error) {
     $('week-label').textContent='Topic history could not load';$('summary').textContent='Reload this page to try again.';console.error(error);

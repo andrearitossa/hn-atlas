@@ -396,12 +396,17 @@ body.connections-route { height:100dvh; }
  .toggle,.home-route .toggle,.connections-route .toggle { gap:1px; padding:2px; }
  .toggle a,.home-route .toggle a,.connections-route .toggle a { padding:6px 7px; font-size:11px; white-space:nowrap; }
 }
+/* The directory is the landing page; visual exploration has its own view. */
+.browse-route #map-section,.browse-route #trends-section { display:none; }
+.browse-route #browse-section { border:0; margin:0; padding:0; }
+body:not(.browse-route) #browse-section { display:none; }
+main { scrollbar-gutter:stable; }
 </style>
 </head>
 <body>
 <header>
   <a href="/"><b>HN <span>Atlas</span></b></a>
-  <nav class="toggle" aria-label="Explore"><a id="connections" href="/">Connections</a><a id="trends" href="/#/trends">Trends</a><a id="topics" href="/#/topics">Topics</a></nav>
+  <nav class="toggle" aria-label="Explore"><a id="topics" href="/">Browse topics</a><a id="connections" href="/#/explore">Explore</a></nav>
 </header>
 <main id="app"></main>
 <footer class="site-footer" hidden>
@@ -501,7 +506,7 @@ async function connections(version) {
   document.body.classList.remove('home-route');
   document.body.classList.add('connections-route');
   if (!$(".connections-page")) $("#app").innerHTML=`<section class="connections-page">
-    <div class="connections-explorer" id="map-section"><div class="connections-heading"><div><h1>Explore the connections</h1><p class="meta">Follow a topic. See where it leads.</p></div><input id="map-search" type="search" placeholder="Find a topic…" aria-label="Find a topic on the map" autocomplete="off"></div>
+    <div class="connections-explorer" id="map-section"><div class="connections-heading"><div><h1>Explore the connections</h1><p class="meta">Follow a topic. See where it leads. <a id="trends" href="/#/trends">See topic trends →</a></p></div><input id="map-search" type="search" placeholder="Find a topic…" aria-label="Find a topic on the map" autocomplete="off"></div>
     <div id="map-results" class="map-results" aria-live="polite"></div>
     <div class="connections-layout"><div class="connections-canvas"><svg id="map" tabindex="0" role="group" aria-label="Interactive topic connections. Use plus and minus to zoom, or drag to pan."></svg><div class="map-legend"><span class="legend-dot"></span><span>Color identifies topic · Size shows story volume · Lines connect related topics</span></div><span class="map-help">Drag to explore · Zoom for more names</span><div class="map-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div></div>
     <section id="trends-section" aria-label="Topic trends"><div id="trends-mount"></div></section>
@@ -1015,14 +1020,16 @@ function route() {
   }
   const version = ++routeVersion;
   const m = location.pathname.match(/^\/topic\/([a-z0-9-]+)\/?$/);
-  const isTopics=location.hash === "#/topics";
+  const isTopics=!m && !["#/explore", "#/trends"].includes(location.hash);
+  document.body.classList.toggle("browse-route",isTopics);
   const isTrends=location.hash === "#/trends";
   tip.hidden=true;
   const scrollSection=behavior=>$(isTopics ? '#browse-section' : isTrends ? '#trends-section' : '#map-section')?.scrollIntoView({behavior,block:'start'});
   $('#topics').classList.toggle('on',!!m || isTopics);
-  $('#trends').classList.toggle('on',!m && isTrends);
-  $('#connections').classList.toggle('on',!m && !isTopics && !isTrends);
-  for (const [link, current] of [['#topics', !!m || isTopics], ['#trends', !m && isTrends], ['#connections', !m && !isTopics && !isTrends]]) {
+  $('#trends')?.classList.toggle('on',!m && isTrends);
+  $('#connections').classList.toggle('on',!m && !isTopics);
+  for (const [link, current] of [['#topics', !!m || isTopics], ['#trends', !m && isTrends], ['#connections', !m && !isTopics]]) {
+    if (!$(link)) continue;
     if (current) $(link).setAttribute('aria-current', 'page');
     else $(link).removeAttribute('aria-current');
   }
@@ -1048,7 +1055,7 @@ document.addEventListener('click', event => {
   if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
   const url = new URL(link.href, location.href);
   if (url.origin !== location.origin || !(url.pathname === '/' || /^\/topic\/[a-z0-9-]+\/?$/.test(url.pathname))) return;
-  if (url.hash && !['#/', '#/topics', '#/trends'].includes(url.hash)) return;
+  if (url.hash && !['#/', '#/topics', '#/trends', '#/explore'].includes(url.hash)) return;
   event.preventDefault();
   if (url.href !== location.href) history.pushState(null, '', url.pathname + url.search + url.hash);
   route();

@@ -37,7 +37,7 @@ def static_html(template, overview, version, trends_data=None):
     if trends_data is not None:
         content = re.sub(r'<div id="trends-mount">.*?</div>', lambda _: analytics.embedded(trends_data, SOURCE), content, count=1, flags=re.S)
     html = re.sub(r'<main id="app">.*?</main>', lambda _: f'<main id="app">{content}</main>', html, count=1, flags=re.S)
-    html = html.replace('<body>', '<body class="connections-route">')
+    html = html.replace('<body>', '<body class="connections-route browse-route">')
     # Static topic links use native document navigation, not the live API router.
     start = html.index('// ---------- topic page ----------')
     end = html.index('// Feedback stays available', start)

@@ -208,3 +208,8 @@ h1{font-size:30px}
 @media(prefers-reduced-motion:reduce){.trends-view .tile{transition:none}}
 
 .trends-view .map-shell{overflow:auto;overscroll-behavior:contain;touch-action:pan-x pan-y;scrollbar-gutter:stable}.trends-view .map-controls{position:sticky;top:calc(100% - 44px);bottom:auto;width:max-content;margin-left:auto;margin-right:12px}.trends-view .tile{touch-action:pan-x pan-y}
+
+/* Clip animated tiles to the canvas; only zoomed canvases need scrolling. */
+#treemap,.trends-view [id$="treemap"]{overflow:hidden;right:auto;bottom:auto}
+.map-shell,.trends-view .map-shell{overflow:hidden}
+.map-shell.is-zoomed,.trends-view .map-shell.is-zoomed{overflow:scroll}

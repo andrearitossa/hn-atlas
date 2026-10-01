@@ -20,8 +20,8 @@ async function fitsScreen(page) {
     'Page should not overflow horizontally').toBe(true);
 }
 
-test('home map loads, zooms, and opens a topic from search', async ({ page }) => {
-  await page.goto('/');
+test('explore map loads, zooms, and opens a topic from search', async ({ page }) => {
+  await page.goto('/#/explore');
   const dot = page.locator('#map .topic-dot').first();
   await expect(dot).toBeVisible();
   const name = (await dot.getAttribute('aria-label')).replace(/^Explore /, '');
@@ -39,7 +39,9 @@ test('home map loads, zooms, and opens a topic from search', async ({ page }) =>
 });
 
 test('browse, search, clear with keyboard, and open a topic', async ({ page }) => {
-  await page.goto('/#/topics');
+  await page.goto('/');
+  await expect(page.locator('#map-section')).toBeHidden();
+  await expect(page.locator('#trends-section')).toBeHidden();
   const cards = page.locator('.topic-card');
   await expect(cards.first()).toBeVisible();
   const name = await cards.first().locator('strong').innerText();
