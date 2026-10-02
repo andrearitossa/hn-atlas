@@ -64,6 +64,12 @@ def index():
         return HTMLResponse(seo.render(Path("index.html").read_text(), overview=catalog.overview(c)))
 
 
+@app.get('/about/')
+def about_page():
+    import static_pages
+    return HTMLResponse(static_pages.about_html(Path('index.html').read_text()))
+
+
 @app.get('/topic/{topic_key}/')
 def topic_page(topic_key: str):
     with db() as c:

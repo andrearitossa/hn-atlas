@@ -91,6 +91,8 @@ def publish(database, output='dist'):
 
 def finish(build, output, template, overview, version):
     public = build / 'public'
+    (public / 'about').mkdir(exist_ok=True)
+    (public / 'about' / 'index.html').write_text(static_pages.external_styles(static_pages.about_html(template), f'/releases/{version}/'), encoding='utf-8')
     search_export.write_page(public, SOURCE, f'/releases/{version}/')
     write_json(public / 'discovery-topics.json', {'topics': overview['topics']})
     trends_data = analytics.write(build, SOURCE, overview, version)
@@ -109,7 +111,7 @@ def finish(build, output, template, overview, version):
     (public / '_redirects').write_text('\n'.join(redirects) + '\n', encoding='utf-8')
     (public / 'sitemap.xml').write_text(seo.sitemap(overview), encoding='utf-8')
     (public / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {seo.ORIGIN}/sitemap.xml\n', encoding='utf-8')
-    (public / '404.html').write_text('<!doctype html><title>Page not found · HN Atlas</title><h1>Page not found</h1><a href="/">Explore Hacker Atlas</a>', encoding='utf-8')
+    (public / '404.html').write_text(static_pages.external_styles(static_pages.not_found_html(template), f'/releases/{version}/'), encoding='utf-8')
     html = static_html(template, overview, version, trends_data)
     (build / 'index.html').write_text(html, encoding='utf-8')
     # Keep previous releases so tabs opened before publication still work.

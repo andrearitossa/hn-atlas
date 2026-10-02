@@ -95,6 +95,7 @@ def render(data, source, overview=None, version=None):
     html = html.replace('</body>', '<script id="analytics-data" type="application/json">' + payload +
                         '</script><script>' + (source / 'analytics.js').read_text() + '</script></body>')
     import static_pages
+    html = static_pages.add_shared_footer(html, (source / 'index.html').read_text())
     html = html.replace('<!-- GLOBAL_ACTIVITY_CHART -->', static_pages.chart_html(data.get('monthly', [])))
     if 'id="global-activity"' in html:
         html = html.replace('</body>', '<script>' + (source / 'activity.js').read_text() + '</script></body>')

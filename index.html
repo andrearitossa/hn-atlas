@@ -414,6 +414,36 @@ header nav:is(.toggle,.site-nav) a { padding:8px 16px; }
  body header nav:is(.toggle,.site-nav) { gap:2px; padding:3px; }
  body header nav:is(.toggle,.site-nav) a { padding:7px 11px; font-size:12px; }
 }
+/* About: a small editorial introduction to the atlas. */
+.about-page { max-width:1200px; height:auto; overflow:visible; padding:40px 40px 28px; }
+.about-hero { display:grid; grid-template-columns:1.15fr 1fr; align-items:center; gap:64px; }
+.about-copy .eyebrow { margin:0 0 22px; }
+.about-copy h1 { font-size:clamp(42px,4.2vw,56px); font-weight:750; line-height:1.04; letter-spacing:-.055em; margin:0 0 28px; }
+.about-copy h1 em { color:var(--hn); font-style:normal; }
+.about-intro { font-size:17px; line-height:1.8; color:var(--muted); max-width:450px; margin:0 0 30px; }
+.about-explore { display:inline-flex; align-items:center; gap:26px; font-weight:650; border-bottom:1px solid var(--hn); padding-bottom:8px; }
+.about-explore:hover { color:var(--hn); }
+.about-art { background:#202421; color:#e4e0d7; border-radius:6px; padding:26px; position:relative; overflow:hidden; }
+.about-art-label { display:flex; justify-content:space-between; font-size:9px; letter-spacing:.15em; color:#b6bbae; }
+.about-art svg { width:100%; max-height:280px; display:block; }
+.about-art svg text { fill:#e4e0d7; }
+.about-art p { font-size:12px; line-height:1.65; color:#b6bbae; margin:0; }
+.about-details { display:grid; grid-template-columns:1.15fr 1fr; gap:64px; border-top:1px solid var(--line); margin-top:36px; padding-top:26px; }
+.about-details .eyebrow { margin:0 0 10px; }
+.about-details h2 { font-size:26px; letter-spacing:-.035em; line-height:1.25; margin:0 0 12px; }
+.about-details h2 span { color:var(--hn); }
+.about-details p:not(.eyebrow) { color:var(--muted); max-width:400px; line-height:1.75; margin:0; }
+.about-github { display:flex; align-items:center; gap:14px; border:1px solid var(--line); padding:14px 16px; margin-top:20px; border-radius:6px; font-weight:650; transition:border-color .15s,background .15s; }
+.about-github:hover { border-color:var(--hn); background:color-mix(in srgb,var(--hn) 4%,var(--bg)); }
+.about-github svg { width:20px; height:20px; flex-shrink:0; }
+.about-github small { display:block; font-size:11px; font-weight:400; color:var(--muted); margin-top:3px; }
+.about-arrow { margin-left:auto; color:var(--hn); font-size:24px; }
+@media(max-width:760px) { .about-page { padding:32px 22px 20px; } .about-hero,.about-details { grid-template-columns:1fr; gap:30px; } .about-art { max-width:480px; width:100%; } .about-details { margin-top:32px; } .about-copy h1 { font-size:clamp(40px,9vw,60px); } .about-intro { font-size:16px; } }
+
+/* Shared viewport footer stays outside each page's scrolling content. */
+body { height:100dvh; overflow:hidden; }
+body > main { flex:1; min-height:0; overflow-y:auto; }
+body > .site-footer { margin:0; padding:12px 20px; background:var(--bg); }
 </style>
 <link rel="stylesheet" href="/search.css">
 <link rel="modulepreload" href="/search.js">
@@ -425,8 +455,7 @@ header nav:is(.toggle,.site-nav) a { padding:8px 16px; }
 </header>
 <main id="app"></main>
 <footer class="site-footer" hidden>
-  <span>Built by Andrea Ritossa</span>
-  <a href="/#/trends">Trends</a>
+  <a href="/about/">About</a>
   <button type="button" id="feedback-open">Feedback</button>
 </footer>
 <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-intro">
@@ -1012,6 +1041,13 @@ function updateMetadata(title = 'HN Atlas', description = 'Explore Hacker News b
   if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
   canonical.href = url;
 }
+const ABOUT_CONTENT = `<div class="page about-page">
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="about-copy"><p class="eyebrow">ABOUT HACKER ATLAS</p><h1 id="about-title">Good ideas<br>lead <em>somewhere.</em></h1><p class="about-intro">Hacker Atlas maps Hacker News into curated topics using semantic embeddings and automated classification, with daily updates, interactive visualizations, searchable archives, and weekly topic newsletter.</p><a class="about-explore" href="/">Find your next rabbit hole <span aria-hidden="true">↗</span></a></div>
+    <div class="about-art" aria-hidden="true"><div class="about-art-label"><span>HN ATLAS</span><span>A WORLD OF IDEAS</span></div><svg viewBox="0 0 440 360"><g fill="none" stroke="#ffffff20"><path d="M90 100 205 165 325 75M205 165 350 235 255 300 205 165 85 270 90 100M85 270 350 235M90 100 325 75 350 235M205 165 130 185"/><circle cx="205" cy="165" r="120" stroke-dasharray="3 8"/><circle cx="205" cy="165" r="66"/></g><g fill="#f56300"><circle cx="205" cy="165" r="23"/><circle cx="90" cy="100" r="12"/><circle cx="255" cy="300" r="9"/></g><g fill="#d5d0c3"><circle cx="325" cy="75" r="16"/><circle cx="85" cy="270" r="14"/></g><g fill="#a0ad9b"><circle cx="350" cy="235" r="20"/><circle cx="130" cy="185" r="7"/></g><g fill="#e4e0d7" font-family="system-ui,sans-serif" font-size="11" letter-spacing="1"><text x="67" y="77">SCIENCE</text><text x="284" y="45">TECHNOLOGY</text><text x="163" y="211">CURIOSITY</text><text x="307" y="275">CULTURE</text><text x="51" y="307">BUILDING</text></g></svg><p>Everything is connected.<br>Start with what interests you.</p></div>
+  </section>
+  <section class="about-details" aria-label="Creator and contributions"><div class="about-creator"><p class="eyebrow">MADE BY</p><h2>Andrea Ritossa<span>.</span></h2><p>Built for people who like following an interesting idea a little further.</p></div><div class="about-contribute"><p class="eyebrow">BUILT IN THE OPEN</p><h2>Make the atlas better.</h2><p>Found a bug? Have an idea? Open an issue or send a pull request. Contributions are welcome.</p><a class="about-github" href="https://github.com/andrearitossa/hn-atlas"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.62 1.21 3.26.93.1-.72.4-1.21.71-1.49-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.99 0 0 .95-.3 3.08 1.15a10.7 10.7 0 0 1 5.61 0c2.13-1.45 3.08-1.15 3.08-1.15.61 1.56.23 2.71.11 2.99.72.79 1.16 1.79 1.16 3.02 0 4.33-2.64 5.29-5.15 5.57.4.35.76 1.03.76 2.08v3.09c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg><span>View on GitHub<small>andrearitossa / hn-atlas</small></span><span class="about-arrow" aria-hidden="true">↗</span></a></div></section>
+</div>`;
 function route() {
   const oldTopic = location.hash.match(/^#\/topic\/(\d+)\/?$/);
   if (oldTopic) history.replaceState(null, '', `/topic/${oldTopic[1]}/`);
@@ -1020,6 +1056,19 @@ function route() {
     history.replaceState(null, '', /^\d+$/.test(legacy.get('topic') || '') ? `/topic/${legacy.get('topic')}/` : '/');
   }
   const version = ++routeVersion;
+  if (/^\/about\/?$/.test(location.pathname)) {
+    activityResizeObserver?.disconnect();
+    mapResizeObserver?.disconnect();
+    mapResizeObserver = null;
+    document.body.classList.remove('home-route', 'connections-route', 'browse-route');
+    tip.hidden = true;
+    $('#topics').classList.remove('on');
+    $('#topics').removeAttribute('aria-current');
+    updateMetadata('About · HN Atlas', 'Made by Andrea Ritossa. Contribute to Hacker Atlas on GitHub.', '/about/');
+    $('#app').innerHTML = ABOUT_CONTENT;
+    siteFooter.hidden = false;
+    return;
+  }
   const m = location.pathname.match(/^\/topic\/([a-z0-9-]+)\/?$/);
   const isTopics=!m && !["#/explore", "#/trends"].includes(location.hash);
   document.body.classList.toggle("browse-route",isTopics);
@@ -1045,7 +1094,6 @@ function route() {
     if (version === routeVersion) $("#app").innerHTML = `<p class="loading" role="alert">Could not load: ${esc(e.message)}</p>`;
   }).then(() => {
     if (version !== routeVersion) return;
-    ($(".connections-page") || $(".page") || $("#app")).append(siteFooter);
     siteFooter.hidden = false;
     if(!m)scrollSection('instant');
   });
@@ -1055,7 +1103,7 @@ document.addEventListener('click', event => {
   const link = event.target.closest('a[href]');
   if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
   const url = new URL(link.href, location.href);
-  if (url.origin !== location.origin || !(url.pathname === '/' || /^\/topic\/[a-z0-9-]+\/?$/.test(url.pathname))) return;
+  if (url.origin !== location.origin || !(url.pathname === '/' || /^\/about\/?$/.test(url.pathname) || /^\/topic\/[a-z0-9-]+\/?$/.test(url.pathname))) return;
   if (url.hash && !['#/', '#/topics', '#/trends', '#/explore'].includes(url.hash)) return;
   event.preventDefault();
   if (url.href !== location.href) history.pushState(null, '', url.pathname + url.search + url.hash);

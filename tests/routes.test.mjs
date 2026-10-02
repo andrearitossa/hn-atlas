@@ -18,6 +18,7 @@ function browser(path) {
       pushState(_, __, path) { context.location = url = new URL(path, url); },
     },
     routeVersion:0, tip:{}, siteFooter:element,
+    ABOUT_CONTENT:html.match(/const ABOUT_CONTENT = `([\s\S]*?)`;/)[1],
     activityResizeObserver:null, mapResizeObserver:null,
     $: selector => selector === '#map-section' ? null :
       selector === '#trends-section' || selector === '#browse-section' ?
@@ -69,6 +70,26 @@ test('Trends navigates to the embedded section', async () => {
   assert.equal(context.location.hash, '#/trends');
   assert.deepEqual(calls, [['home']]);
   assert.deepEqual(scrolled, ['#trends-section']);
+});
+
+test('About opens from the footer and keeps Feedback available', () => {
+  const {context, calls, listeners, element} = browser('/');
+  const link = {href:'https://hackeratlas.com/about/', hasAttribute:()=>false};
+  let prevented = 0;
+  listeners.click({target:{closest:()=>link}, button:0, preventDefault(){ prevented++; }});
+  assert.equal(prevented, 1);
+  assert.equal(context.location.pathname, '/about/');
+  assert.match(element.innerHTML, /Andrea Ritossa/);
+  assert.match(element.innerHTML, /https:\/\/github.com\/andrearitossa\/hn-atlas/);
+  assert.equal(context.siteFooter.hidden, false);
+  assert.deepEqual(calls, []);
+  const footer = html.match(/<footer class="site-footer" hidden>[\s\S]*?<\/footer>/)[0];
+  assert.match(footer, />About<\/a>/);
+  assert.match(footer, />Feedback<\/button>/);
+  assert.doesNotMatch(footer, /Trends/);
+  context.location = new URL('https://hackeratlas.com/');
+  context.route();
+  assert.deepEqual(calls, [['home']]);
 });
 
 test('topic loading resolves slugs to numeric data IDs and canonicalizes old links', async () => {

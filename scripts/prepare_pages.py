@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 def validate_bundle(root):
     """Reject broken local script/style references before replacing the upload folder."""
     root = root.resolve()
-    for page in [root / 'index.html', *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html'), *(root / 'search').glob('index.html')]:
+    for page in [root / 'index.html', *root.glob('404.html'), *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html'), *(root / 'search').glob('index.html'), *(root / 'about').glob('index.html')]:
         html = page.read_text()
         refs = re.findall(r'<script[^>]+src="([^" ]+)"', html)
         refs += re.findall(r'<link rel="stylesheet" href="([^" ]+)"', html)
@@ -46,7 +46,7 @@ def prepare(source='dist', output='pages-dist'):
         html = html.replace('<meta name="hn-feedback" content="">',
                             '<meta name="hn-feedback" content="cloudflare">')
         (staged / 'index.html').write_text(html, encoding='utf-8')
-        for page in (staged / 'topic').glob('*/index.html'):
+        for page in [*staged.glob('404.html'), *(staged / 'topic').glob('*/index.html'), *(staged / 'about').glob('index.html'), *(staged / 'analytics').glob('index.html')]:
             topic_html = page.read_text(encoding='utf-8')
             for feature in ('newsletter', 'feedback'):
                 topic_html = topic_html.replace(f'name="hn-{feature}" content=""', f'name="hn-{feature}" content="cloudflare"')

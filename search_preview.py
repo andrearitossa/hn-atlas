@@ -47,4 +47,4 @@ def static(path: str, request: Request):
         file /= 'index.html'
     if not file.is_file():
         raise HTTPException(404)
-    return FileResponse(file)
+    return FileResponse(file, headers={'Cache-Control': 'no-store'} if file.suffix == '.html' else None)

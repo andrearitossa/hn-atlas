@@ -79,7 +79,8 @@ class AnalyticsTests(unittest.TestCase):
             release, source = root / 'release', root / 'source'
             (release / 'stories').mkdir(parents=True)
             source.mkdir()
-            (source / 'analytics.html').write_text('<html><head><link rel="stylesheet" href="__RELEASE__analytics.css"></head><body><script defer src="__RELEASE__analytics.js"></script></body></html>')
+            (source / 'analytics.html').write_text('<html><head><link rel="stylesheet" href="__RELEASE__analytics.css"></head><body><main></main><script defer src="__RELEASE__analytics.js"></script></body></html>')
+            (source / 'index.html').write_text((Path(__file__).resolve().parents[1] / 'index.html').read_text())
             (source / 'analytics.css').write_text('body {}')
             (source / 'analytics.js').write_text('window.ready = true;')
             title = '</script><script>alert(1)</script>'
@@ -90,4 +91,6 @@ class AnalyticsTests(unittest.TestCase):
             html = (release / 'public' / 'analytics' / 'index.html').read_text()
             self.assertNotIn(title, html)
             self.assertIn('\\u003c/script>', html)
-            self.assertEqual(html.count('</script>'), 2)
+            self.assertEqual(html.count('</script>'), 3)
+            self.assertIn('href="/about/">About</a>', html)
+            self.assertIn('id="feedback-open">Feedback</button>', html)

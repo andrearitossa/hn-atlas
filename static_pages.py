@@ -98,11 +98,8 @@ def render(template, overview, detail, history, posts, version):
 <p id="story-status" class="meta" role="status">{min(10,len(ranked))} stories shown.</p><button id="more-stories" {'hidden' if len(ranked)<=10 else ''}>Load more stories</button></section>
 <footer class="topic-footer"><div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">{cards}</div></div>
 </footer></div>'''
-    footer = re.search(r'<footer class="site-footer" hidden>.*?</footer>', template, re.S)[0].replace(' hidden', '')
-    body = body[:-6] + footer + '</div>'
     html = seo.render(template, topic=detail)
     html = html.replace('<a id="topics" href="/#/topics">', '<a id="topics" class="on" aria-current="page" href="/#/topics">', 1)
-    html = re.sub(r'<footer class="site-footer" hidden>.*?</footer>', '', html, count=1, flags=re.S)
     html = re.sub(r'<main id="app">.*?</main>', lambda _: f'<main id="app">{body}</main>', html, count=1, flags=re.S)
     html = html[:html.index('<script src=')] + '</body></html>'
     root = f'../../releases/{version}/'
@@ -166,3 +163,41 @@ def home_content(template, overview):
     directory = '<div class="home"><div class="home-inner discovery">' + ui + '</div></div>'
     return shell.replace('<section id="browse-section" aria-label="Browse topics"></section>',
                          f'<section id="browse-section" aria-label="Browse topics" data-prerendered="true">{directory}</section>')
+
+
+def about_html(template):
+    """Render the About page with shared navigation, styling, and feedback."""
+    html = seo.render(template, topic={'name': 'About', 'slug': 'about',
+                      'description': 'Made by Andrea Ritossa. Contribute to Hacker Atlas on GitHub.'})
+    html = html.replace(seo.ORIGIN + '/topic/about/', seo.ORIGIN + '/about/')
+    content = re.search(r'const ABOUT_CONTENT = `(.*?)`;', template, re.S)[1]
+    html = re.sub(r'<main id="app">.*?</main>', lambda _: f'<main id="app">{content}</main>', html, count=1, flags=re.S)
+    html = html[:html.index('<script src=')]
+    html = html.replace('<footer class="site-footer" hidden>', '<footer class="site-footer">')
+    return html + feedback_script(template) + '</body></html>'
+
+
+def shared_footer(template):
+    return re.search(r'<footer class="site-footer" hidden>.*?</footer>', template, re.S)[0].replace(' hidden', '')
+
+
+def feedback_script(template):
+    script = '// Feedback stays available' + template.split('// Feedback stays available', 1)[1].split('// ---------- wiring ----------', 1)[0]
+    return '<script>(() => { const $ = selector => document.querySelector(selector);\n' + script + '\n})();</script>'
+
+
+def add_shared_footer(html, template):
+    """Use the home page footer and feedback controls on standalone pages."""
+    dialog = re.search(r'<dialog id="feedback-dialog".*?</dialog>', template, re.S)[0]
+    css = template.split('.site-footer {', 1)[1].split('body.home-route', 1)[0]
+    css = '.site-footer {' + css + '.site-footer,.feedback-dialog { --hn:var(--accent,#f56300); } .contact-check { display:none; }'
+    html = html.replace('</head>', '<meta name="hn-feedback" content=""><style>' + css + '</style></head>')
+    html = html.replace('</main>', '</main>' + shared_footer(template) + dialog, 1)
+    return html.replace('</body>', feedback_script(template) + '</body>')
+
+
+def not_found_html(template):
+    html = about_html(template)
+    html = html.replace('About · HN Atlas', 'Page not found · HN Atlas')
+    html = html.replace(seo.ORIGIN + '/about/', seo.ORIGIN + '/404.html')
+    return re.sub(r'<main id="app">.*?</main>', '<main id="app"><div class="page"><h1>Page not found</h1><a href="/">Explore Hacker Atlas</a></div></main>', html, count=1, flags=re.S)
