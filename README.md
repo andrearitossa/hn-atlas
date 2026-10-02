@@ -411,11 +411,11 @@ folders and the old browser search worker.
 For local UI preview against the live backend:
 
 ```bash
-.venv/bin/python -m uvicorn search_preview:app --host 127.0.0.1 --port 8080
+.venv/bin/python -m uvicorn server:app --host 127.0.0.1 --port 8080
 ```
 
-The legacy compact exporter and browser ranking module remain available for
-offline fixtures; they are not shipped by Cloudflare Pages.
+The local server proxies Search to the deployed backend. Browser corpus exports
+and the old search worker have been removed.
 
 ### Search history
 

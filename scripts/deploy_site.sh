@@ -3,6 +3,7 @@
 set -euo pipefail
 [[ $# -le 1 ]] || { echo "Usage: $0 [EXPORT_DIRECTORY]" >&2; exit 2; }
 cd "$(dirname "$0")/.."
+source scripts/node_env.sh
 if [[ -f functions/api/search/index.js && ! -f search-cloudflare.json ]]; then
   echo 'Search backend is not configured. Run scripts/setup_search.py and search_sync.py before deploying.' >&2
   exit 1
@@ -14,7 +15,6 @@ fi
 if [[ -f 'functions/api/reader/[[path]].js' ]]; then
   .venv/bin/python scripts/migrate_feed_profiles.py
 fi
-source scripts/node_env.sh
 mkdir -p .wrangler
 deployment=$(mktemp -d "$PWD/.wrangler/pages-deploy.XXXXXX")
 trap 'rm -rf "$deployment"' EXIT

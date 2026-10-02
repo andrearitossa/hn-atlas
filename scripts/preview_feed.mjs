@@ -14,14 +14,15 @@ const {values:args}=parseArgs({options:{
   state:{type:'string',default:'.wrangler/feed-local-db'},
   'skip-build':{type:'boolean',default:false}
 }});
-const root=resolve(args.site), email=args.email.trim().toLowerCase(), secret=token();
+const configuredEmail=args.email||execFileSync('.venv/bin/python',['-c','import config; print(config.admin_email())'],{encoding:'utf8'}).trim();
+const root=resolve(args.site), email=configuredEmail.trim().toLowerCase(), secret=token();
 if (!args['skip-build']) {
   const env={...process.env,WRANGLER_SEND_METRICS:'false',WRANGLER_LOG_PATH:'/tmp/atlas-preview-build.log'};
   execFileSync('./node_modules/.bin/wrangler',['pages','functions','build','--outdir','.wrangler/feed-worker-build'],{env,stdio:'inherit'});
   execFileSync('./node_modules/.bin/wrangler',['deploy','--dry-run','--config','workers/feed/wrangler.jsonc','--outdir',resolve('.wrangler/feed-service-build')],{env,stdio:'inherit'});
 }
 const input=JSON.parse(execFileSync('.venv/bin/python',['-c',
-  "import json,feed_sync,sys; print(json.dumps({'payload':feed_sync.payload(sys.argv[1]),'backfill':feed_sync.BACKFILL}))",args.source],{maxBuffer:8*1024*1024}).toString());
+  "import json,feed_sync,sys; print(json.dumps({'payload':feed_sync.payload(sys.argv[1])}))",args.source],{maxBuffer:8*1024*1024}).toString());
 execFileSync('.venv/bin/python',['-c',`
 import re,shutil,sys
 from pathlib import Path
@@ -29,6 +30,8 @@ import static_pages
 root=Path(sys.argv[1]); version=re.search(r'/releases/([a-f0-9]+)/',(root/'for-you/index.html').read_text())[1]
 release=root/'releases'/version
 (release/'public').mkdir(exist_ok=True)
+(release/'lib').mkdir(exist_ok=True)
+for name in ('escape.js','topic-search.js'):shutil.copyfile(Path('lib')/name,release/'lib'/name)
 static_pages.write_feed(release,Path('index.html').read_text(),version)
 shutil.copyfile(release/'public/for-you/index.html',root/'for-you/index.html')
 for name in ('feed.json','feed-ranking.js'):(release/name).unlink(missing_ok=True)
@@ -58,9 +61,9 @@ try {
   const schema=(await readFile('migrations/0006_feed_profiles.sql','utf8')).split('CREATE TRIGGER');
   for(const sql of schema[0].split(';').filter(s=>s.trim()))await db.prepare(sql).run();
   await db.prepare('CREATE TRIGGER'+schema[1]).run();
-  for(const sql of (await readFile('migrations/0007_feed_state.sql','utf8')).split(';').filter(s=>s.trim()))await db.prepare(sql).run();
+  for(const name of ['0007_feed_state','0008_drop_feed_history','0009_feed_topics_single_source'])
+    for(const sql of (await readFile(`migrations/${name}.sql`,'utf8')).split(';').filter(s=>s.trim()))await db.prepare(sql).run();
   await db.prepare('INSERT INTO feed_catalog(id,payload) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload').bind(input.payload).run();
-  await db.prepare(input.backfill).run();
   const now=Math.floor(Date.now()/1000);
   await db.prepare('INSERT INTO feed_users(id,email,created_at,verified_at) VALUES(?,?,?,?) ON CONFLICT(email) DO NOTHING').bind(randomUUID(),email,now,now).run();
   const user=await db.prepare('SELECT id FROM feed_users WHERE email=?').bind(email).first();
