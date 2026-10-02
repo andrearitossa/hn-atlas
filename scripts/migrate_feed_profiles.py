@@ -1,36 +1,21 @@
-"""Initialize feed profiles and perform bounded retention during existing deployments.
+"""Apply feed profile schemas during authorized deployments.
 
 Use --local DATABASE for a local SQLite check. Without it this writes the configured
 newsletter D1; run only as part of an authorized deployment.
 """
 import argparse
-import json
 from pathlib import Path
 import sqlite3
 import sys
-import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from cloudflare import Cloudflare, newsletter_config
 
-SCHEMA = ROOT / 'migrations/0006_feed_profiles.sql'
 
-
-def maintenance(sql, now):
-    sql(SCHEMA.read_text())
-    sql((ROOT / 'migrations/0007_feed_state.sql').read_text())
-    # Fixed work budget per run. Indexed expiry and small deletes avoid long locks.
-    for table, column, cutoff in (
-        ('feed_story_state', 'seen_at', now - 90 * 86400),
-        ('feed_events', 'created_at', now - 90 * 86400),
-        ('feed_visits', 'created_at', now - 90 * 86400),
-        ('feed_login_tokens', 'expires_at', now),
-        ('feed_sessions', 'expires_at', now),
-        ('feed_rate_limits', 'expires_at', now),
-    ):
-        for _ in range(8):
-            sql(f'DELETE FROM {table} WHERE rowid IN (SELECT rowid FROM {table} WHERE {column} < {cutoff} LIMIT 500);')
+def apply_schema(sql):
+    for name in ('0006_feed_profiles', '0007_feed_state', '0008_drop_feed_history', '0009_feed_topics_single_source'):
+        sql((ROOT / 'migrations' / (name + '.sql')).read_text())
 
 
 def main():
@@ -40,11 +25,11 @@ def main():
     if args.local:
         with sqlite3.connect(args.local) as conn:
             conn.execute('PRAGMA foreign_keys=ON')
-            maintenance(conn.executescript, int(time.time()))
+            apply_schema(conn.executescript)
     else:
         cloud = Cloudflare(newsletter_config())
-        maintenance(cloud.sql, int(time.time()))
-    print('Feed profiles ready; bounded 90-day history retention applied.')
+        apply_schema(cloud.sql)
+    print('Feed profile schemas ready.')
 
 
 if __name__ == '__main__':

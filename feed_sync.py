@@ -33,15 +33,6 @@ def build(release, overview, edition, per_topic=20):
 
 SCHEMA = Path(__file__).parent / 'migrations/0007_feed_state.sql'
 UPSERT = 'INSERT INTO feed_catalog(id,payload) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload'
-BACKFILL = """INSERT INTO feed_story_state(user_id,article_key,seen_at,opened_at)
- SELECT e.user_id,json_extract(j.value,'$.article_key'),max(e.created_at),
- max(CASE WHEN e.type='article_opened' THEN e.created_at END)
- FROM feed_events e JOIN json_each((SELECT payload FROM feed_catalog WHERE id=1),'$.posts') j
- ON e.story_id=json_extract(j.value,'$.id')
- WHERE e.type IN ('visible','article_opened')
- GROUP BY e.user_id,json_extract(j.value,'$.article_key')
- ON CONFLICT(user_id,article_key) DO UPDATE SET
- seen_at=max(seen_at,excluded.seen_at),opened_at=coalesce(opened_at,excluded.opened_at)"""
 
 
 def payload(source):
@@ -71,7 +62,6 @@ def main():
             db.execute('PRAGMA foreign_keys=ON')
             db.executescript(SCHEMA.read_text())
             db.execute(UPSERT, (value,))
-            db.execute(BACKFILL)
     else:
         from cloudflare import Cloudflare, newsletter_config
         cloud = Cloudflare(newsletter_config())
@@ -79,7 +69,6 @@ def main():
         result = cloud.api('POST', f"/d1/database/{cloud.config['database_id']}/query", json={'sql':UPSERT, 'params':[value]})
         if not all(r.get('success') for r in result):
             raise RuntimeError('Feed catalog sync failed')
-        cloud.sql(BACKFILL)
     print(f"Feed catalog ready: {len(json.loads(value)['posts'])} stories")
 
 

@@ -11,6 +11,7 @@ function fixture() {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec(readFileSync(new URL('../migrations/0006_feed_profiles.sql',import.meta.url),'utf8'));
   sqlite.exec(readFileSync(new URL('../migrations/0007_feed_state.sql',import.meta.url),'utf8'));
+  for(const name of ['0008_drop_feed_history','0009_feed_topics_single_source'])sqlite.exec(readFileSync(new URL(`../migrations/${name}.sql`,import.meta.url),'utf8'));
   const wrap = sql => {
     const stmt = sqlite.prepare(sql); let args = [];
     return {bind(...values) {args=values;return this;},
@@ -144,5 +145,21 @@ test('sign-in sender only sends valid links for the configured site', async () =
   assert.equal((await (await f.feedCall(cookie)).json()).items.length,1);
   assert.equal((await f.call('','PUT',{topics:[],version:1},cookie)).status,400);
   assert.equal((await f.call('','PUT',{topics:[topics[0],topics[0]],version:1},cookie)).status,400);
+  f.sqlite.close();
+});
+
+
+test('stale profile saves leave topics untouched and JSON remains deprecated',async()=>{
+  const f=fixture(),{cookie}=await f.login();
+  f.data.topics.push({id:4,name:'Python',slug:'python'});
+  assert.equal((await f.call('','PUT',{topics:[3],version:0},cookie)).status,200);
+  assert.equal((await f.call('','PUT',{topics:[4],version:0},cookie)).status,409);
+  assert.deepEqual((await (await f.call('','GET',undefined,cookie)).json()).topics,[3]);
+  assert.equal(f.sqlite.prepare('SELECT topics_json FROM feed_users').get().topics_json,'[]');
+  assert.equal((await f.call('','PUT',{topics:[4],version:1},cookie)).status,200);
+  assert.deepEqual((await (await f.call('','GET',undefined,cookie)).json()).topics,[4]);
+  assert.equal((await f.call('','PUT',{topics:[4],version:2},cookie)).status,200);
+  assert.equal((await f.call('','PUT',{topics:[3],version:2},cookie)).status,409);
+  assert.deepEqual((await (await f.call('','GET',undefined,cookie)).json()).topics,[4]);
   f.sqlite.close();
 });

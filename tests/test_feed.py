@@ -9,7 +9,8 @@ from database import connect
 import publish
 import feed_sync
 from scripts.prepare_pages import prepare
-from scripts.migrate_feed_profiles import maintenance
+from scripts.migrate_feed_profiles import apply_schema
+from scripts.retention import expire
 import test_browsing
 
 
@@ -51,7 +52,7 @@ class FeedExportTests(unittest.TestCase):
         self.assertIn('/api/reader/*', json.loads((bundle / '_routes.json').read_text())['include'])
 
 
-    def test_private_catalog_and_legacy_history_survive_replacement(self):
+    def test_private_catalog_and_article_state_survive_replacement(self):
         out = Path(self.directory.name) / 'feed-sync'
         publish.publish(self.path, out)
         value = feed_sync.payload(out)
@@ -59,13 +60,10 @@ class FeedExportTests(unittest.TestCase):
         post = data['posts'][0]
         self.assertEqual(len(post['article_key']), 64)
         conn = sqlite3.connect(':memory:')
-        maintenance(conn.executescript, self.clock)
+        apply_schema(conn.executescript)
         conn.execute("INSERT INTO feed_users(id,email,created_at,verified_at) VALUES('u','a@example.com',?,?)", (self.clock, self.clock))
-        conn.execute("INSERT INTO feed_visits VALUES('v','u','old','v','[3]','[]',?)", (self.clock,))
-        conn.execute("INSERT INTO feed_events VALUES('u','e','v','article_opened',?,1,?)", (post['id'], self.clock))
+        conn.execute('INSERT INTO feed_story_state VALUES(?,?,?,?)', ("u", post['article_key'], self.clock, self.clock))
         conn.execute(feed_sync.UPSERT, (value,))
-        conn.execute(feed_sync.BACKFILL)
-        conn.execute(feed_sync.BACKFILL)
         self.assertEqual(conn.execute('SELECT article_key,seen_at,opened_at FROM feed_story_state').fetchall(), [(post['article_key'], self.clock, self.clock)])
         data['edition'] = 'b' * 32
         conn.execute(feed_sync.UPSERT, (json.dumps(data),))
@@ -77,19 +75,36 @@ class FeedExportTests(unittest.TestCase):
 
 
 class FeedMaintenanceTests(unittest.TestCase):
-    def test_retention_is_idempotent_and_keeps_preferences(self):
+    def test_schema_and_retention_are_idempotent_and_keep_preferences(self):
         conn = sqlite3.connect(':memory:')
+        self.addCleanup(conn.close)
         conn.execute('PRAGMA foreign_keys=ON')
         now = 1800000000
-        maintenance(conn.executescript, now)
+        apply_schema(conn.executescript)
         conn.execute("INSERT INTO feed_users(id,email,created_at,verified_at) VALUES('u','a@example.com',?,?)", (now, now))
-        conn.execute("UPDATE feed_users SET topics_json='[3]' WHERE id='u'")
-        for ident, stamp in [('old', now-91*86400), ('new',now)]:
-            conn.execute("INSERT INTO feed_visits VALUES(?,'u','edition','v','[3]','[123]',?)", (ident,stamp))
-            conn.execute("INSERT INTO feed_events VALUES('u',?,?,'visible',123,1,?)", (ident,ident,stamp))
-        maintenance(conn.executescript, now)
-        maintenance(conn.executescript, now)
-        self.assertEqual(conn.execute('SELECT id FROM feed_visits').fetchall(), [('new',)])
-        self.assertEqual(conn.execute('SELECT event_id FROM feed_events').fetchall(), [('new',)])
+        conn.execute("INSERT INTO feed_user_topics VALUES('u',3)")
+        for ident, stamp in [('a', now-91*86400), ('b', now)]:
+            conn.execute("INSERT INTO feed_story_state VALUES('u',?,?,NULL)", (ident*64,stamp))
+            conn.execute("INSERT INTO feed_login_tokens(token_hash,email,expires_at) VALUES(?,'a@example.com',?)", (ident,stamp))
+            conn.execute("INSERT INTO feed_sessions VALUES(?,'u',?)", (ident,stamp))
+            conn.execute("INSERT INTO feed_rate_limits VALUES(?,1,?)", (ident,stamp))
+        apply_schema(conn.executescript)
+        apply_schema(conn.executescript)
+        expire(conn.executescript, now)
+        expire(conn.executescript, now)
+        self.assertEqual(conn.execute('SELECT article_key FROM feed_story_state').fetchall(), [('b'*64,)])
+        for table in ('feed_login_tokens', 'feed_sessions', 'feed_rate_limits'):
+            self.assertEqual(conn.execute(f'SELECT count(*) FROM {table}').fetchone()[0], 1)
         self.assertEqual(conn.execute('SELECT topic_id FROM feed_user_topics').fetchall(), [(3,)])
-        conn.close()
+        self.assertFalse(conn.execute("SELECT 1 FROM sqlite_master WHERE name IN ('feed_events','feed_visits','feed_topics_changed')").fetchone())
+
+    def test_search_retention_has_a_fixed_budget(self):
+        conn = sqlite3.connect(':memory:')
+        self.addCleanup(conn.close)
+        conn.execute('CREATE TABLE searches(created_at INTEGER)')
+        now = 1800000000
+        conn.executemany('INSERT INTO searches VALUES(?)', [(now-91*86400,)]*4100+[(now,)])
+        expire(conn.executescript, now, search=True)
+        self.assertEqual(conn.execute('SELECT count(*) FROM searches').fetchone()[0], 101)
+        expire(conn.executescript, now, search=True)
+        self.assertEqual(conn.execute('SELECT created_at FROM searches').fetchall(), [(now,)])

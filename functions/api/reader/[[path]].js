@@ -62,10 +62,19 @@ export async function onRequest({request, env}) {
       }
       const catalog = new Set((await topicCatalog(env, request)).map(t => t.id));
       if (body.topics.some(id => !catalog.has(id))) throw new HTTPError(400, 'Choose a current topic.');
-      const saved = await db.prepare(`UPDATE feed_users SET topics_json=?,version=version+1 WHERE id=? AND version=?
-        RETURNING email,version,topics_json`).bind(JSON.stringify(body.topics), user.id, body.version).first();
-      if (!saved) throw new HTTPError(409, 'Your interests changed in another tab. Reload and try again.');
-      return reply(200, {id:user.id, email: saved.email, version: saved.version, topics: JSON.parse(saved.topics_json)});
+      const topics = JSON.stringify(body.topics);
+      const saved = await db.batch([
+        db.prepare(`UPDATE feed_users SET version=version+1 WHERE id=? AND version=?
+          RETURNING email,version`).bind(user.id, body.version),
+        // changes() carries this batch's update claim, even for an unchanged selection.
+        db.prepare(`INSERT INTO feed_user_topics(user_id,topic_id)
+          SELECT ?,value FROM json_each(?) WHERE changes()=1
+          ON CONFLICT(user_id,topic_id) DO UPDATE SET topic_id=excluded.topic_id`).bind(user.id, topics),
+        db.prepare(`DELETE FROM feed_user_topics WHERE user_id=? AND changes()>0
+          AND topic_id NOT IN (SELECT value FROM json_each(?))`).bind(user.id, topics),
+      ]);
+      if (saved[0].meta.changes !== 1) throw new HTTPError(409, 'Your interests changed in another tab. Reload and try again.');
+      return reply(200, await profile(db, user));
     }
     if (request.method === 'DELETE') {
       await jsonBody(request, 1024);
