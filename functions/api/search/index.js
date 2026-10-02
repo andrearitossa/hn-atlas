@@ -1,3 +1,4 @@
+import {jsonBody, HTTPError} from '../../../lib/reader.js';
 import {embedding, retry} from '../../../lib/search-embedding.js';
 import {storeSearch} from '../../../lib/search-history.js';
 const reply=(status,body)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
@@ -78,12 +79,9 @@ export async function onRequest({request,env,waitUntil}){
    return reply(200,{topics:topics.results,count:stats.results[0].count,since});
   }
   if(request.method!=='POST')return new Response(null,{status:405,headers:{Allow:'GET, POST'}});
-  if(request.headers.get('Origin')!==new URL(request.url).origin)return reply(403,{detail:'Use Search from the website.'});
-  if(request.headers.get('Content-Type')?.split(';')[0]!=='application/json')return reply(415,{detail:'Expected JSON.'});
-  const reader=request.body?.getReader();if(!reader)return reply(400,{detail:'Enter a query.'});
-  let size=0;const chunks=[];while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>3000){await reader.cancel();return reply(413,{detail:'Query is too long.'});}chunks.push(value);}
-  let body;try{body=JSON.parse(await new Blob(chunks).text());}catch{return reply(400,{detail:'Expected JSON.'});}
-  if(!body||typeof body!=='object'||Array.isArray(body))return reply(400,{detail:'Expected a query object.'});
+  let body;
+  try { body=await jsonBody(request,3000,{origin:'Use Search from the website.',missing:'Enter a query.',tooLarge:'Query is too long.',object:'Expected a query object.'}); }
+  catch(error) { return reply(error.status||400,{detail:error instanceof HTTPError?error.message:'Expected JSON.'}); }
   if(body.topic!==undefined&&body.topic!==null&&typeof body.topic!=='string'&&typeof body.topic!=='number')return reply(400,{detail:'Choose a valid topic.'});
   const q=typeof body.q==='string'?body.q.trim():'';
   const topic=body.topic===undefined||body.topic===''||body.topic===null?null:Number(body.topic);

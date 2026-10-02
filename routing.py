@@ -3,15 +3,16 @@ import hashlib
 import html
 import json
 import re
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import urlencode, urlunsplit
+import urls
 
-from llm import ask_json
+from llm import ask_json, MODEL
 
 MIN_FIT = 0.2862
 MIN_MARGIN = 0.02
 BOUNDARY_FIT = 0.40  # New, evidence-anchored subjects use a tighter admission floor.
 INPUT_VERSION = 2
-REVIEW_MODEL = 'gpt-6-luna'
+REVIEW_MODEL = MODEL
 SCHEMA = '''
 CREATE TABLE IF NOT EXISTS classification_queue (
  id INTEGER PRIMARY KEY, reason TEXT NOT NULL, suggested_topic INTEGER,
@@ -40,14 +41,10 @@ def subject_text(title, url, text):
 def metadata(title, url, text=None):
     match = re.match(r'^\s*(show|ask|tell|launch)\s+hn\s*:', title or '', re.I)
     kind = match.group(1).lower() if match else 'link' if url else 'discussion'
-    try:
-        parsed = urlsplit(url or '')
-    except ValueError:
-        parsed = urlsplit('')
+    parsed = urls.split(url)
     source = (parsed.hostname or '').lower().removeprefix('www.')
     if parsed.scheme in ('http', 'https') and source and parsed.path not in ('', '/'):
-        query = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True)
-                 if not k.lower().startswith('utm_') and k.lower() not in ('fbclid', 'gclid')]
+        query = urls.content_query(parsed.query)
         # Retain scheme, path case, content query parameters and nonstandard ports.
         canonical = urlunsplit((parsed.scheme, parsed.netloc.lower(), parsed.path,
                                 urlencode(query), ''))

@@ -2,7 +2,8 @@
 from collections import Counter
 from datetime import datetime, timezone
 import re
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urlunsplit
+import urls
 
 import catalog
 
@@ -15,12 +16,9 @@ def terms(title):
 
 
 def article_key(post):
-    try:
-        url = urlsplit(post['url'] or '')
-        if url.scheme in ('http', 'https') and url.netloc:
-            return urlunsplit(('', url.netloc.lower().removeprefix('www.'), url.path.rstrip('/'), url.query, ''))
-    except ValueError:
-        pass
+    url = urls.split(post['url'])
+    if url.scheme in ('http', 'https') and url.netloc:
+        return urlunsplit(('', url.netloc.lower().removeprefix('www.'), url.path.rstrip('/'), url.query, ''))
     return str(post['id'])
 
 

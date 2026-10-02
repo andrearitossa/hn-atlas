@@ -2,7 +2,7 @@
 const $ = selector => document.querySelector(selector);
 const t = JSON.parse($('#topic-initial').textContent);
 const root = new URL($('meta[name="hn-data"]').content, document.baseURI);
-const esc = value => String(value ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;'}[c]));
 const safeUrl = value => { try { const u = new URL(value); return /^https?:$/.test(u.protocol) ? u.href : ''; } catch { return ''; } };
 const date = time => new Date(time * 1000).toLocaleDateString(undefined, {timeZone:'UTC',year:'numeric',month:'short',day:'numeric'});
 const post = p => {

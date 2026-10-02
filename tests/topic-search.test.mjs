@@ -55,3 +55,11 @@ test('catalog cache invalidates when topic text changes',async()=>{
   assert.equal(calls,2);
  }finally{globalThis.fetch=originalFetch;if(originalCaches===undefined)delete globalThis.caches;else globalThis.caches=originalCaches;}
 });
+
+
+test('shared topic scoring retains aliases and rejects unrelated short substrings',()=>{
+ assert.ok(textScore({name:'JavaScript',description:''},'js')>0);
+ assert.ok(textScore({name:'AI assistants',description:''},'artificial intelligence')>0);
+ assert.equal(textScore({name:'Trust',description:''},'rust'),0);
+ assert.equal(textScore({name:'JavaScript',description:''},'a history of homes'),0);
+});

@@ -22,6 +22,11 @@ def validate_bundle(root):
             target = (root / url.path.lstrip('/') if url.path.startswith('/') else page.parent / url.path).resolve()
             if not target.is_relative_to(root) or not target.is_file():
                 raise ValueError(f'Missing public asset: {page.relative_to(root)} -> {ref}')
+    for script in root.rglob('*.js'):
+        for ref in re.findall(r"(?:from\s*|import\s*)['\"](\.[^'\"]+)['\"]", script.read_text()):
+            target = (script.parent / ref).resolve()
+            if not target.is_relative_to(root) or not target.is_file():
+                raise ValueError(f'Missing module asset: {script.relative_to(root)} -> {ref}')
     for file in root.rglob('*'):
         if file.is_file() and file.stat().st_size > 25 * 1024 * 1024:
             raise ValueError(f'Public file exceeds the Pages limit: {file.relative_to(root)}')
@@ -37,7 +42,7 @@ def prepare(source='dist', output='pages-dist'):
     with tempfile.TemporaryDirectory(prefix='.pages-', dir=output.parent) as temporary:
         staged = Path(temporary) / 'site'
         release = Path('releases') / match[1]
-        # These are build inputs; topic pages use year shards and on-demand history.
+        # These are build inputs; topic pages use year shards and embedded history.
         ignored = shutil.ignore_patterns('public', 'stories', 'timelines') if (source / release / 'topic.js').exists() else shutil.ignore_patterns('public')
         shutil.copytree(source / release, staged / release, ignore=ignored)
         shutil.copytree(source / release / 'public', staged, dirs_exist_ok=True)

@@ -93,6 +93,13 @@ def data_script():
     return FileResponse("data.js", media_type="text/javascript")
 
 
+@app.get('/lib/{asset}')
+def shared_asset(asset: str):
+    if asset not in ('escape.js', 'topic-search.js'):
+        raise HTTPException(404)
+    return FileResponse(Path('lib') / asset, media_type='text/javascript')
+
+
 @app.get("/api/topics")
 def topics():
     return topic_list(int(time.time() // 300))

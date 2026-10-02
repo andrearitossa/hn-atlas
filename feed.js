@@ -1,5 +1,5 @@
+import {escapeHTML as esc} from './lib/escape.js';
 const $ = id => document.getElementById(id);
-const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hn = id => `https://news.ycombinator.com/item?id=${id}`;
 const safeURL = p => { try { const u = new URL(p.url); if (['https:', 'http:'].includes(u.protocol)) return u.href; } catch {} return hn(p.id); };
 const date = time => new Date(time * 1000).toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric', timeZone:'UTC'});

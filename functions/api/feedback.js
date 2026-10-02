@@ -1,3 +1,4 @@
+import {jsonBody, HTTPError} from '../../lib/reader.js';
 const reply = (status, body) => Response.json(body, {
   status, headers: {'Cache-Control': 'no-store'},
 });
@@ -6,35 +7,9 @@ export async function onRequest({request, env, waitUntil}) {
   if (request.method !== 'POST') {
     return new Response(null, {status: 405, headers: {Allow: 'POST'}});
   }
-  if (request.headers.get('Origin') !== new URL(request.url).origin) {
-    return reply(403, {detail: 'Please send feedback from the website.'});
-  }
-  if (request.headers.get('Content-Type')?.split(';')[0].trim() !== 'application/json') {
-    return reply(415, {detail: 'Expected JSON.'});
-  }
   let data;
-  try {
-    const reader = request.body?.getReader();
-    if (!reader) return reply(400, {detail: 'Missing feedback.'});
-    const chunks = [];
-    let size = 0;
-    while (true) {
-      const {done, value} = await reader.read();
-      if (done) break;
-      size += value.byteLength;
-      if (size > 12000) {
-        await reader.cancel();
-        return reply(413, {detail: 'Feedback is too long.'});
-      }
-      chunks.push(value);
-    }
-    data = JSON.parse(await new Blob(chunks).text());
-  } catch {
-    return reply(400, {detail: 'Invalid feedback.'});
-  }
-  if (!data || typeof data !== 'object' || Array.isArray(data)) {
-    return reply(400, {detail: 'Invalid feedback.'});
-  }
+  try { data = await jsonBody(request, 12000, {origin: 'Please send feedback from the website.', missing: 'Missing feedback.', tooLarge: 'Feedback is too long.', invalid: 'Invalid feedback.', object: 'Invalid feedback.'}); }
+  catch (error) { return reply(error.status || 400, {detail: error instanceof HTTPError ? error.message : 'Invalid feedback.'}); }
   if (data.website) return reply(200, {ok: true});
   const message = typeof data.message === 'string' ? data.message.trim() : '';
   const email = typeof data.email === 'string' ? data.email.trim().toLowerCase() : '';

@@ -5,7 +5,8 @@ without floating-point underflow. Counts are HN points, not estimated vote veloc
 """
 import math
 import topics as topic_registry
-from urllib.parse import parse_qsl, urlencode, urlsplit
+from urllib.parse import urlencode
+import urls
 
 DAY = 86400
 DECAY_DAYS = 3
@@ -13,14 +14,10 @@ POST = 's.id,s.title,s.url,s.time,s.score,s.descendants'
 
 
 def article_key(post):
-    try:
-        url = urlsplit(post.get('url') or '')
-        if url.scheme in ('http', 'https') and url.netloc:
-            query = urlencode(sorted((k, v) for k, v in parse_qsl(url.query, keep_blank_values=True)
-                                     if not k.lower().startswith('utm_') and k.lower() not in ('fbclid', 'gclid')))
-            return (url.netloc.lower().removeprefix('www.'), url.path.rstrip('/'), query)
-    except ValueError:
-        pass
+    url = urls.split(post.get('url'))
+    if url.scheme in ('http', 'https') and url.netloc:
+        query = urlencode(sorted(urls.content_query(url.query)))
+        return (url.netloc.lower().removeprefix('www.'), url.path.rstrip('/'), query)
     return post['id']
 
 

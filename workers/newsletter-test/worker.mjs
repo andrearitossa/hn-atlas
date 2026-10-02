@@ -1,6 +1,6 @@
+import {escapeHTML as escapeHTML} from '../../lib/escape.js';
 const reply = (body, status=200) => Response.json(body, {status, headers:{'Cache-Control':'no-store'}});
 
-const escapeHTML = value => value.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;'}[c]));
 const articleURL = post => {
   const url=(post.url||'').trim();
   try { if (['http:','https:'].includes(new URL(url).protocol)) return url; } catch {}
@@ -103,8 +103,8 @@ export default {
   async fetch(request,env) {
     const url=new URL(request.url);
     if (url.pathname==='/daily-selection' && request.method==='POST') {
-      if (!env.ADMIN_EMAIL) return reply({error:'ADMIN_EMAIL is required'},503);
       if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
+      if (!env.ADMIN_EMAIL) return reply({error:'ADMIN_EMAIL is required'},503);
       if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);
       let edition;
       try { edition=(await request.json()).edition; } catch { return reply({error:'Invalid request'},400); }

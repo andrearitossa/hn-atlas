@@ -6,11 +6,11 @@ import time
 import requests
 import config
 
-NAMER = 'gpt-6-luna'
+MODEL = 'gpt-6-luna'
 URL = 'https://api.openai.com/v1/chat/completions'
 
 
-def ask_json(prompt, attempts=5, model=NAMER, reasoning_effort=None, timeout=120):
+def ask_json(prompt, attempts=5, model=MODEL, reasoning_effort=None, timeout=120):
     key = os.environ['OPENAI_API_KEY']
     for attempt in range(attempts):
         try:

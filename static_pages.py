@@ -113,6 +113,9 @@ def render(template, overview, detail, history, posts, version):
 
 def write_assets(release, source):
     """One cached stylesheet and one small topic enhancement script per release."""
+    (release / 'lib').mkdir(exist_ok=True)
+    for name in ('escape.js', 'topic-search.js'):
+        (release / 'lib' / name).write_text((source / 'lib' / name).read_text())
     template = (source / 'index.html').read_text()
     css = re.search(r'<style>(.*?)</style>', template, re.S)[1]
     css += '\n.chart-axis { display:flex; justify-content:space-between; color:var(--muted); font-size:11px; margin:8px 1% 12px; }\n.page #activity-chart { height:180px; margin-top:20px; }\n@media(max-width:600px) { .page #activity-chart { height:120px; } }\n.topic-nav a { color:var(--hn); font-size:10px; padding:6px 0; }\n.zt-stories .post { margin:0 0 18px; }\n'

@@ -1,12 +1,9 @@
-const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const stopWords=new Set('a an and are as at be by for from how in is it of on or that the this to with your'.split(' '));
-const words=value=>(value.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/artificial intelligence/g,'ai').replace(/machine learning/g,'ml').match(/[\p{L}\p{N}+#]+/gu)||[]).map(w=>({js:'javascript',ts:'typescript'}[w]||w)).filter(w=>!stopWords.has(w));
+import {escapeHTML as escape} from './lib/escape.js';
+import {textScore} from './lib/topic-search.js';
 export function matchingTopics(topics,query){
- const tokens=[...new Set(words(query))];if(!tokens.length)return [...topics];
- return topics.map(topic=>{const title=words(topic.name),description=words(topic.description||'');let score=0,hits=0;
-  for(const token of tokens){const prefix=w=>token.length>=3&&w.startsWith(token);const weight=title.includes(token)?8:title.some(prefix)?5:description.includes(token)?2:description.some(prefix)?1:0;score+=weight;if(weight)hits++;}
-  if(hits<Math.min(2,tokens.length))score=0;else score+=hits/tokens.length*8;if(title.join(' ')===tokens.join(' '))score+=20;
-  return {topic,score};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||(b.topic.last_7d||0)-(a.topic.last_7d||0)||a.topic.name.localeCompare(b.topic.name)).map(x=>x.topic);
+ if(!query.trim())return [...topics];
+ return topics.map(topic=>({topic,score:textScore(topic,query)})).filter(x=>x.score>0)
+  .sort((a,b)=>b.score-a.score||(b.topic.last_7d||0)-(a.topic.last_7d||0)||a.topic.name.localeCompare(b.topic.name)).map(x=>x.topic);
 }
 function safeUrl(value,fallback){try{const u=new URL(value);return ['http:','https:'].includes(u.protocol)?u.href:fallback;}catch{return fallback;}}
 const shell=`<h1>Explore your next idea.</h1>
