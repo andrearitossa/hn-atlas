@@ -1,14 +1,14 @@
 import {test,expect} from '@playwright/test';
 const story={id:123,title:'Rust compiler design',url:'https://example.com',time:1750000000,score:10,descendants:2,match:'Words + meaning'};
 async function backend(page,notice=''){
- await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(route.request().method()==='GET'?{count:92487,topics:[{id:7,name:'Programming'}]}:{posts:[{...story,match:notice?'Text match':story.match}],notice})}));
+ await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(route.request().method()==='GET'?{count:92487,topics:[{id:3,name:'Current'}]}:{posts:[{...story,match:notice?'Text match':story.match}],notice})}));
 }
 test('Search uses one server endpoint and supports queries, topics, and shareable links',async({page})=>{
  await backend(page);const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const assets=[];page.on('request',r=>assets.push(r.url()));
  await page.goto('/');await expect(page.locator('#browse-section')).toHaveAttribute('data-discovery-mounted','true');await expect(page.locator('#submit')).toBeEnabled();
- await page.locator('#query').fill('Rust compiler');await page.locator('#topic').selectOption('1086');await page.locator('#submit').click();
- await expect(page.locator('.result')).toHaveCount(1);await expect(page).toHaveURL(/topic=1086/);
+ await page.locator('#query').fill('Rust compiler');await page.locator('#topic').selectOption('3');await page.locator('#submit').click();
+ await expect(page.locator('.result')).toHaveCount(1);await expect(page).toHaveURL(/topic=3/);
  await page.locator('#sort').selectOption('points');await expect(page).toHaveURL(/sort=points/);
  await page.reload();await expect(page.locator('.result').first()).toBeVisible();
  expect(assets.some(u=>u.includes('search-data')||u.includes('search-worker'))).toBe(false);
@@ -70,10 +70,10 @@ test('A failed request keeps topic discovery available and offers retry',async({
 
 test('Retrieved story memberships surface relevant topics beyond literal words',async({page})=>{
  await backend(page);
- await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({posts:[{...story,topics:[1086]}],notice:''})}));
+ await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({posts:[{...story,topics:[3]}],notice:''})}));
  await page.goto('/');await expect(page.locator('#browse-section')).toHaveAttribute('data-discovery-mounted','true');await page.locator('#query').fill('a durable idea');
  await expect(page.locator('.topic-card')).toHaveCount(0);await page.locator('#query').press('Enter');
- await expect(page.locator('.topic-card').first()).toBeVisible();await expect(page.locator('.topic-card')).toContainText('Rust programming');
+ await expect(page.locator('.topic-card').first()).toBeVisible();await expect(page.locator('.topic-card')).toContainText('Current');
 });
 
 test('A query typed while the shared module loads survives page initialization',async({page})=>{
