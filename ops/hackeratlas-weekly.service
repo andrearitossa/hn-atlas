@@ -9,9 +9,9 @@ StartLimitBurst=3
 Type=oneshot
 WorkingDirectory=%h/technews
 Environment=TZ=Europe/Stockholm
+EnvironmentFile=-%h/technews/.env
 Environment=PATH=%h/.local/share/pi-node/node-v22.23.1-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
 Environment=OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 ExecStart=%h/technews/.venv/bin/python -u %h/technews/scripts/weekly_newsletters.py
 TimeoutStartSec=12h
-Restart=on-failure
-RestartSec=15min
+Restart=no

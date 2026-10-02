@@ -103,6 +103,13 @@ def run_weekly(now=None):
         raise RuntimeError('Newsletter Worker URL must use HTTPS')
     with open(str(DB)+'.worker.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
+        due = edition_at(int(time.time()) if now is None else now)
+        with connect(DB, readonly=True) as conn:
+            completed = conn.execute(
+                "SELECT value FROM maintenance WHERE key='newsletter_completed'").fetchone()
+        if completed and completed['value'] >= due:
+            print('Weekly edition already completed; skipping', flush=True)
+            return dict(sent=0, failures=0, pending=0, skipped=True)
         # After an outage this job may acquire the lock before the daily job.
         # Refresh here while holding it; website deployment is not a dependency.
         ensure_fresh(int(time.time()) if now is None else now)
@@ -115,6 +122,9 @@ def run_weekly(now=None):
         if (result.get('disabled') or result.get('failures') != 0 or result.get('pending') != 0
                 or type(result.get('sent')) is not int):
             raise RuntimeError('Newsletter delivery did not complete; inspect Worker delivery state')
+        with connect(DB) as conn:
+            conn.execute("INSERT INTO maintenance(key,value) VALUES('newsletter_completed',?) "
+                         "ON CONFLICT(key) DO UPDATE SET value=excluded.value", (edition,))
         print(f"Sent {result['sent']} newsletters")
         return result
 

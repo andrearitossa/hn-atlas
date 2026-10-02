@@ -9,7 +9,7 @@
 <script defer src="__RELEASE__analytics.js"></script>
 </head>
 <body>
-<header><a href="/" class="brand">HN <span>Atlas</span></a><nav class="site-nav" aria-label="Explore"><a href="/">Browse topics</a><a href="/#/explore">Explore</a><a href="/#/trends" aria-current="page">Trends</a></nav></header>
+<header><a href="/" class="brand" aria-label="HN Atlas home">HN <span>Atlas</span></a><nav class="site-nav" aria-label="Main navigation"><a href="/">Topics</a><a href="/analytics/" aria-current="page">Analytics</a></nav></header>
 <main class="trends-view">
 <div class="page-heading"><div><p class="eyebrow">THE ARCHIVE / THROUGH TIME</p><h1>Topic trends</h1></div><p class="intro">See which topics are growing. Select a tile to explore its history.</p></div>
 <section class="controls" aria-label="Time controls">
@@ -26,6 +26,12 @@
 <table class="data-table" hidden><tbody id="topic-list"></tbody></table>
 <details class="method"><summary>How this works</summary><p>Weeks run Monday–Sunday; months and years follow the UTC calendar. Counts use current topic assignments throughout the archive. Stories can belong to several topics, so area and share represent topic memberships. Unfiled stories are excluded. The map shows only the leading topics and rescales them to fill the canvas. Percentages always refer to all topic memberships. The latest period may be incomplete.</p></details>
 <noscript>Enable JavaScript to explore weekly topic history.</noscript>
+<section id="global-activity" class="activity" aria-labelledby="activity-title"><div class="activity-content"><div class="chart-heading"><div><h2 id="activity-title">The pace of conversation</h2><p id="chart-readout" aria-live="polite">Posts per month</p></div><div class="sort" aria-label="Activity period"><button data-range="12">1 year</button><button data-range="24">2 years</button><button data-range="0" class="on" aria-pressed="true">All</button></div></div><!-- GLOBAL_ACTIVITY_CHART --><p class="chart-note">Posts per month across all topics · each story counted once · first and latest months may be partial.</p></div></section>
+<section id="topic-graph" class="topic-graph" aria-labelledby="topic-graph-title">
+<div class="graph-heading"><div><h2 id="topic-graph-title">Topic connections</h2><p>Explore how topics relate. Select a topic to see its connections and recent stories.</p></div><label>Find a topic<input id="map-search" type="search" placeholder="Search topics" autocomplete="off"></label></div>
+<p id="map-results" role="status"></p>
+<div class="connections-layout"><div class="connections-canvas"><svg id="topic-graph-map" tabindex="0" role="group" aria-label="Interactive topic connections. Use plus and minus to zoom, or drag to pan."></svg><span class="graph-legend">Color = topic · Size = story volume · Lines = connections</span><span class="map-help">Drag to explore · Ctrl + scroll to zoom</span><div class="graph-controls"><button id="graph-zoom-in" aria-label="Zoom in topic graph">+</button><button id="graph-zoom-out" aria-label="Zoom out topic graph">−</button><button id="graph-zoom-reset" aria-label="Reset topic graph">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div>
+</section>
 </main>
 </body>
 </html>

@@ -132,3 +132,38 @@ test('unsafe or absent stored article URL redirects to HN instead',async()=>{
   const response=await worker.fetch(new Request(f.clickURL),f.env);
   assert.equal(response.headers.get('Location'),'https://news.ycombinator.com/item?id=123');
 });
+
+test('daily selection requires authentication and sends one immutable edition once',async()=>{
+  const f=fixture();
+  f.sqlite.exec(`CREATE TABLE daily_selections(edition TEXT PRIMARY KEY,prepared_at INTEGER,subject TEXT,html TEXT,posts TEXT,state TEXT DEFAULT 'prepared',message_id TEXT,error TEXT)`);
+  f.run("INSERT INTO daily_selections(edition,subject,html) VALUES(?,?,?)",'2026-10-01','Daily selection','<p>Ten stories</p>');
+  const request=(auth=true)=>new Request(f.env.PUBLIC_URL+'/daily-selection',{method:'POST',headers:auth?{Authorization:'Bearer private'}:{},body:JSON.stringify({edition:'2026-10-01'})});
+  assert.equal((await worker.fetch(request(false),f.env)).status,401);
+  assert.equal((await worker.fetch(request(),f.env)).status,200);
+  assert.equal((await worker.fetch(request(),f.env)).status,200);
+  assert.equal(f.sent.length,1);
+  assert.equal(f.sent[0].to,'andre.ritossa@gmail.com');
+  assert.equal(f.sent[0].html,'<p>Ten stories</p>');
+});
+
+test('daily selection holds an ambiguous provider failure instead of resending',async()=>{
+  const f=fixture();
+  f.sqlite.exec(`CREATE TABLE daily_selections(edition TEXT PRIMARY KEY,subject TEXT,html TEXT,state TEXT DEFAULT 'prepared',message_id TEXT,error TEXT)`);
+  f.run('INSERT INTO daily_selections(edition,subject,html) VALUES(?,?,?)','2026-10-01','Daily selection','<p>Ten stories</p>');
+  let calls=0;
+  f.env.EMAIL.send=async()=>{calls++;throw new Error('Timeout')};
+  const request=()=>new Request(f.env.PUBLIC_URL+'/daily-selection',{method:'POST',headers:{Authorization:'Bearer private'},body:JSON.stringify({edition:'2026-10-01'})});
+  assert.equal((await worker.fetch(request(),f.env)).status,502);
+  assert.equal((await worker.fetch(request(),f.env)).status,409);
+  assert.equal(calls,1);
+});
+
+test('one-off daily selection sends without any database access',async()=>{
+  const f=fixture();
+  f.env.DB={prepare(){throw new Error('One-off mail must not access D1')}};
+  const request=(auth=true)=>new Request(f.env.PUBLIC_URL+'/daily-selection-once',{method:'POST',headers:auth?{Authorization:'Bearer private'}:{},body:JSON.stringify({subject:'Daily selection',html:'<p>Fresh stories</p>'})});
+  assert.equal((await worker.fetch(request(false),f.env)).status,401);
+  assert.equal((await worker.fetch(request(),f.env)).status,200);
+  assert.equal(f.sent.length,1);
+  assert.equal(f.sent[0].to,'andre.ritossa@gmail.com');
+});

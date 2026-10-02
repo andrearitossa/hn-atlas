@@ -45,5 +45,5 @@ fi
 systemctl --user list-timers hackeratlas-daily.timer hackeratlas-weekly.timer
 if [[ "${1:-}" != --install-only ]]; then
   systemctl --user start hackeratlas-daily.timer hackeratlas-weekly.timer
-  systemctl --user start --no-block hackeratlas-daily.service hackeratlas-weekly.service
+  systemctl --user start --no-block hackeratlas-daily.service
 fi

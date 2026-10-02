@@ -32,12 +32,22 @@ bash scripts/update_site.sh
 ```
 
 Install the user timers with `bash ops/install_user_timers.sh` from this checkout.
+Both services load credentials from the private, Git-ignored `.env` file on every
+run. Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` there for unattended
+Cloudflare access, and restrict file permissions with `chmod 600 .env`. The token
+needs Cloudflare Pages Edit for site publication; if shared with the weekly job,
+it also needs D1 Edit for newsletter database writes. Scope it to your account.
+Browser login credentials can expire and should not be the only authentication
+configured for scheduled deployments. Changing `.env` takes effect on the next
+service start; changing a unit requires `systemctl --user daemon-reload`.
 They run the daily update at **06:30 Europe/Stockholm** and prepare and send weekly
-newsletters on Sundays at **18:00**. `Persistent=true` runs one missed timer
+newsletters due Sundays at **18:00**. A missed weekly run catches up when the PC
+is available again. A completed-edition marker prevents another run that week,
+including for subscriptions added after completion. `Persistent=true` runs one missed timer
 event when the user manager starts after the PC was off; `refresh.py` catches up
 all HN items since its checkpoint and refreshes the recent story window. The
 installer enables linger when permitted so timers can run before login. A failed
-run is retried twice at 15-minute intervals. Inspect results with
+daily run is retried twice at 15-minute intervals. Inspect results with
 `systemctl --user list-timers` and `journalctl --user -u hackeratlas-daily.service
 -u hackeratlas-weekly.service`.
 
@@ -50,9 +60,10 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\
 ```
 
 Use your distro and Linux username if different. The installer checks that the
-Windows time zone is Stockholm and creates logon, daily 06:30, and Sunday 18:00
-triggers. Each task keeps WSL running until its service completes. Systemd's
-daily success marker and newsletter delivery records prevent duplicate work after logon. Inspect
+Windows time zone is Stockholm and creates daily 06:30 and Sunday 18:00
+triggers. Both tasks also check for missed work at logon and catch up after an outage.
+Each task keeps WSL running until its service completes. Success markers prevent
+repeating completed daily updates and weekly editions after logon. Inspect
 them with `Get-ScheduledTask -TaskName 'HackerAtlas-*-WSL'` in PowerShell.
 An early logon waits for 06:30 if yesterday's publication succeeded; after a
 longer outage, it starts catch-up immediately.
@@ -64,8 +75,8 @@ computes one HTML newsletter per subscribed topic, stores it in D1, and
 immediately calls the Cloudflare Worker to send that edition. An existing topic/edition
 is reused, never recomputed per recipient. Preview reads the same stored HTML.
 The Worker has no cron schedule, topic selection, or rendering logic.
-Website deployment is independent. Missed newsletters catch up on Monday or later,
-using the most recent Sunday 18:00 edition. The job waits for the database lock.
+Website deployment is independent. Missed newsletters catch up at startup using
+the most recent Sunday 18:00 edition. On WSL this requires the Windows user to log in. The job waits for the database lock.
 The installer retires the old newsletter-test cron entry.
 Use `bash ops/install_user_timers.sh --install-only` during a rollout to install
 and enable the units without starting jobs. After validation, start both timers
@@ -308,3 +319,31 @@ new inserts notify, so retries do not send duplicate emails. Notification failur
 are logged without failing a saved submission; there is no automatic mail retry.
 Deploy `workers/newsletter-test/wrangler.jsonc` before deploying Pages when changing
 this binding or entrypoint.
+
+## Daily selection
+
+After each successful daily publication, `scripts/update_site.sh` runs
+`scripts/daily_selection.py` and emails **Daily selection** to
+`andre.ritossa@gmail.com`. It considers live stories posted in the last **24
+hours**, ranked by `(HN points - 1) × 2^(-hours since posting / 6)`. Votes lose
+half their weight every six hours: twice the votes offsets six hours of age.
+This favors fresh, popular stories consistently throughout the daily window.
+It is a hotness proxy, not measured vote velocity; the database has no vote time
+series. Comments do not affect this ranking. Duplicate URLs and titles are removed.
+
+For each pick, `gpt-6-luna` reads the complete extracted article body and writes
+a simple, slightly catchy overview. Unreadable, blocked, non-HTML, or oversized
+articles are sent with their title and links but no overview. The top ten are fixed
+before article fetching or AI calls, so summary failures cannot remove or replace
+a selected story. AI calls have bounded retries and timeouts. If fewer than ten
+eligible unique stories exist, all available stories are sent without widening
+the cutoff. This cutoff applies to the HN posting time; an older article newly
+shared on HN can qualify.
+
+Preview with `.venv/bin/python scripts/daily_selection.py --dry-run` (uses the LLM,
+reads articles, and writes previews under `report/daily-selection/`, without email).
+Delivery uses the existing authenticated newsletter Worker and sender. D1 stores
+one immutable edition per Stockholm calendar date and atomically claims delivery.
+Daily retries reuse it; already sent editions are skipped. Ambiguous delivery
+failures are held for inspection to prevent duplicate mail. A selection failure
+retries through the daily service without repeating the completed publication.

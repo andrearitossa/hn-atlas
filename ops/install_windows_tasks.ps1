@@ -20,10 +20,11 @@ $dailyTriggers = @(
     (New-ScheduledTaskTrigger -AtLogOn -User $principal.UserId),
     (New-ScheduledTaskTrigger -Daily -At '06:30')
 )
+$weeklySettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew
 $weeklyTriggers = @(
     (New-ScheduledTaskTrigger -AtLogOn -User $principal.UserId),
     (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At '18:00')
 )
 Register-ScheduledTask -TaskName 'HackerAtlas-Daily-WSL' -Action $dailyAction -Trigger $dailyTriggers -Principal $principal -Settings $settings -Force | Out-Null
-Register-ScheduledTask -TaskName 'HackerAtlas-Weekly-WSL' -Action $weeklyAction -Trigger $weeklyTriggers -Principal $principal -Settings $settings -Force | Out-Null
+Register-ScheduledTask -TaskName 'HackerAtlas-Weekly-WSL' -Action $weeklyAction -Trigger $weeklyTriggers -Principal $principal -Settings $weeklySettings -Force | Out-Null
 Get-ScheduledTask -TaskName 'HackerAtlas-*-WSL' | Select-Object TaskName,State

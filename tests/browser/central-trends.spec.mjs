@@ -1,34 +1,19 @@
 import { test, expect } from '@playwright/test';
 
-test('Browse is the landing page and Explore retains the maps', async ({ page }) => {
-  const errors=[];const requests=[];
+test('Topics opens the directory and Analytics opens a separate page', async ({ page }) => {
+  const errors=[];
   page.on('pageerror',error=>errors.push(error.message));
-  page.on('request',request=>requests.push(request.url()));
-  await page.goto('/#/trends');
-  const trends=page.locator('#trends-section');
-  await expect(trends.locator('#tr-summary')).toContainText('topic memberships');
-  expect(await page.locator('#app').evaluate(app=>
-    [...app.querySelectorAll('#map-section,#trends-section,#browse-section')].map(section=>section.id)
-  )).toEqual(['map-section','trends-section','browse-section']);
-  await expect(trends.locator('#tr-timeframe')).toHaveValue('month');
-  await expect(trends.locator('#tr-analytics-data')).toHaveCount(1);
-  await expect(trends.locator('iframe')).toHaveCount(0);
-  expect(requests.filter(url=>/\/analytics\//.test(url))).toEqual([]);
-
-  const map=await page.locator('#map').elementHandle();
-  const treemap=await trends.locator('#tr-treemap').elementHandle();
-  const nav=page.getByRole('navigation',{name:'Explore'});
-  await nav.getByRole('link',{name:'Browse topics'}).click();
-  await expect(page).toHaveURL(/\/$/);
+  await page.goto('/');
   await expect(page.locator('#browse-section')).toBeVisible();
   await expect(page.locator('#map-section')).toBeHidden();
-  await nav.getByRole('link',{name:'Explore',exact:true}).click();
-  await page.getByRole('link',{name:'See topic trends →'}).click();
-  await expect(page).toHaveURL(/#\/trends$/);
-  await expect(page.getByRole('link',{name:'See topic trends →'})).toHaveAttribute('aria-current','page');
-  await expect.poll(()=>trends.evaluate(section=>section.getBoundingClientRect().top)).toBeLessThan(150);
-  expect(await map.evaluate(node=>node===document.querySelector('#map'))).toBe(true);
-  expect(await treemap.evaluate(node=>node===document.querySelector('#tr-treemap'))).toBe(true);
+  await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Analytics',exact:true}).click();
+  await expect(page).toHaveURL(/\/analytics\/$/);
+  await expect(page.locator('#global-activity')).toBeVisible();
+  await page.locator('#global-activity [data-range="12"]').click();
+  await expect(page.locator('#activity-chart rect')).toHaveCount(12);
+  await expect(page.locator('#topic-graph')).toHaveCount(1);
+  await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Topics',exact:true}).click();
+  await expect(page).toHaveURL(/\/$/);
   expect(errors).toEqual([]);
 });
 

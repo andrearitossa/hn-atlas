@@ -139,6 +139,37 @@ class PipelineTests(unittest.TestCase):
                 pipeline.run_weekly(self.now)
             send.assert_not_called()
 
+    def test_completed_week_skips_logins_but_next_sunday_runs(self):
+        response = Mock()
+        response.json.return_value = dict(sent=2, failures=0, pending=0)
+        with patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
+             patch.object(pipeline, 'prepare', side_effect=pipeline.edition_at) as prepare, \
+             patch.object(pipeline, 'ensure_fresh') as fresh, \
+             patch('requests.post', return_value=response) as send:
+            pipeline.run_weekly(self.now)
+            # A stale corpus and a new subscription must not reopen a completed week.
+            self.remote.execute("INSERT INTO newsletter_subscriptions(id,email,topic,created_at) VALUES('new','new@example.com',1185,0)")
+            self.assertTrue(pipeline.run_weekly(self.now+86400)['skipped'])
+            self.assertTrue(pipeline.run_weekly(stamp('2026-10-04T15:59:59+00:00'))['skipped'])
+            self.assertEqual(send.call_count, 1)
+            self.assertEqual(fresh.call_count, 1)
+            pipeline.run_weekly(stamp('2026-10-04T16:00:00+00:00'))
+            self.assertEqual(send.call_count, 2)
+            self.assertEqual(prepare.call_count, 2)
+
+    def test_failed_week_remains_due_at_next_startup(self):
+        response = Mock()
+        response.json.return_value = dict(sent=0, failures=1, pending=1)
+        with patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
+             patch.object(pipeline, 'prepare', side_effect=pipeline.edition_at), \
+             patch('requests.post', return_value=response) as send:
+            with self.assertRaises(RuntimeError):
+                pipeline.run_weekly(self.now)
+            response.json.return_value = dict(sent=2, failures=0, pending=0)
+            pipeline.run_weekly(self.now)
+            self.assertTrue(pipeline.run_weekly(self.now)['skipped'])
+            self.assertEqual(send.call_count, 2)
+
     def test_waits_for_previous_work_then_prepares(self):
         started, prepared = threading.Event(), threading.Event()
         errors = []

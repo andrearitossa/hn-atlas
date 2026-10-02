@@ -14,6 +14,7 @@ today=$(TZ=Europe/Stockholm date +%F)
 last_success=$(cat data/update-site-success.date 2>/dev/null || true)
 if [[ "${1:-}" != --force && "$last_success" == "$today" ]]; then
   echo "Site already published on $today (Europe/Stockholm)"
+  .venv/bin/python -u scripts/daily_selection.py
   exit 0
 fi
 if [[ "${1:-}" != --force && "$last_success" == "$(TZ=Europe/Stockholm date -d yesterday +%F)" && "$(TZ=Europe/Stockholm date +%H%M)" < 0630 ]]; then
@@ -34,3 +35,4 @@ mv "$build/index.html" dist/index.html
 # Written only after the update, deployment, and local synchronization succeed.
 TZ=Europe/Stockholm date +%F > data/update-site-success.tmp
 mv data/update-site-success.tmp data/update-site-success.date
+.venv/bin/python -u scripts/daily_selection.py

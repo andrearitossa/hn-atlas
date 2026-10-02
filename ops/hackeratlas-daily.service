@@ -9,6 +9,7 @@ StartLimitBurst=3
 Type=oneshot
 WorkingDirectory=%h/technews
 Environment=TZ=Europe/Stockholm
+EnvironmentFile=-%h/technews/.env
 ExecStart=/bin/bash %h/technews/scripts/update_site.sh
 TimeoutStartSec=12h
 Restart=on-failure

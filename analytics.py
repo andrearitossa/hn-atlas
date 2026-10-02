@@ -33,6 +33,8 @@ def build(overview, read_posts):
     counters = {key: [] for key in ('week', 'month', 'year')}
     selections = {key: [] for key in counters}
     earliest = overview['as_of']
+    seen_posts = set()
+    monthly = Counter()
     for topic in topics:
         counts = {key: Counter() for key in counters}
         best = {key: {} for key in counters}
@@ -40,6 +42,9 @@ def build(overview, read_posts):
             if post['time'] > overview['as_of'] or post.get('dead') or post.get('deleted'):
                 continue
             earliest = min(earliest, post['time'])
+            if post['id'] not in seen_posts:
+                seen_posts.add(post['id'])
+                monthly[datetime.fromtimestamp(post['time'], timezone.utc).strftime('%Y-%m')] += 1
             rank = (post.get('score') or 0, post['time'], post['id']) if post.get('id') is not None else None
             for key in counts:
                 start = period_start(post['time'], key)
@@ -72,14 +77,15 @@ def build(overview, read_posts):
         periods[key] = {'starts': starts, 'ends': ends,
                         'counts': [[c[start] for c in counts] for start in starts],
                         'picks': picks}
-    return {'as_of': overview['as_of'], 'periods': periods,
+    return {'monthly': [{'month': datetime.fromtimestamp(start, timezone.utc).strftime('%Y-%m'), 'posts': monthly[datetime.fromtimestamp(start, timezone.utc).strftime('%Y-%m')]} for start in periods['month']['starts']],
+            'as_of': overview['as_of'], 'periods': periods,
             'stories': stories,
             'topics': [{**{field: t[field] for field in ('id', 'name', 'slug')},
                         **({'description': t['description']} if 'description' in t else {})}
                        for t in topics]}
 
 
-def render(data, source):
+def render(data, source, overview=None, version=None):
     payload = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
     html = (source / 'analytics.html').read_text()
     html = html.replace('<link rel="stylesheet" href="__RELEASE__analytics.css">',
@@ -87,6 +93,15 @@ def render(data, source):
     html = html.replace('<script defer src="__RELEASE__analytics.js"></script>', '')
     html = html.replace('</body>', '<script id="analytics-data" type="application/json">' + payload +
                         '</script><script>' + (source / 'analytics.js').read_text() + '</script></body>')
+    import static_pages
+    html = html.replace('<!-- GLOBAL_ACTIVITY_CHART -->', static_pages.chart_html(data.get('monthly', [])))
+    html = html.replace('</body>', '<script>' + (source / 'activity.js').read_text() + '</script></body>')
+    graph_data = json.dumps(overview, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c') if overview else None
+    if version:
+        html = html.replace('id="topic-graph"', f'id="topic-graph" data-root="/releases/{version}/"')
+    graph = ('<script id="topic-graph-data" type="application/json">' + graph_data + '</script>') if graph_data else ''
+    graph += '<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script><script>' + (source / 'topic_graph.js').read_text() + '</script>'
+    html = html.replace('</body>', graph + '</body>')
     return html
 
 
@@ -94,7 +109,7 @@ def write(release, source, overview, version):
     data = build(overview, lambda ident: json.loads((release / 'stories' / f'{ident}.json').read_text()))
     page = release / 'public' / 'analytics'
     page.mkdir(parents=True, exist_ok=True)
-    (page / 'index.html').write_text(render(data, source))
+    (page / 'index.html').write_text(render(data, source, overview, version))
     return data
 
 
@@ -102,6 +117,8 @@ def embedded(data, source):
     """Self-contained section, with isolated IDs/styles for the central page."""
     template = (source / 'analytics.html').read_text()
     content = re.search(r'<main[^>]*>(.*?)</main>', template, re.S)[1]
+    content = re.sub(r'<section id="global-activity".*?</section>', '', content, flags=re.S)
+    content = re.sub(r'<section id="topic-graph".*?</section>', '', content, flags=re.S)
     content = content.replace('<h1>', '<h2>').replace('</h1>', '</h2>')
     ids = re.findall(r'\bid="([^"]+)"', content) + ['analytics-data']
     def attributes(match):

@@ -96,6 +96,41 @@ export async function deliver(env, edition, now=Math.floor(Date.now()/1000)) {
 export default {
   async fetch(request,env) {
     const url=new URL(request.url);
+    if (url.pathname==='/daily-selection-once' && request.method==='POST') {
+      if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
+      if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);
+      let body;
+      try { body=await request.json(); } catch { return reply({error:'Invalid request'},400); }
+      if (typeof body.html!=='string' || !body.html || body.html.length>200000 ||
+          typeof body.subject!=='string' || !body.subject || body.subject.length>200 || /[\r\n]/.test(body.subject)) return reply({error:'Invalid email'},400);
+      await env.EMAIL.send({from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},
+        to:'andre.ritossa@gmail.com',subject:body.subject,html:body.html});
+      return reply({sent:true});
+    }
+    if (url.pathname==='/daily-selection' && request.method==='POST') {
+      if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
+      if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);
+      let edition;
+      try { edition=(await request.json()).edition; } catch { return reply({error:'Invalid request'},400); }
+      if (typeof edition!=='string' || !/^\d{4}-\d{2}-\d{2}$/.test(edition)) return reply({error:'Invalid edition'},400);
+      const issue=await env.DB.prepare('SELECT * FROM daily_selections WHERE edition=?').bind(edition).first();
+      if (!issue) return reply({error:'Edition not prepared'},404);
+      if (issue.state==='sent') return reply({state:'sent'});
+      const claim=await env.DB.prepare("UPDATE daily_selections SET state='sending' WHERE edition=? AND state='prepared'").bind(edition).run();
+      if (claim.meta.changes!==1) return reply({error:'Delivery needs inspection'},409);
+      try {
+        const result=await env.EMAIL.send({from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},
+          to:'andre.ritossa@gmail.com',subject:issue.subject,html:issue.html,
+          headers:{'X-Campaign-ID':`hackeratlas-daily-${edition}`}});
+        await env.DB.prepare("UPDATE daily_selections SET state='sent',message_id=? WHERE edition=?")
+          .bind(result.messageId,edition).run();
+        return reply({state:'sent'});
+      } catch (error) {
+        await env.DB.prepare("UPDATE daily_selections SET state='failed',error=? WHERE edition=?")
+          .bind(String(error.message).slice(0,300),edition).run();
+        return reply({error:'Delivery failed; inspect before retry'},502);
+      }
+    }
     const tracked=/^\/click\/(\d+)\/(\d+)\/(\d+)$/.exec(url.pathname);
     if (tracked) return click(request,env,tracked);
     const token=/^\/unsubscribe\/([A-Za-z0-9_-]{20,80})$/.exec(url.pathname)?.[1];

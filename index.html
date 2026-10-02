@@ -401,12 +401,25 @@ body.connections-route { height:100dvh; }
 .browse-route #browse-section { border:0; margin:0; padding:0; }
 body:not(.browse-route) #browse-section { display:none; }
 main { scrollbar-gutter:stable; }
+
+
+/* Keep primary navigation beside the site name. */
+body header { justify-content:flex-start; flex-wrap:wrap; }
+/* Comfortable spacing for the left-aligned header. */
+body header { gap:32px; padding-top:14px; padding-bottom:14px; }
+header nav:is(.toggle,.site-nav) { gap:4px; padding:4px; }
+header nav:is(.toggle,.site-nav) a { padding:8px 16px; }
+@media(max-width:600px) {
+ body header { gap:18px; padding:12px 16px; }
+ body header nav:is(.toggle,.site-nav) { gap:2px; padding:3px; }
+ body header nav:is(.toggle,.site-nav) a { padding:7px 11px; font-size:12px; }
+}
 </style>
 </head>
 <body>
 <header>
-  <a href="/"><b>HN <span>Atlas</span></b></a>
-  <nav class="toggle" aria-label="Explore"><a id="topics" href="/">Browse topics</a><a id="connections" href="/#/explore">Explore</a></nav>
+  <a href="/" aria-label="HN Atlas home"><b>HN <span>Atlas</span></b></a>
+  <nav class="toggle" aria-label="Main navigation"><a id="topics" href="/">Topics</a><a href="/analytics/">Analytics</a></nav>
 </header>
 <main id="app"></main>
 <footer class="site-footer" hidden>
@@ -506,7 +519,7 @@ async function connections(version) {
   document.body.classList.remove('home-route');
   document.body.classList.add('connections-route');
   if (!$(".connections-page")) $("#app").innerHTML=`<section class="connections-page">
-    <div class="connections-explorer" id="map-section"><div class="connections-heading"><div><h1>Explore the connections</h1><p class="meta">Follow a topic. See where it leads. <a id="trends" href="/#/trends">See topic trends →</a></p></div><input id="map-search" type="search" placeholder="Find a topic…" aria-label="Find a topic on the map" autocomplete="off"></div>
+    <div class="connections-explorer" id="map-section"><div class="connections-heading"><div><h1>Explore the connections</h1><p class="meta">Follow a topic. See where it leads. <a href="/#/trends">See topic trends →</a></p></div><input id="map-search" type="search" placeholder="Find a topic…" aria-label="Find a topic on the map" autocomplete="off"></div>
     <div id="map-results" class="map-results" aria-live="polite"></div>
     <div class="connections-layout"><div class="connections-canvas"><svg id="map" tabindex="0" role="group" aria-label="Interactive topic connections. Use plus and minus to zoom, or drag to pan."></svg><div class="map-legend"><span class="legend-dot"></span><span>Color identifies topic · Size shows story volume · Lines connect related topics</span></div><span class="map-help">Drag to explore · Zoom for more names</span><div class="map-controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset zoom">Reset</button></div></div><aside id="map-preview" class="map-preview" hidden aria-live="polite"></aside></div></div>
     <section id="trends-section" aria-label="Topic trends"><div id="trends-mount"></div></section>
@@ -1027,8 +1040,8 @@ function route() {
   const scrollSection=behavior=>$(isTopics ? '#browse-section' : isTrends ? '#trends-section' : '#map-section')?.scrollIntoView({behavior,block:'start'});
   $('#topics').classList.toggle('on',!!m || isTopics);
   $('#trends')?.classList.toggle('on',!m && isTrends);
-  $('#connections').classList.toggle('on',!m && !isTopics);
-  for (const [link, current] of [['#topics', !!m || isTopics], ['#trends', !m && isTrends], ['#connections', !m && !isTopics]]) {
+  $('#connections')?.classList.toggle('on',!m && !isTopics && !isTrends);
+  for (const [link, current] of [['#topics', !!m || isTopics], ['#trends', !m && isTrends], ['#connections', !m && !isTopics && !isTrends]]) {
     if (!$(link)) continue;
     if (current) $(link).setAttribute('aria-current', 'page');
     else $(link).removeAttribute('aria-current');

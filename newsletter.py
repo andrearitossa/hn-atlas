@@ -43,7 +43,7 @@ def shortlist(posts, vote_weight=.8):
     return chosen
 
 
-def page_text(url):
+def page_text(url, *, full=False):
     """Fetch a bounded public HTML page; redirects get the same address check."""
     import ipaddress
     import socket
@@ -70,14 +70,19 @@ def page_text(url):
             for chunk in response.iter_content(16384):
                 content.extend(chunk)
                 if len(content) > 2_000_000:
+                    if full:
+                        raise ValueError('Article exceeds the complete-reading size limit')
                     del content[2_000_000:]
                     break
             if 'text/plain' in kind:
-                return content.decode(response.encoding or 'utf-8', errors='replace')[:16000]
+                text = content.decode(response.encoding or 'utf-8', errors='replace')
+                return text if full else text[:16000]
             soup = BeautifulSoup(bytes(content), 'html.parser')
             for tag in soup(['script', 'style', 'nav', 'footer', 'header', 'aside', 'form']):
                 tag.decompose()
-            text = clean((soup.find('article') or soup.find('main') or soup).get_text(' ', strip=True))[:16000]
+            text = clean((soup.find('article') or soup.find('main') or soup).get_text(' ', strip=True))
+            if not full:
+                text = text[:16000]
             if not text:
                 raise ValueError('Page contains no readable article text')
             return text
