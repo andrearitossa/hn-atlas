@@ -25,6 +25,9 @@ mkdir -p .wrangler
 build=$(mktemp -d "$PWD/.wrangler/daily-build.XXXXXX")
 trap 'rm -rf "$build"' EXIT
 .venv/bin/python -u refresh.py --skip-discovery --publish "$build/dist"
+if [[ -f search-cloudflare.json ]]; then
+  .venv/bin/python -u search_sync.py
+fi
 bash scripts/deploy_site.sh "$build/dist"
 # Retain the exact deployed export locally. Copy assets first, then atomically
 # switch the index; keep older releases for tabs that still reference them.

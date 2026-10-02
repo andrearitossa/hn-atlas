@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 def validate_bundle(root):
     """Reject broken local script/style references before replacing the upload folder."""
     root = root.resolve()
-    for page in [root / 'index.html', *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html')]:
+    for page in [root / 'index.html', *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html'), *(root / 'search').glob('index.html')]:
         html = page.read_text()
         refs = re.findall(r'<script[^>]+src="([^" ]+)"', html)
         refs += re.findall(r'<link rel="stylesheet" href="([^" ]+)"', html)
@@ -55,8 +55,22 @@ def prepare(source='dist', output='pages-dist'):
         (staged / 'newsletter-topics.json').write_text(json.dumps(
             {str(topic['id']): topic['name'] for topic in overview['topics']}))
         (staged / '_routes.json').write_text(json.dumps({
-            'version': 1, 'include': ['/api/newsletter/*', '/api/feedback'], 'exclude': []}))
-        (staged / '_headers').write_text('/releases/*\n  Cache-Control: public, max-age=31536000, immutable\n')
+            'version': 1, 'include': ['/api/newsletter/*', '/api/feedback', '/api/search/*'], 'exclude': []}))
+        (staged / '_headers').write_text(
+            '/releases/*\n  Cache-Control: public, max-age=31536000, immutable\n'
+            '/\n  Cache-Control: no-cache\n'
+            '/index.html\n  Cache-Control: no-cache\n'
+            '/search/*\n  Cache-Control: no-cache\n'
+            '/analytics/*\n  Cache-Control: no-cache\n'
+            '/topic/*\n  Cache-Control: no-cache\n'
+            '/search.js\n  Cache-Control: no-cache\n'
+            '/search.css\n  Cache-Control: no-cache\n'
+            '/discovery-topics.json\n  Cache-Control: no-cache\n')
+        # Search data lives in D1/Vectorize, never in the browser upload.
+        for folder in staged.rglob('search-data'):
+            shutil.rmtree(folder)
+        for worker in staged.rglob('search-worker.js'):
+            worker.unlink()
         validate_bundle(staged)
         if output.exists():
             shutil.rmtree(output)

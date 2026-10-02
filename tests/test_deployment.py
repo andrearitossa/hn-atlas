@@ -90,6 +90,14 @@ class DailyLocalCopyTests(unittest.TestCase):
         python.write_text('''#!/usr/bin/env python3
 import sys
 from pathlib import Path
+if 'search_sync.py' in sys.argv:
+    Path('search-sync-called').touch()
+    sys.exit(0)
+if 'scripts/daily_selection.py' in sys.argv:
+    assert Path('data/update-site-success.date').exists()
+    assert Path('dist/index.html').read_text() == 'New index'
+    Path('daily-selection-called').write_text('yes')
+    sys.exit(0)
 output = Path(sys.argv[sys.argv.index('--publish') + 1])
 (output / 'releases/new').mkdir(parents=True)
 (output / 'releases/new/data.json').write_text('New data')
@@ -118,6 +126,7 @@ cp "$1/releases/new/data.json" deployed-data
         self.assertEqual((self.root / 'dist/sitemap.xml').read_text(), 'New sitemap')
         self.assertEqual((self.root / 'dist/releases/old/data.json').read_text(), 'Old data')
         self.assertTrue((self.root / 'data/update-site-success.date').exists())
+        self.assertTrue((self.root / 'daily-selection-called').exists())
         self.assertFalse(list((self.root / '.wrangler').glob('daily-build.*')))
 
     def test_failed_deployment_preserves_local_copy_and_does_not_mark_success(self):

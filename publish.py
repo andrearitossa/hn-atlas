@@ -13,6 +13,7 @@ import uuid
 import catalog
 import attention
 import analytics
+import search_export
 import timeline
 from database import connect
 import seo
@@ -84,14 +85,17 @@ def publish(database, output='dist'):
                 write_json(build / 'recent' / f'{topic_id}.json',
                            [p for p in posts if p['time'] >= overview['as_of'] - 30 * catalog.DAY])
                 static_pages.write_topic(build, template, overview, detail, history, posts, version)
+            search_export.write_summary(c, public, overview['as_of'])
         finish(build, output, template, overview, version)
     return output / 'index.html'
 
 def finish(build, output, template, overview, version):
     public = build / 'public'
+    search_export.write_page(public, SOURCE, f'/releases/{version}/')
+    write_json(public / 'discovery-topics.json', {'topics': overview['topics']})
     trends_data = analytics.write(build, SOURCE, overview, version)
     shutil.copyfile(SOURCE / 'data.js', build / 'data.js')
-    redirects = []
+    redirects = ['/search / 301', '/search/ / 301', '/search/index.html / 301']
     for item in overview['topics']:
         topic_id = str(item['id'])
         page = public / 'topic' / topic_id
@@ -137,6 +141,7 @@ def rebuild(source='dist', output='dist'):
         write_json(build / 'topics.json', overview)
         (build / 'public').mkdir()
         (build / 'recent').mkdir()
+        search_export.from_snapshot(old, build / 'public', overview['as_of'])
         static_pages.write_assets(build, SOURCE)
         for item in overview['topics']:
             ident = item['id']

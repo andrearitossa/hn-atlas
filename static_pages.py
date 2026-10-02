@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from html import escape
 import json
 import re
+from pathlib import Path
 from urllib.parse import urlsplit
 
 import seo
@@ -120,10 +121,15 @@ def write_assets(release, source):
     css += '\n.chart-axis { display:flex; justify-content:space-between; color:var(--muted); font-size:11px; margin:8px 1% 12px; }\n.page #activity-chart { height:180px; margin-top:20px; }\n@media(max-width:600px) { .page #activity-chart { height:120px; } }\n.topic-nav a { color:var(--hn); font-size:10px; padding:6px 0; }\n.zt-stories .post { margin:0 0 18px; }\n'
     (release / 'site.css').write_text(css)
     (release / 'topic.js').write_text((source / 'topic.js').read_text())
+    for asset in ('search.js', 'search.css'):
+        (release / asset).write_text((source / asset).read_text())
 
 
 def external_styles(html, root):
-    return re.sub(r'<style>.*?</style>', lambda _: f'<link rel="stylesheet" href="{root}site.css">', html, count=1, flags=re.S)
+    html = re.sub(r'<style>.*?</style>', lambda _: f'<link rel="stylesheet" href="{root}site.css">', html, count=1, flags=re.S)
+    for asset in ('search.js', 'search.css'):
+        html = html.replace('/' + asset, root + asset)
+    return html
 
 
 def write_topic(release, template, overview, detail, history, posts, version):
@@ -154,10 +160,9 @@ def home_content(template, overview):
     for t in sorted(overview['topics'], key=lambda t: -t['last_7d']):
         cards.append(f'<a class="topic-card" href="{seo.topic_path(t)}"><strong>{escape(t["name"])}</strong><p>{escape(t["description"] or "")}</p>'
                      f'<div class="card-kicker"><span>{t["last_7d"]:,} posts · past 7 days</span></div></a>')
-    directory = f'''<div class="home"><div class="home-inner"><div class="directory-intro"><h2>Browse topics</h2><p class="meta">Find your next rabbit hole.</p></div>
-<section class="directory-section" aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="">
-<div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active" class="on" aria-pressed="true">Most active</button><button data-sort="az">A–Z</button></div></div>
-<div class="directory-summary"><p id="result-count" role="status">{len(cards)} topics</p><p class="meta">Stories through {stamp(overview['as_of'])}</p></div>
-<div class="directory-grid" id="directory">{''.join(cards)}</div></section></div></div>'''
+    ui = re.search(r'const shell=`(.*?)`;', (Path(__file__).parent / 'search.js').read_text(), re.S)[1]
+    ui = ui.replace('<div id="directory" class="directory-grid"></div>', '<div id="directory" class="directory-grid">' + ''.join(cards) + '</div>')
+    ui = ui.replace('<p id="result-count" role="status"></p>', f'<p id="result-count" role="status">{len(cards)} topics</p>')
+    directory = '<div class="home"><div class="home-inner discovery">' + ui + '</div></div>'
     return shell.replace('<section id="browse-section" aria-label="Browse topics"></section>',
                          f'<section id="browse-section" aria-label="Browse topics" data-prerendered="true">{directory}</section>')

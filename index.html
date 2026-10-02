@@ -415,6 +415,8 @@ header nav:is(.toggle,.site-nav) a { padding:8px 16px; }
  body header nav:is(.toggle,.site-nav) a { padding:7px 11px; font-size:12px; }
 }
 </style>
+<link rel="stylesheet" href="/search.css">
+<link rel="modulepreload" href="/search.js">
 </head>
 <body>
 <header>
@@ -491,26 +493,12 @@ const topicCard = t => `<a class="topic-card" href="/topic/${t.slug}/"><strong>$
 async function home(version, host) {
   T ??= await data.topics();
   if (version !== routeVersion) return;
-  if (!host.querySelector(".home")) host.innerHTML = `<div class="home"><div class="home-inner">
-    <div class="directory-intro"><h2>Browse topics</h2><p class="meta">Find your next rabbit hole.</p></div>
-    <section class="directory-section" aria-label="Topic directory"><div class="browse-tools"><input id="q" type="search" placeholder="Search topics" aria-label="Search topics" autocomplete="off" value="${esc(browseState.query)}"><div class="sort" aria-label="Sort topics"><button data-sort="relevance" hidden>Best match</button><button data-sort="active">Most active</button><button data-sort="az">A–Z</button></div></div>
-    <div class="directory-summary"><p id="result-count" role="status"></p><p class="meta">Stories through ${new Date(T.as_of * 1000).toLocaleDateString()}</p></div>
-    <div class="directory-grid" id="directory"></div></section>
-  </div></div>`;
-  const render = () => {
-    const query = browseState.query.trim();
-    const matches = matchingTopics(query);
-    if (browseState.sort !== "relevance") matches.sort(browseState.sort === "az" ? (a,b) => a.name.localeCompare(b.name) : (a,b) => b.last_7d-a.last_7d);
-    $("#directory").innerHTML = matches.map(topicCard).join("") || `<div class="empty"><h2>No topics found</h2><p>Try fewer words or clear your search.</p></div>`;
-    $("#result-count").textContent = `${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}${query ? ' found' : ''}`;
-    document.querySelector('[data-sort="relevance"]').hidden = !query;
-    document.querySelectorAll("[data-sort]").forEach(b => { b.classList.toggle("on",b.dataset.sort === browseState.sort); b.setAttribute("aria-pressed",b.dataset.sort === browseState.sort); });
-  };
-  const search = value => { browseState.query=value; browseState.sort=value.trim() ? "relevance" : "active"; $("#q").value=value; render(); };
-  $("#q").oninput = e => search(e.target.value);
-  $("#q").onkeydown = e => { if (e.key === "Escape") search(""); };
-  document.querySelectorAll("[data-sort]").forEach(b => b.onclick=()=>{browseState.sort=b.dataset.sort; render();});
-  if (host.dataset.prerendered) delete host.dataset.prerendered; else render();
+  if (host.dataset.discoveryMounted) return;
+  const {mountDiscovery}=await import('/search.js');
+  if (version !== routeVersion) return;
+  if(!host.querySelector('.home-inner'))host.innerHTML='<div class="home"><div class="home-inner"></div></div>';
+  mountDiscovery(host.querySelector('.home-inner'),T);
+  host.dataset.discoveryMounted='true';
 }
 
 async function connections(version) {

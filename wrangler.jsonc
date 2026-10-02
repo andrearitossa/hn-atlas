@@ -2,17 +2,31 @@
   "name": "hackeratlas",
   "pages_build_output_dir": "./pages-dist",
   "compatibility_date": "2026-09-01",
-  "services": [{
-    "binding": "NOTIFICATIONS",
-    "service": "hackeratlas-newsletter-test",
-    "entrypoint": "NotificationSender"
-  }],
+  "services": [
+    {
+      "binding": "NOTIFICATIONS",
+      "service": "hackeratlas-newsletter-test",
+      "entrypoint": "NotificationSender"
+    }
+  ],
   "d1_databases": [
     {
       "binding": "NEWSLETTER_DB",
       "database_name": "hackeratlas-newsletter",
       "database_id": "b25ea9c4-25e9-4547-b753-292c752e0eef",
       "migrations_dir": "migrations"
+    },
+    {
+      "binding": "SEARCH_DB",
+      "database_name": "hackeratlas-search",
+      "database_id": "2a358bd1-ad1d-40c4-aa4b-fce992776e1e",
+      "migrations_dir": "migrations/search"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "SEARCH_VECTORS",
+      "index_name": "hackeratlas-search"
     }
   ]
 }

@@ -166,3 +166,36 @@ def stories(
             (*params, limit + 1, offset))]
         return {'id': topic_id, 'as_of': as_of, 'posts': rows[:limit],
                 'next_offset': offset + limit if len(rows) > limit else None}
+
+
+@app.get('/search')
+@app.get('/search/')
+@app.get('/search/index.html')
+def search_page(request: Request):
+    return RedirectResponse('/' + ('?' + request.url.query if request.url.query else ''), status_code=301)
+
+
+@app.get('/search-data/{asset}')
+def search_asset(asset: str):
+    if asset != 'index.json' and not __import__('re').fullmatch(r'vectors-\d+\.bin', asset):
+        raise HTTPException(404)
+    return FileResponse(Path('dist/search-data') / asset)
+
+
+@app.get('/{asset}')
+def search_ui_asset(asset: str):
+    if asset not in ('search.css', 'search.js', 'search-worker.js'):
+        raise HTTPException(404)
+    return FileResponse(asset)
+
+
+@app.get('/api/search/')
+def search_info():
+    from search_preview import proxy_search
+    return proxy_search()
+
+
+@app.post('/api/search/')
+def search_query(payload: dict):
+    from search_preview import proxy_search
+    return proxy_search(payload)

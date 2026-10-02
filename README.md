@@ -347,3 +347,72 @@ one immutable edition per Stockholm calendar date and atomically claims delivery
 Daily retries reuse it; already sent editions are skipped. Ambiguous delivery
 failures are held for inspection to prevent duplicate mail. A selection failure
 retries through the daily service without repeating the completed publication.
+
+
+## Website Search
+
+The homepage sends a query, optional topic, and sort to one Pages Function at
+`/api/search/`. Hybrid is the default; Pattern matching runs only D1 word search,
+and Semantic runs only Vectorize meaning search. The browser downloads no post corpus or vector index.
+
+The Function runs two retrieval paths in parallel: D1 FTS5 BM25 searches titles
+and URLs (titles have weight 3), while Vectorize searches existing
+`text-embedding-3-small` 512-dimensional embeddings. Plain words are safely
+quoted and joined with OR; there is no phrase, wildcard, or FTS operator syntax.
+Each path retrieves up to 100 candidates. Reciprocal-rank fusion adds
+`1/(60 + rank)` from each path, removes duplicate HN IDs, and returns 20 posts.
+Relevance uses the fused score; Newest and Most points reorder this candidate
+pool, rather than the entire archive. Queries, topics, and sorts are shareable
+in the URL. If either retrieval service fails, the other remains available and
+the UI explains the fallback. Temporary embedding and vector failures receive one bounded retry; query embeddings are cached at the edge for 24 hours. Retrieval failures are logged with their stage for diagnosis.
+
+The homepage combines topic discovery and story search; legacy /search/ URLs redirect there. The component loads from versioned release URLs, while page HTML revalidates on navigation to avoid mixing cached scripts with newer pages. Typing previews matching topics without paid search requests; submitting adds recent stories beneath them. Topic suggestions include memberships from retrieved stories. Editing or clearing cancels pending retrieval, and submitted queries remain shareable.
+
+Only live posts from the last three calendar months are mirrored to the dedicated
+Search D1 database. Existing historical topic archives and Analytics are
+unaffected. D1 stores post fields, current numbers, topic memberships, and the
+keyword index. Vectorize stores exactly one vector per post, with numeric `topic1`, `topic2`,
+and `topic3` metadata fields. Each field has a metadata index. Unfiltered searches
+run one vector query; topic-filtered searches run three filtered queries in
+parallel, merge them by cosine score, remove duplicates, and keep 100 semantic
+candidates. These three lists count as one ranking in reciprocal-rank fusion.
+Semantic candidates
+are checked against current D1 rows, dates, and memberships before being shown.
+
+Initial setup (requires Cloudflare D1 Edit and Vectorize Edit):
+
+```bash
+.venv/bin/python scripts/setup_search.py
+.venv/bin/python search_sync.py
+```
+
+Setup creates dedicated `hackeratlas-search` stores and topic metadata indexes, initializes the SQL schema,
+and writes `search-cloudflare.json` and the Pages bindings in `wrangler.jsonc`.
+Configure the existing local `OPENAI_API_KEY` as the production Pages secret
+with the same name before deployment. Never put it in public assets. Setup
+does not deploy or backfill embeddings.
+
+The daily publication job syncs Search after the local HN refresh and before
+site deployment. A local `data/search-sync.sqlite` ledger tracks hashes and
+vector IDs. New or changed text/embeddings and topic changes update the relevant
+indexes; points/comment changes write only the post row. Unchanged rows are
+skipped. Dead, deleted, or expired posts are removed from both stores. During migration, the sync replaces old namespace copies with one post-ID
+vector and deletes all tracked copies. Ledger
+checkpoints advance only after remote acknowledgements, so interrupted batches
+can be retried safely. Each run logs actual D1 row writes and vector operations.
+Do not delete the ledger: it also tracks remote records that need removal.
+
+Vectorize indexing is asynchronous. New posts can briefly appear only through
+word search while their vectors are being indexed; D1 validation prevents stale
+vectors from resurrecting expired posts. Deployments are blocked until Search
+resources have been configured. The Pages bundle excludes all `search-data`
+folders and the old browser search worker.
+
+For local UI preview against the live backend:
+
+```bash
+.venv/bin/python -m uvicorn search_preview:app --host 127.0.0.1 --port 8080
+```
+
+The legacy compact exporter and browser ranking module remain available for
+offline fixtures; they are not shipped by Cloudflare Pages.

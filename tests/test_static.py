@@ -241,7 +241,7 @@ class StaticTests(unittest.TestCase):
         self.assertEqual(json.loads((bundle / 'newsletter-topics.json').read_text()),
                          {str(t['id']): t['name'] for t in overview['topics']})
         self.assertEqual(json.loads((bundle / '_routes.json').read_text())['include'],
-                         ['/api/newsletter/*', '/api/feedback'])
+                         ['/api/newsletter/*', '/api/feedback', '/api/search/*'])
 
     @unittest.skipUnless(shutil.which('node'), 'Node is required for browser data parity checks')
     def test_browser_queries_match_api(self):
