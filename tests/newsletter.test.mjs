@@ -1,9 +1,7 @@
-import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 
-const source = await readFile(new URL('../functions/api/newsletter/subscribe.js', import.meta.url), 'utf8');
-const {onRequest} = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+import {onRequest} from '../functions/api/newsletter/subscribe.js';
 const origin = 'https://hackeratlas.pages.dev';
 
 function setup({body = {email: ' Reader@Example.com ', topic: 7}, headers = {}, method = 'POST', fail = false, duplicate = false, notifyFail = false} = {}) {

@@ -1,8 +1,6 @@
-import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-const source = await readFile(new URL('../functions/api/feedback.js', import.meta.url), 'utf8');
-const {onRequest} = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+import {onRequest} from '../functions/api/feedback.js';
 const origin = 'https://hackeratlas.com';
 const valid = {id:'8e551e6f-9b03-4a6d-83f1-fd06519540b9', message:' Useful! ', page:'#/topic/71'};
 async function run(body = valid, options = {}) {
