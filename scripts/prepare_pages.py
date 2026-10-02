@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 def validate_bundle(root):
     """Reject broken local script/style references before replacing the upload folder."""
     root = root.resolve()
-    for page in [root / 'index.html', *root.glob('404.html'), *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html'), *(root / 'search').glob('index.html'), *(root / 'about').glob('index.html')]:
+    for page in [root / 'index.html', *root.glob('404.html'), *(root / 'topic').glob('*/index.html'), *(root / 'analytics').glob('index.html'), *(root / 'search').glob('index.html'), *(root / 'about').glob('index.html'), *(root / 'for-you').glob('index.html')]:
         html = page.read_text()
         refs = re.findall(r'<script[^>]+src="([^" ]+)"', html)
         refs += re.findall(r'<link rel="stylesheet" href="([^" ]+)"', html)
@@ -46,7 +46,7 @@ def prepare(source='dist', output='pages-dist'):
         html = html.replace('<meta name="hn-feedback" content="">',
                             '<meta name="hn-feedback" content="cloudflare">')
         (staged / 'index.html').write_text(html, encoding='utf-8')
-        for page in [*staged.glob('404.html'), *(staged / 'topic').glob('*/index.html'), *(staged / 'about').glob('index.html'), *(staged / 'analytics').glob('index.html')]:
+        for page in [*staged.glob('404.html'), *(staged / 'topic').glob('*/index.html'), *(staged / 'about').glob('index.html'), *(staged / 'analytics').glob('index.html'), *(staged / 'for-you').glob('index.html')]:
             topic_html = page.read_text(encoding='utf-8')
             for feature in ('newsletter', 'feedback'):
                 topic_html = topic_html.replace(f'name="hn-{feature}" content=""', f'name="hn-{feature}" content="cloudflare"')
@@ -55,13 +55,14 @@ def prepare(source='dist', output='pages-dist'):
         (staged / 'newsletter-topics.json').write_text(json.dumps(
             {str(topic['id']): topic['name'] for topic in overview['topics']}))
         (staged / '_routes.json').write_text(json.dumps({
-            'version': 1, 'include': ['/api/newsletter/*', '/api/feedback', '/api/search/*'], 'exclude': []}))
+            'version': 1, 'include': ['/api/newsletter/*', '/api/feedback', '/api/search/*', '/api/reader', '/api/reader/*', '/api/feed', '/api/feed/*'], 'exclude': []}))
         (staged / '_headers').write_text(
             '/releases/*\n  Cache-Control: public, max-age=31536000, immutable\n'
             '/\n  Cache-Control: no-cache\n'
             '/index.html\n  Cache-Control: no-cache\n'
             '/search/*\n  Cache-Control: no-cache\n'
             '/analytics/*\n  Cache-Control: no-cache\n'
+            '/for-you/*\n  Cache-Control: no-cache\n'
             '/topic/*\n  Cache-Control: no-cache\n'
             '/search.js\n  Cache-Control: no-cache\n'
             '/search.css\n  Cache-Control: no-cache\n'
@@ -71,6 +72,9 @@ def prepare(source='dist', output='pages-dist'):
             shutil.rmtree(folder)
         for worker in staged.rglob('search-worker.js'):
             worker.unlink()
+        for obsolete in ('feed.json', 'feed-ranking.js'):
+            for file in staged.rglob(obsolete):
+                file.unlink()
         validate_bundle(staged)
         if output.exists():
             shutil.rmtree(output)

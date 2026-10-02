@@ -1,3 +1,4 @@
+import {embedding, retry} from '../../../lib/search-embedding.js';
 import {storeSearch} from '../../../lib/search-history.js';
 const reply=(status,body)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
 const fields='p.id,p.title,p.url,p.time,p.score,p.descendants';
@@ -22,32 +23,6 @@ export function merge(words,meaning,sort='relevance'){
  return [...ranked.values()].sort((a,b)=>
   (sort==='newest'?b.time-a.time:sort==='points'?b.score-a.score:0)||b.rankScore-a.rankScore||b.time-a.time||b.id-a.id
  ).slice(0,20).map(({rankScore,text,meaning,_wordScore,_semanticScore,...post})=>({...post,match:text&&meaning?'Words + meaning':text?'Text match':'Related idea'}));
-}
-export async function retry(operation){
- for(let attempt=0;attempt<2;attempt++){
-  try{return await operation();}catch(error){if(attempt===1||error.retryable===false)throw error;}
-  await new Promise(resolve=>setTimeout(resolve,200));
- }
-}
-async function embedding(q,env){
- if(!env.OPENAI_API_KEY)throw Error('Embedding secret missing');
- const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(q));
- const key=new Request('https://search-cache.hackeratlas.invalid/embedding-v1/'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join(''));
- const cache=globalThis.caches?.default;
- const cached=await cache?.match(key).catch(()=>null);
- if(cached)return cached.json();
- const response=await retry(async()=>{
- const result=await fetch('https://api.openai.com/v1/embeddings',{
-  method:'POST',headers:{Authorization:`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},
-  body:JSON.stringify({model:'text-embedding-3-small',dimensions:512,input:q}),signal:AbortSignal.timeout(15000)
- });
- if(!result.ok){const error=Error(`Embedding HTTP ${result.status}`);error.retryable=result.status===429||result.status>=500;throw error;}
- return result;
- });
- const vector=(await response.json()).data?.[0]?.embedding;
- if(!Array.isArray(vector)||vector.length!==512||!vector.every(Number.isFinite))throw Error('Invalid embedding');
- await cache?.put(key,Response.json(vector,{headers:{'Cache-Control':'public, max-age=86400'}})).catch(()=>{});
- return vector;
 }
 async function words(db,q,topic,since,until){
  const match=wordQuery(q);if(!match)return [];

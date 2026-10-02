@@ -440,3 +440,75 @@ SELECT id, datetime(created_at, 'unixepoch') AS searched_at, query, mode,
        topic_id, status, latency_ms, results_json
 FROM searches ORDER BY created_at DESC LIMIT 100;
 ```
+
+## Personalized daily feed
+
+`/for-you/` uses verified email and at least one selected topic, without a topic
+limit. The signed-in header contains Account and Interests, followed by stories.
+The Interests picker combines name matching with semantic search over topic names
+and descriptions through authenticated `POST /api/search/topics`. Exact name
+matches stay first; searches are debounced and preserve selections. It reuses the
+existing embedding service and caches topic vectors for seven days by content
+fingerprint, without another database or vector index. Name matching remains
+available when semantic search fails.
+Headlines open the original article in a new tab; Discussion links open HN.
+
+The browser requests `GET /api/feed`. A dedicated Feed Worker ranks recent
+candidates by HN popularity and freshness, removes articles this profile has
+already seen, and returns pages of 20. At the end, “You're caught up” links to
+Explore. There is no public `feed.json`, browser ranking, or 60-story limit.
+
+`POST /api/feed/events` records visible/opened canonical article keys in D1.
+Half a card visible for one second in an active tab counts as seen; opening it
+also records positive interest. Cards stay in place until the next feed request.
+Reading state lasts 90 days, survives daily updates, follows the account across
+devices, and is deleted with the profile. Clicks do not otherwise adjust ranking.
+A bounded per-account browser queue retries unsent writes across reloads; D1
+acknowledgment is required before another device can know about the interaction.
+
+The runtime adds just two tables to the existing newsletter D1: `feed_catalog`
+(one bounded private catalog row) and `feed_story_state` (one row per user/article).
+`feed_sync.py` selects candidates from the ingestion export and atomically replaces
+that D1 row. It never emits a public feed file. The existing daily deployment runs
+the sync, deploys the Feed Worker, then publishes Pages. A failed catalog write
+leaves the previous catalog intact. Existing raw events are backfilled when their
+story IDs are present in the catalog; legacy history expires through normal cleanup.
+
+For an authorized first rollout, deploy the email Worker before Pages:
+
+```bash
+./node_modules/.bin/wrangler deploy --config workers/newsletter-test/wrangler.jsonc
+bash scripts/deploy_site.sh dist
+```
+
+The deploy script applies migrations 0006/0007, checks the upload bundle, syncs
+the feed, deploys `workers/feed`, and publishes Pages with its `FEED` service binding.
+The private Worker authenticates the same HttpOnly session cookie as the profile API.
+`SITE_ORIGIN` in the email Worker restricts sign-in links to the configured website;
+newsletter subscriptions stay separate. No email is sent simply by deploying.
+
+For local migration/sync checks:
+
+```bash
+.venv/bin/python scripts/migrate_feed_profiles.py --local /tmp/atlas-feed.sqlite
+.venv/bin/python feed_sync.py --source dist --local /tmp/atlas-feed.sqlite
+```
+
+For a local preview, prepare a current static shell, then run the real Workers
+with persistent local D1 and a seeded account (no email delivery):
+
+```bash
+.venv/bin/python publish.py --from-snapshot dist --output .wrangler/feed-preview/dist
+.venv/bin/python scripts/prepare_pages.py --source .wrangler/feed-preview/dist --output .wrangler/feed-preview/pages
+node scripts/preview_feed.mjs --email andre.ritossa@gmail.com
+```
+
+Open `http://localhost:8792/local-login`. The preview saves profiles/history under
+`.wrangler/feed-local-db` and preserves existing profiles on restart. Its catalog
+is refreshed from the chosen local snapshot on startup. Additional options:
+`--source`, `--site`, `--port`, `--state`, and `--skip-build` for already compiled Workers.
+
+See [the feed architecture](docs/personalized-feed-architecture.md). Browser tests
+exercise the UI with mocked APIs; API tests use the real SQLite schemas, and the
+local preview supports end-to-end Worker/D1 verification. Production rollout and unauthenticated live routes were verified on 2026-10-02.
+Live sign-in email delivery was not exercised during that deployment.

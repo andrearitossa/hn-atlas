@@ -1,0 +1,12 @@
+{
+  "name": "hackeratlas-feed",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "observability": {"enabled": true},
+  "d1_databases": [{
+    "binding": "NEWSLETTER_DB",
+    "database_name": "hackeratlas-newsletter",
+    "database_id": "b25ea9c4-25e9-4547-b753-292c752e0eef"
+  }]
+}

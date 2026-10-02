@@ -91,6 +91,7 @@ def publish(database, output='dist'):
 
 def finish(build, output, template, overview, version):
     public = build / 'public'
+    static_pages.write_feed(build, template, version)
     (public / 'about').mkdir(exist_ok=True)
     (public / 'about' / 'index.html').write_text(static_pages.external_styles(static_pages.about_html(template), f'/releases/{version}/'), encoding='utf-8')
     search_export.write_page(public, SOURCE, f'/releases/{version}/')

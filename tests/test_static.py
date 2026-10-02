@@ -171,7 +171,6 @@ class StaticTests(unittest.TestCase):
         self.assertIn('name="hn-newsletter" content="cloudflare"', page)
         self.assertIn('<link rel="canonical" href="https://hackeratlas.com/topic/current/">', page)
         self.assertTrue((bundle / '404.html').is_file())
-        self.assertIn('/topic/3/ /topic/current/ 301', (bundle / '_redirects').read_text())
         self.assertIn('http-equiv="refresh"', (output / 'topic/3/index.html').read_text())
         self.assertNotIn('/topic/3/', (output / 'sitemap.xml').read_text())
 
@@ -241,7 +240,7 @@ class StaticTests(unittest.TestCase):
         self.assertEqual(json.loads((bundle / 'newsletter-topics.json').read_text()),
                          {str(t['id']): t['name'] for t in overview['topics']})
         self.assertEqual(json.loads((bundle / '_routes.json').read_text())['include'],
-                         ['/api/newsletter/*', '/api/feedback', '/api/search/*'])
+                         ['/api/newsletter/*', '/api/feedback', '/api/search/*', '/api/reader', '/api/reader/*', '/api/feed', '/api/feed/*'])
 
     @unittest.skipUnless(shutil.which('node'), 'Node is required for browser data parity checks')
     def test_browser_queries_match_api(self):

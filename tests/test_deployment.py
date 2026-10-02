@@ -54,6 +54,22 @@ output.mkdir(parents=True)
                 self.assertFalse((self.root / 'uploaded').exists())
                 self.assertFalse(list((self.root / '.wrangler').glob('pages-deploy.*')))
 
+    def test_failed_feed_sync_prevents_worker_and_pages_upload(self):
+        (self.root / 'workers/feed').mkdir(parents=True)
+        (self.root / 'workers/feed/wrangler.jsonc').write_text('{}')
+        self.executable('.venv/bin/python', """import sys
+from pathlib import Path
+if sys.argv[1] == 'feed_sync.py':
+    raise SystemExit(42)
+output=Path(sys.argv[sys.argv.index('--output')+1])
+output.mkdir(parents=True)
+(output/'index.html').write_text('Complete bundle')
+""")
+        self.executable('node_modules/.bin/wrangler', "from pathlib import Path\nPath('uploaded').touch()\n")
+        result = self.run_deploy()
+        self.assertEqual(result.returncode, 42)
+        self.assertFalse((self.root / 'uploaded').exists())
+
     def test_zero_exit_upload_error_is_not_success(self):
         self.executable('node_modules/.bin/wrangler', "print('ERROR Failed to upload files: ENOENT')\n")
         result = self.run_deploy()

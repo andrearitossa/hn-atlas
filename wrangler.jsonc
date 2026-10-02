@@ -7,6 +7,10 @@
       "binding": "NOTIFICATIONS",
       "service": "hackeratlas-newsletter-test",
       "entrypoint": "NotificationSender"
+    },
+    {
+      "binding": "FEED",
+      "service": "hackeratlas-feed"
     }
   ],
   "d1_databases": [

@@ -19,6 +19,7 @@
   ],
   "vars": {
     "FROM_EMAIL": "news@hackeratlas.com",
+    "SITE_ORIGIN": "https://hackeratlas.com",
     "PUBLIC_URL": "https://hackeratlas-newsletter-test.andre-ritossa.workers.dev",
     "DELIVERY_DISABLED": "false"
   },

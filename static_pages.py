@@ -201,3 +201,43 @@ def not_found_html(template):
     html = html.replace('About · HN Atlas', 'Page not found · HN Atlas')
     html = html.replace(seo.ORIGIN + '/about/', seo.ORIGIN + '/404.html')
     return re.sub(r'<main id="app">.*?</main>', '<main id="app"><div class="page"><h1>Page not found</h1><a href="/">Explore Hacker Atlas</a></div></main>', html, count=1, flags=re.S)
+
+
+def write_feed(release, template, version):
+    """Public shell; verified profiles and events stay in D1, not the export."""
+    root = f'/releases/{version}/'
+    html = seo.render(template, topic={'name': 'For you', 'slug': 'for-you',
+                      'description': 'A daily selection from Hacker News, chosen for your interests.'})
+    html = html.replace(seo.ORIGIN + '/topic/for-you/', seo.ORIGIN + '/for-you/')
+    body = '''<div class="feed-page">
+<div class="feed-toolbar">
+<details class="feed-account" id="feed-account" hidden><summary>Account</summary><div class="feed-account-menu"><p id="feed-email"></p><button id="feed-logout" type="button">Sign out</button><button id="feed-delete" type="button">Delete my profile</button></div></details><button class="feed-chip" id="feed-edit" type="button" hidden>Interests</button></div>
+<section class="feed-panel" id="feed-login" hidden><h2>Make it yours.</h2><p class="feed-subtitle">Sign in with your email, choose a few interests, and settle into your daily reading.</p>
+<form class="feed-form" id="feed-login-form"><label class="sr-only" for="feed-login-email">Email address</label><input id="feed-login-email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required><label class="contact-check" aria-hidden="true">Website<input id="feed-website" tabindex="-1" autocomplete="off"></label><button class="feed-primary" id="feed-login-submit">Send sign-in link</button></form>
+<p class="feed-note">No password. No newsletter signup. Your interests follow you across devices.</p></section>
+<section class="feed-panel" id="feed-verify" hidden><h2>Welcome back.</h2><p class="feed-subtitle">One more click, then it's time for something interesting.</p><button class="feed-primary" id="feed-verify-button">Continue to my feed</button></section>
+<section id="feed-loading"><p class="feed-loading" id="feed-loading-copy">Finding your next good read…</p><button class="feed-secondary" id="feed-retry" hidden>Try again</button></section>
+<p class="feed-status" id="feed-status" role="status" aria-live="polite"></p>
+<section id="feed-reading" hidden aria-label="Your daily feed"><div id="feed-posts"></div><button class="feed-secondary" id="feed-more" type="button" hidden>Show more</button>
+<div class="feed-end" id="feed-end" hidden><h2>You're caught up</h2><p id="feed-end-note">Follow your curiosity a little further.</p><a class="feed-primary" href="/">Explore ↗</a></div>
+<p class="feed-note">Opening a story tells us what interests you. Your reading activity helps us improve future recommendations.</p></section>
+<noscript><p>Enable JavaScript to sign in and choose your interests, or <a href="/">Explore topics</a>.</p></noscript>
+<dialog class="feed-dialog" id="feed-topic-dialog"><div class="feed-dialog-top"><h2>What are you into?</h2><button class="feed-dialog-close" id="feed-topic-close" type="button" aria-label="Close interests">×</button></div><p class="feed-note">Choose a few interests. You can change them whenever curiosity takes you somewhere new.</p>
+<label class="sr-only" for="feed-topic-search">Find topics</label><input id="feed-topic-search" type="search" placeholder="Search topics or describe an interest…" maxlength="120" autocomplete="off"><div class="feed-topic-list" id="feed-topic-list"></div><p class="feed-status" id="feed-topic-status" role="status"></p><div class="feed-dialog-actions"><span id="feed-topic-count"></span><button class="feed-primary" id="feed-topic-save" type="button">Show my feed</button></div></dialog>
+<dialog class="feed-dialog" id="feed-delete-dialog"><h2>Delete your profile?</h2><p>Your interests and reading history will be deleted. Newsletter subscriptions are separate.</p><p id="feed-delete-status" role="status"></p><div class="feed-dialog-actions"><button class="feed-secondary" id="feed-delete-cancel" type="button">Keep my profile</button><button class="feed-primary" id="feed-delete-confirm" type="button">Delete profile</button></div></dialog>
+</div>'''
+    html = re.sub(r'<main id="app">.*?</main>', lambda _: f'<main id="app">{body}</main>', html, count=1, flags=re.S)
+    html = html[:html.index('<script src=')] + '</body></html>'
+    html = html.replace('<body>', '<body class="feed-route">')
+    html = html.replace('<link rel="modulepreload" href="/search.js">', '')
+    html = html.replace('name="hn-data" content=""', f'name="hn-data" content="{root}"')
+    html = html.replace('<a href="/for-you/">For you</a>', '<a href="/for-you/" aria-current="page">For you</a>', 1)
+    html = html.replace('<footer class="site-footer" hidden>', '<footer class="site-footer">')
+    html = html.replace('</head>', f'<meta name="referrer" content="no-referrer"><link rel="stylesheet" href="{root}feed.css"></head>')
+    html = external_styles(html, root)
+    html = html.replace('</body>', f'{feedback_script(template)}<script type="module" src="{root}feed.js"></script></body>')
+    page = release / 'public' / 'for-you'
+    page.mkdir(exist_ok=True)
+    (page / 'index.html').write_text(html)
+    for name in ('feed.js', 'feed.css'):
+        (release / name).write_text((Path(__file__).parent / name).read_text())

@@ -1,0 +1,68 @@
+body.feed-route { height:100dvh; }
+.feed-page { max-width:760px; margin:0 auto; padding:54px 28px 72px; }
+.feed-subtitle,.feed-note { color:var(--muted); }
+.feed-subtitle { margin:0 0 24px; font-size:15px; }
+.feed-note { font-size:12px; line-height:1.7; }
+.feed-panel { border:1px solid var(--line); border-radius:18px; padding:28px; margin-top:22px; background:color-mix(in srgb,var(--hn) 2%,var(--bg)); }
+.feed-panel h2 { margin:0 0 10px; font-size:25px; letter-spacing:-.035em; }
+.feed-panel p { max-width:430px; }
+.feed-form { display:flex; gap:10px; margin:24px 0 12px; }
+.feed-page input { width:100%; min-width:0; border:1px solid var(--line); background:var(--bg); border-radius:9px; padding:12px 14px; }
+.feed-primary,.feed-secondary { border-radius:9px; padding:11px 17px; display:inline-flex; align-items:center; justify-content:center; font-weight:650; font-size:13px; }
+.feed-primary { background:var(--hn); border:1px solid var(--hn); color:white; white-space:nowrap; }
+.feed-secondary { border:1px solid var(--line); background:var(--bg); }
+.feed-page button:disabled { opacity:.55; cursor:wait; }
+.feed-status { min-height:20px; margin:12px 0; color:var(--muted); font-size:13px; }
+.feed-account { position:relative; margin-top:8px; }
+.feed-account summary { list-style:none; cursor:pointer; color:var(--muted); border:1px solid var(--line); border-radius:20px; padding:7px 13px; font-size:12px; }
+.feed-account summary::-webkit-details-marker { display:none; }
+.feed-account-menu { position:absolute; right:0; top:42px; z-index:2; width:250px; padding:18px; border:1px solid var(--line); border-radius:12px; background:var(--bg); box-shadow:0 12px 30px #00000012; }
+.feed-account-menu p { overflow-wrap:anywhere; margin:0 0 14px; color:var(--muted); font-size:12px; }
+.feed-account-menu button { display:block; border:0; padding:8px 0; background:none; font-size:12px; }
+.feed-chip { border:1px solid var(--line); background:var(--bg); border-radius:24px; padding:7px 13px; color:var(--muted); font-size:12px; }
+button.feed-chip:hover { border-color:var(--hn); color:var(--hn); }
+.feed-card { padding:28px 0; border-top:1px solid var(--line); }
+.feed-card h2 { font-size:clamp(21px,3vw,26px); letter-spacing:-.03em; line-height:1.3; margin:10px 0 12px; font-weight:650; overflow-wrap:anywhere; }
+.feed-card h2 a:hover { color:var(--hn); }
+.feed-card-topic { font-size:11px; color:var(--hn); font-weight:650; }
+.feed-card-meta { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; font-size:11px; color:var(--muted); }
+.feed-hn { margin-left:auto; padding:4px 0; }
+.feed-hn:hover { color:var(--hn); }
+.feed-end { text-align:center; margin-top:30px; border-top:1px solid var(--line); padding:40px 0 0; }
+.feed-end h2 { font-size:26px; letter-spacing:-.035em; margin:0 0 10px; }
+.feed-end p { margin:0 0 22px; color:var(--muted); }
+#feed-more { display:block; margin:24px auto; }
+.feed-dialog { color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:18px; width:min(560px,calc(100% - 32px)); padding:26px; max-height:85dvh; }
+.feed-dialog::backdrop { background:#0007; }
+.feed-dialog-top { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:18px; }
+.feed-dialog h2 { margin:0; font-size:25px; letter-spacing:-.035em; }
+.feed-dialog-close { border:0; background:none; font-size:24px; padding:4px 10px; }
+.feed-topic-list { display:flex; flex-wrap:wrap; gap:8px; max-height:38dvh; overflow-y:auto; margin:18px 0; padding:4px; }
+.feed-topic-option { padding:9px 12px; border:1px solid var(--line); border-radius:20px; background:var(--bg); font-size:12px; }
+.feed-topic-option[aria-pressed="true"] { background:var(--ink); color:var(--bg); border-color:var(--ink); }
+.feed-dialog-actions { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:18px; }
+.feed-dialog-actions span { font-size:12px; color:var(--muted); }
+.feed-loading { padding:40px 0; color:var(--muted); }
+@media(max-width:600px) {
+ .feed-page { padding:34px 20px 48px; }
+ .feed-panel { padding:22px; }
+ .feed-form { flex-direction:column; }
+ .feed-form button { min-height:44px; }
+ .feed-hn { margin-left:0; }
+ .feed-dialog { padding:22px; }
+ header { flex-wrap:wrap; gap:8px; }
+ header nav.toggle a { padding:7px 10px; }
+}
+
+/* Keep the stories close, even when a reader follows many interests. */
+.feed-page { padding-top:36px; }
+.feed-subtitle { margin-bottom:12px; }
+.feed-status:empty { display:none; }
+.feed-card { transition:background .15s ease; }
+.feed-card h2 a { text-decoration:none; }
+.feed-card h2 a:focus-visible { outline:2px solid var(--hn); outline-offset:5px; }
+
+
+.feed-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-bottom:24px; }
+.feed-toolbar .feed-account { margin:0; }
+.feed-toolbar .feed-chip { cursor:pointer; }

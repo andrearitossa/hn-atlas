@@ -11,6 +11,9 @@ if [[ -f functions/api/search/index.js ]]; then
   .venv/bin/python scripts/check_search_ready.py
   .venv/bin/python scripts/migrate_search_history.py
 fi
+if [[ -f 'functions/api/reader/[[path]].js' ]]; then
+  .venv/bin/python scripts/migrate_feed_profiles.py
+fi
 export PATH="$HOME/.local/share/pi-node/node-v22.23.1-linux-x64/bin:$PATH"
 mkdir -p .wrangler
 deployment=$(mktemp -d "$PWD/.wrangler/pages-deploy.XXXXXX")
@@ -19,6 +22,10 @@ trap 'rm -rf "$deployment"' EXIT
 # Fail closed: exercise this exact upload bundle before publishing anything.
 npm test
 SITE_BUNDLE="$deployment/site" npm run test:usability
+if [[ -f workers/feed/wrangler.jsonc ]]; then
+  .venv/bin/python feed_sync.py --source "${1:-dist}"
+  ./node_modules/.bin/wrangler deploy --config workers/feed/wrangler.jsonc
+fi
 ./node_modules/.bin/wrangler pages deploy "$deployment/site" --project-name hackeratlas --branch main --commit-dirty=true 2>&1 | tee "$deployment/deploy.log"
 # Wrangler can return zero after an upload error (observed with ENOENT).
 if ! grep -Fq 'Deployment complete!' "$deployment/deploy.log"; then
