@@ -10,7 +10,8 @@ test('Topics opens the directory and Analytics opens a separate page', async ({ 
   await expect(page).toHaveURL(/\/analytics\/$/);
   await expect(page.locator('#global-activity')).toBeVisible();
   await page.locator('#global-activity [data-range="12"]').click();
-  await expect(page.locator('#activity-chart rect')).toHaveCount(12);
+  const months=await page.evaluate(()=>JSON.parse(document.querySelector('#analytics-data').textContent).monthly.length);
+  await expect(page.locator('#activity-chart rect')).toHaveCount(Math.min(12,months));
   await expect(page.locator('#topic-graph')).toHaveCount(1);
   await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Topics',exact:true}).click();
   await expect(page).toHaveURL(/\/$/);

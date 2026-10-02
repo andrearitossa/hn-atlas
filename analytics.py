@@ -42,8 +42,9 @@ def build(overview, read_posts):
             if post['time'] > overview['as_of'] or post.get('dead') or post.get('deleted'):
                 continue
             earliest = min(earliest, post['time'])
-            if post['id'] not in seen_posts:
-                seen_posts.add(post['id'])
+            identity = post.get('id', (topic['id'], post['time']))
+            if identity not in seen_posts:
+                seen_posts.add(identity)
                 monthly[datetime.fromtimestamp(post['time'], timezone.utc).strftime('%Y-%m')] += 1
             rank = (post.get('score') or 0, post['time'], post['id']) if post.get('id') is not None else None
             for key in counts:
@@ -95,12 +96,15 @@ def render(data, source, overview=None, version=None):
                         '</script><script>' + (source / 'analytics.js').read_text() + '</script></body>')
     import static_pages
     html = html.replace('<!-- GLOBAL_ACTIVITY_CHART -->', static_pages.chart_html(data.get('monthly', [])))
-    html = html.replace('</body>', '<script>' + (source / 'activity.js').read_text() + '</script></body>')
+    if 'id="global-activity"' in html:
+        html = html.replace('</body>', '<script>' + (source / 'activity.js').read_text() + '</script></body>')
+    if 'id="topic-graph"' not in html:
+        return html
     graph_data = json.dumps(overview, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c') if overview else None
     if version:
         html = html.replace('id="topic-graph"', f'id="topic-graph" data-root="/releases/{version}/"')
     graph = ('<script id="topic-graph-data" type="application/json">' + graph_data + '</script>') if graph_data else ''
-    graph += '<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script><script>' + (source / 'topic_graph.js').read_text() + '</script>'
+    graph += '<script>' + (source / 'vendor/d3.min.js').read_text() + '</script><script>' + (source / 'topic_graph.js').read_text() + '</script>'
     html = html.replace('</body>', graph + '</body>')
     return html
 
