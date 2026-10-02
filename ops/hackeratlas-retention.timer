@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Hacker Atlas retention at 04:00 Stockholm time
+
+[Timer]
+OnCalendar=*-*-* 04:00:00 Europe/Stockholm
+Persistent=true
+Unit=hackeratlas-retention.service
+
+[Install]
+WantedBy=timers.target

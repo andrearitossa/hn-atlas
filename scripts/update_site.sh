@@ -6,7 +6,7 @@ set -euo pipefail
   exit 2
 }
 cd "$(dirname "$0")/.."
-export PATH="$HOME/.local/share/pi-node/node-v22.23.1-linux-x64/bin:$PATH"
+source scripts/node_env.sh
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 exec 9>data/update-site.lock
 flock -n 9
@@ -25,10 +25,10 @@ mkdir -p .wrangler
 build=$(mktemp -d "$PWD/.wrangler/daily-build.XXXXXX")
 trap 'rm -rf "$build"' EXIT
 .venv/bin/python -u refresh.py --skip-discovery --publish "$build/dist"
+bash scripts/deploy_site.sh "$build/dist"
 if [[ -f search-cloudflare.json ]]; then
   .venv/bin/python -u search_sync.py
 fi
-bash scripts/deploy_site.sh "$build/dist"
 # Retain the exact deployed export locally. Copy assets first, then atomically
 # switch the index; keep older releases for tabs that still reference them.
 mv "$build/dist/index.html" "$build/index.html"

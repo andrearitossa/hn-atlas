@@ -14,6 +14,7 @@ class DeploymentTests(unittest.TestCase):
         self.root = Path(folder.name)
         for directory in ('scripts', '.venv/bin', 'node_modules/.bin', 'pages-dist'):
             (self.root / directory).mkdir(parents=True)
+        shutil.copyfile(Path(__file__).resolve().parents[1] / 'scripts/node_env.sh', self.root / 'scripts/node_env.sh')
         shutil.copyfile(Path(__file__).resolve().parents[1] / 'scripts/deploy_site.sh',
                         self.root / 'scripts/deploy_site.sh')
         self.executable('.venv/bin/python', '''import sys
@@ -41,7 +42,7 @@ output.mkdir(parents=True)
     def run_deploy(self):
         return subprocess.run(['bash', 'scripts/deploy_site.sh'], cwd=self.root,
                               capture_output=True, text=True,
-                              env={**os.environ, 'BASH_ENV': str(self.npm_stub)})
+                              env={**os.environ, 'BASH_ENV': str(self.npm_stub), 'NODE_BIN': '/usr/bin'})
 
     def test_failed_checks_prevent_upload(self):
         for failing in ('test', 'run test:usability'):
@@ -54,7 +55,7 @@ output.mkdir(parents=True)
                 self.assertFalse((self.root / 'uploaded').exists())
                 self.assertFalse(list((self.root / '.wrangler').glob('pages-deploy.*')))
 
-    def test_failed_feed_sync_prevents_worker_and_pages_upload(self):
+    def test_failed_feed_sync_happens_after_pages_and_prevents_worker_upload(self):
         (self.root / 'workers/feed').mkdir(parents=True)
         (self.root / 'workers/feed/wrangler.jsonc').write_text('{}')
         self.executable('.venv/bin/python', """import sys
@@ -65,10 +66,11 @@ output=Path(sys.argv[sys.argv.index('--output')+1])
 output.mkdir(parents=True)
 (output/'index.html').write_text('Complete bundle')
 """)
-        self.executable('node_modules/.bin/wrangler', "from pathlib import Path\nPath('uploaded').touch()\n")
+        self.executable('node_modules/.bin/wrangler', "from pathlib import Path\nimport sys\nPath('pages-uploaded' if sys.argv[1]=='pages' else 'worker-uploaded').touch()\nprint('Deployment complete!')\n")
         result = self.run_deploy()
         self.assertEqual(result.returncode, 42)
-        self.assertFalse((self.root / 'uploaded').exists())
+        self.assertTrue((self.root / 'pages-uploaded').exists())
+        self.assertFalse((self.root / 'worker-uploaded').exists())
 
     def test_zero_exit_upload_error_is_not_success(self):
         self.executable('node_modules/.bin/wrangler', "print('ERROR Failed to upload files: ENOENT')\n")
@@ -98,8 +100,10 @@ class DailyLocalCopyTests(unittest.TestCase):
         self.root = Path(folder.name)
         for directory in ('scripts', '.venv/bin', 'data', 'dist/releases/old'):
             (self.root / directory).mkdir(parents=True)
+        shutil.copyfile(Path(__file__).resolve().parents[1] / 'scripts/node_env.sh', self.root / 'scripts/node_env.sh')
         shutil.copyfile(Path(__file__).resolve().parents[1] / 'scripts/update_site.sh',
                         self.root / 'scripts/update_site.sh')
+        (self.root / 'search-cloudflare.json').write_text('{}')
         (self.root / 'dist/index.html').write_text('Old index')
         (self.root / 'dist/releases/old/data.json').write_text('Old data')
         python = self.root / '.venv/bin/python'
@@ -107,6 +111,7 @@ class DailyLocalCopyTests(unittest.TestCase):
 import sys
 from pathlib import Path
 if 'search_sync.py' in sys.argv:
+    assert Path('deployed-index').exists()
     Path('search-sync-called').touch()
     sys.exit(0)
 if 'scripts/daily_selection.py' in sys.argv:
@@ -130,7 +135,7 @@ cp "$1/index.html" deployed-index
 cp "$1/releases/new/data.json" deployed-data
 ''' + ('exit 1\n' if fail else 'exit 0\n'))
         return subprocess.run(['bash', 'scripts/update_site.sh', '--force'],
-                              cwd=self.root, capture_output=True, text=True)
+                              cwd=self.root, capture_output=True, text=True, env={**os.environ, 'NODE_BIN': '/usr/bin'})
 
     def test_success_retains_exact_deployed_export_and_previous_release(self):
         result = self.run_daily()
@@ -143,6 +148,7 @@ cp "$1/releases/new/data.json" deployed-data
         self.assertEqual((self.root / 'dist/releases/old/data.json').read_text(), 'Old data')
         self.assertTrue((self.root / 'data/update-site-success.date').exists())
         self.assertTrue((self.root / 'daily-selection-called').exists())
+        self.assertTrue((self.root / 'search-sync-called').exists())
         self.assertFalse(list((self.root / '.wrangler').glob('daily-build.*')))
 
     def test_failed_deployment_preserves_local_copy_and_does_not_mark_success(self):
@@ -151,3 +157,4 @@ cp "$1/releases/new/data.json" deployed-data
         self.assertEqual((self.root / 'dist/index.html').read_text(), 'Old index')
         self.assertFalse((self.root / 'dist/releases/new').exists())
         self.assertFalse((self.root / 'data/update-site-success.date').exists())
+        self.assertFalse((self.root / 'search-sync-called').exists())
