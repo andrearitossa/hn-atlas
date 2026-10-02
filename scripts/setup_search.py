@@ -48,7 +48,8 @@ def setup():
     # Initialize before activating the daily sync configuration.
     cloud.config = config
     from search_sync import SCHEMA
-    cloud.sql(SCHEMA.read_text())
+    for migration in sorted(SCHEMA.parent.glob('*.sql')):
+        cloud.sql(migration.read_text())
     wrangler_path.write_text(json.dumps(wrangler, indent=2)+'\n')
     (ROOT/'search-cloudflare.json').write_text(json.dumps(config, indent=2)+'\n')
     print('Search stores and Pages bindings configured. Run search_sync.py, then deploy.')

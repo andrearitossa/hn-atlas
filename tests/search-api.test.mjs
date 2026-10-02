@@ -104,3 +104,27 @@ test('Repeated queries reuse cached embeddings without caching credentials or qu
   assert.equal(calls,1);assert.equal(stored.size,1);
  }finally{globalThis.fetch=oldFetch;if(oldCache===undefined)delete globalThis.caches;else globalThis.caches=oldCache;}
 });
+
+test('Search history records impressions in the background without delaying the response',async()=>{
+ const writes=[],background=[];let release;
+ const gate=new Promise(resolve=>{release=resolve;});const base=db([post(1),post(2)]);
+ const env={SEARCH_DB:{prepare(sql){if(!sql.startsWith('INSERT INTO searches'))return base.prepare(sql);return {bind(...params){this.params=params;return this;},async run(){writes.push(this.params);await gate;return {success:true};}};}}};
+ try{
+  const response=await onRequest({request:request({q:"Rust's compiler",mode:'pattern',topic:7,sort:'points'}),env,waitUntil:p=>background.push(p)});
+  const body=await response.json();assert.equal(response.status,200);assert.match(body.search_id,/^[0-9a-f-]{36}$/);assert.equal(background.length,1);
+  assert.equal(writes[0][0],body.search_id);assert.equal(writes[0][2],"Rust's compiler");assert.equal(writes[0][3],'pattern');assert.equal(writes[0][4],7);assert.equal(writes[0][5],'points');
+  const results=JSON.parse(writes[0][15]);assert.deepEqual(results.map(p=>p.id),[2,1]);assert.deepEqual(results.map(p=>p.position),[1,2]);assert.equal(results[0].word_rank,2);assert.equal(results[0].semantic_rank,null);assert.equal(results[0].title,'Story 2');
+  assert.ok(!('_wordScore' in body.posts[0]));assert.ok(writes[0][10]>=0);
+ }finally{release();await Promise.all(background);}
+});
+test('Empty searches, degraded results and failed retrieval are recorded; malformed queries are not',async()=>{
+ const writes=[];const base=db();const env={SEARCH_DB:{prepare(sql){if(!sql.startsWith('INSERT INTO searches'))return base.prepare(sql);return {bind(...p){this.params=p;return this;},async run(){writes.push(this.params);return {success:true};}};}}};
+ let response=await onRequest({request:request({q:'unknown',mode:'pattern'}),env});assert.equal(response.status,200);assert.equal(writes[0][9],200);assert.deepEqual(JSON.parse(writes[0][15]),[]);
+ response=await onRequest({request:request({q:'unknown',mode:'hybrid'}),env});assert.equal(response.status,200);assert.equal(writes[1][14],1);
+ response=await onRequest({request:request({q:'unknown',mode:'semantic'}),env});assert.equal(response.status,503);assert.equal(writes[2][9],503);assert.equal(writes[2][16],'retrieval_unavailable');
+ await onRequest({request:request({q:''}),env});assert.equal(writes.length,3);
+});
+test('History storage failure never turns a successful search into an outage',async()=>{
+ const base=db([post(1)]);const env={SEARCH_DB:{prepare(sql){if(!sql.startsWith('INSERT INTO searches'))return base.prepare(sql);return {bind(){return this;},async run(){throw Error('D1 write unavailable');}};}}};
+ const response=await onRequest({request:request({q:'Rust',mode:'pattern'}),env});const body=await response.json();assert.equal(response.status,200);assert.equal(body.posts.length,1);assert.ok(body.search_id);
+});

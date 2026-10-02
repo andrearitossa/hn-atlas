@@ -9,6 +9,7 @@ if [[ -f functions/api/search/index.js && ! -f search-cloudflare.json ]]; then
 fi
 if [[ -f functions/api/search/index.js ]]; then
   .venv/bin/python scripts/check_search_ready.py
+  .venv/bin/python scripts/migrate_search_history.py
 fi
 export PATH="$HOME/.local/share/pi-node/node-v22.23.1-linux-x64/bin:$PATH"
 mkdir -p .wrangler

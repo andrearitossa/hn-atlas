@@ -14,13 +14,17 @@ async function api(path,body){
  const response=await fetch(base+path,{method:'POST',headers:{Authorization:`Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
  const data=await response.json();if(!response.ok||!data.success)throw Error(`Cloudflare API failed: ${path}`);return data.result;
 }
-const db={prepare(sql){return {bind(...params){this.params=params;return this;},async all(){const result=await api(`/d1/database/${config.database_id}/query`,{sql,params:this.params||[]});assert.ok(result.every(r=>r.success));return result[0];}};},async batch(statements){return Promise.all(statements.map(s=>s.all()));}};
+const db={prepare(sql){return {bind(...params){this.params=params;return this;},async all(){const result=await api(`/d1/database/${config.database_id}/query`,{sql,params:this.params||[]});assert.ok(result.every(r=>r.success));return result[0];},async run(){return this.all();}};},async batch(statements){return Promise.all(statements.map(s=>s.all()));}};
 const env={SEARCH_DB:db,OPENAI_API_KEY:process.env.OPENAI_API_KEY,SEARCH_VECTORS:{query(vector,options){return api(`/vectorize/v2/indexes/${config.index_name}/query`,{vector,...options});}}};
 const origin='https://atlas.test';
 async function search(body){
  const response=await onRequest({request:new Request(origin+'/api/search/',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)}),env});
  const data=await response.json();assert.equal(response.status,200);assert.equal(data.notice,'');assert.ok(data.posts.length>0&&data.posts.length<=20);
- assert.equal(new Set(data.posts.map(p=>p.id)).size,data.posts.length);return data.posts;
+ assert.equal(new Set(data.posts.map(p=>p.id)).size,data.posts.length);
+ const stored=await db.prepare('SELECT status,results_json FROM searches WHERE id=?').bind(data.search_id).all();
+ assert.equal(stored.results[0].status,200);assert.deepEqual(JSON.parse(stored.results[0].results_json).map(p=>p.id),data.posts.map(p=>p.id));
+ await db.prepare('DELETE FROM searches WHERE id=?').bind(data.search_id).all();
+ return data.posts;
 }
 const words=await search({q:'Rust compiler'});assert.ok(words.some(p=>p.match!=='Text match'));
 console.log('Word + semantic retrieval:',words.length,'unique results');

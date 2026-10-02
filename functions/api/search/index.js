@@ -1,3 +1,4 @@
+import {storeSearch} from '../../../lib/search-history.js';
 const reply=(status,body)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
 const fields='p.id,p.title,p.url,p.time,p.score,p.descendants';
 export function cutoff(now=new Date()) {
@@ -20,7 +21,7 @@ export function merge(words,meaning,sort='relevance'){
  }
  return [...ranked.values()].sort((a,b)=>
   (sort==='newest'?b.time-a.time:sort==='points'?b.score-a.score:0)||b.rankScore-a.rankScore||b.time-a.time||b.id-a.id
- ).slice(0,20).map(({rankScore,text,meaning,...post})=>({...post,match:text&&meaning?'Words + meaning':text?'Text match':'Related idea'}));
+ ).slice(0,20).map(({rankScore,text,meaning,_wordScore,_semanticScore,...post})=>({...post,match:text&&meaning?'Words + meaning':text?'Text match':'Related idea'}));
 }
 export async function retry(operation){
  for(let attempt=0;attempt<2;attempt++){
@@ -52,7 +53,7 @@ async function words(db,q,topic,since,until){
  const match=wordQuery(q);if(!match)return [];
  const topicSql=topic===null?'':' AND EXISTS(SELECT 1 FROM post_topics t WHERE t.id=p.id AND t.topic=?)';
  const args=[match,since,until,...(topic===null?[]:[topic])];
- return (await db.prepare(`SELECT ${fields} FROM posts_fts JOIN posts p ON p.id=posts_fts.rowid
+ return (await db.prepare(`SELECT ${fields},bm25(posts_fts,3.0,1.0) AS _wordScore FROM posts_fts JOIN posts p ON p.id=posts_fts.rowid
  WHERE posts_fts MATCH ? AND p.time>=? AND p.time<=?${topicSql}
  ORDER BY bm25(posts_fts,3.0,1.0),p.time DESC LIMIT 100`).bind(...args).all()).results;
 }
@@ -79,12 +80,19 @@ async function meaning(db,env,q,topic,since,until){
    .bind(...batch,since,until,...(topic===null?[]:[topic])).all();
   for(const row of rows.results)live.set(row.id,row);
  }
- return ids.filter(id=>live.has(id)).map(id=>live.get(id));
+ return ids.filter(id=>live.has(id)).map(id=>({...live.get(id),_semanticScore:scores.get(id)}));
 }
-export async function onRequest({request,env}){
+export async function onRequest({request,env,waitUntil}){
  if(!env.SEARCH_DB)return reply(503,{detail:'Search is unavailable. Try again shortly.'});
  const db=env.SEARCH_DB.withSession?env.SEARCH_DB.withSession('first-primary'):env.SEARCH_DB;
- const since=cutoff(),until=Math.floor(Date.now()/1000);
+ const started=performance.now(),since=cutoff(),until=Math.floor(Date.now()/1000);
+ let event;
+ async function finish(status,body,errorCode=null){
+  if(!event)return reply(status,body);
+  const task=storeSearch(env.SEARCH_DB,{...event,status,latency_ms:Math.max(0,Math.round(performance.now()-started)),error_code:errorCode});
+  if(waitUntil)waitUntil(task);else await task;
+  return reply(status,{...body,search_id:event.id});
+ }
  try{
   if(request.method==='GET'){
    const [topics,stats]=await db.batch([
@@ -107,14 +115,17 @@ export async function onRequest({request,env}){
   const sort=body.sort===undefined?'relevance':body.sort;
   const mode=body.mode===undefined?'hybrid':body.mode;
   if(!q||q.length>500||topic!==null&&(!Number.isSafeInteger(topic)||topic<0)||!['relevance','newest','points'].includes(sort)||!['pattern','semantic','hybrid'].includes(mode))return reply(400,{detail:'Enter a valid query, topic, and sort.'});
+  event={id:crypto.randomUUID(),created_at:until,query:q,mode,topic,sort,since,until,posts:[],words:[],meaning:[],word_failed:false,semantic_failed:false};
   const [text,semantic]=await Promise.allSettled([mode==='semantic'?Promise.resolve([]):words(db,q,topic,since,until),mode==='pattern'?Promise.resolve([]):meaning(db,env,q,topic,since,until)]);
+  event.words=text.status==='fulfilled'?text.value:[];event.meaning=semantic.status==='fulfilled'?semantic.value:[];event.word_failed=text.status==='rejected';event.semantic_failed=semantic.status==='rejected';
   for(const [stage,result] of [['words',text],['meaning',semantic]])if(result.status==='rejected')console.warn('Search retrieval failed',{stage,reason:result.reason?.message?.slice(0,160)});
-  if(mode==='pattern'&&text.status==='rejected'||mode==='semantic'&&semantic.status==='rejected'||text.status==='rejected'&&semantic.status==='rejected')return reply(503,{detail:'Search is unavailable. Try again shortly.'});
+  if(mode==='pattern'&&text.status==='rejected'||mode==='semantic'&&semantic.status==='rejected'||text.status==='rejected'&&semantic.status==='rejected')return finish(503,{detail:'Search is unavailable. Try again shortly.'},'retrieval_unavailable');
   const posts=merge(text.status==='fulfilled'?text.value:[],semantic.status==='fulfilled'?semantic.value:[],sort);
   if(posts.length){
    const memberships=await db.prepare(`SELECT id,topic FROM post_topics WHERE id IN (${posts.map(()=>'?').join(',')})`).bind(...posts.map(p=>p.id)).all();
    for(const post of posts)post.topics=memberships.results.filter(t=>t.id===post.id).map(t=>t.topic);
   }
-  return reply(200,{posts,total:posts.length,notice:semantic.status==='rejected'?'Meaning search is unavailable right now. Showing text matches.':text.status==='rejected'?'Word search is unavailable right now. Showing related ideas.':''});
- }catch{return reply(503,{detail:'Search is unavailable. Try again shortly.'});}
+  event.posts=posts;
+  return finish(200,{posts,total:posts.length,notice:semantic.status==='rejected'?'Meaning search is unavailable right now. Showing text matches.':text.status==='rejected'?'Word search is unavailable right now. Showing related ideas.':''});
+ }catch{return finish(503,{detail:'Search is unavailable. Try again shortly.'},'search_failed');}
 }

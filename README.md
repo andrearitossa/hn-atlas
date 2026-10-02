@@ -416,3 +416,27 @@ For local UI preview against the live backend:
 
 The legacy compact exporter and browser ranking module remain available for
 offline fixtures; they are not shipped by Cloudflare Pages.
+
+### Search history
+
+Valid search requests are recorded in the private Search D1 `searches` table.
+Each response carries `search_id`, ready for later click attribution. Records
+include query, mode/topic/sort, server latency, ranking version, corpus date
+window, candidate counts, fallback/error state, and ordered result snapshots
+with titles, URLs, topic IDs, retrieval ranks/scores, and fusion scores. Empty
+results and failed searches are included; invalid requests and metadata reads
+are excluded. No IP, user agent, cookies, or visitor identifier is stored.
+
+Pages `waitUntil` keeps persistence off the response path; failures are logged
+without breaking Search. `scripts/migrate_search_history.py` initializes the
+new table before deployment and removes events older than 90 days. The daily
+publication uses that same deployment step. History is independent of post
+expiry and contains snapshots for later evaluation. It is not a public API.
+
+Example inspection through the D1 dashboard:
+
+```sql
+SELECT id, datetime(created_at, 'unixepoch') AS searched_at, query, mode,
+       topic_id, status, latency_ms, results_json
+FROM searches ORDER BY created_at DESC LIMIT 100;
+```
