@@ -9,7 +9,7 @@ from typing import Annotated, Literal
 import catalog
 import timeline
 from catalog import DAY, POST, now
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
 from pathlib import Path
 import seo
