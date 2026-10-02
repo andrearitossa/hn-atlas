@@ -9,6 +9,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 from scripts import weekly_newsletters as pipeline
+import cloudflare
 
 SCHEMA = Path(__file__).resolve().parents[1] / 'workers/newsletter-test/schema.sql'
 
@@ -279,17 +280,17 @@ class CloudflareAuthTests(unittest.TestCase):
         response = Mock(ok=True)
         response.json.return_value = {'success':True,'result':[{'success':True,'results':[]}]}
         with patch.dict('os.environ', {'CLOUDFLARE_API_TOKEN':''}), \
-             patch.object(pipeline.subprocess, 'run', return_value=Mock(returncode=0,stdout='{"token":"private"}')) as auth, \
-             patch('requests.post', return_value=response) as request:
+             patch.object(cloudflare.subprocess, 'run', return_value=Mock(returncode=0,stdout='{"token":"private"}')) as auth, \
+             patch('requests.Session.request', return_value=response) as request:
             self.assertEqual(pipeline.query('SELECT 1'), [])
             self.assertEqual(auth.call_args.args[0][-3:], ['auth','token','--json'])
             self.assertTrue(auth.call_args.kwargs['capture_output'])
-            self.assertEqual(request.call_args.kwargs['headers']['Authorization'], 'Bearer private')
+            self.assertEqual(auth.call_args.kwargs['stdin'], cloudflare.subprocess.DEVNULL)
 
     def test_failed_auth_does_not_expose_cli_output_or_query_d1(self):
         with patch.dict('os.environ', {'CLOUDFLARE_API_TOKEN':''}), \
-             patch.object(pipeline.subprocess, 'run', return_value=Mock(returncode=1,stdout='secret',stderr='secret')), \
-             patch('requests.post') as request:
+             patch.object(cloudflare.subprocess, 'run', return_value=Mock(returncode=1,stdout='secret',stderr='secret')), \
+             patch('requests.Session.request') as request:
             with self.assertRaisesRegex(RuntimeError, '^Cloudflare authentication failed;') as caught:
                 pipeline.query('SELECT 1')
             self.assertNotIn('secret', str(caught.exception))

@@ -103,6 +103,7 @@ export default {
   async fetch(request,env) {
     const url=new URL(request.url);
     if (url.pathname==='/daily-selection' && request.method==='POST') {
+      if (!env.ADMIN_EMAIL) return reply({error:'ADMIN_EMAIL is required'},503);
       if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
       if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);
       let edition;
@@ -115,7 +116,7 @@ export default {
       if (claim.meta.changes!==1) return reply({error:'Delivery needs inspection'},409);
       try {
         const result=await env.EMAIL.send({from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},
-          to:'andre.ritossa@gmail.com',subject:issue.subject,html:issue.html,
+          to:env.ADMIN_EMAIL,subject:issue.subject,html:issue.html,
           headers:{'X-Campaign-ID':`hackeratlas-daily-${edition}`}});
         await env.DB.prepare("UPDATE daily_selections SET state='sent',message_id=? WHERE edition=?")
           .bind(result.messageId,edition).run();

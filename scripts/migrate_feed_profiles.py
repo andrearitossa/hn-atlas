@@ -12,7 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from search_sync import Cloudflare
+from cloudflare import Cloudflare, newsletter_config
 
 SCHEMA = ROOT / 'migrations/0006_feed_profiles.sql'
 
@@ -42,9 +42,7 @@ def main():
             conn.execute('PRAGMA foreign_keys=ON')
             maintenance(conn.executescript, int(time.time()))
     else:
-        config = json.loads((ROOT / 'workers/newsletter-test/wrangler.jsonc').read_text())
-        resource = config['d1_databases'][0]
-        cloud = Cloudflare(dict(account_id=config['account_id'], database_id=resource['database_id']))
+        cloud = Cloudflare(newsletter_config())
         maintenance(cloud.sql, int(time.time()))
     print('Feed profiles ready; bounded 90-day history retention applied.')
 

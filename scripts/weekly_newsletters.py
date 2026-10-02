@@ -8,39 +8,15 @@ import os
 from pathlib import Path
 import sys
 import time
-import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from config import DB
+from config import DB, load_jsonc
 import newsletter
 import topics as topic_registry
 from database import connect
 
-ACCOUNT = 'c2e5e5e106e0b8c69e797dd75d0d229d'
-DATABASE = 'b25ea9c4-25e9-4547-b753-292c752e0eef'
-
-
-def query(sql, params=()):
-    import requests
-    token = os.environ.get('CLOUDFLARE_API_TOKEN')
-    if not token:
-        # Wrangler refreshes expired OAuth credentials. Reading its token file
-        # directly works interactively but fails on a later unattended run.
-        credentials = subprocess.run(
-            [str(ROOT/'node_modules/.bin/wrangler'), 'auth', 'token', '--json'],
-            cwd=ROOT, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=60)
-        if credentials.returncode:
-            raise RuntimeError('Cloudflare authentication failed; run wrangler login or configure CLOUDFLARE_API_TOKEN')
-        token = json.loads(credentials.stdout).get('token')
-        if not token:
-            raise RuntimeError('Cloudflare authentication did not return a token')
-    response = requests.post(f'https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/d1/database/{DATABASE}/query',
-        headers={'Authorization': f'Bearer {token}'}, json={'sql': sql, 'params': list(params)}, timeout=60)
-    data = response.json()
-    if not response.ok or not data.get('success') or not all(item.get('success') for item in data.get('result', [])):
-        raise RuntimeError(f'Cloudflare D1 query failed: {data.get("errors", data)}')
-    return data['result'][0]['results']
+from cloudflare import d1_query as query
 
 
 def edition_at(now):
@@ -99,7 +75,7 @@ def run_weekly(now=None):
     token = os.environ.get('NEWSLETTER_ADMIN_TOKEN') or (token_path.read_text().strip() if token_path.exists() else '')
     if not token:
         raise RuntimeError('Newsletter delivery admin token is missing')
-    config = json.loads((ROOT / 'workers/newsletter-test/wrangler.jsonc').read_text())
+    config = load_jsonc(ROOT / 'workers/newsletter-test/wrangler.jsonc')
     origin = config['vars']['PUBLIC_URL'].rstrip('/')
     if not origin.startswith('https://'):
         raise RuntimeError('Newsletter Worker URL must use HTTPS')

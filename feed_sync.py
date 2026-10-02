@@ -73,12 +73,10 @@ def main():
             db.execute(UPSERT, (value,))
             db.execute(BACKFILL)
     else:
-        from search_sync import Cloudflare
-        config = json.loads((Path(__file__).parent / 'workers/newsletter-test/wrangler.jsonc').read_text())
-        resource = config['d1_databases'][0]
-        cloud = Cloudflare(dict(account_id=config['account_id'], database_id=resource['database_id']))
+        from cloudflare import Cloudflare, newsletter_config
+        cloud = Cloudflare(newsletter_config())
         cloud.sql(SCHEMA.read_text())
-        result = cloud.api('POST', f"/d1/database/{resource['database_id']}/query", json={'sql':UPSERT, 'params':[value]})
+        result = cloud.api('POST', f"/d1/database/{cloud.config['database_id']}/query", json={'sql':UPSERT, 'params':[value]})
         if not all(r.get('success') for r in result):
             raise RuntimeError('Feed catalog sync failed')
         cloud.sql(BACKFILL)

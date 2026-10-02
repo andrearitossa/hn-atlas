@@ -5,7 +5,8 @@ import subprocess
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from search_sync import Cloudflare
+from cloudflare import Cloudflare
+from config import load_jsonc
 
 ACCOUNT = 'c2e5e5e106e0b8c69e797dd75d0d229d'
 INDEX = 'hackeratlas-search'
@@ -40,7 +41,7 @@ def setup():
         database = cloud.api('POST', '/d1/database', json={'name': NAME, 'primary_location_hint': 'weur'})
     config = dict(account_id=ACCOUNT, database_id=database['uuid'], index_name=INDEX)
     wrangler_path = ROOT/'wrangler.jsonc'
-    wrangler = json.loads(wrangler_path.read_text())
+    wrangler = load_jsonc(wrangler_path)
     wrangler['d1_databases'] = [d for d in wrangler.get('d1_databases', []) if d['binding'] != 'SEARCH_DB']
     wrangler['d1_databases'].append(dict(binding='SEARCH_DB', database_name=NAME, database_id=database['uuid'], migrations_dir='migrations/search'))
     wrangler['vectorize'] = [v for v in wrangler.get('vectorize', []) if v['binding'] != 'SEARCH_VECTORS']

@@ -4,18 +4,16 @@ from concurrent.futures import ThreadPoolExecutor
 import fcntl
 import hashlib
 import json
-import os
 from pathlib import Path
 import sqlite3
-import subprocess
 import time
 import numpy as np
-import requests
 from database import connect
 from config import DB
 import catalog
 from embed import MODEL, DIM
 from corpus import cutoff
+from cloudflare import Cloudflare
 import topics
 
 ROOT = Path(__file__).resolve().parent
@@ -88,55 +86,6 @@ def batch_sql(batch):
     return '\n'.join(sql)
 
 
-class Cloudflare:
-    def __init__(self, config):
-        self.config = config
-        token = os.environ.get('CLOUDFLARE_API_TOKEN')
-        if not token:
-            result = subprocess.run([str(ROOT/'node_modules/.bin/wrangler'), 'auth', 'token', '--json'],
-                                    cwd=ROOT, capture_output=True, text=True, timeout=60, check=True)
-            token = json.loads(result.stdout)['token']
-        self.session = requests.Session()
-        self.session.headers['Authorization'] = f'Bearer {token}'
-        self.base = f"https://api.cloudflare.com/client/v4/accounts/{config['account_id']}"
-        self.written = 0
-        self.last_mutation = None
-
-    def api(self, method, path, **kwargs):
-        for attempt in range(4):
-            try:
-                response = self.session.request(method, self.base+path, timeout=60, **kwargs)
-                data = response.json()
-                if response.ok and data.get('success'):
-                    return data['result']
-                if response.status_code != 429 and response.status_code < 500:
-                    raise RuntimeError(f"Cloudflare {path} failed: {data.get('errors')}")
-            except (requests.Timeout, requests.ConnectionError):
-                if attempt == 3:
-                    raise
-            if attempt == 3:
-                raise RuntimeError(f'Cloudflare request failed: {path}')
-            time.sleep(2 ** attempt)
-
-    def sql(self, sql):
-        result = self.api('POST', f"/d1/database/{self.config['database_id']}/query", json={'sql': sql})
-        if not all(item.get('success') for item in result):
-            raise RuntimeError('D1 statements failed')
-        self.written += sum(item.get('meta', {}).get('rows_written', 0) for item in result)
-        return result
-
-    def upsert(self, rows):
-        # Keep batches under API payload limits, with several vectors per request.
-        for offset in range(0, len(rows), 2000):
-            payload = '\n'.join(json.dumps(v, separators=(',', ':')) for v in rows[offset:offset+2000]) + '\n'
-            result = self.api('POST', f"/vectorize/v2/indexes/{self.config['index_name']}/upsert",
-                     files={'vectors': ('vectors.ndjson', payload, 'application/x-ndjson')})
-            self.last_mutation = result.get('mutationId')
-
-    def delete_vectors(self, ids):
-        for offset in range(0, len(ids), 100):
-            result = self.api('POST', f"/vectorize/v2/indexes/{self.config['index_name']}/delete_by_ids", json={'ids': ids[offset:offset+100]})
-            self.last_mutation = result.get('mutationId')
 
 
 def load_posts(conn, now):

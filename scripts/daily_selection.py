@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 import config
 from database import connect
 import daily_selection
-from scripts.weekly_newsletters import query
+from cloudflare import d1_query as query
 
 SCHEMA = '''CREATE TABLE IF NOT EXISTS daily_selections (
  edition TEXT PRIMARY KEY, prepared_at INTEGER NOT NULL, subject TEXT NOT NULL,
@@ -24,6 +24,7 @@ SCHEMA = '''CREATE TABLE IF NOT EXISTS daily_selections (
 
 def run(dry_run=False):
     import requests
+    recipient = config.admin_email()
     with open(ROOT/'data/daily-selection.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         now = int(time.time())
@@ -60,13 +61,13 @@ def run(dry_run=False):
         token = os.environ.get('NEWSLETTER_ADMIN_TOKEN') or (token_path.read_text().strip() if token_path.exists() else '')
         if not token:
             raise RuntimeError('Newsletter admin token missing')
-        worker = json.loads((ROOT/'workers/newsletter-test/wrangler.jsonc').read_text())
+        worker = config.load_jsonc(ROOT/'workers/newsletter-test/wrangler.jsonc')
         response = requests.post(worker['vars']['PUBLIC_URL'].rstrip('/')+'/daily-selection',
             headers={'Authorization': 'Bearer '+token}, json={'edition': edition}, timeout=120)
         response.raise_for_status()
         if response.json().get('state') != 'sent':
             raise RuntimeError('Daily selection delivery did not complete')
-        print(f'Daily selection sent to {daily_selection.RECIPIENT}')
+        print(f'Daily selection sent to {recipient}')
 
 
 if __name__ == '__main__':

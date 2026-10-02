@@ -20,7 +20,7 @@ function fixture() {
     async batch(statements){sqlite.exec('BEGIN');try{const results=statements.map(statement=>statement._run());sqlite.exec('COMMIT');return results}catch(error){sqlite.exec('ROLLBACK');throw error}},
   };
   const sent=[];
-  const env={DB,PUBLIC_URL:'https://newsletter.example',FROM_EMAIL:'news@hackeratlas.com',ADMIN_TOKEN:'private',EMAIL:{async send(message){sent.push(message);return {messageId:`provider-${sent.length}`}}}};
+  const env={DB,PUBLIC_URL:'https://newsletter.example',ADMIN_EMAIL:'admin@example.com',FROM_EMAIL:'news@hackeratlas.com',ADMIN_TOKEN:'private',EMAIL:{async send(message){sent.push(message);return {messageId:`provider-${sent.length}`}}}};
   return {sqlite,run,env,sent};
 }
 
@@ -142,7 +142,7 @@ test('daily selection requires authentication and sends one immutable edition on
   assert.equal((await worker.fetch(request(),f.env)).status,200);
   assert.equal((await worker.fetch(request(),f.env)).status,200);
   assert.equal(f.sent.length,1);
-  assert.equal(f.sent[0].to,'andre.ritossa@gmail.com');
+  assert.equal(f.sent[0].to,'admin@example.com');
   assert.equal(f.sent[0].html,'<p>Ten stories</p>');
 });
 

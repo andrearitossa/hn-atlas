@@ -9,7 +9,7 @@ import {hash, token, sessionCookie} from '../lib/reader.js';
 const {values:args}=parseArgs({options:{
   source:{type:'string',default:'.wrangler/feed-preview/dist'},
   site:{type:'string',default:'.wrangler/feed-preview/pages'},
-  email:{type:'string',default:'andre.ritossa@gmail.com'},
+  email:{type:'string',default:process.env.ADMIN_EMAIL},
   port:{type:'string',default:'8792'},
   state:{type:'string',default:'.wrangler/feed-local-db'},
   'skip-build':{type:'boolean',default:false}

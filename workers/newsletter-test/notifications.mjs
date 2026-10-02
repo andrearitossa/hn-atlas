@@ -1,4 +1,5 @@
 export async function notify(env, event) {
+  if (!env.ADMIN_EMAIL) throw new Error('ADMIN_EMAIL is required');
   let subject, text;
   if (event.type === 'feedback') {
     subject = 'New Hacker Atlas feedback';
@@ -11,7 +12,7 @@ export async function notify(env, event) {
   }
   await env.EMAIL.send({
     from: {email: env.FROM_EMAIL, name: 'Hacker Atlas'},
-    to: 'andre.ritossa@gmail.com',
+    to: env.ADMIN_EMAIL,
     subject,
     text,
   });

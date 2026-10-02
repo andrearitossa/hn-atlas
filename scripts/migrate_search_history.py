@@ -5,7 +5,7 @@ import sys
 import time
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from search_sync import Cloudflare
+from cloudflare import Cloudflare
 
 
 def main():

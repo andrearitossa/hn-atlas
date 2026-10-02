@@ -13,7 +13,6 @@ import newsletter
 WINDOW = 24 * 3600
 HALF_LIFE_HOURS = 6
 LIMIT = 10
-RECIPIENT = 'andre.ritossa@gmail.com'
 LOG = logging.getLogger(__name__)
 
 
