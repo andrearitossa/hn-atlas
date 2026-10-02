@@ -15,7 +15,7 @@ from database import connect
 from config import DB
 import catalog
 from embed import MODEL, DIM
-from search_export import cutoff
+from corpus import cutoff
 import topics
 
 ROOT = Path(__file__).resolve().parent

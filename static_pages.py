@@ -139,10 +139,6 @@ def write_topic(release, template, overview, detail, history, posts, version):
         by_year.setdefault(stamp(p['time'], '%Y'), []).append(p)
     for year, items in by_year.items():
         (archive / f'{year}.json').write_text(json.dumps(items, ensure_ascii=False, separators=(',', ':')))
-    (release / 'history').mkdir(exist_ok=True)
-    for level in ('month', 'week'):
-        rows = [{**period, 'posts': period['posts'][:3]} for period in history['levels'][level]]
-        (release / 'history' / f'{ident}-{level}.json').write_text(json.dumps(rows, ensure_ascii=False, separators=(',', ':')))
     html = external_styles(render(template, overview, detail, history, posts, version), f'../../releases/{version}/')
     page = release / 'public' / 'topic' / detail['slug']
     page.mkdir(parents=True, exist_ok=True)

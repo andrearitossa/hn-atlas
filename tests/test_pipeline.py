@@ -84,23 +84,23 @@ class PipelineTests(unittest.TestCase):
         self.story(2,title='Rust guide',text='same body')
         vector=np.ones(embed.DIM,dtype='f4').tobytes()
         with patch.object(embed,'embed_batch',return_value=[vector]) as call:
-            self.assertEqual(embed.embed_pending(self.conn,version=2),2)
+            self.assertEqual(embed.embed_pending(self.conn),2)
             call.assert_called_once_with(['Rust guide\nsame body'])
-            self.assertEqual(embed.embed_pending(self.conn,version=2),0)
+            self.assertEqual(embed.embed_pending(self.conn),0)
         self.assertEqual(self.conn.execute('SELECT distinct input_version FROM embeddings').fetchall(),[(2,)])
 
     def test_empty_subject_is_skipped_and_retried_after_content_edit(self):
         self.story(1,title='(2023)',url='https://example.com/post')
         with patch.object(embed,'embed_batch') as call:
-            self.assertEqual(embed.embed_pending(self.conn,version=2),0)
-            self.assertEqual(embed.embed_pending(self.conn,version=2),0)
+            self.assertEqual(embed.embed_pending(self.conn),0)
+            self.assertEqual(embed.embed_pending(self.conn),0)
             call.assert_not_called()
         self.assertEqual(self.conn.execute('SELECT reason FROM embedding_errors').fetchone()[0],'empty_subject')
         hn_sync.save_articles(self.conn,[dict(id=1,type='story',title='Rust compiler',
             url='https://example.com/post',time=self.now)])
         self.assertEqual(self.conn.execute('SELECT count(*) FROM embedding_errors').fetchone()[0],0)
         with patch.object(embed,'embed_batch',return_value=[np.ones(embed.DIM,dtype='f4').tobytes()]):
-            self.assertEqual(embed.embed_pending(self.conn,version=2),1)
+            self.assertEqual(embed.embed_pending(self.conn),1)
 
     def test_content_refresh_invalidates_but_score_refresh_does_not(self):
         self.story(1,vector=[1,0,0]);self.conn.execute('INSERT INTO story_topics VALUES(1,0,.8,.3)');self.conn.commit()
@@ -119,7 +119,7 @@ class PipelineTests(unittest.TestCase):
         self.story(1,text='Initial note')
         vector=np.ones(embed.DIM,dtype='f4').tobytes()
         with patch.object(embed,'embed_batch',return_value=[vector]):
-            embed.embed_pending(self.conn,version=2)
+            embed.embed_pending(self.conn)
         hn_sync.save_articles(self.conn,[dict(id=1,type='story',title='Rust guide',url='https://site1.example/article/1',
                                              text='A different submission note',score=10,time=self.now)])
         self.assertIsNone(self.conn.execute('SELECT vec FROM embeddings').fetchone())
@@ -128,12 +128,12 @@ class PipelineTests(unittest.TestCase):
         self.story(1, text='Initial body', when=self.now - 200 * 86400)
         vector = np.ones(embed.DIM, dtype='f4').tobytes()
         with patch.object(embed, 'embed_batch', return_value=[vector]):
-            embed.embed_pending(self.conn, version=2, since=0)
+            embed.embed_pending(self.conn, since=0)
         hn_sync.save_articles(self.conn, [dict(id=1, type='story', title='Rust guide',
             url='https://site1.example/article/1', text='Updated body',
             score=20, time=self.now - 200 * 86400)])
         with patch.object(embed, 'embed_batch', return_value=[vector]) as call:
-            self.assertEqual(embed.embed_pending(self.conn, version=2, since=self.now - 95 * 86400), 1)
+            self.assertEqual(embed.embed_pending(self.conn, since=self.now - 95 * 86400), 1)
             call.assert_called_once_with(['Rust guide\nUpdated body'])
         self.assertEqual(self.conn.execute('SELECT count(*) FROM dirty_stories').fetchone()[0], 0)
 
@@ -141,12 +141,12 @@ class PipelineTests(unittest.TestCase):
         self.story(1, text='Original body')
         vector = np.ones(embed.DIM, dtype='f4').tobytes()
         with patch.object(embed, 'embed_batch', return_value=[vector]):
-            embed.embed_pending(self.conn, version=2)
+            embed.embed_pending(self.conn)
         self.conn.execute('INSERT INTO story_topics VALUES (1,0,.8,.3)')
         self.conn.execute("UPDATE stories SET text='New body' WHERE id=1")
         self.conn.commit()
         with patch.object(embed, 'embed_batch', return_value=[vector]) as call:
-            self.assertEqual(embed.embed_pending(self.conn, version=2), 1)
+            self.assertEqual(embed.embed_pending(self.conn), 1)
             call.assert_called_once_with(['Rust guide\nNew body'])
-            self.assertEqual(embed.embed_pending(self.conn, version=2), 0)
+            self.assertEqual(embed.embed_pending(self.conn), 0)
         self.assertIsNone(self.conn.execute('SELECT id FROM story_topics').fetchone())

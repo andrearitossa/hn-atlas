@@ -6,13 +6,10 @@ the API returns it with encoding_format=base64:  numpy.frombuffer(vec, "<f4").
 Called by refresh.py; unchanged vectors are reused.
 """
 import base64
-import html
 import hashlib
 import os
-import re
 import time
 from datetime import datetime, timezone
-from urllib.parse import urlparse
 
 import requests
 
@@ -30,19 +27,9 @@ SCHEMA = """CREATE TABLE IF NOT EXISTS embeddings (
 )"""
 
 
-def to_text(title, url, text, version=2) -> str:
-    """What we embed: title, the linked site, and the start of any self-post text."""
-    if version == 2:
-        from routing import subject_text
-        return subject_text(title, url, text)
-    if version != 1:
-        raise ValueError(f"Unsupported embedding input version: {version}")
-    parts = [title or ""]
-    if url:
-        parts.append(f"({urlparse(url).netloc.removeprefix('www.')})")
-    if text:
-        parts.append(re.sub(r"<[^>]+>", " ", html.unescape(text))[:1000])
-    return " ".join(parts)
+def to_text(title, url, text) -> str:
+    from routing import subject_text
+    return subject_text(title, url, text)
 
 
 def embed_batch(texts: list[str]) -> list[bytes]:
@@ -72,10 +59,10 @@ def embed_batch(texts: list[str]) -> list[bytes]:
     r.raise_for_status()
 
 
-def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
+def embed_pending(conn, limit=None, since=SINCE, until=None) -> int:
     """Embed live articles in [since, until), using bounded memory."""
-    if version not in (1, 2) or (limit is not None and limit < 1):
-        raise ValueError('Invalid embedding version or limit')
+    if limit is not None and limit < 1:
+        raise ValueError('Invalid embedding limit')
     conn.execute(SCHEMA)
     conn.execute('CREATE TABLE IF NOT EXISTS dirty_stories (id INTEGER PRIMARY KEY)')
     conn.execute('''CREATE TABLE IF NOT EXISTS embedding_errors (
@@ -87,7 +74,7 @@ def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
         conn.execute('ALTER TABLE embeddings ADD COLUMN input_hash TEXT')
     conn.execute('CREATE INDEX IF NOT EXISTS embedding_input ON embeddings(model,input_version,input_hash)')
     conn.create_function('subject_hash', 3, lambda title, url, body:
-                         hashlib.sha256(to_text(title, url, body, version=version).encode()).hexdigest())
+                         hashlib.sha256(to_text(title, url, body).encode()).hexdigest())
     rows = conn.execute(
         """SELECT s.id, s.title, s.url, s.text, e.id FROM stories s
            LEFT JOIN embeddings e ON e.id = s.id
@@ -97,20 +84,20 @@ def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
              AND s.title IS NOT NULL AND (? IS NULL OR s.time < ?)
              AND s.id NOT IN (SELECT id FROM embedding_errors WHERE input_version=?)
            ORDER BY s.id LIMIT ?""",
-        (version, MODEL, since, until, until, version, limit if limit is not None else -1),
+        (2, MODEL, since, until, until, 2, limit if limit is not None else -1),
     )
     done = generated_count = reused_count = 0
     tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     # Cache identical normalized inputs, including repeated submissions. Bounded
-    # batches keep memory use predictable; existing v1 embeddings stay compatible.
+    # batches keep memory use predictable; existing v1 rows are upgraded.
     while batch := rows.fetchmany(BATCH):
         groups = {}
         for row in batch:
-            text = to_text(*row[1:4], version=version)
+            text = to_text(*row[1:4])
             if not text.strip():
                 conn.execute('DELETE FROM embeddings WHERE id=?', (row[0],))
                 conn.execute('INSERT OR REPLACE INTO embedding_errors VALUES (?,?,?,?)',
-                             (row[0],'empty_subject',version,int(time.time())))
+                             (row[0],'empty_subject',2,int(time.time())))
                 continue
             fingerprint = hashlib.sha256(text.encode()).hexdigest()
             groups.setdefault(fingerprint, {'text': text, 'ids': []})['ids'].append(row[0])
@@ -118,7 +105,7 @@ def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
         vectors = {}
         for fingerprint, group in groups.items():
             cached = conn.execute('SELECT vec FROM embeddings WHERE model=? AND input_version=? AND input_hash=? LIMIT 1',
-                                  (MODEL, version, fingerprint)).fetchone()
+                                  (MODEL, 2, fingerprint)).fetchone()
             if cached:
                 if len(cached[0]) != DIM * 4:
                     raise ValueError('Cached embedding has unexpected dimensions')
@@ -139,7 +126,7 @@ def embed_pending(conn, version=2, limit=None, since=SINCE, until=None) -> int:
             if table in tables:
                 conn.executemany(f'DELETE FROM {table} WHERE id=?', changed)
         conn.executemany('INSERT OR REPLACE INTO embeddings(id,model,vec,input_version,input_hash) VALUES (?,?,?,?,?)',
-                         [(i, MODEL, vectors[k], version, k) for k, group in groups.items() for i in group['ids']])
+                         [(i, MODEL, vectors[k], 2, k) for k, group in groups.items() for i in group['ids']])
         conn.executemany('DELETE FROM dirty_stories WHERE id=?', [(row[0],) for row in batch])
         conn.commit()
         done += sum(len(group['ids']) for group in groups.values())

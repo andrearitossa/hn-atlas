@@ -64,15 +64,9 @@ class StaticTests(unittest.TestCase):
         self.assertIn('id="activity-chart"', html)
         archive = [p for path in (release / 'archive/3').glob('*.json') for p in json.loads(path.read_text())]
         self.assertEqual(sorted(p['id'] for p in archive), sorted(p['id'] for p in posts))
+        self.assertFalse((release / 'history').exists())
         for level in ('month', 'week'):
-            rows = json.loads((release / f'history/3-{level}.json').read_text())
-            self.assertTrue(all(len(p['posts']) <= 3 for p in rows))
-            embedded = re.search(fr'<template id="zt-{level}">(.*?)</template>', html, re.S)[1]
-            self.assertEqual(embedded.count('class="zt-period"'), len(rows))
-            for period in rows:
-                self.assertIn(f'data-time="{period["start"]}"', embedded)
-                for story in period['posts']:
-                    self.assertIn(f'item?id={story["id"]}', embedded)
+            self.assertIn(f'<template id="zt-{level}">', html)
         import static_pages
         detail = json.loads((release / 'topics/3.json').read_text())
         malicious = {**detail, 'name': '</script><script>alert(1)</script>'}
@@ -171,7 +165,7 @@ class StaticTests(unittest.TestCase):
         self.assertIn('name="hn-newsletter" content="cloudflare"', page)
         self.assertIn('<link rel="canonical" href="https://hackeratlas.com/topic/current/">', page)
         self.assertTrue((bundle / '404.html').is_file())
-        self.assertIn('http-equiv="refresh"', (output / 'topic/3/index.html').read_text())
+        self.assertFalse((output / 'topic/3').exists())
         self.assertNotIn('/topic/3/', (output / 'sitemap.xml').read_text())
 
     def test_metadata_escapes_topic_text(self):

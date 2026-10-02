@@ -3,7 +3,6 @@ import re
 import math
 import unicodedata
 from collections import Counter
-import time
 import numpy as np
 from config import MODEL_PATH
 from core import unit
@@ -50,16 +49,6 @@ CREATE TABLE IF NOT EXISTS topic_registry (
 );
 CREATE TABLE IF NOT EXISTS maintenance (key TEXT PRIMARY KEY, value INTEGER NOT NULL);
 """
-
-def setup(conn, now=None):
-    conn.executescript(TOPIC_SCHEMA + SCHEMA + routing.SCHEMA)
-    if conn.execute('SELECT 1 FROM topic_registry LIMIT 1').fetchone():
-        return
-    model = np.load(MODEL_PATH)
-    now = int(time.time()) if now is None else now
-    conn.executemany('INSERT INTO topic_registry(id,centroid,born) VALUES (?,?,?)',
-                     [(int(i), v.astype('<f4').tobytes(), now) for i, v in zip(model.get('topic_ids', np.arange(len(model['centroids']))), model['centroids'])])
-    conn.commit()
 
 def model(conn):
     base = np.load(MODEL_PATH)

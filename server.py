@@ -1,7 +1,6 @@
 """Public, read-mostly API. Scheduled work runs in refresh.py."""
 import sqlite3
 import time
-from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from functools import lru_cache
 from typing import Annotated, Literal
@@ -20,14 +19,7 @@ from database import connect
 from config import DB
 
 
-@asynccontextmanager
-async def lifespan(_app):
-    with connect(DB) as conn:
-        topic_registry.setup(conn)
-    yield
-
-
-app = FastAPI(title="HN Atlas", docs_url=None, redoc_url=None, lifespan=lifespan)
+app = FastAPI(title="HN Atlas", docs_url=None, redoc_url=None)
 
 
 def db():
@@ -181,27 +173,31 @@ def search_page(request: Request):
     return RedirectResponse('/' + ('?' + request.url.query if request.url.query else ''), status_code=301)
 
 
-@app.get('/search-data/{asset}')
-def search_asset(asset: str):
-    if asset != 'index.json' and not __import__('re').fullmatch(r'vectors-\d+\.bin', asset):
-        raise HTTPException(404)
-    return FileResponse(Path('dist/search-data') / asset)
-
-
 @app.get('/{asset}')
 def search_ui_asset(asset: str):
-    if asset not in ('search.css', 'search.js', 'search-worker.js'):
+    if asset not in ('search.css', 'search.js'):
         raise HTTPException(404)
     return FileResponse(asset)
 
 
+def proxy_search(payload=None):
+    import requests
+    from fastapi.responses import JSONResponse
+    try:
+        if payload is None:
+            response = requests.get('https://hackeratlas.pages.dev'+'/api/search/', timeout=25)
+        else:
+            response = requests.post('https://hackeratlas.pages.dev'+'/api/search/', headers={'Origin': 'https://hackeratlas.pages.dev'}, json=payload, timeout=25)
+        return JSONResponse(response.json(), status_code=response.status_code)
+    except (requests.RequestException, ValueError):
+        raise HTTPException(503, 'Search is unavailable. Try again shortly.')
+
+
 @app.get('/api/search/')
 def search_info():
-    from search_preview import proxy_search
     return proxy_search()
 
 
 @app.post('/api/search/')
 def search_query(payload: dict):
-    from search_preview import proxy_search
     return proxy_search(payload)

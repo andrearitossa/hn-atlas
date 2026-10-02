@@ -158,17 +158,6 @@ test('daily selection holds an ambiguous provider failure instead of resending',
   assert.equal(calls,1);
 });
 
-test('one-off daily selection sends without any database access',async()=>{
-  const f=fixture();
-  f.env.DB={prepare(){throw new Error('One-off mail must not access D1')}};
-  const request=(auth=true)=>new Request(f.env.PUBLIC_URL+'/daily-selection-once',{method:'POST',headers:auth?{Authorization:'Bearer private'}:{},body:JSON.stringify({subject:'Daily selection',html:'<p>Fresh stories</p>'})});
-  assert.equal((await worker.fetch(request(false),f.env)).status,401);
-  assert.equal((await worker.fetch(request(),f.env)).status,200);
-  assert.equal(f.sent.length,1);
-  assert.equal(f.sent[0].to,'andre.ritossa@gmail.com');
-});
-
-
 test('bounded delivery completes in batches and clamps the requested limit',async()=>{
   const f=fixture();
   assert.deepEqual(await deliver(f.env,EDITION,NOW,0),{sent:1,failures:0,pending:1,done:false});

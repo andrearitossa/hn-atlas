@@ -102,17 +102,6 @@ export async function deliver(env, edition, now=Math.floor(Date.now()/1000), lim
 export default {
   async fetch(request,env) {
     const url=new URL(request.url);
-    if (url.pathname==='/daily-selection-once' && request.method==='POST') {
-      if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
-      if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);
-      let body;
-      try { body=await request.json(); } catch { return reply({error:'Invalid request'},400); }
-      if (typeof body.html!=='string' || !body.html || body.html.length>200000 ||
-          typeof body.subject!=='string' || !body.subject || body.subject.length>200 || /[\r\n]/.test(body.subject)) return reply({error:'Invalid email'},400);
-      await env.EMAIL.send({from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},
-        to:'andre.ritossa@gmail.com',subject:body.subject,html:body.html});
-      return reply({sent:true});
-    }
     if (url.pathname==='/daily-selection' && request.method==='POST') {
       if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
       if (env.DELIVERY_DISABLED==='true') return reply({error:'Delivery disabled'},503);

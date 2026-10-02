@@ -369,7 +369,7 @@ def fetch_from_hn(conn, now):
 
 def embed_new(conn, now):
     from embed import embed_pending
-    embed_pending(conn, version=2, since=now - KEEP)
+    embed_pending(conn, since=now - KEEP)
 
 
 def refresh(conn, now=None, fetch=fetch_from_hn, embed=embed_new, decide=judge, discover_topics=True):
