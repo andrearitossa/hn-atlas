@@ -1,5 +1,5 @@
 import {escapeHTML as escape} from './lib/escape.js';
-import {textScore} from './lib/topic-search.js';
+import {textScore,words} from './lib/topic-search.js';
 export function matchingTopics(topics,query){
  if(!query.trim())return [...topics];
  return topics.map(topic=>({topic,score:textScore(topic,query)})).filter(x=>x.score>0)
