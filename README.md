@@ -429,8 +429,8 @@ are excluded. No IP, user agent, cookies, or visitor identifier is stored.
 
 Pages `waitUntil` keeps persistence off the response path; failures are logged
 without breaking Search. `scripts/migrate_search_history.py` initializes the
-new table before deployment and removes events older than 90 days. The daily
-publication uses that same deployment step. History is independent of post
+new table before deployment. History has no scheduled expiry. The daily
+publication uses that same schema-only deployment step. History is independent of post
 expiry and contains snapshots for later evaluation. It is not a public API.
 
 Example inspection through the D1 dashboard:
@@ -461,8 +461,8 @@ Explore. There is no public `feed.json`, browser ranking, or 60-story limit.
 `POST /api/feed/events` records visible/opened canonical article keys in D1.
 Half a card visible for one second in an active tab counts as seen; opening it
 also records positive interest. Cards stay in place until the next feed request.
-Reading state lasts 90 days, survives daily updates, follows the account across
-devices, and is deleted with the profile. Clicks do not otherwise adjust ranking.
+Reading state is stored without scheduled expiry, follows the account across
+devices, and is deleted with the profile. Feed exclusion uses the last 90 days. Clicks do not otherwise adjust ranking.
 A bounded per-account browser queue retries unsent writes across reloads; D1
 acknowledgment is required before another device can know about the interaction.
 
@@ -470,9 +470,9 @@ The runtime adds just two tables to the existing newsletter D1: `feed_catalog`
 (one bounded private catalog row) and `feed_story_state` (one row per user/article).
 `feed_sync.py` selects candidates from the ingestion export and atomically replaces
 that D1 row. It never emits a public feed file. The existing daily deployment runs
-the sync, deploys the Feed Worker, then publishes Pages. A failed catalog write
-leaves the previous catalog intact. Existing raw events are backfilled when their
-story IDs are present in the catalog; legacy history expires through normal cleanup.
+Pages publication first, then the catalog sync and Feed Worker deployment. A failed
+catalog write leaves the previous catalog intact. Migrations remove the unused
+legacy event tables; current reading and search history have no scheduled cleanup.
 
 For an authorized first rollout, deploy the email Worker before Pages:
 

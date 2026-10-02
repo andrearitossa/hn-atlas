@@ -10,13 +10,13 @@ repo=$(cd "$(dirname "$0")/.." && pwd)
   echo "Units expect the checkout at $HOME/technews; found $repo" >&2
   exit 1
 }
-units=(hackeratlas-daily.service hackeratlas-daily.timer hackeratlas-weekly.service hackeratlas-weekly.timer hackeratlas-retention.service hackeratlas-retention.timer)
+units=(hackeratlas-daily.service hackeratlas-daily.timer hackeratlas-weekly.service hackeratlas-weekly.timer)
 mkdir -p "$HOME/.config/systemd/user"
 for unit in "${units[@]}"; do
   ln -sfn "$repo/ops/$unit" "$HOME/.config/systemd/user/$unit"
 done
 systemctl --user daemon-reload
-systemctl --user enable hackeratlas-daily.timer hackeratlas-weekly.timer hackeratlas-retention.timer
+systemctl --user enable hackeratlas-daily.timer hackeratlas-weekly.timer
 
 # Retire only the bounded test cron entry; keep all unrelated jobs.
 cron=$(mktemp)
@@ -42,8 +42,8 @@ if ! loginctl show-user "$USER" -p Linger 2>/dev/null | rg -q '^Linger=yes$'; th
     echo "Could not enable linger. Ask an administrator to run: sudo loginctl enable-linger $USER" >&2
   fi
 fi
-systemctl --user list-timers hackeratlas-daily.timer hackeratlas-weekly.timer hackeratlas-retention.timer
+systemctl --user list-timers hackeratlas-daily.timer hackeratlas-weekly.timer
 if [[ "${1:-}" != --install-only ]]; then
-  systemctl --user start hackeratlas-daily.timer hackeratlas-weekly.timer hackeratlas-retention.timer
+  systemctl --user start hackeratlas-daily.timer hackeratlas-weekly.timer
   systemctl --user start --no-block hackeratlas-daily.service
 fi

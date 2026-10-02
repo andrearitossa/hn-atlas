@@ -10,7 +10,6 @@ import publish
 import feed_sync
 from scripts.prepare_pages import prepare
 from scripts.migrate_feed_profiles import apply_schema
-from scripts.retention import expire
 import test_browsing
 
 
@@ -75,7 +74,7 @@ class FeedExportTests(unittest.TestCase):
 
 
 class FeedMaintenanceTests(unittest.TestCase):
-    def test_schema_and_retention_are_idempotent_and_keep_preferences(self):
+    def test_schema_is_idempotent_and_preserves_old_records(self):
         conn = sqlite3.connect(':memory:')
         self.addCleanup(conn.close)
         conn.execute('PRAGMA foreign_keys=ON')
@@ -90,21 +89,8 @@ class FeedMaintenanceTests(unittest.TestCase):
             conn.execute("INSERT INTO feed_rate_limits VALUES(?,1,?)", (ident,stamp))
         apply_schema(conn.executescript)
         apply_schema(conn.executescript)
-        expire(conn.executescript, now)
-        expire(conn.executescript, now)
-        self.assertEqual(conn.execute('SELECT article_key FROM feed_story_state').fetchall(), [('b'*64,)])
+        self.assertEqual(conn.execute('SELECT article_key FROM feed_story_state').fetchall(), [('a'*64,), ('b'*64,)])
         for table in ('feed_login_tokens', 'feed_sessions', 'feed_rate_limits'):
-            self.assertEqual(conn.execute(f'SELECT count(*) FROM {table}').fetchone()[0], 1)
+            self.assertEqual(conn.execute(f'SELECT count(*) FROM {table}').fetchone()[0], 2)
         self.assertEqual(conn.execute('SELECT topic_id FROM feed_user_topics').fetchall(), [(3,)])
         self.assertFalse(conn.execute("SELECT 1 FROM sqlite_master WHERE name IN ('feed_events','feed_visits','feed_topics_changed')").fetchone())
-
-    def test_search_retention_has_a_fixed_budget(self):
-        conn = sqlite3.connect(':memory:')
-        self.addCleanup(conn.close)
-        conn.execute('CREATE TABLE searches(created_at INTEGER)')
-        now = 1800000000
-        conn.executemany('INSERT INTO searches VALUES(?)', [(now-91*86400,)]*4100+[(now,)])
-        expire(conn.executescript, now, search=True)
-        self.assertEqual(conn.execute('SELECT count(*) FROM searches').fetchone()[0], 101)
-        expire(conn.executescript, now, search=True)
-        self.assertEqual(conn.execute('SELECT created_at FROM searches').fetchall(), [(now,)])

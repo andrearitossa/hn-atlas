@@ -62,8 +62,8 @@ expire after 90 days and are cleared on logout or profile deletion. The queue
 bridges network failures; cross-device exclusion is guaranteed only after the
 server acknowledges the write. Errors do not prevent article navigation.
 
-State is retained for 90 days and cascades on account deletion. Very old reposts
-can reappear after retention expires. Clicks are available for later personalization;
+State has no scheduled expiry and cascades on account deletion. Feed exclusion
+uses the last 90 days of state, so very old reposts can reappear. Clicks are available for later personalization;
 the current ranking uses topics and HN freshness/popularity.
 
 ## Ingestion and rollout
@@ -75,13 +75,12 @@ one parameterized D1 UPSERT switches the active catalog atomically. A failed
 write leaves the previous catalog available. No edition or membership tables,
 extra cron, public feed artifact, or queue service is needed.
 
-The existing daily deployment applies migrations, checks the bundle, syncs the
-catalog, deploys the Feed Worker, and deploys Pages. Public Explore and UI-only
+The existing daily deployment applies migrations, checks the bundle, deploys
+Pages, syncs the catalog, and deploys the Feed Worker. Public Explore and UI-only
 snapshot rebuilds remain static; UI rebuilds themselves have no D1 write effects.
 
-Legacy visibility/open events are backfilled for story IDs present in a synced
-catalog. Their old tables are retained temporarily for recovery and expire through
-maintenance; new requests never depend on them. Events lost before reaching D1
+Migrations remove the unused legacy visibility/open event tables. Current
+reading and search history have no scheduled cleanup. Events lost before reaching D1
 cannot be recovered.
 
 The feed frontend has only Account and Interests above its stories. There are
