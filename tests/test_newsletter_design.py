@@ -10,7 +10,7 @@ class Links(HTMLParser):
 class NewsletterDesignTests(unittest.TestCase):
     def test_website_style_and_direct_source_links(self):
         posts=[dict(id=i,title=f'Story {i}',url=f'https://example.com/article/{i}') for i in range(1,8)]
-        html=newsletter.render_html('Robotics',posts,1800000000,'https://example.com/unsubscribe',1185)
+        html=newsletter.render_html('Robotics',posts,1800000000,'https://example.com/unsubscribe',dict(id=1185,slug='robotics'))
         self.assertEqual(newsletter.LIMIT,5)
         self.assertEqual(html.count('<h2 '),7)
         self.assertIn('max-width:800px',html)
@@ -23,11 +23,11 @@ class NewsletterDesignTests(unittest.TestCase):
         self.assertIn('#f56300',html)
         parser=Links();parser.feed(html)
         for post in posts:self.assertEqual(parser.links.count(post['url']),2)
-        self.assertIn('https://hackeratlas.com/#/topic/1185',parser.links)
+        self.assertIn('https://hackeratlas.com/topic/robotics/',parser.links)
 
     def test_html_is_safe_readable_and_topic_specific(self):
         posts=[dict(id=1,title='<script>Bad & title</script>',url='javascript:alert(1)',summary='Useful <context>.',kind='Essay')]
-        html=newsletter.render_html('Topic',posts,1800000000,'https://example.com/unsubscribe/token',1286)
+        html=newsletter.render_html('Topic',posts,1800000000,'https://example.com/unsubscribe/token',dict(id=1286,slug='topic'))
         self.assertNotIn('<script>',html)
         self.assertNotIn('javascript:',html)
         self.assertIn('<h1',html)
@@ -40,9 +40,15 @@ class NewsletterDesignTests(unittest.TestCase):
         self.assertIn('https://news.ycombinator.com/item?id=1',parser.links)
         self.assertIn('https://example.com/unsubscribe/token',parser.links)
 
+    def test_url_whitespace_and_apostrophe_match_worker_tracking(self):
+        post = dict(id=1, title='Story', url="  https://example.com/a  b?name=o'reilly&x=1  ")
+        html = newsletter.render_html('Topic', [post], 0, 'https://example.com/unsubscribe')
+        self.assertIn('href="https://example.com/a  b?name=o&#x27;reilly&amp;x=1"', html)
+        self.assertIn('href="https://hackeratlas.com/"', html)
+
     def test_uses_topic_name_and_renders_overview(self):
         post=dict(id=1,title='A discovery',url='https://example.com',summary='Old custom note')
-        html=newsletter.render_html('Research',[post],1800000000,'https://example.com/unsubscribe',1136)
+        html=newsletter.render_html('Research',[post],1800000000,'https://example.com/unsubscribe',dict(id=1136,slug='research'))
         self.assertIn('Research</h1>',html)
         self.assertNotIn('AI &amp; biotech',html)
         self.assertIn('Old custom note',html)

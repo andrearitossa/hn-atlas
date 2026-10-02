@@ -26,7 +26,7 @@ function fixture() {
 
 test('one shared HTML issue reaches every active subscriber and count is exact',async()=>{
   const f=fixture();
-  assert.deepEqual(await deliver(f.env,EDITION,NOW),{sent:2,failures:0,pending:0});
+  assert.deepEqual(await deliver(f.env,EDITION,NOW),{sent:2,failures:0,pending:0,done:true});
   assert.equal(f.sent.length,2);
   assert.deepEqual(new Set(f.sent.map(message=>message.to)),new Set(['first@example.com','second@example.com']));
   assert.ok(f.sent.every(message=>message.html.includes('One shared issue')));
@@ -48,7 +48,7 @@ test('repeat and concurrent runs cannot double send, and count repairs from ledg
 test('provider failure is held and pending count includes only unsent active subscribers',async()=>{
   const f=fixture();let calls=0;
   f.env.EMAIL.send=async message=>{calls++;if(message.to==='first@example.com')throw new Error('provider unavailable');f.sent.push(message);return {messageId:'ok'}};
-  assert.deepEqual(await deliver(f.env,EDITION,NOW),{sent:1,failures:1,pending:1});
+  assert.deepEqual(await deliver(f.env,EDITION,NOW),{sent:1,failures:1,pending:1,done:false});
   assert.equal(f.sqlite.prepare('SELECT sent_count FROM newsletter_issues').get().sent_count,1);
   assert.equal((await deliver(f.env,EDITION,NOW)).pending,1);
   assert.equal(calls,2);
@@ -166,4 +166,27 @@ test('one-off daily selection sends without any database access',async()=>{
   assert.equal((await worker.fetch(request(),f.env)).status,200);
   assert.equal(f.sent.length,1);
   assert.equal(f.sent[0].to,'andre.ritossa@gmail.com');
+});
+
+
+test('bounded delivery completes in batches and clamps the requested limit',async()=>{
+  const f=fixture();
+  assert.deepEqual(await deliver(f.env,EDITION,NOW,0),{sent:1,failures:0,pending:1,done:false});
+  assert.deepEqual(await deliver(f.env,EDITION,NOW,1),{sent:1,failures:0,pending:0,done:true});
+  const g=fixture();
+  for(let i=0;i<105;i++)g.run('INSERT INTO newsletter_subscriptions(id,email,topic,created_at) VALUES(?,?,1051,0)',`sub-${i}`,`sub-${i}@example.com`);
+  const request=limit=>new Request(g.env.PUBLIC_URL+'/run',{method:'POST',headers:{Authorization:'Bearer private'},body:JSON.stringify({edition:EDITION,limit})});
+  assert.equal((await worker.fetch(request(1.5),g.env)).status,400);
+  assert.equal((await (await worker.fetch(request(1000),g.env)).json()).sent,100);
+  assert.equal((await deliver(g.env,EDITION,NOW)).sent,7);
+});
+
+test('held sending claims remain pending and apostrophe/whitespace URLs are tracked',async()=>{
+  const f=fixture(),url="https://example.com/a  b?name=o'reilly&x=1";
+  f.run('UPDATE newsletter_issues SET posts=?,html=?',JSON.stringify([{id:123,url:'  '+url+'  '}]),'<a href="https://example.com/a  b?name=o&#x27;reilly&amp;x=1">Story</a>');
+  f.run("INSERT INTO newsletter_deliveries(topic,edition,subscription,state) VALUES(1051,?,?,'sending')",EDITION,TOKEN1);
+  const result=await deliver(f.env,EDITION,NOW);
+  assert.equal(result.pending,1);assert.equal(result.done,false);
+  assert.ok(f.sent[0].html.includes(`/click/1051/${EDITION}/123`));
+  assert.equal((await deliver(f.env,EDITION,NOW)).sent,0);
 });

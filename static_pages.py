@@ -66,7 +66,7 @@ def render(template, overview, detail, history, posts, version):
     related = [t for t in overview['topics'] if t['id'] in related_ids][:4]
     cards = ''.join(f'<a href="{seo.topic_path(t)}"><strong>{escape(t["name"])} ↗</strong><p>{escape(t["description"] or "")}</p></a>' for t in related)
     body = f'''<div class="page" data-topic="{ident}">
-<a href="/#/topics" class="meta">← All topics</a>
+<a href="/" class="meta">← All topics</a>
 <div class="hero topic-hero"><div><h1>{escape(detail['name'])}</h1><p class="topic-description">{escape(detail['description'] or '')}</p>
 <p class="topic-stats">{detail['size']:,} stories <span>·</span> {me['last_7d']} in 7 days <span>·</span> Updated {stamp(detail['as_of'])}</p>
 </div></div>
@@ -99,7 +99,7 @@ def render(template, overview, detail, history, posts, version):
 <footer class="topic-footer"><div><p class="eyebrow">KEEP EXPLORING</p><h2>A little further afield</h2><div class="related-cards">{cards}</div></div>
 </footer></div>'''
     html = seo.render(template, topic=detail)
-    html = html.replace('<a id="topics" href="/#/topics">', '<a id="topics" class="on" aria-current="page" href="/#/topics">', 1)
+    html = html.replace('<a id="topics" href="/">', '<a id="topics" class="on" aria-current="page" href="/">', 1)
     html = re.sub(r'<main id="app">.*?</main>', lambda _: f'<main id="app">{body}</main>', html, count=1, flags=re.S)
     html = html[:html.index('<script src=')] + '</body></html>'
     root = f'../../releases/{version}/'

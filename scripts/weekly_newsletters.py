@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from config import DB
 import newsletter
+import topics as topic_registry
 from database import connect
 
 ACCOUNT = 'c2e5e5e106e0b8c69e797dd75d0d229d'
@@ -62,6 +63,7 @@ def prepare(now, output=None):
         topics = query('SELECT DISTINCT topic FROM newsletter_subscriptions WHERE unsubscribed_at IS NULL')
         if output is not None:
             output.mkdir(parents=True, exist_ok=True)
+        slugs = topic_registry.slugs(conn)
         for row in topics:
             topic = row['topic']
             stored = query('SELECT html FROM newsletter_issues WHERE topic=? AND edition=?', (topic, edition))
@@ -77,7 +79,7 @@ def prepare(now, output=None):
                 picks = newsletter.select(posts, current['name'])
                 if not picks:
                     continue
-                html = newsletter.render_html(current['name'], picks, edition, '{{unsubscribe_url}}', topic)
+                html = newsletter.render_html(current['name'], picks, edition, '{{unsubscribe_url}}', dict(id=topic, slug=slugs[topic]))
                 if output is None:
                     query('''INSERT INTO newsletter_issues(topic,edition,prepared_at,source_as_of,subject,html,posts)
                         VALUES(?,?,?,?,?,?,?) ON CONFLICT(topic,edition) DO NOTHING''',
@@ -115,13 +117,31 @@ def run_weekly(now=None):
         ensure_fresh(int(time.time()) if now is None else now)
         now = int(time.time()) if now is None else now
         edition = prepare(now)
-        # No automatic HTTP retry: a timeout may follow an accepted delivery.
-        response = requests.post(origin+'/run', headers={'Authorization': 'Bearer '+token}, json={'edition': edition}, timeout=120)
-        response.raise_for_status()
-        result = response.json()
-        if (result.get('disabled') or result.get('failures') != 0 or result.get('pending') != 0
-                or type(result.get('sent')) is not int):
-            raise RuntimeError('Newsletter delivery did not complete; inspect Worker delivery state')
+        sent = failures = 0
+        for _ in range(10000):
+            # No automatic HTTP retry: a timeout may follow an accepted delivery.
+            try:
+                response = requests.post(origin+'/run', headers={'Authorization': 'Bearer '+token},
+                    json={'edition': edition, 'limit': 25}, timeout=45)
+            except requests.Timeout as error:
+                raise RuntimeError('Newsletter delivery timed out; inspect newsletter_deliveries before running again') from error
+            response.raise_for_status()
+            result = response.json()
+            if (result.get('disabled') or any(type(result.get(key)) is not int or result[key] < 0
+                    for key in ('sent', 'failures', 'pending'))):
+                raise RuntimeError('Newsletter delivery did not complete; inspect Worker delivery state')
+            sent += result['sent']; failures += result['failures']
+            if failures:
+                raise RuntimeError('Newsletter delivery did not complete; inspect newsletter_deliveries')
+            if result['pending'] == 0:
+                break
+            if result.get('done'):
+                raise RuntimeError('Newsletter delivery did not complete; inconsistent delivery state')
+            if result['sent'] == 0:
+                raise RuntimeError('delivery stuck; inspect newsletter_deliveries')
+        else:
+            raise RuntimeError('Newsletter delivery did not complete; batch iteration limit reached')
+        result = dict(sent=sent, failures=failures, pending=0, done=True)
         with connect(DB) as conn:
             conn.execute("INSERT INTO maintenance(key,value) VALUES('newsletter_completed',?) "
                          "ON CONFLICT(key) DO UPDATE SET value=excluded.value", (edition,))

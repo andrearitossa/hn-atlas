@@ -9,6 +9,7 @@ import attention
 import topics
 import llm
 import logging
+import seo
 
 PERIOD = 7 * attention.DAY
 LIMIT = 5
@@ -150,7 +151,7 @@ def clean(text):
 
 
 def link(post):
-    url = clean(post.get('url'))
+    url = (post.get('url') or '').strip()
     try:
         parsed = urlsplit(url)
         if parsed.scheme in ('http', 'https') and parsed.netloc:
@@ -165,7 +166,7 @@ def render_html(name, posts, now, unsubscribe_url, topic=None):
     from html import escape
     title = name
     date = datetime.fromtimestamp(now, timezone.utc).strftime('%d %B %Y')
-    topic_url = f'https://hackeratlas.com/#/topic/{int(topic)}' if topic else 'https://hackeratlas.com/#/topics'
+    topic_url = seo.ORIGIN + (seo.topic_path(topic) if topic else '/')
     cards = []
     for p in posts:
         article = escape(link(p), quote=True)

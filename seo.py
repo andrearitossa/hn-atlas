@@ -29,7 +29,7 @@ def render(template, topic=None, overview=None):
     html = re.sub(r'<title>.*?</title>', lambda _: metadata, template, count=1)
     if topic:
         stories = ''.join(f'<li><a href="https://news.ycombinator.com/item?id={int(p["id"])}">{escape(p["title"] or "Untitled")}</a></li>' for p in topic.get('top', []))
-        content = f'<div class="page"><a href="/#/topics">All topics</a><h1>{escape(topic["name"])}</h1><p>{escape(description)}</p><h2>Popular stories</h2><ul>{stories}</ul></div>'
+        content = f'<div class="page"><a href="/">All topics</a><h1>{escape(topic["name"])}</h1><p>{escape(description)}</p><h2>Popular stories</h2><ul>{stories}</ul></div>'
     else:
         links = ''.join(f'<li><a href="{topic_path(t)}">{escape(t["name"])}</a></li>' for t in (overview or {}).get('topics', []))
         content = f'<div class="page"><h1>Hacker Atlas</h1><p>{DESCRIPTION}</p><ul>{links}</ul></div>'

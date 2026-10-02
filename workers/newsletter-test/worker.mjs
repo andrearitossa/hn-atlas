@@ -36,53 +36,59 @@ async function click(request, env, match) {
     'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
 }
 
-export async function deliver(env, edition, now=Math.floor(Date.now()/1000)) {
+export async function deliver(env, edition, now=Math.floor(Date.now()/1000), limit=25) {
   if (env.DELIVERY_DISABLED === 'true') return {disabled:true,sent:0,failures:0,pending:0};
   const origin=env.PUBLIC_URL?.replace(/\/$/,'');
   if (!origin?.startsWith('https://')) throw new Error('PUBLIC_URL must be HTTPS');
-  const {results:issues}=await env.DB.prepare('SELECT topic,subject,html,posts FROM newsletter_issues WHERE edition=?').bind(edition).all();
+  limit=Math.max(1,Math.min(100,Number.isSafeInteger(limit)?limit:25));
+  await env.DB.prepare(`UPDATE newsletter_issues SET sent_count=(SELECT count(*) FROM newsletter_deliveries d
+    WHERE d.topic=newsletter_issues.topic AND d.edition=newsletter_issues.edition AND d.state='sent')
+    WHERE edition=?`).bind(edition).run();
+  const {results:subscribers}=await env.DB.prepare(`SELECT i.topic,i.subject,i.html,i.posts,s.id,s.email
+    FROM newsletter_issues i JOIN newsletter_subscriptions s ON s.topic=i.topic
+    WHERE i.edition=? AND s.unsubscribed_at IS NULL AND NOT EXISTS
+      (SELECT 1 FROM newsletter_deliveries d WHERE d.topic=i.topic AND d.edition=i.edition AND d.subscription=s.id)
+    ORDER BY i.topic,s.id LIMIT ?`).bind(edition,limit).all();
   let sent=0, failures=0;
-  for (const issue of issues) {
-    const html=trackedHTML(issue,edition,origin);
-    const countSql='UPDATE newsletter_issues SET sent_count=(SELECT count(*) FROM newsletter_deliveries WHERE topic=? AND edition=? AND state=\'sent\') WHERE topic=? AND edition=?';
-    const count=()=>env.DB.prepare(countSql).bind(issue.topic,edition,issue.topic,edition);
-    await count().run(); // Repair a count left behind by an interrupted earlier run.
-    const {results:subscribers}=await env.DB.prepare(
-      'SELECT id,email FROM newsletter_subscriptions WHERE topic=? AND unsubscribed_at IS NULL'
-    ).bind(issue.topic).all();
-    for (const sub of subscribers) {
-      const claim=await env.DB.prepare(
-        "INSERT OR IGNORE INTO newsletter_deliveries(topic,edition,subscription,state) VALUES(?,?,?,'sending')"
-      ).bind(issue.topic,edition,sub.id).run();
-      if (claim.meta.changes!==1) continue;
-      const active=await env.DB.prepare(
-        'SELECT id FROM newsletter_subscriptions WHERE id=? AND unsubscribed_at IS NULL'
-      ).bind(sub.id).first();
-      if (!active) {
-        await env.DB.prepare("DELETE FROM newsletter_deliveries WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
-          .bind(issue.topic,edition,sub.id).run();
-        continue;
-      }
-      const unsubscribe=`${origin}/unsubscribe/${sub.id}`;
-      try {
-        const result=await env.EMAIL.send({
-          from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},to:sub.email,
-          subject:issue.subject,html:html.replaceAll('{{unsubscribe_url}}',unsubscribe),
-          headers:{'List-Unsubscribe':`<${unsubscribe}>`,'List-Unsubscribe-Post':'List-Unsubscribe=One-Click',
-            'X-Campaign-ID':`hackeratlas-weekly-${issue.topic}-${edition}`},
-        });
-        await env.DB.batch([
-          env.DB.prepare("UPDATE newsletter_deliveries SET state='sent',message_id=?,sent_at=? WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
-            .bind(result.messageId,now,issue.topic,edition,sub.id),
-          count(),
-        ]);
-        sent++;
-      } catch (error) {
-        // A provider error can follow acceptance. Hold the claim for inspection.
-        await env.DB.prepare("UPDATE newsletter_deliveries SET state='failed',error=? WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
-          .bind(String(error.code||error.message).slice(0,300),issue.topic,edition,sub.id).run();
-        failures++;
-      }
+  const htmlByTopic=new Map();
+  for (const sub of subscribers) {
+    const issue=sub;
+    if (!htmlByTopic.has(issue.topic)) htmlByTopic.set(issue.topic,trackedHTML(issue,edition,origin));
+    const html=htmlByTopic.get(issue.topic);
+    const count=()=>env.DB.prepare(`UPDATE newsletter_issues SET sent_count=(SELECT count(*) FROM newsletter_deliveries
+      WHERE topic=? AND edition=? AND state='sent') WHERE topic=? AND edition=?`)
+      .bind(issue.topic,edition,issue.topic,edition);
+    const claim=await env.DB.prepare(
+      "INSERT OR IGNORE INTO newsletter_deliveries(topic,edition,subscription,state) VALUES(?,?,?,'sending')"
+    ).bind(issue.topic,edition,sub.id).run();
+    if (claim.meta.changes!==1) continue;
+    const active=await env.DB.prepare(
+      'SELECT id FROM newsletter_subscriptions WHERE id=? AND unsubscribed_at IS NULL'
+    ).bind(sub.id).first();
+    if (!active) {
+      await env.DB.prepare("DELETE FROM newsletter_deliveries WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
+        .bind(issue.topic,edition,sub.id).run();
+      continue;
+    }
+    const unsubscribe=`${origin}/unsubscribe/${sub.id}`;
+    try {
+      const result=await env.EMAIL.send({
+        from:{email:env.FROM_EMAIL,name:'Hacker Atlas'},to:sub.email,
+        subject:issue.subject,html:html.replaceAll('{{unsubscribe_url}}',unsubscribe),
+        headers:{'List-Unsubscribe':`<${unsubscribe}>`,'List-Unsubscribe-Post':'List-Unsubscribe=One-Click',
+          'X-Campaign-ID':`hackeratlas-weekly-${issue.topic}-${edition}`},
+      });
+      await env.DB.batch([
+        env.DB.prepare("UPDATE newsletter_deliveries SET state='sent',message_id=?,sent_at=? WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
+          .bind(result.messageId,now,issue.topic,edition,sub.id),
+        count(),
+      ]);
+      sent++;
+    } catch (error) {
+      // A provider error can follow acceptance. Hold the claim for inspection.
+      await env.DB.prepare("UPDATE newsletter_deliveries SET state='failed',error=? WHERE topic=? AND edition=? AND subscription=? AND state='sending'")
+        .bind(String(error.code||error.message).slice(0,300),issue.topic,edition,sub.id).run();
+      failures++;
     }
   }
   const pending=(await env.DB.prepare(`SELECT count(*) AS n FROM newsletter_issues i
@@ -90,7 +96,7 @@ export async function deliver(env, edition, now=Math.floor(Date.now()/1000)) {
     LEFT JOIN newsletter_deliveries d ON d.topic=i.topic AND d.edition=i.edition AND d.subscription=s.id
     WHERE i.edition=? AND (d.state IS NULL OR d.state!='sent')`).bind(edition).first()).n;
   console.log(JSON.stringify({edition,sent,failures,pending}));
-  return {sent,failures,pending};
+  return {sent,failures,pending,done:pending===0};
 }
 
 export default {
@@ -148,9 +154,10 @@ export default {
     }
     if (url.pathname!=='/run' || request.method!=='POST') return reply({error:'Not found'},404);
     if (!env.ADMIN_TOKEN || request.headers.get('Authorization')!==`Bearer ${env.ADMIN_TOKEN}`) return reply({error:'Unauthorized'},401);
-    let edition;
-    try { edition=(await request.json()).edition; } catch { return reply({error:'Invalid request'},400); }
+    let edition,limit;
+    try { ({edition,limit} = await request.json()); } catch { return reply({error:'Invalid request'},400); }
     if (!Number.isSafeInteger(edition) || edition<0) return reply({error:'Invalid edition'},400);
-    return reply(await deliver(env,edition));
+    if (limit!==undefined && !Number.isSafeInteger(limit)) return reply({error:'Invalid limit'},400);
+    return reply(await deliver(env,edition,undefined,limit));
   }
 };

@@ -127,7 +127,7 @@ class PipelineTests(unittest.TestCase):
             return 123
         def send(*args, **kwargs):
             events.append('send')
-            self.assertEqual(kwargs['json'], {'edition':123})
+            self.assertEqual(kwargs['json'], {'edition':123, 'limit':25})
             return response
         with patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
              patch.object(pipeline,'prepare',side_effect=prepare), patch('requests.post',side_effect=send):
@@ -200,11 +200,39 @@ class PipelineTests(unittest.TestCase):
         with patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
              patch.object(pipeline,'prepare',return_value=123), patch('requests.post') as send:
             for result in [dict(disabled=True,sent=0,failures=0,pending=0),
-                           dict(sent=1,failures=1,pending=1),dict(sent=1,failures=0,pending=1),{}]:
+                           dict(sent=1,failures=1,pending=1),{}]:
                 with self.subTest(result=result):
                     send.return_value.json.return_value = result
                     with self.assertRaisesRegex(RuntimeError, 'did not complete'):
                         pipeline.run_weekly(self.now)
+
+    def test_batches_accumulate_before_completion(self):
+        responses = [Mock(), Mock()]
+        responses[0].json.return_value = dict(sent=25, failures=0, pending=2, done=False)
+        responses[1].json.return_value = dict(sent=2, failures=0, pending=0, done=True)
+        with patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
+             patch.object(pipeline, 'prepare', return_value=123), \
+             patch('requests.post', side_effect=responses) as send:
+            self.assertEqual(pipeline.run_weekly(self.now)['sent'], 27)
+            self.assertEqual(send.call_count, 2)
+            self.assertLess(send.call_args.kwargs['timeout'], 120)
+        with sqlite3.connect(self.db) as local:
+            self.assertEqual(local.execute("SELECT value FROM maintenance WHERE key='newsletter_completed'").fetchone()[0], 123)
+
+    def test_stuck_failure_and_timeout_never_complete_or_retry(self):
+        import requests
+        for result in [dict(sent=0, failures=0, pending=1), dict(sent=2, failures=1, pending=1), requests.Timeout()]:
+            with self.subTest(result=result), patch.dict('os.environ', {'NEWSLETTER_ADMIN_TOKEN':'test'}), \
+                 patch.object(pipeline, 'prepare', return_value=123), patch('requests.post') as send:
+                if isinstance(result, Exception):
+                    send.side_effect = result
+                else:
+                    send.return_value.json.return_value = result
+                with self.assertRaises(RuntimeError):
+                    pipeline.run_weekly(self.now)
+                self.assertEqual(send.call_count, 1)
+                with sqlite3.connect(self.db) as local:
+                    self.assertIsNone(local.execute("SELECT value FROM maintenance WHERE key='newsletter_completed'").fetchone())
 
     def test_fresh_corpus_does_not_trigger_another_refresh(self):
         with patch('refresh.refresh') as refresh:
