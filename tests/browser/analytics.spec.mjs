@@ -152,7 +152,7 @@ test('coverage controls show the leading active topics', async ({ page }) => {
 test('select, compare, search, zoom, and read a topic without losing the chart', async ({ page }) => {
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('/analytics/');
-  await expect(page.getByRole('navigation', {name:'Main navigation'})).toContainText('Topics');
+  await expect(page.getByRole('navigation', {name:'Main navigation'})).toContainText('Explore');
   await expect(page.getByRole('navigation', {name:'Main navigation'})).toContainText('Analytics');
   const shell=page.locator('#map-shell');
   expect((await shell.boundingBox()).y).toBeLessThan(450);

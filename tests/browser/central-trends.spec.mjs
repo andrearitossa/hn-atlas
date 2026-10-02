@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Topics opens the directory and Analytics opens a separate page', async ({ page }) => {
+test('Explore opens the directory and Analytics opens a separate page', async ({ page }) => {
   const errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto('/');
@@ -13,7 +13,7 @@ test('Topics opens the directory and Analytics opens a separate page', async ({ 
   const months=await page.evaluate(()=>JSON.parse(document.querySelector('#analytics-data').textContent).monthly.length);
   await expect(page.locator('#activity-chart rect')).toHaveCount(Math.min(12,months));
   await expect(page.locator('#topic-graph')).toHaveCount(1);
-  await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Topics',exact:true}).click();
+  await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Explore',exact:true}).click();
   await expect(page).toHaveURL(/\/$/);
   expect(errors).toEqual([]);
 });

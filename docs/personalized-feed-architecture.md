@@ -104,5 +104,7 @@ requests per account. No additional schema, index, or ingestion job is required.
 Draft selections survive changes of query. Clearing/closing the picker cancels
 pending requests; responses to older queries are ignored. Semantic outages show
 name matches with a short notice. The browser never receives vectors or API keys.
-This addition is implemented locally; it has not been included in the production
-deployment recorded above.
+This addition was deployed on October 2, 2026 at
+https://41c23382.hackeratlas.pages.dev and https://hackeratlas.com/for-you/.
+Production checks verified authenticated name and semantic queries, signed-out
+access restrictions, and a browser load without JavaScript errors.
