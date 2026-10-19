@@ -41,9 +41,9 @@ mkdir -p dist
 cp -a "$build/dist/." dist/
 mv "$build/index.html" dist/index.html
 # Keep the live release plus the two newest previous ones for open tabs.
-current=$(grep -o 'releases/[0-9a-f]\{32\}/' dist/index.html | head -1 | cut -d/ -f2)
+current=$(sed -n 's|.*releases/\([0-9a-f]\{32\}\)/.*|\1|p' dist/index.html | sed -n '1p')
 if [[ -n "$current" && -d "dist/releases/$current" ]]; then
-  ls -t dist/releases | grep -Ex '[0-9a-f]{32}' | grep -vx "$current" | tail -n +3 |
+  ls -t dist/releases | awk -v current="$current" 'length($0)==32 && /^[0-9a-f]+$/ && $0!=current' | tail -n +3 |
     while read -r old; do rm -rf "dist/releases/$old"; done
 fi
 # Written only after the update, deployment, and local synchronization succeed.

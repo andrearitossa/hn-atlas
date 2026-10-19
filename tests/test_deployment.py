@@ -128,6 +128,8 @@ output = Path(sys.argv[sys.argv.index('--publish') + 1])
         python.chmod(0o755)
 
     def run_daily(self, fail=False):
+        network_stub = self.root / 'network-stub.sh'
+        network_stub.write_text('getent() { return 0; }\n')
         (self.root / 'scripts/deploy_site.sh').write_text('''#!/bin/bash
 set -euo pipefail
 [[ $(cat dist/index.html) == 'Old index' ]]
@@ -135,7 +137,8 @@ cp "$1/index.html" deployed-index
 cp "$1/releases/new/data.json" deployed-data
 ''' + ('exit 1\n' if fail else 'exit 0\n'))
         return subprocess.run(['bash', 'scripts/update_site.sh', '--force'],
-                              cwd=self.root, capture_output=True, text=True, env={**os.environ, 'NODE_BIN': '/usr/bin'})
+                              cwd=self.root, capture_output=True, text=True,
+                              env={**os.environ, 'NODE_BIN': '/usr/bin', 'BASH_ENV': str(network_stub)})
 
     def test_success_retains_exact_deployed_export_and_previous_release(self):
         result = self.run_daily()
@@ -158,3 +161,28 @@ cp "$1/releases/new/data.json" deployed-data
         self.assertFalse((self.root / 'dist/releases/new').exists())
         self.assertFalse((self.root / 'data/update-site-success.date').exists())
         self.assertFalse((self.root / 'search-sync-called').exists())
+
+
+class ReleaseCleanupTests(unittest.TestCase):
+    def test_cleanup_handles_first_release_and_retains_two_previous_releases(self):
+        script = (Path(__file__).resolve().parents[1] / 'scripts/update_site.sh').read_text()
+        cleanup = script.split('# Keep the live release plus the two newest previous ones for open tabs.\n')[1].split('# Written only after')[0]
+        for count in (0, 1, 5):
+            with self.subTest(releases=count), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                releases = root / 'dist/releases'
+                releases.mkdir(parents=True)
+                names = [f'{i:032x}' for i in range(count)]
+                for i, name in enumerate(names):
+                    path = releases / name
+                    path.mkdir()
+                    os.utime(path, (1000 + i, 1000 + i))
+                current = names[0] if names else None
+                (root / 'dist/index.html').write_text(
+                    f'<script src="releases/{current}/data.js"></script>' if current else 'No release')
+                result = subprocess.run(['bash', '-euo', 'pipefail', '-c', cleanup + '\ntouch completed'],
+                                        cwd=root, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertTrue((root / 'completed').exists())
+                expected = {current, *names[-2:]} if count else set()
+                self.assertEqual({p.name for p in releases.iterdir()}, expected)
