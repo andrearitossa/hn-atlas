@@ -61,8 +61,10 @@ try {
   const schema=(await readFile('migrations/0006_feed_profiles.sql','utf8')).split('CREATE TRIGGER');
   for(const sql of schema[0].split(';').filter(s=>s.trim()))await db.prepare(sql).run();
   await db.prepare('CREATE TRIGGER'+schema[1]).run();
-  for(const name of ['0007_feed_state','0008_drop_feed_history','0009_feed_topics_single_source'])
-    for(const sql of (await readFile(`migrations/${name}.sql`,'utf8')).split(';').filter(s=>s.trim()))await db.prepare(sql).run();
+  for(const name of ['0007_feed_state','0008_drop_feed_history','0009_feed_topics_single_source','0010_drop_feed_topics_json'])
+    for(const sql of (await readFile(`migrations/${name}.sql`,'utf8')).split(';').filter(s=>s.trim()))
+      // The persistent preview DB replays migrations; a column already dropped stays dropped.
+      await db.prepare(sql).run().catch(error=>{if(!/no such column/.test(error.message))throw error;});
   await db.prepare('INSERT INTO feed_catalog(id,payload) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload').bind(input.payload).run();
   const now=Math.floor(Date.now()/1000);
   await db.prepare('INSERT INTO feed_users(id,email,created_at,verified_at) VALUES(?,?,?,?) ON CONFLICT(email) DO NOTHING').bind(randomUUID(),email,now,now).run();

@@ -15,6 +15,9 @@ export async function onRequest({request, env}) {
       await rate(db, 'login-ip:' + await hash(request.headers.get('CF-Connecting-IP') || 'local'), 10, 3600);
       await rate(db, 'login-email:' + await hash(email), 1, 60);
       await rate(db, 'login-email-hour:' + await hash(email), 5, 3600);
+      // Sign-ins are rare, so they also sweep expired credentials and rate windows; activity history is kept.
+      await db.batch(['feed_login_tokens', 'feed_sessions', 'feed_rate_limits']
+        .map(table => db.prepare(`DELETE FROM ${table} WHERE expires_at<=?`).bind(now)));
       const secret = token(), digest = await hash(secret);
       await db.prepare('INSERT INTO feed_login_tokens(token_hash,email,expires_at) VALUES(?,?,?)')
         .bind(digest, email, now + 15 * 60).run();

@@ -2,7 +2,13 @@ import {test, expect} from '@playwright/test';
 
 for (const path of ['/', '/topic/current/', '/analytics/', '/about/', '/404.html']) {
   test(`shared footer and feedback work on ${path}`, async ({page}) => {
-    await page.goto(path);
+    if (path.startsWith('/topic/')) {
+      await page.goto('/');
+      await expect(page.locator('.topic-card').first()).toBeVisible();
+      await page.goto(await page.locator('.topic-card').first().getAttribute('href'));
+    } else {
+      await page.goto(path);
+    }
     const footer = page.locator('.site-footer');
     await expect(footer).toBeVisible();
     expect(await footer.evaluate(el => el.parentElement === document.body)).toBe(true);

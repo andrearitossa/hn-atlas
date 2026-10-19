@@ -93,6 +93,10 @@ class StaticTests(unittest.TestCase):
         self.assertFalse((current / 'public').exists())
         self.assertFalse((current / 'stories').exists())
         self.assertFalse((current / 'timelines').exists())
+        self.assertFalse((current / 'history').exists())
+        self.assertFalse((bundle / 'topic/3').exists())
+        self.assertTrue((bundle / 'topic/current/index.html').is_file())
+        self.assertIn('/topic/3/ /topic/current/ 301', (bundle / '_redirects').read_text())
         self.assertTrue((current / 'archive/3').is_dir())
         self.assertIn('immutable', (bundle / '_headers').read_text())
         previous = (bundle / 'index.html').read_bytes()
@@ -165,6 +169,7 @@ class StaticTests(unittest.TestCase):
         self.assertIn('name="hn-newsletter" content="cloudflare"', page)
         self.assertIn('<link rel="canonical" href="https://hackeratlas.com/topic/current/">', page)
         self.assertTrue((bundle / '404.html').is_file())
+        self.assertIn('/topic/3/ /topic/current/ 301', (bundle / '_redirects').read_text())
         self.assertFalse((output / 'topic/3').exists())
         self.assertNotIn('/topic/3/', (output / 'sitemap.xml').read_text())
 

@@ -320,6 +320,36 @@ are logged without failing a saved submission; there is no automatic mail retry.
 Deploy `workers/newsletter-test/wrangler.jsonc` before deploying Pages when changing
 this binding or entrypoint.
 
+### Local semantic search
+
+Run the separate local interface (it is never exported to Pages or included in the Worker):
+
+```bash
+.venv/bin/python -m local_search.server
+# Open http://127.0.0.1:8001
+```
+
+The server binds only to loopback and reads `data/atlas.db` without modifying it.
+`OPENAI_API_KEY` from `.env` embeds each query using the existing corpus model;
+repeated queries are cached in memory. Searches scan all compatible live story
+vectors across all years, with bounded memory. A selected topic adds its centroid
+similarity to the ranking: `query cosine + 0.15 * topic cosine` by default.
+Topic influence can be adjusted from 5% to 25%; topic membership never filters
+candidates. Query relevance remains the dominant weight. Ranking details are
+visible on each result.
+
+The interface reports embedding coverage: stories without compatible vectors
+cannot participate in semantic search. To extend coverage to the full archive,
+run explicit, paid batches using the existing embedding pipeline and writer lock:
+
+```bash
+.venv/bin/python -m local_search.backfill --limit 1000
+```
+
+Repeat or increase the limit as desired. This reuses current embeddings and fills
+missing or outdated vectors from all years; it does not publish or deploy.
+Search embeds titles and HN post bodies, not linked article contents or comments.
+
 ## Daily selection
 
 After each successful daily publication, `scripts/update_site.sh` runs

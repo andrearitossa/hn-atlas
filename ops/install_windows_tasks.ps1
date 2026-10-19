@@ -13,14 +13,14 @@ if ((Get-TimeZone).Id -ne 'W. Europe Standard Time') {
     throw 'Set the Windows time zone to Stockholm (W. Europe Standard Time) before installing these tasks.'
 }
 $principal = New-ScheduledTaskPrincipal -UserId ([Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew
 $dailyAction = New-ScheduledTaskAction -Execute 'wsl.exe' -Argument "-d $Distro -u $LinuxUser --exec systemctl --user start hackeratlas-daily.service"
 $weeklyAction = New-ScheduledTaskAction -Execute 'wsl.exe' -Argument "-d $Distro -u $LinuxUser --exec systemctl --user start hackeratlas-weekly.service"
 $dailyTriggers = @(
     (New-ScheduledTaskTrigger -AtLogOn -User $principal.UserId),
     (New-ScheduledTaskTrigger -Daily -At '06:30')
 )
-$weeklySettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew
+$weeklySettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew
 $weeklyTriggers = @(
     (New-ScheduledTaskTrigger -AtLogOn -User $principal.UserId),
     (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At '18:00')

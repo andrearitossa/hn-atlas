@@ -42,7 +42,7 @@ def prepare(source='dist', output='pages-dist'):
     with tempfile.TemporaryDirectory(prefix='.pages-', dir=output.parent) as temporary:
         staged = Path(temporary) / 'site'
         release = Path('releases') / match[1]
-        # These are build inputs; topic pages use year shards and embedded history.
+        # History is embedded in topic HTML; archives are loaded by year.
         ignored = shutil.ignore_patterns('public', 'stories', 'timelines') if (source / release / 'topic.js').exists() else shutil.ignore_patterns('public')
         shutil.copytree(source / release, staged / release, ignore=ignored)
         shutil.copytree(source / release / 'public', staged, dirs_exist_ok=True)

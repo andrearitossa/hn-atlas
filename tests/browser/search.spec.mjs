@@ -7,8 +7,8 @@ test('Search uses one server endpoint and supports queries, topics, and shareabl
  await backend(page);const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const assets=[];page.on('request',r=>assets.push(r.url()));
  await page.goto('/');await expect(page.locator('#browse-section')).toHaveAttribute('data-discovery-mounted','true');await expect(page.locator('#submit')).toBeEnabled();
- await page.locator('#query').fill('Rust compiler');await page.locator('#topic').selectOption('3');await page.locator('#submit').click();
- await expect(page.locator('.result')).toHaveCount(1);await expect(page).toHaveURL(/topic=3/);
+ await page.locator('#query').fill('Rust compiler');await page.locator('#topic').selectOption({index:1});const topicId=await page.locator('#topic').inputValue();await page.locator('#submit').click();
+ await expect(page.locator('.result')).toHaveCount(1);expect(new URL(page.url()).searchParams.get('topic')).toBe(topicId);
  await page.locator('#sort').selectOption('points');await expect(page).toHaveURL(/sort=points/);
  await page.reload();await expect(page.locator('.result').first()).toBeVisible();
  expect(assets.some(u=>u.includes('search-data')||u.includes('search-worker'))).toBe(false);
@@ -70,10 +70,11 @@ test('A failed request keeps topic discovery available and offers retry',async({
 
 test('Retrieved story memberships surface relevant topics beyond literal words',async({page})=>{
  await backend(page);
- await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({posts:[{...story,topics:[3]}],notice:''})}));
- await page.goto('/');await expect(page.locator('#browse-section')).toHaveAttribute('data-discovery-mounted','true');await page.locator('#query').fill('a durable idea');
+ let topicId;
+ await page.route('**/api/search/',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({posts:[{...story,topics:[topicId]}],notice:''})}));
+ await page.goto('/');await expect(page.locator('#browse-section')).toHaveAttribute('data-discovery-mounted','true');const option=page.locator('#topic option').nth(1);topicId=Number(await option.getAttribute('value'));const topicName=await option.textContent();await page.locator('#query').fill('zzzz_nonexistent_topic_982374');
  await expect(page.locator('.topic-card')).toHaveCount(0);await page.locator('#query').press('Enter');
- await expect(page.locator('.topic-card').first()).toBeVisible();await expect(page.locator('.topic-card')).toContainText('Current');
+ await expect(page.locator('.topic-card').first()).toBeVisible();await expect(page.locator('.topic-card')).toContainText(topicName);
 });
 
 test('A query typed while the shared module loads survives page initialization',async({page})=>{

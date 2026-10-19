@@ -21,6 +21,11 @@ if [[ "${1:-}" != --force && "$last_success" == "$(TZ=Europe/Stockholm date -d y
   echo "Yesterday's site is current; waiting for the 06:30 Stockholm run"
   exit 0
 fi
+# WSL often starts before Windows networking is ready; wait up to 10 minutes.
+for _ in $(seq 120); do
+  getent hosts hacker-news.firebaseio.com api.cloudflare.com >/dev/null && break
+  sleep 5
+done
 mkdir -p .wrangler
 build=$(mktemp -d "$PWD/.wrangler/daily-build.XXXXXX")
 trap 'rm -rf "$build"' EXIT
@@ -35,6 +40,12 @@ mv "$build/dist/index.html" "$build/index.html"
 mkdir -p dist
 cp -a "$build/dist/." dist/
 mv "$build/index.html" dist/index.html
+# Keep the live release plus the two newest previous ones for open tabs.
+current=$(grep -o 'releases/[0-9a-f]\{32\}/' dist/index.html | head -1 | cut -d/ -f2)
+if [[ -n "$current" && -d "dist/releases/$current" ]]; then
+  ls -t dist/releases | grep -Ex '[0-9a-f]{32}' | grep -vx "$current" | tail -n +3 |
+    while read -r old; do rm -rf "dist/releases/$old"; done
+fi
 # Written only after the update, deployment, and local synchronization succeed.
 TZ=Europe/Stockholm date +%F > data/update-site-success.tmp
 mv data/update-site-success.tmp data/update-site-success.date

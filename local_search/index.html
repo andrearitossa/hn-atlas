@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas · Local semantic search</title>
+<style>
+:root{font:17px system-ui;color:#e7edf6;background:#111923;color-scheme:dark}body{max-width:960px;margin:0 auto;padding:32px 20px}h1{font-size:2rem;margin-bottom:8px}.muted,small{color:#aebace}form{display:grid;gap:16px;padding:24px;background:#1b2736;border-radius:16px;margin:28px 0}label{display:grid;gap:8px}input,select,button{font:inherit;padding:12px;border:1px solid #526078;border-radius:8px;min-width:0}button{background:#a6d7ff;color:#102033;cursor:pointer;font-weight:650}article{padding:20px 0;border-bottom:1px solid #384557}article a{color:#b5ddff;text-decoration:none}article a:hover{text-decoration:underline}h2{font-size:1.15rem;margin:0 0 8px}.row{display:grid;grid-template-columns:2fr 1fr;gap:16px}#status{min-height:28px}details{margin-top:8px;font-size:.85rem}a{color:#b5ddff}@media(max-width:600px){.row{grid-template-columns:1fr}body{padding:20px 14px}}
+</style>
+<h1>Semantic search</h1><p class="muted">Local Atlas · Search across the archive by meaning.</p>
+<form id="search">
+<label>What are you looking for?<input id="query" required maxlength="500" placeholder="e.g. running language models on a laptop" autofocus></label>
+<div class="row"><label>Topic context<select id="topic"><option value="">Whole corpus · no topic boost</option></select></label>
+<label>Topic influence<select id="weight"><option value="0.15">Normal (15%)</option><option value="0.05">Light (5%)</option><option value="0.25">Strong (25%)</option></select></label></div>
+<small>The query leads the ranking. A topic adds relevance; it never excludes stories outside that topic. All years with stored embeddings are searched.</small>
+<button id="submit">Search archive</button>
+</form>
+<p id="status" role="status" aria-live="polite">Loading topics…</p><div id="results"></div>
+<script>
+const $ = id => document.getElementById(id);
+async function json(url){const r=await fetch(url);const data=await r.json();if(!r.ok)throw Error(data.detail||'Request failed');return data;}
+json('/api/topics').then(topics=>{for(const t of topics){const o=document.createElement('option');o.value=t.id;o.textContent=t.name;o.title=t.description;$('topic').append(o);}$('status').textContent='Ready. The first search may take a little while to scan the archive.';}).catch(e=>$('status').textContent=e.message);
+function link(label,url){const a=document.createElement('a');a.textContent=label;a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+$('search').addEventListener('submit',async event=>{event.preventDefault();$('submit').disabled=true;$('results').replaceChildren();$('status').textContent='Embedding query and searching the full vector archive…';
+try{const p=new URLSearchParams({q:$('query').value,weight:$('weight').value});if($('topic').value)p.set('topic',$('topic').value);const data=await json('/api/search?'+p);
+$('status').textContent=`${data.posts.length} results · ${data.searched_vectors.toLocaleString()} searchable vectors / ${data.live_stories.toLocaleString()} live stories. Stories without vectors need a local embedding backfill.`;
+for(const post of data.posts){const article=document.createElement('article'),h=document.createElement('h2');let url=`https://news.ycombinator.com/item?id=${post.id}`;try{const u=new URL(post.url);if(['http:','https:'].includes(u.protocol))url=u.href;}catch{}h.append(link(post.title,url));article.append(h);const meta=document.createElement('small');meta.textContent=`${new Date(post.time*1000).toLocaleDateString()} · ${post.score||0} points · `;meta.append(link(`${post.descendants||0} comments`,`https://news.ycombinator.com/item?id=${post.id}`));article.append(meta);const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Ranking details';details.append(summary);const explanation=document.createElement('p');explanation.textContent=`Query similarity ${post.query_similarity.toFixed(3)} + topic similarity ${post.topic_similarity.toFixed(3)} × ${data.topic_weight} = ${post.search_score.toFixed(3)}`;details.append(explanation);article.append(details);$('results').append(article);}
+}catch(e){$('status').textContent=e.message;}finally{$('submit').disabled=false;}});
+</script>
+</html>
